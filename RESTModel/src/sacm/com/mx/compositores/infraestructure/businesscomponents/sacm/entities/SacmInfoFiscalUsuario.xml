@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="SacmInfoFiscalUsuario"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  DBObjectType="table"
+  DBObjectName="SACM_INFO_FISCAL_USUARIO"
+  AliasName="SacmInfoFiscalUsuario"
+  BindingStyle="OracleName">
+  <Attribute
+    Name="IdFiscales"
+    IsNotNull="true"
+    ColumnName="ID_FISCALES"
+    SQLType="NUMERIC"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    TableName="SACM_INFO_FISCAL_USUARIO"
+    PrimaryKey="true"/>
+  <Attribute
+    Name="TipoProduccion"
+    IsNotNull="true"
+    Precision="50"
+    ColumnName="TIPO_PRODUCCION"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SACM_INFO_FISCAL_USUARIO">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="IdUsuario"
+    IsNotNull="true"
+    ColumnName="ID_USUARIO"
+    SQLType="NUMERIC"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    TableName="SACM_INFO_FISCAL_USUARIO"/>
+  <Attribute
+    Name="IdLicenciatario"
+    ColumnName="ID_LICENCIATARIO"
+    SQLType="NUMERIC"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    TableName="SACM_INFO_FISCAL_USUARIO"/>
+  <Attribute
+    Name="IdMarca"
+    ColumnName="ID_MARCA"
+    SQLType="NUMERIC"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    TableName="SACM_INFO_FISCAL_USUARIO"/>
+  <Attribute
+    Name="Puesto"
+    IsNotNull="true"
+    Precision="100"
+    ColumnName="PUESTO"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SACM_INFO_FISCAL_USUARIO">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="100"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="DfRfc"
+    IsNotNull="true"
+    Precision="25"
+    ColumnName="DF_RFC"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SACM_INFO_FISCAL_USUARIO">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="25"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="DfNombreRazon"
+    IsNotNull="true"
+    Precision="250"
+    ColumnName="DF_NOMBRE_RAZON"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SACM_INFO_FISCAL_USUARIO">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="250"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="DfDomicilio"
+    IsNotNull="true"
+    Precision="250"
+    ColumnName="DF_DOMICILIO"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SACM_INFO_FISCAL_USUARIO">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="250"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="DfCodigopostal"
+    IsNotNull="true"
+    Precision="10"
+    ColumnName="DF_CODIGOPOSTAL"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SACM_INFO_FISCAL_USUARIO">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="DfTipoPersona"
+    IsNotNull="true"
+    Precision="100"
+    ColumnName="DF_TIPO_PERSONA"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SACM_INFO_FISCAL_USUARIO">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="100"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Activo"
+    IsNotNull="true"
+    ColumnName="ACTIVO"
+    SQLType="NUMERIC"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    TableName="SACM_INFO_FISCAL_USUARIO"/>
+  <Attribute
+    Name="CreadoPor"
+    Precision="100"
+    ColumnName="CREADO_POR"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SACM_INFO_FISCAL_USUARIO">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="100"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="FechaCreacion"
+    ColumnName="FECHA_CREACION"
+    SQLType="DATE"
+    Type="java.sql.Timestamp"
+    ColumnType="DATE"
+    TableName="SACM_INFO_FISCAL_USUARIO"/>
+  <Attribute
+    Name="ModificadoPor"
+    Precision="100"
+    ColumnName="MODIFICADO_POR"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SACM_INFO_FISCAL_USUARIO">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="100"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="FechaModificacion"
+    ColumnName="FECHA_MODIFICACION"
+    SQLType="DATE"
+    Type="java.sql.Timestamp"
+    ColumnType="DATE"
+    TableName="SACM_INFO_FISCAL_USUARIO"/>
+  <Attribute
+    Name="Atributo01"
+    Precision="255"
+    ColumnName="ATRIBUTO_01"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SACM_INFO_FISCAL_USUARIO">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="255"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Atributo02"
+    Precision="255"
+    ColumnName="ATRIBUTO_02"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SACM_INFO_FISCAL_USUARIO">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="255"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Atributo03"
+    Precision="255"
+    ColumnName="ATRIBUTO_03"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SACM_INFO_FISCAL_USUARIO">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="255"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Atributo04"
+    Precision="255"
+    ColumnName="ATRIBUTO_04"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SACM_INFO_FISCAL_USUARIO">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="255"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Atributo05"
+    Precision="255"
+    ColumnName="ATRIBUTO_05"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SACM_INFO_FISCAL_USUARIO">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="255"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Atributo06"
+    Precision="255"
+    ColumnName="ATRIBUTO_06"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SACM_INFO_FISCAL_USUARIO">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="255"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Atributo07"
+    Precision="255"
+    ColumnName="ATRIBUTO_07"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SACM_INFO_FISCAL_USUARIO">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="255"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Atributo08"
+    Precision="255"
+    ColumnName="ATRIBUTO_08"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SACM_INFO_FISCAL_USUARIO">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="255"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Atributo09"
+    Precision="255"
+    ColumnName="ATRIBUTO_09"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SACM_INFO_FISCAL_USUARIO">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="255"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Atributo10"
+    Precision="255"
+    ColumnName="ATRIBUTO_10"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SACM_INFO_FISCAL_USUARIO">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="255"/>
+    </DesignTime>
+  </Attribute>
+  <AccessorAttribute
+    Name="SacmLicenciatario"
+    Association="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.associations.IdLicenciaFkAssoc"
+    AssociationEnd="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.associations.IdLicenciaFkAssoc.SacmLicenciatario"
+    AssociationOtherEnd="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.associations.IdLicenciaFkAssoc.SacmInfoFiscalUsuario"
+    Type="oracle.jbo.server.EntityImpl"
+    IsUpdateable="true"/>
+  <AccessorAttribute
+    Name="SacmMarcas"
+    Association="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.associations.IdMarcaFkv1Assoc"
+    AssociationEnd="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.associations.IdMarcaFkv1Assoc.SacmMarcas"
+    AssociationOtherEnd="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.associations.IdMarcaFkv1Assoc.SacmInfoFiscalUsuario"
+    Type="oracle.jbo.server.EntityImpl"
+    IsUpdateable="true"/>
+  <AccessorAttribute
+    Name="SacmUsuarios"
+    Association="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.associations.IdUsrFiscFkAssoc"
+    AssociationEnd="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.associations.IdUsrFiscFkAssoc.SacmUsuarios"
+    AssociationOtherEnd="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.associations.IdUsrFiscFkAssoc.SacmInfoFiscalUsuario"
+    Type="oracle.jbo.server.EntityImpl"
+    IsUpdateable="true"/>
+  <Key
+    Name="SacmInfoFiscalUsuarioPk"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SACM_INFO_FISCAL_USUARIO_PK"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.SacmInfoFiscalUsuario.IdFiscales"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="IdLicenciaFk">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="SACM_LICENCIATARIO_PK"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="ID_LICENCIA_FK"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.SacmInfoFiscalUsuario.IdLicenciatario"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="IdMarcaFkv1">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="SACM_MARCAS_PK"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="ID_MARCA_FKV1"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.SacmInfoFiscalUsuario.IdMarca"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="IdUsrFiscFk">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="SACM_USUARIOS_PK"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="ID_USR_FISC_FK"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.SacmInfoFiscalUsuario.IdUsuario"/>
+    </AttrArray>
+  </Key>
+</Entity>

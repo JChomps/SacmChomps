@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE ViewLink SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewLink
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="IdCartIndFkLink"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  EntityAssociation="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.associations.IdCartIndFkAssoc">
+  <ViewLinkDefEnd
+    Name="SacmCatEstatCartObraView"
+    Cardinality="1"
+    Source="true"
+    Owner="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.views.catalogos.SacmCatEstatCartObraView">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_minCardinality" Value="1"/>
+      <Attr Name="_finderName" Value="SacmCatEstatCartObraView"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.views.catalogos.SacmCatEstatCartObraView.IdCartObraEstat"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+  <ViewLinkDefEnd
+    Name="SacmCarritoIndView"
+    Cardinality="-1"
+    Owner="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.views.SacmCarritoIndView">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_finderName" Value="SacmCarritoIndView"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.views.SacmCarritoIndView.IdCartObraEstat"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+</ViewLink>

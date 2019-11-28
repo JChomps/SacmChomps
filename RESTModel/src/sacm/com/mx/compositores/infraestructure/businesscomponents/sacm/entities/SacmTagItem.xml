@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="SacmTagItem"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  DBObjectType="table"
+  DBObjectName="SACM_TAG_ITEM"
+  AliasName="SacmTagItem"
+  BindingStyle="OracleName">
+  <Attribute
+    Name="IdTagItem"
+    IsNotNull="true"
+    ColumnName="ID_TAG_ITEM"
+    SQLType="NUMERIC"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    TableName="SACM_TAG_ITEM"
+    PrimaryKey="true"/>
+  <Attribute
+    Name="NombreTag"
+    IsNotNull="true"
+    Precision="100"
+    ColumnName="NOMBRE_TAG"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SACM_TAG_ITEM">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="100"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="IdTagPadre"
+    ColumnName="ID_TAG_PADRE"
+    SQLType="NUMERIC"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    TableName="SACM_TAG_ITEM"/>
+  <Attribute
+    Name="IdTag"
+    IsNotNull="true"
+    ColumnName="ID_TAG"
+    SQLType="NUMERIC"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    TableName="SACM_TAG_ITEM"/>
+  <Attribute
+    Name="DescripcionTag"
+    Precision="250"
+    ColumnName="DESCRIPCION_TAG"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SACM_TAG_ITEM">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="250"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Activo"
+    IsNotNull="true"
+    ColumnName="ACTIVO"
+    SQLType="NUMERIC"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    TableName="SACM_TAG_ITEM"/>
+  <Attribute
+    Name="CreadoPor"
+    Precision="100"
+    ColumnName="CREADO_POR"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SACM_TAG_ITEM">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="100"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="FechaCreacion"
+    ColumnName="FECHA_CREACION"
+    SQLType="DATE"
+    Type="java.sql.Timestamp"
+    ColumnType="DATE"
+    TableName="SACM_TAG_ITEM"/>
+  <Attribute
+    Name="ModificadoPor"
+    Precision="100"
+    ColumnName="MODIFICADO_POR"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SACM_TAG_ITEM">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="100"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="FechaModificacion"
+    ColumnName="FECHA_MODIFICACION"
+    SQLType="DATE"
+    Type="java.sql.Timestamp"
+    ColumnType="DATE"
+    TableName="SACM_TAG_ITEM"/>
+  <Attribute
+    Name="Atributo01"
+    Precision="255"
+    ColumnName="ATRIBUTO_01"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SACM_TAG_ITEM">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="255"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Atributo02"
+    Precision="255"
+    ColumnName="ATRIBUTO_02"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SACM_TAG_ITEM">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="255"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Atributo03"
+    Precision="255"
+    ColumnName="ATRIBUTO_03"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SACM_TAG_ITEM">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="255"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Atributo04"
+    Precision="255"
+    ColumnName="ATRIBUTO_04"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SACM_TAG_ITEM">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="255"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Atributo05"
+    Precision="255"
+    ColumnName="ATRIBUTO_05"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SACM_TAG_ITEM">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="255"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Atributo06"
+    Precision="255"
+    ColumnName="ATRIBUTO_06"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SACM_TAG_ITEM">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="255"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Atributo07"
+    Precision="255"
+    ColumnName="ATRIBUTO_07"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SACM_TAG_ITEM">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="255"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Atributo08"
+    Precision="255"
+    ColumnName="ATRIBUTO_08"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SACM_TAG_ITEM">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="255"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Atributo09"
+    Precision="255"
+    ColumnName="ATRIBUTO_09"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SACM_TAG_ITEM">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="255"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Atributo10"
+    Precision="255"
+    ColumnName="ATRIBUTO_10"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SACM_TAG_ITEM">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="255"/>
+    </DesignTime>
+  </Attribute>
+  <AccessorAttribute
+    Name="SacmTagsPorObra"
+    Association="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.associations.IdTagItemFkAssoc"
+    AssociationEnd="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.associations.IdTagItemFkAssoc.SacmTagsPorObra"
+    AssociationOtherEnd="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.associations.IdTagItemFkAssoc.SacmTagItem"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <AccessorAttribute
+    Name="SacmTagItem"
+    Association="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.associations.IdTagPadreFkAssoc"
+    AssociationEnd="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.associations.IdTagPadreFkAssoc.SacmTagItem"
+    AssociationOtherEnd="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.associations.IdTagPadreFkAssoc.IdTagPadreSacmTagItem"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <AccessorAttribute
+    Name="IdTagPadreSacmTagItem"
+    Association="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.associations.IdTagPadreFkAssoc"
+    AssociationEnd="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.associations.IdTagPadreFkAssoc.IdTagPadreSacmTagItem"
+    AssociationOtherEnd="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.associations.IdTagPadreFkAssoc.SacmTagItem"
+    Type="oracle.jbo.server.EntityImpl"
+    IsUpdateable="true"/>
+  <AccessorAttribute
+    Name="SacmTags"
+    Association="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.associations.IdTagFkAssoc"
+    AssociationEnd="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.associations.IdTagFkAssoc.SacmTags"
+    AssociationOtherEnd="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.associations.IdTagFkAssoc.SacmTagItem"
+    Type="oracle.jbo.server.EntityImpl"
+    IsUpdateable="true"/>
+  <Key
+    Name="SacmTagsPk"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SACM_TAGS_PK"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.SacmTagItem.IdTagItem"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="IdTagFk">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="SACM_TAG_INSTRUMENTS_PK"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="ID_TAG_FK"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.SacmTagItem.IdTag"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="IdTagPadreFk">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="SACM_TAGS_PK"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="ID_TAG_PADRE_FK"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.SacmTagItem.IdTagPadre"/>
+    </AttrArray>
+  </Key>
+</Entity>

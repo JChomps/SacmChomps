@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE Association SYSTEM "jbo_03_01.dtd">
+<!---->
+<Association
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="IdEstadoFkAssoc"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge">
+  <DesignTime>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <AssociationEnd
+    Name="SacmCatPais"
+    Cardinality="1"
+    Source="true"
+    Owner="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.catalogos.SacmCatPais">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_minCardinality" Value="1"/>
+      <Attr Name="_aggregation" Value="0"/>
+      <Attr Name="_finderName" Value="SacmCatPais"/>
+      <Attr Name="_foreignKey"
+        Value="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.catalogos.SacmCatPais.SacmCatPaisPk"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.catalogos.SacmCatPais.IdPais"/>
+    </AttrArray>
+  </AssociationEnd>
+  <AssociationEnd
+    Name="SacmCatEstado"
+    Cardinality="-1"
+    Owner="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.catalogos.SacmCatEstado">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_aggregation" Value="0"/>
+      <Attr Name="_finderName" Value="SacmCatEstado"/>
+      <Attr Name="_foreignKey"
+        Value="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.catalogos.SacmCatEstado.IdEstadoFk"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.catalogos.SacmCatEstado.IdPais"/>
+    </AttrArray>
+  </AssociationEnd>
+</Association>

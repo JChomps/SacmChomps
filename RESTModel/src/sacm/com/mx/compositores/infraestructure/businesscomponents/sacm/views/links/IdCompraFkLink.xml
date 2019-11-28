@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE ViewLink SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewLink
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="IdCompraFkLink"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  EntityAssociation="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.associations.IdCompraFkAssoc">
+  <ViewLinkDefEnd
+    Name="SacmObrasCompraView"
+    Cardinality="1"
+    Source="true"
+    Owner="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.views.SacmObrasCompraView">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_minCardinality" Value="1"/>
+      <Attr Name="_finderName" Value="SacmObrasCompraView"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.views.SacmObrasCompraView.IdObraCompra"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+  <ViewLinkDefEnd
+    Name="SacmComprasView"
+    Cardinality="-1"
+    Owner="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.views.SacmComprasView">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_finderName" Value="SacmComprasView"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.views.SacmComprasView.IdObraCompra"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+</ViewLink>

@@ -1,0 +1,14 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<BC4JConfig version="11.1" xmlns="http://xmlns.oracle.com/bc4j/configuration">
+   <AppModuleConfigBag ApplicationName="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.appmodules.AppModuleCompositores">
+      <AppModuleConfig name="AppModuleCompositoresLocal" DeployPlatform="LOCAL" java.naming.factory.initial="oracle.jbo.common.JboInitialContextFactory" ApplicationName="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.appmodules.AppModuleCompositores" jbo.project="sacm.com.mx.compositores.RESTModel">
+         <Database jbo.locking.mode="optimistic" JDBCDataSource="java:comp/env/jdbc/CloudConnDS" jbo.TypeMapEntries="OracleApps"/>
+         <Security AppModuleJndiName="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.appmodules.AppModuleCompositores"/>
+      </AppModuleConfig>
+      <AppModuleConfig name="AppModuleCompositoresShared" DeployPlatform="LOCAL" java.naming.factory.initial="oracle.jbo.common.JboInitialContextFactory" ApplicationName="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.appmodules.AppModuleCompositores" jbo.project="sacm.com.mx.compositores.RESTModel">
+         <AM-Pooling jbo.ampool.isuseexclusive="false" jbo.ampool.maxpoolsize="1"/>
+         <Database jbo.locking.mode="optimistic" JDBCDataSource="java:comp/env/jdbc/CloudConnDS" jbo.TypeMapEntries="OracleApps"/>
+         <Security AppModuleJndiName="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.appmodules.AppModuleCompositores"/>
+      </AppModuleConfig>
+   </AppModuleConfigBag>
+</BC4JConfig>

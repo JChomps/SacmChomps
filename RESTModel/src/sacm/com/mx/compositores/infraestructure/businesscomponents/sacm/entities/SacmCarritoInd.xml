@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="SacmCarritoInd"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  DBObjectType="table"
+  DBObjectName="SACM_CARRITO_IND"
+  AliasName="SacmCarritoInd"
+  BindingStyle="OracleName">
+  <Attribute
+    Name="IdCarritoInd"
+    IsNotNull="true"
+    ColumnName="ID_CARRITO_IND"
+    SQLType="NUMERIC"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    TableName="SACM_CARRITO_IND"
+    PrimaryKey="true"/>
+  <Attribute
+    Name="IdCarrito"
+    IsNotNull="true"
+    ColumnName="ID_CARRITO"
+    SQLType="NUMERIC"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    TableName="SACM_CARRITO_IND"/>
+  <Attribute
+    Name="IdObra"
+    IsNotNull="true"
+    ColumnName="ID_OBRA"
+    SQLType="NUMERIC"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    TableName="SACM_CARRITO_IND"/>
+  <Attribute
+    Name="IdCartObraEstat"
+    IsNotNull="true"
+    ColumnName="ID_CART_OBRA_ESTAT"
+    SQLType="NUMERIC"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    TableName="SACM_CARRITO_IND"/>
+  <Attribute
+    Name="CreadoPor"
+    Precision="100"
+    ColumnName="CREADO_POR"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SACM_CARRITO_IND">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="100"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="FechaCreacion"
+    ColumnName="FECHA_CREACION"
+    SQLType="DATE"
+    Type="java.sql.Timestamp"
+    ColumnType="DATE"
+    TableName="SACM_CARRITO_IND"/>
+  <Attribute
+    Name="ModificadoPor"
+    Precision="100"
+    ColumnName="MODIFICADO_POR"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SACM_CARRITO_IND">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="100"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="FechaModificacion"
+    ColumnName="FECHA_MODIFICACION"
+    SQLType="DATE"
+    Type="java.sql.Timestamp"
+    ColumnType="DATE"
+    TableName="SACM_CARRITO_IND"/>
+  <Attribute
+    Name="Atributo01"
+    Precision="255"
+    ColumnName="ATRIBUTO_01"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SACM_CARRITO_IND">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="255"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Atributo02"
+    Precision="255"
+    ColumnName="ATRIBUTO_02"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SACM_CARRITO_IND">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="255"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Atributo03"
+    Precision="255"
+    ColumnName="ATRIBUTO_03"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SACM_CARRITO_IND">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="255"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Atributo04"
+    Precision="255"
+    ColumnName="ATRIBUTO_04"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SACM_CARRITO_IND">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="255"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Atributo05"
+    Precision="255"
+    ColumnName="ATRIBUTO_05"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SACM_CARRITO_IND">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="255"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Atributo06"
+    Precision="255"
+    ColumnName="ATRIBUTO_06"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SACM_CARRITO_IND">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="255"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Atributo07"
+    Precision="255"
+    ColumnName="ATRIBUTO_07"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SACM_CARRITO_IND">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="255"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Atributo08"
+    Precision="255"
+    ColumnName="ATRIBUTO_08"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SACM_CARRITO_IND">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="255"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Atributo09"
+    Precision="255"
+    ColumnName="ATRIBUTO_09"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SACM_CARRITO_IND">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="255"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Atributo10"
+    Precision="255"
+    ColumnName="ATRIBUTO_10"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SACM_CARRITO_IND">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="255"/>
+    </DesignTime>
+  </Attribute>
+  <AccessorAttribute
+    Name="SacmCarrito"
+    Association="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.associations.IdCartFkAssoc"
+    AssociationEnd="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.associations.IdCartFkAssoc.SacmCarrito"
+    AssociationOtherEnd="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.associations.IdCartFkAssoc.SacmCarritoInd"
+    Type="oracle.jbo.server.EntityImpl"
+    IsUpdateable="true"/>
+  <AccessorAttribute
+    Name="SacmCatEstatCartObra"
+    Association="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.associations.IdCartIndFkAssoc"
+    AssociationEnd="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.associations.IdCartIndFkAssoc.SacmCatEstatCartObra"
+    AssociationOtherEnd="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.associations.IdCartIndFkAssoc.SacmCarritoInd"
+    Type="oracle.jbo.server.EntityImpl"
+    IsUpdateable="true"/>
+  <AccessorAttribute
+    Name="SacmCotizacion"
+    Association="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.associations.IdIndvFkAssoc"
+    AssociationEnd="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.associations.IdIndvFkAssoc.SacmCotizacion"
+    AssociationOtherEnd="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.associations.IdIndvFkAssoc.SacmCarritoInd"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <AccessorAttribute
+    Name="SacmObras"
+    Association="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.associations.IdObraRelFkAssoc"
+    AssociationEnd="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.associations.IdObraRelFkAssoc.SacmObras"
+    AssociationOtherEnd="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.associations.IdObraRelFkAssoc.SacmCarritoInd"
+    Type="oracle.jbo.server.EntityImpl"
+    IsUpdateable="true"/>
+  <Key
+    Name="SacmCarritoIndPk"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SACM_CARRITO_IND_PK"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.SacmCarritoInd.IdCarritoInd"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="IdCartFk">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="SACM_CARRITO_PK"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="ID_CART_FK"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.SacmCarritoInd.IdCarrito"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="IdCartIndFk">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="SACM_CAT_ESTAT_CART_OBRA_PK"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="ID_CART_IND_FK"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.SacmCarritoInd.IdCartObraEstat"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="IdObraRelFk">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="SACM_OBRAS_PK"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="ID_OBRA_REL_FK"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.SacmCarritoInd.IdObra"/>
+    </AttrArray>
+  </Key>
+</Entity>

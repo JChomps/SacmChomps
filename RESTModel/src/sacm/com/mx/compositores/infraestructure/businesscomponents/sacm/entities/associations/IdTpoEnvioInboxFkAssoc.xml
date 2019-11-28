@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE Association SYSTEM "jbo_03_01.dtd">
+<!---->
+<Association
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="IdTpoEnvioInboxFkAssoc"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge">
+  <DesignTime>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <AssociationEnd
+    Name="SacmCatTipoEnvio"
+    Cardinality="1"
+    Source="true"
+    Owner="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.catalogos.SacmCatTipoEnvio">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_minCardinality" Value="1"/>
+      <Attr Name="_aggregation" Value="0"/>
+      <Attr Name="_finderName" Value="SacmCatTipoEnvio"/>
+      <Attr Name="_foreignKey"
+        Value="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.catalogos.SacmCatTipoEnvio.SacmCatTipoEnvioPk"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.catalogos.SacmCatTipoEnvio.IdTipoEnvio"/>
+    </AttrArray>
+  </AssociationEnd>
+  <AssociationEnd
+    Name="SacmShared"
+    Cardinality="-1"
+    Owner="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.SacmShared">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_aggregation" Value="0"/>
+      <Attr Name="_finderName" Value="SacmShared"/>
+      <Attr Name="_foreignKey"
+        Value="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.SacmShared.IdTpoEnvioInboxFk"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.SacmShared.IdTipoEnvio"/>
+    </AttrArray>
+  </AssociationEnd>
+</Association>

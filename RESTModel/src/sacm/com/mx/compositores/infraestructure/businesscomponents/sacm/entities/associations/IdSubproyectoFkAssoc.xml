@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE Association SYSTEM "jbo_03_01.dtd">
+<!---->
+<Association
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="IdSubproyectoFkAssoc"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge">
+  <DesignTime>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <AssociationEnd
+    Name="IdSubProyectoSacmProyectos"
+    Cardinality="1"
+    Source="true"
+    Owner="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.SacmProyectos">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_aggregation" Value="0"/>
+      <Attr Name="_finderName" Value="IdSubProyectoSacmProyectos"/>
+      <Attr Name="_foreignKey"
+        Value="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.SacmProyectos.SacmProyectosPk"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.SacmProyectos.IdProyecto"/>
+    </AttrArray>
+  </AssociationEnd>
+  <AssociationEnd
+    Name="SacmProyectos"
+    Cardinality="-1"
+    Owner="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.SacmProyectos">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_aggregation" Value="0"/>
+      <Attr Name="_finderName" Value="SacmProyectos"/>
+      <Attr Name="_foreignKey"
+        Value="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.SacmProyectos.IdSubproyectoFk"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.SacmProyectos.IdSubProyecto"/>
+    </AttrArray>
+  </AssociationEnd>
+</Association>

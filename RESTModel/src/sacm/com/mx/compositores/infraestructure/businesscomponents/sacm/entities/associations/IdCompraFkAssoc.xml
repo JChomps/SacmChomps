@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE Association SYSTEM "jbo_03_01.dtd">
+<!---->
+<Association
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="IdCompraFkAssoc"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge">
+  <DesignTime>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <AssociationEnd
+    Name="SacmObrasCompra"
+    Cardinality="1"
+    Source="true"
+    Owner="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.SacmObrasCompra">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_minCardinality" Value="1"/>
+      <Attr Name="_aggregation" Value="0"/>
+      <Attr Name="_finderName" Value="SacmObrasCompra"/>
+      <Attr Name="_foreignKey"
+        Value="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.SacmObrasCompra.SacmObrasCompraPk"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.SacmObrasCompra.IdObraCompra"/>
+    </AttrArray>
+  </AssociationEnd>
+  <AssociationEnd
+    Name="SacmCompras"
+    Cardinality="-1"
+    Owner="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.SacmCompras">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_aggregation" Value="0"/>
+      <Attr Name="_finderName" Value="SacmCompras"/>
+      <Attr Name="_foreignKey"
+        Value="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.SacmCompras.IdCompraFk"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.SacmCompras.IdObraCompra"/>
+    </AttrArray>
+  </AssociationEnd>
+</Association>

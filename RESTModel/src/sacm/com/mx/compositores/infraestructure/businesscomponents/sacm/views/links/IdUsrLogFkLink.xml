@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE ViewLink SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewLink
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="IdUsrLogFkLink"
+  Version="12.2.1.22.48"
+  InheritPersonalization="merge"
+  EntityAssociation="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.entities.associations.IdUsrLogFkAssoc">
+  <ViewLinkDefEnd
+    Name="SacmUsuariosView"
+    Cardinality="1"
+    Source="true"
+    Owner="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.views.SacmUsuariosView">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_minCardinality" Value="1"/>
+      <Attr Name="_finderName" Value="SacmUsuariosView"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.views.SacmUsuariosView.IdUsuario"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+  <ViewLinkDefEnd
+    Name="SacmUsrLoginsView"
+    Cardinality="1"
+    Owner="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.views.SacmUsrLoginsView">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_finderName" Value="SacmUsrLoginsView"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="sacm.com.mx.compositores.infraestructure.businesscomponents.sacm.views.SacmUsrLoginsView.IdUsuario"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+</ViewLink>
