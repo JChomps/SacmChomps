@@ -19,9 +19,12 @@ public class SacmUsuario {
     }
     private static ADFLogger _logger = ADFLogger.createADFLogger(SacmUsuario.class);
     private static UsuarioResultDto usuarioResponse;
-    private static UsuarioDto usuario;
 
-    public static UsuarioResultDto updatePassword(UsuarioResultDto usuarioRequest) {
+    /**
+     * @param usuarioRequest
+     * @return
+     */
+    public static UsuarioResultDto updatePassword(UsuarioDto usuarioRequest) {
         CallableStatement cstmt = null;
         Connection conn = null;
         try {
@@ -31,8 +34,8 @@ public class SacmUsuario {
             cstmt = conn.prepareCall("{call SACM_PRC_ACTUALIZA_PWD_USUARIO(?,?,?,?,?)}");
 
             // 3. Set the bind values of the IN parameters
-            cstmt.setObject(1, usuarioRequest.getUsuario().getIdUsuario());
-            cstmt.setObject(2, usuarioRequest.getUsuario().getPassword());
+            cstmt.setObject(1, usuarioRequest.getId_usuario());
+            cstmt.setObject(2, usuarioRequest.getPassword());
 
             // 4. Register the positions and types of the OUT parameters
             cstmt.registerOutParameter(3, Types.INTEGER);
@@ -44,9 +47,15 @@ public class SacmUsuario {
 
             // 6. Set value of dateValue property using OUT param
             usuarioResponse = new UsuarioResultDto();
-            usuarioResponse.getUsuario().setIdUsuario(new Integer(cstmt.getString(3)));
-            usuarioResponse.getHeaderResponse().setErrorCode(cstmt.getInt(4));
-            usuarioResponse.getHeaderResponse().setErrorMsg(cstmt.getString(5));
+            usuarioResponse.setUpdatePWD(new UsuarioDto());
+            usuarioResponse.getUpdatePWD().setID_USUARIO(new Integer(cstmt.getString(3)));
+            usuarioResponse.setResponseBD(new HeaderDto());
+            usuarioResponse.getResponseBD().setCodErr(cstmt.getInt(4));
+            usuarioResponse.getResponseBD().setCodMsg(cstmt.getString(5));
+
+            usuarioResponse.setResponseService(new HeaderDto());
+            usuarioResponse.getResponseService().setCodErr(cstmt.getInt(4));
+            usuarioResponse.getResponseService().setCodMsg(cstmt.getString(5));
 
             cstmt.close();
             conn.close();
@@ -56,8 +65,9 @@ public class SacmUsuario {
             // a failure occurred log message;
             _logger.severe(e.getMessage());
             usuarioResponse = new UsuarioResultDto();
-            usuarioResponse.getHeaderResponse().setErrorCode(1);
-            usuarioResponse.getHeaderResponse().setErrorMsg(e.getMessage());
+            usuarioResponse.setResponseService(new HeaderDto());
+            usuarioResponse.getResponseService().setCodErr(1);
+            usuarioResponse.getResponseService().setCodMsg(e.getMessage());
             return usuarioResponse;
         }
         _logger.info("Finish Update Password");
@@ -65,7 +75,11 @@ public class SacmUsuario {
         return usuarioResponse;
     }
 
-    public static UsuarioResultDto changePassword(UsuarioResultDto usuarioRequest) {
+    /**
+     * @param usuarioRequest
+     * @return
+     */
+    public static UsuarioResultDto changePassword(UsuarioDto usuarioRequest) {
         CallableStatement cstmt = null;
         Connection conn = null;
         try {
@@ -75,9 +89,9 @@ public class SacmUsuario {
             cstmt = conn.prepareCall("{call SACM_PRC_CAMBIA_PWD_USUARIO(?,?,?,?,?,?)}");
 
             // 3. Set the bind values of the IN parameters
-            cstmt.setObject(1, usuarioRequest.getUsuario().getEmail());
-            cstmt.setObject(2, usuarioRequest.getUsuario().getPassword());
-            cstmt.setObject(3, usuarioRequest.getUsuario().getPasswordNuevo());
+            cstmt.setObject(1, usuarioRequest.getEmail());
+            cstmt.setObject(2, usuarioRequest.getPassword());
+            cstmt.setObject(3, usuarioRequest.getPasswordNuevo());
 
             // 4. Register the positions and types of the OUT parameters
             cstmt.registerOutParameter(4, Types.VARCHAR);
@@ -89,9 +103,14 @@ public class SacmUsuario {
 
             // 6. Set value of dateValue property using OUT param
             usuarioResponse = new UsuarioResultDto();
-            usuarioResponse.getUsuario().setEmail(cstmt.getString(4));
-            usuarioResponse.getHeaderResponse().setErrorCode(cstmt.getInt(5));
-            usuarioResponse.getHeaderResponse().setErrorMsg(cstmt.getString(6));
+            usuarioResponse.getLoginUser().setEmail(cstmt.getString(4));
+            usuarioResponse.setResponseBD(new HeaderDto());
+            usuarioResponse.getResponseBD().setCodErr(cstmt.getInt(5));
+            usuarioResponse.getResponseBD().setCodMsg(cstmt.getString(6));
+
+            usuarioResponse.setResponseService(new HeaderDto());
+            usuarioResponse.getResponseService().setCodErr(cstmt.getInt(5));
+            usuarioResponse.getResponseService().setCodMsg(cstmt.getString(6));
 
             cstmt.close();
             conn.close();
@@ -101,8 +120,9 @@ public class SacmUsuario {
             // a failure occurred log message;
             _logger.severe(e.getMessage());
             usuarioResponse = new UsuarioResultDto();
-            usuarioResponse.getHeaderResponse().setErrorCode(1);
-            usuarioResponse.getHeaderResponse().setErrorMsg(e.getMessage());
+            usuarioResponse.setResponseService(new HeaderDto());
+            usuarioResponse.getResponseService().setCodErr(1);
+            usuarioResponse.getResponseService().setCodMsg(e.getMessage());
             return usuarioResponse;
         }
         _logger.info("Finish Change Password");
@@ -110,7 +130,65 @@ public class SacmUsuario {
         return usuarioResponse;
     }
 
-    public static UsuarioResultDto login(UsuarioResultDto usuarioRequest) {
+    /**
+     * @param usuarioRequest
+     * @return
+     */
+    public static UsuarioResultDto restaurarPassword(UsuarioDto usuarioRequest) {
+        CallableStatement cstmt = null;
+        Connection conn = null;
+        try {
+            conn = AppModule.getDbConexionJDBC();
+
+            // 2. Define the PL/SQL block for the statement to invoke
+            cstmt = conn.prepareCall("{call SACM_PRC_ENVIA_CORREO_REST_PWD(?,?,?,?)}");
+
+            // 3. Set the bind values of the IN parameters
+            cstmt.setObject(1, usuarioRequest.getEmail());
+
+            // 4. Register the positions and types of the OUT parameters
+            cstmt.registerOutParameter(2, Types.INTEGER);
+            cstmt.registerOutParameter(3, Types.INTEGER);
+            cstmt.registerOutParameter(4, Types.VARCHAR);
+
+            // 5. Execute the statement
+            cstmt.executeUpdate();
+
+            // 6. Set value of dateValue property using OUT param
+            usuarioResponse = new UsuarioResultDto();
+            usuarioResponse.setSendEmail(new UsuarioDto());
+            usuarioResponse.getSendEmail().setID_USUARIO(new Integer(cstmt.getString(2)));
+            usuarioResponse.setResponseBD(new HeaderDto());
+            usuarioResponse.getResponseBD().setCodErr(cstmt.getInt(3));
+            usuarioResponse.getResponseBD().setCodMsg(cstmt.getString(4));
+
+            usuarioResponse.setResponseService(new HeaderDto());
+            usuarioResponse.getResponseService().setCodErr(cstmt.getInt(3));
+            usuarioResponse.getResponseService().setCodMsg(cstmt.getString(4));
+
+            cstmt.close();
+            conn.close();
+            conn = null;
+
+        } catch (Exception e) {
+            // a failure occurred log message;
+            _logger.severe(e.getMessage());
+            usuarioResponse = new UsuarioResultDto();
+            usuarioResponse.setResponseService(new HeaderDto());
+            usuarioResponse.getResponseService().setCodErr(1);
+            usuarioResponse.getResponseService().setCodMsg(e.getMessage());
+            return usuarioResponse;
+        }
+        _logger.info("Finish Restaurar Password");
+        // 9. Return the result
+        return usuarioResponse;
+    }
+
+    /**
+     * @param usuarioRequest
+     * @return
+     */
+    public static UsuarioResultDto login(UsuarioDto usuarioRequest) {
         CallableStatement cstmt = null;
         Connection conn = null;
         try {
@@ -120,8 +198,8 @@ public class SacmUsuario {
             cstmt = conn.prepareCall("{call SACM_PRC_USUARIO_REGISTRADO(?,?,?,?,?,?,?,?,?,?,?)}");
 
             // 3. Set the bind values of the IN parameters
-            cstmt.setObject(1, usuarioRequest.getUsuario().getEmail());
-            cstmt.setObject(2, usuarioRequest.getUsuario().getPassword());
+            cstmt.setObject(1, usuarioRequest.getEmail());
+            cstmt.setObject(2, usuarioRequest.getPassword());
 
             // 4. Register the positions and types of the OUT parameters
             cstmt.registerOutParameter(3, Types.INTEGER);
@@ -138,19 +216,24 @@ public class SacmUsuario {
             cstmt.executeUpdate();
 
             usuarioResponse = new UsuarioResultDto();
-            usuario = new UsuarioDto();
+            UsuarioDto usuario = new UsuarioDto();
             // 6. Set value of dateValue property using first OUT param
-            usuarioResponse.getHeaderResponse().setErrorCode(cstmt.getInt(10));
-            usuarioResponse.getHeaderResponse().setErrorMsg(cstmt.getString(11));
+            usuarioResponse.setResponseBD(new HeaderDto());
+            usuarioResponse.getResponseBD().setCodErr(cstmt.getInt(10));
+            usuarioResponse.getResponseBD().setCodMsg(cstmt.getString(11));
+
+            usuarioResponse.setResponseService(new HeaderDto());
+            usuarioResponse.getResponseService().setCodErr(cstmt.getInt(10));
+            usuarioResponse.getResponseService().setCodMsg(cstmt.getString(11));
             if (cstmt.getInt(10) == 0) {
-                usuario.setIdUsuario(new Integer(cstmt.getString(3)));
+                usuario.setId_usuario(new Integer(cstmt.getString(3)));
                 usuario.setEmail(cstmt.getString(4));
                 usuario.setNombre(cstmt.getString(5));
-                usuario.setPaterno(cstmt.getString(6));
-                usuario.setMaterno(cstmt.getString(7));
-                usuario.setIdPais(new Integer(cstmt.getString(8)));
+                usuario.setApellido_paterno(cstmt.getString(6));
+                usuario.setApellido_materno(cstmt.getString(7));
+                usuario.setId_pais(new Integer(cstmt.getString(8)));
                 usuario.setEstatus(cstmt.getString(9));
-                usuarioResponse.setUsuario(usuario);
+                usuarioResponse.setLoginUser(usuario);
             }
 
             cstmt.close();
@@ -161,8 +244,9 @@ public class SacmUsuario {
             // a failure occurred log message;
             _logger.severe(e.getMessage());
             usuarioResponse = new UsuarioResultDto();
-            usuarioResponse.getHeaderResponse().setErrorCode(1);
-            usuarioResponse.getHeaderResponse().setErrorMsg(e.getMessage());
+            usuarioResponse.setResponseService(new HeaderDto());
+            usuarioResponse.getResponseService().setCodErr(1);
+            usuarioResponse.getResponseService().setCodMsg(e.getMessage());
             return usuarioResponse;
         }
         _logger.info("Finish Login");
@@ -170,7 +254,11 @@ public class SacmUsuario {
         return usuarioResponse;
     }
 
-    public static UsuarioResultDto registrarUsuario(UsuarioResultDto usuarioRequest) {
+    /**
+     * @param LoginUser
+     * @return
+     */
+    public static UsuarioResultDto registrarUsuario(UsuarioDto LoginUser) {
         CallableStatement cstmt = null;
         Connection conn = null;
         try {
@@ -182,22 +270,22 @@ public class SacmUsuario {
             // 3. Set the bind values of the IN parameters
 
             // 4. Register the positions and types of the OUT parameters
-            cstmt.setObject(1, usuarioRequest.getUsuario().getNombre());
-            cstmt.setObject(2, usuarioRequest.getUsuario().getPaterno());
-            cstmt.setObject(3, usuarioRequest.getUsuario().getMaterno());
-            cstmt.setObject(4, usuarioRequest.getUsuario().getPassword());
-            cstmt.setObject(5, usuarioRequest.getUsuario().getEmail());
-            cstmt.setObject(6, usuarioRequest.getUsuario().getCompania());
-            cstmt.setObject(7, usuarioRequest.getUsuario().getPuesto());
-            cstmt.setObject(8, usuarioRequest.getUsuario().getIdSexo());
-            cstmt.setObject(9, usuarioRequest.getUsuario().getIdPais());
-            cstmt.setObject(10, usuarioRequest.getUsuario().getIdEstado());
-            cstmt.setObject(11, usuarioRequest.getUsuario().getMunicipio());
-            cstmt.setObject(12, usuarioRequest.getUsuario().getCodigoPostal());
-            cstmt.setObject(13, usuarioRequest.getUsuario().getDireccion());
-            cstmt.setObject(14, usuarioRequest.getUsuario().getTelefono());
-            cstmt.setObject(15, usuarioRequest.getUsuario().getExtension());
-            cstmt.setObject(16, usuarioRequest.getUsuario().getEstatus());
+            cstmt.setObject(1, LoginUser.getNombre());
+            cstmt.setObject(2, LoginUser.getApellido_paterno());
+            cstmt.setObject(3, LoginUser.getApellido_materno());
+            cstmt.setObject(4, LoginUser.getPassword());
+            cstmt.setObject(5, LoginUser.getEmail());
+            cstmt.setObject(6, LoginUser.getCompañía());
+            cstmt.setObject(7, LoginUser.getPuesto());
+            cstmt.setObject(8, LoginUser.getId_sexo());
+            cstmt.setObject(9, LoginUser.getId_pais());
+            cstmt.setObject(10, LoginUser.getId_estado());
+            cstmt.setObject(11, LoginUser.getMunicipio());
+            cstmt.setObject(12, LoginUser.getCodigo_postal());
+            cstmt.setObject(13, LoginUser.getDireccion());
+            cstmt.setObject(14, LoginUser.getTelefono());
+            cstmt.setObject(15, LoginUser.getExtension());
+            cstmt.setObject(16, LoginUser.getEstatus());
 
             // 4. Register the positions and types of the OUT parameters
             cstmt.registerOutParameter(17, Types.INTEGER);
@@ -208,8 +296,13 @@ public class SacmUsuario {
 
             // 6. Set value of dateValue property using first OUT param
             usuarioResponse = new UsuarioResultDto();
-            usuarioResponse.getHeaderResponse().setErrorCode(cstmt.getInt(17));
-            usuarioResponse.getHeaderResponse().setErrorMsg(cstmt.getString(18));
+            usuarioResponse.setResponseBD(new HeaderDto());
+            usuarioResponse.getResponseBD().setCodErr(cstmt.getInt(17));
+            usuarioResponse.getResponseBD().setCodMsg(cstmt.getString(18));
+
+            usuarioResponse.setResponseService(new HeaderDto());
+            usuarioResponse.getResponseService().setCodErr(cstmt.getInt(17));
+            usuarioResponse.getResponseService().setCodMsg(cstmt.getString(18));
 
             cstmt.close();
             conn.close();
@@ -219,8 +312,9 @@ public class SacmUsuario {
             // a failure occurred log message;
             _logger.severe(e.getMessage());
             usuarioResponse = new UsuarioResultDto();
-            usuarioResponse.getHeaderResponse().setErrorCode(1);
-            usuarioResponse.getHeaderResponse().setErrorMsg(e.getMessage());
+            usuarioResponse.setResponseService(new HeaderDto());
+            usuarioResponse.getResponseService().setCodErr(1);
+            usuarioResponse.getResponseService().setCodMsg(e.getMessage());
             return usuarioResponse;
         }
         _logger.info("Finish Registrar Usuario");

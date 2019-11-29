@@ -11,21 +11,17 @@ public class SexoDto implements Serializable {
     public SexoDto() {
         super();
     }
-    private Integer idSexo;
+    private Integer id_sexo;
     private String identificador;
     private String descripcion;
     private Integer activo;
-    private String creadoPor;
-    private Date fechaCreacion;
-    private String modificadoPor;
-    private Date fechaModificacion;
 
-    public void setIdSexo(Integer idSexo) {
-        this.idSexo = idSexo;
+    public void setId_sexo(Integer id_sexo) {
+        this.id_sexo = id_sexo;
     }
 
-    public Integer getIdSexo() {
-        return idSexo;
+    public Integer getId_sexo() {
+        return id_sexo;
     }
 
     public void setIdentificador(String identificador) {
@@ -50,37 +46,5 @@ public class SexoDto implements Serializable {
 
     public Integer getActivo() {
         return activo;
-    }
-
-    public void setCreadoPor(String creadoPor) {
-        this.creadoPor = creadoPor;
-    }
-
-    public String getCreadoPor() {
-        return creadoPor;
-    }
-
-    public void setFechaCreacion(Date fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
-    }
-
-    public Date getFechaCreacion() {
-        return fechaCreacion;
-    }
-
-    public void setModificadoPor(String modificadoPor) {
-        this.modificadoPor = modificadoPor;
-    }
-
-    public String getModificadoPor() {
-        return modificadoPor;
-    }
-
-    public void setFechaModificacion(Date fechaModificacion) {
-        this.fechaModificacion = fechaModificacion;
-    }
-
-    public Date getFechaModificacion() {
-        return fechaModificacion;
     }
 }

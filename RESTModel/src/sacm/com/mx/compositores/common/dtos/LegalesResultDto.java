@@ -7,31 +7,31 @@ public class LegalesResultDto implements Serializable {
         super();
     }
 
-    private HeaderDto headerRequest;
-    private HeaderDto headerResponse = new HeaderDto();
-    private LegalesDto legal = new LegalesDto();
+    private HeaderDto ResponseBD;
+    private HeaderDto ResponseService;
+    private LegalesDto TerminosPortal = new LegalesDto();
 
-    public void setHeaderRequest(HeaderDto headerRequest) {
-        this.headerRequest = headerRequest;
+    public void setResponseBD(HeaderDto ResponseBD) {
+        this.ResponseBD = ResponseBD;
     }
 
-    public HeaderDto getHeaderRequest() {
-        return headerRequest;
+    public HeaderDto getResponseBD() {
+        return ResponseBD;
     }
 
-    public void setHeaderResponse(HeaderDto headerResponse) {
-        this.headerResponse = headerResponse;
+    public void setResponseService(HeaderDto ResponseService) {
+        this.ResponseService = ResponseService;
     }
 
-    public HeaderDto getHeaderResponse() {
-        return headerResponse;
+    public HeaderDto getResponseService() {
+        return ResponseService;
     }
 
-    public void setLegal(LegalesDto legal) {
-        this.legal = legal;
+    public void setTerminosPortal(LegalesDto TerminosPortal) {
+        this.TerminosPortal = TerminosPortal;
     }
 
-    public LegalesDto getLegal() {
-        return legal;
+    public LegalesDto getTerminosPortal() {
+        return TerminosPortal;
     }
 }

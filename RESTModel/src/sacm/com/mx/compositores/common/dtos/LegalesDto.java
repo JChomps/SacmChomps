@@ -14,10 +14,10 @@ public class LegalesDto implements Serializable {
         super();
     }
     private Integer id_legal;
-    private String tituloTerminos;
-    private String mensajeTerminos;
-    private String tituloAviso;
-    private String mensajeAviso;
+    private String titulo_terminos;
+    private String mensaje_terminos;
+    private String titulo_aviso;
+    private String mensaje_aviso;
 
     public void setId_legal(Integer id_legal) {
         this.id_legal = id_legal;
@@ -27,35 +27,35 @@ public class LegalesDto implements Serializable {
         return id_legal;
     }
 
-    public void setTituloTerminos(String tituloTerminos) {
-        this.tituloTerminos = tituloTerminos;
+    public void setTitulo_terminos(String titulo_terminos) {
+        this.titulo_terminos = titulo_terminos;
     }
 
-    public String getTituloTerminos() {
-        return tituloTerminos;
+    public String getTitulo_terminos() {
+        return titulo_terminos;
     }
 
-    public void setMensajeTerminos(String mensajeTerminos) {
-        this.mensajeTerminos = mensajeTerminos;
+    public void setMensaje_terminos(String mensaje_terminos) {
+        this.mensaje_terminos = mensaje_terminos;
     }
 
-    public String getMensajeTerminos() {
-        return mensajeTerminos;
+    public String getMensaje_terminos() {
+        return mensaje_terminos;
     }
 
-    public void setTituloAviso(String tituloAviso) {
-        this.tituloAviso = tituloAviso;
+    public void setTitulo_aviso(String titulo_aviso) {
+        this.titulo_aviso = titulo_aviso;
     }
 
-    public String getTituloAviso() {
-        return tituloAviso;
+    public String getTitulo_aviso() {
+        return titulo_aviso;
     }
 
-    public void setMensajeAviso(String mensajeAviso) {
-        this.mensajeAviso = mensajeAviso;
+    public void setMensaje_aviso(String mensaje_aviso) {
+        this.mensaje_aviso = mensaje_aviso;
     }
 
-    public String getMensajeAviso() {
-        return mensajeAviso;
+    public String getMensaje_aviso() {
+        return mensaje_aviso;
     }
 }

@@ -31,7 +31,7 @@ public class SacmSexo implements Serializable {
         super();
     }
 
-    public static SexoResultDto getSexoByIdSexo(SexoResultDto sexoRequest) {
+    public static SexoResultDto getSexoByIdSexo(SexoDto sexoRequest) {
         CallableStatement cstmt = null;
         ResultSet rs = null;
         Connection conn = null;
@@ -43,7 +43,7 @@ public class SacmSexo implements Serializable {
             cstmt = conn.prepareCall("{call SACM_PRC_CONSULTA_SEXO(?,?,?,?)}");
 
             // 3. Set the bind values of the IN parameters
-            cstmt.setObject(1, sexoRequest.getSexo().getIdSexo());
+            cstmt.setObject(1, sexoRequest.getId_sexo());
 
             // 4. Register the positions and types of the OUT parameters
             cstmt.registerOutParameter(2, Types.INTEGER);
@@ -58,7 +58,7 @@ public class SacmSexo implements Serializable {
             List<SexoDto> SexoList = new ArrayList<SexoDto>();
             while (rs.next()) {
                 SexoDto sexo = new SexoDto();
-                sexo.setIdSexo(rs.getInt(1));
+                sexo.setId_sexo(rs.getInt(1));
                 sexo.setIdentificador(rs.getString(2));
                 sexo.setDescripcion(rs.getString(3));
                 SexoList.add(sexo);
@@ -66,10 +66,13 @@ public class SacmSexo implements Serializable {
 
             // 6. Set value of dateValue property using first OUT param
             sexoResponse = new SexoResultDto();
-            sexoResponse.getHeaderResponse().setErrorCode(cstmt.getInt(2));
-            sexoResponse.getHeaderResponse().setErrorMsg(cstmt.getString(3));
-            sexoResponse.getSexo().setIdSexo(sexoRequest.getSexo().getIdSexo());
-            sexoResponse.setSexoList(SexoList);
+            sexoResponse.setResponseBD(new HeaderDto());
+            sexoResponse.getResponseBD().setCodErr(cstmt.getInt(2));
+            sexoResponse.getResponseBD().setCodMsg(cstmt.getString(3));
+            sexoResponse.setSexos(SexoList);
+            sexoResponse.setResponseService(new HeaderDto());
+            sexoResponse.getResponseService().setCodErr(cstmt.getInt(2));
+            sexoResponse.getResponseService().setCodMsg(cstmt.getString(3));
 
             cstmt.close();
             rs.close();
@@ -80,8 +83,9 @@ public class SacmSexo implements Serializable {
             // a failure occurred log message;
             _logger.severe(e.getMessage());
             sexoResponse = new SexoResultDto();
-            sexoResponse.getHeaderResponse().setErrorCode(1);
-            sexoResponse.getHeaderResponse().setErrorMsg(e.getMessage());
+            sexoResponse.setResponseService(new HeaderDto());
+            sexoResponse.getResponseService().setCodErr(1);
+            sexoResponse.getResponseService().setCodMsg(e.getMessage());
             return sexoResponse;
         }
         _logger.info("Finish getEstados");

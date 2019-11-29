@@ -12,40 +12,31 @@ public class SexoResultDto implements Serializable {
     public SexoResultDto() {
         super();
     }
-    private HeaderDto headerRequest;
-    private HeaderDto headerResponse = new HeaderDto();
-    private SexoDto sexo = new SexoDto();
-    private List<SexoDto> sexoList = new ArrayList<SexoDto>();
+    private HeaderDto ResponseBD;
+    private HeaderDto ResponseService;
+    private List<SexoDto> Sexos = new ArrayList<SexoDto>();
 
-    public void setHeaderRequest(HeaderDto headerRequest) {
-        this.headerRequest = headerRequest;
+    public void setResponseBD(HeaderDto ResponseBD) {
+        this.ResponseBD = ResponseBD;
     }
 
-    public HeaderDto getHeaderRequest() {
-        return headerRequest;
+    public HeaderDto getResponseBD() {
+        return ResponseBD;
     }
 
-    public void setHeaderResponse(HeaderDto headerResponse) {
-        this.headerResponse = headerResponse;
+    public void setResponseService(HeaderDto ResponseService) {
+        this.ResponseService = ResponseService;
     }
 
-    public HeaderDto getHeaderResponse() {
-        return headerResponse;
+    public HeaderDto getResponseService() {
+        return ResponseService;
     }
 
-    public void setSexo(SexoDto sexo) {
-        this.sexo = sexo;
+    public void setSexos(List<SexoDto> Sexos) {
+        this.Sexos = Sexos;
     }
 
-    public SexoDto getSexo() {
-        return sexo;
-    }
-
-    public void setSexoList(List<SexoDto> sexoList) {
-        this.sexoList = sexoList;
-    }
-
-    public List<SexoDto> getSexoList() {
-        return sexoList;
+    public List<SexoDto> getSexos() {
+        return Sexos;
     }
 }

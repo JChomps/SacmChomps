@@ -10,55 +10,32 @@ public class UsuarioDto implements Serializable {
         super();
     }
 
-    private Integer idUsuario;
-    private String nombre;
-    private String paterno;
-    private String materno;
-    private String password;
-    private String passwordNuevo;
     private String email;
-    private String compania;
+    private String password;
+    private Integer id_usuario;
+    private Integer ID_USUARIO;
+    private String nombre;
+    private String apellido_paterno;
+    private String apellido_materno;
+    private String compañía;
     private String puesto;
-    private Integer idSexo;
-    private Integer idPais;
-    private Integer idEstado;
+    private Integer id_sexo;
+    private Integer id_pais;
+    private Integer id_estado;
     private String municipio;
-    private String codigoPostal;
+    private String codigo_postal;
     private String direccion;
     private String telefono;
     private String extension;
     private String estatus;
+    private String passwordNuevo;
 
-    public void setIdUsuario(Integer idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public Integer getIdUsuario() {
-        return idUsuario;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setPaterno(String paterno) {
-        this.paterno = paterno;
-    }
-
-    public String getPaterno() {
-        return paterno;
-    }
-
-    public void setMaterno(String materno) {
-        this.materno = materno;
-    }
-
-    public String getMaterno() {
-        return materno;
+    public String getEmail() {
+        return email;
     }
 
     public void setPassword(String password) {
@@ -69,28 +46,52 @@ public class UsuarioDto implements Serializable {
         return password;
     }
 
-    public void setPasswordNuevo(String passwordNuevo) {
-        this.passwordNuevo = passwordNuevo;
+    public void setId_usuario(Integer id_usuario) {
+        this.id_usuario = id_usuario;
     }
 
-    public String getPasswordNuevo() {
-        return passwordNuevo;
+    public Integer getId_usuario() {
+        return id_usuario;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setID_USUARIO(Integer ID_USUARIO) {
+        this.ID_USUARIO = ID_USUARIO;
     }
 
-    public String getEmail() {
-        return email;
+    public Integer getID_USUARIO() {
+        return ID_USUARIO;
     }
 
-    public void setCompania(String compania) {
-        this.compania = compania;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public String getCompania() {
-        return compania;
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setApellido_paterno(String apellido_paterno) {
+        this.apellido_paterno = apellido_paterno;
+    }
+
+    public String getApellido_paterno() {
+        return apellido_paterno;
+    }
+
+    public void setApellido_materno(String apellido_materno) {
+        this.apellido_materno = apellido_materno;
+    }
+
+    public String getApellido_materno() {
+        return apellido_materno;
+    }
+
+    public void setCompañía(String compañía) {
+        this.compañía = compañía;
+    }
+
+    public String getCompañía() {
+        return compañía;
     }
 
     public void setPuesto(String puesto) {
@@ -101,28 +102,28 @@ public class UsuarioDto implements Serializable {
         return puesto;
     }
 
-    public void setIdSexo(Integer idSexo) {
-        this.idSexo = idSexo;
+    public void setId_sexo(Integer id_sexo) {
+        this.id_sexo = id_sexo;
     }
 
-    public Integer getIdSexo() {
-        return idSexo;
+    public Integer getId_sexo() {
+        return id_sexo;
     }
 
-    public void setIdPais(Integer idPais) {
-        this.idPais = idPais;
+    public void setId_pais(Integer id_pais) {
+        this.id_pais = id_pais;
     }
 
-    public Integer getIdPais() {
-        return idPais;
+    public Integer getId_pais() {
+        return id_pais;
     }
 
-    public void setIdEstado(Integer idEstado) {
-        this.idEstado = idEstado;
+    public void setId_estado(Integer id_estado) {
+        this.id_estado = id_estado;
     }
 
-    public Integer getIdEstado() {
-        return idEstado;
+    public Integer getId_estado() {
+        return id_estado;
     }
 
     public void setMunicipio(String municipio) {
@@ -133,12 +134,12 @@ public class UsuarioDto implements Serializable {
         return municipio;
     }
 
-    public void setCodigoPostal(String codigoPostal) {
-        this.codigoPostal = codigoPostal;
+    public void setCodigo_postal(String codigo_postal) {
+        this.codigo_postal = codigo_postal;
     }
 
-    public String getCodigoPostal() {
-        return codigoPostal;
+    public String getCodigo_postal() {
+        return codigo_postal;
     }
 
     public void setDireccion(String direccion) {
@@ -171,5 +172,13 @@ public class UsuarioDto implements Serializable {
 
     public String getEstatus() {
         return estatus;
+    }
+
+    public void setPasswordNuevo(String passwordNuevo) {
+        this.passwordNuevo = passwordNuevo;
+    }
+
+    public String getPasswordNuevo() {
+        return passwordNuevo;
     }
 }

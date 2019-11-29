@@ -19,33 +19,40 @@ public class UsuarioService {
     @POST
     @Consumes("application/json")
     @Produces("application/json")
-    @Path("updatepassword")
-    public UsuarioResultDto updatePassword(UsuarioResultDto usuarioRequest) {
+    @Path("SACM_ACTUALIZA_PWD_USUARIO")
+    public UsuarioResultDto updatePassword(UsuarioDto usuarioRequest) {
         return SacmUsuario.updatePassword(usuarioRequest);
     }
-
 
     @POST
     @Consumes("application/json")
     @Produces("application/json")
     @Path("changepassword")
-    public UsuarioResultDto changePassword(UsuarioResultDto usuarioRequest) {
+    public UsuarioResultDto changePassword(UsuarioDto usuarioRequest) {
         return SacmUsuario.changePassword(usuarioRequest);
     }
 
     @POST
     @Consumes("application/json")
     @Produces("application/json")
-    @Path("login")
-    public UsuarioResultDto login(UsuarioResultDto usuario) {
-        return SacmUsuario.login(usuario);
+    @Path("SACM_ENVIA_CORREO_ACT_PWD")
+    public UsuarioResultDto restaurarPassword(UsuarioDto usuarioRequest) {
+        return SacmUsuario.restaurarPassword(usuarioRequest);
+    }
+
+    @POST
+    @Consumes("application/json")
+    @Produces("application/json")
+    @Path("SACM_LOGIN_USER")
+    public UsuarioResultDto login(UsuarioDto usuarioRequest) {
+        return SacmUsuario.login(usuarioRequest);
     } 
 
     @POST
     @Consumes("application/json")
     @Produces("application/json")
-    @Path("registrarusuario")
-    public UsuarioResultDto registrarUsuario(UsuarioResultDto usuario) {
-        return SacmUsuario.registrarUsuario(usuario);
+    @Path("SACM_REGISTRO_USER")
+    public UsuarioResultDto registrarUsuario(UsuarioDto usuarioRequest) {
+        return SacmUsuario.registrarUsuario(usuarioRequest);
     } 
 }

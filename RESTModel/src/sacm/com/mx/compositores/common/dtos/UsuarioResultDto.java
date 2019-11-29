@@ -11,31 +11,51 @@ public class UsuarioResultDto implements Serializable {
     public UsuarioResultDto() {
         super();
     }
-    private HeaderDto headerRequest = new HeaderDto();
-    private HeaderDto headerResponse = new HeaderDto();
-    private UsuarioDto usuario = new UsuarioDto();
+    private HeaderDto ResponseBD;
+    private HeaderDto ResponseService;
+    private UsuarioDto LoginUser;
+    private UsuarioDto UpdatePWD;
+    private UsuarioDto SendEmail;
+    
+    
 
-    public void setHeaderRequest(HeaderDto headerRequest) {
-        this.headerRequest = headerRequest;
+    public void setResponseBD(HeaderDto ResponseBD) {
+        this.ResponseBD = ResponseBD;
     }
 
-    public HeaderDto getHeaderRequest() {
-        return headerRequest;
+    public HeaderDto getResponseBD() {
+        return ResponseBD;
     }
 
-    public void setHeaderResponse(HeaderDto headerResponse) {
-        this.headerResponse = headerResponse;
+    public void setResponseService(HeaderDto ResponseService) {
+        this.ResponseService = ResponseService;
     }
 
-    public HeaderDto getHeaderResponse() {
-        return headerResponse;
+    public HeaderDto getResponseService() {
+        return ResponseService;
     }
 
-    public void setUsuario(UsuarioDto usuario) {
-        this.usuario = usuario;
+    public void setLoginUser(UsuarioDto LoginUser) {
+        this.LoginUser = LoginUser;
     }
 
-    public UsuarioDto getUsuario() {
-        return usuario;
+    public UsuarioDto getLoginUser() {
+        return LoginUser;
+    }
+
+    public void setUpdatePWD(UsuarioDto UpdatePWD) {
+        this.UpdatePWD = UpdatePWD;
+    }
+
+    public UsuarioDto getUpdatePWD() {
+        return UpdatePWD;
+    }
+
+    public void setSendEmail(UsuarioDto SendEmail) {
+        this.SendEmail = SendEmail;
+    }
+
+    public UsuarioDto getSendEmail() {
+        return SendEmail;
     }
 }

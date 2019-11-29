@@ -12,40 +12,31 @@ public class PaisResultDto implements Serializable {
     public PaisResultDto() {
         super();
     }
-    private  HeaderDto headerRequest;
-    private  HeaderDto headerResponse = new HeaderDto();
-    private  PaisDto pais = new PaisDto();
-    private  List<PaisDto> paisList = new ArrayList<PaisDto>();
+    private HeaderDto ResponseBD;
+    private HeaderDto ResponseService;
+    private List<PaisDto> Paises = new ArrayList<PaisDto>();
 
-    public void setHeaderRequest(HeaderDto headerRequest) {
-        this.headerRequest = headerRequest;
+    public void setResponseBD(HeaderDto ResponseBD) {
+        this.ResponseBD = ResponseBD;
     }
 
-    public HeaderDto getHeaderRequest() {
-        return headerRequest;
+    public HeaderDto getResponseBD() {
+        return ResponseBD;
     }
 
-    public void setHeaderResponse(HeaderDto headerResponse) {
-        this.headerResponse = headerResponse;
+    public void setResponseService(HeaderDto ResponseService) {
+        this.ResponseService = ResponseService;
     }
 
-    public HeaderDto getHeaderResponse() {
-        return headerResponse;
+    public HeaderDto getResponseService() {
+        return ResponseService;
     }
 
-    public void setPais(PaisDto pais) {
-        this.pais = pais;
+    public void setPaises(List<PaisDto> Paises) {
+        this.Paises = Paises;
     }
 
-    public PaisDto getPais() {
-        return pais;
-    }
-
-    public void setPaisList(List<PaisDto> paisList) {
-        this.paisList = paisList;
-    }
-
-    public List<PaisDto> getPaisList() {
-        return paisList;
+    public List<PaisDto> getPaises() {
+        return Paises;
     }
 }

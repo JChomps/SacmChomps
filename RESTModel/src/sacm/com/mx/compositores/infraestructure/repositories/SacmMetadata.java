@@ -67,8 +67,8 @@ public class SacmMetadata {
 
             metadataResponse = new MetadataResultDto();
             // 6. Set value of dateValue property using first OUT param
-            metadataResponse.getHeaderResponse().setErrorCode(cstmt.getInt(2));
-            metadataResponse.getHeaderResponse().setErrorMsg(cstmt.getString(3));
+            metadataResponse.getHeaderResponse().setCodErr(cstmt.getInt(2));
+            metadataResponse.getHeaderResponse().setCodMsg(cstmt.getString(3));
             metadataResponse.getMetadata().setIdObra(metadataRequest.getMetadata().getIdObra());
             metadataResponse.setMetadataList(metadataList);
 
@@ -81,8 +81,8 @@ public class SacmMetadata {
             // a failure occurred log message;
             _logger.severe(e.getMessage());
             metadataResponse = new MetadataResultDto();
-            metadataResponse.getHeaderResponse().setErrorCode(1);
-            metadataResponse.getHeaderResponse().setErrorMsg(e.getMessage());
+            metadataResponse.getHeaderResponse().setCodErr(1);
+            metadataResponse.getHeaderResponse().setCodMsg(e.getMessage());
             return metadataResponse;
         }
         _logger.info("Finish getmetadatas");

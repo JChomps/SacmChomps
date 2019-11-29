@@ -31,7 +31,7 @@ public class SacmPais implements Serializable {
         super();
     }
 
-    public static PaisResultDto getPaisesByIdPais(PaisResultDto paisRequest) {
+    public static PaisResultDto getPaisesByIdPais(PaisDto paisRequest) {
         CallableStatement cstmt = null;
         ResultSet rs = null;
         Connection conn = null;
@@ -43,7 +43,7 @@ public class SacmPais implements Serializable {
             cstmt = conn.prepareCall("{call SACM_PRC_CONSULTA_PAIS(?,?,?,?)}");
 
             // 3. Set the bind values of the IN parameters
-            cstmt.setObject(1, paisRequest.getPais().getIdPais());
+            cstmt.setObject(1, paisRequest.getId_pais());
 
             // 4. Register the positions and types of the OUT parameters
             cstmt.registerOutParameter(2, Types.INTEGER);
@@ -58,12 +58,12 @@ public class SacmPais implements Serializable {
             List<PaisDto> paisList = new ArrayList<PaisDto>();
             while (rs.next()) {
                 PaisDto pais = new PaisDto();
-                pais.setIdPais(rs.getInt(1));
+                pais.setId_pais(rs.getInt(1));
                 pais.setDescripcion(rs.getString(2));
-                pais.setIsoCode2(rs.getString(3));
-                pais.setIsoCode3(rs.getString(4));
+                pais.setIsocode2(rs.getString(3));
+                pais.setIsocode3(rs.getString(4));
                 pais.setCapital(rs.getString(5));
-                pais.setCodigoTelefono(rs.getString(6));
+                pais.setCódigo_tel(rs.getString(6));
                 //pais.setActivo(rs.getInt(7));
                 //pais.setCreadoPor(rs.getString(8));
                 //pais.setFechaCreacion(rs.getDate(9));
@@ -74,10 +74,14 @@ public class SacmPais implements Serializable {
 
             paisResponse = new PaisResultDto();
             // 6. Set value of dateValue property using first OUT param
-            paisResponse.getHeaderResponse().setErrorCode(cstmt.getInt(2));
-            paisResponse.getHeaderResponse().setErrorMsg(cstmt.getString(3));
-            paisResponse.getPais().setIdPais(paisRequest.getPais().getIdPais());
-            paisResponse.setPaisList(paisList);
+            paisResponse.setResponseBD(new HeaderDto());
+            paisResponse.getResponseBD().setCodErr(cstmt.getInt(2));
+            paisResponse.getResponseBD().setCodMsg(cstmt.getString(3));
+            paisResponse.setPaises(paisList);
+
+            paisResponse.setResponseService(new HeaderDto());
+            paisResponse.getResponseService().setCodErr(cstmt.getInt(2));
+            paisResponse.getResponseService().setCodMsg(cstmt.getString(3));
 
             cstmt.close();
             rs.close();
@@ -88,8 +92,9 @@ public class SacmPais implements Serializable {
             // a failure occurred log message;
             _logger.severe(e.getMessage());
             paisResponse = new PaisResultDto();
-            paisResponse.getHeaderResponse().setErrorCode(1);
-            paisResponse.getHeaderResponse().setErrorMsg(e.getMessage());
+            paisResponse.setResponseService(new HeaderDto());
+            paisResponse.getResponseService().setCodErr(1);
+            paisResponse.getResponseService().setCodMsg(e.getMessage());
             return paisResponse;
         }
         _logger.info("Finish getPaises");

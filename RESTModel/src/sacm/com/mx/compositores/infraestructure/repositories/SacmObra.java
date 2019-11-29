@@ -14,6 +14,7 @@ import java.util.List;
 import oracle.adf.share.logging.ADFLogger;
 
 import sacm.com.mx.compositores.common.dtos.EstadoResultDto;
+import sacm.com.mx.compositores.common.dtos.HeaderDto;
 import sacm.com.mx.compositores.common.dtos.ObraDto;
 import sacm.com.mx.compositores.common.dtos.ObraResultDto;
 import sacm.com.mx.compositores.infraestructure.utils.AppModule;
@@ -29,7 +30,7 @@ public class SacmObra implements Serializable {
         super();
     }
 
-    public static ObraResultDto getVersionesByIdObra(ObraResultDto obraRequest) {
+    public static ObraResultDto getVersionesByIdObra(ObraDto obraRequest) {
         CallableStatement cstmt = null;
         ResultSet rs = null;
         Connection conn = null;
@@ -41,7 +42,7 @@ public class SacmObra implements Serializable {
             cstmt = conn.prepareCall("{call SACM_PRC_CONSULTA_VERSIONES(?,?,?,?)}");
 
             // 3. Set the bind values of the IN parameters
-            cstmt.setObject(1, obraRequest.getObra().getIdObra());
+            cstmt.setObject(1, obraRequest.getId_obra());
 
             // 4. Register the positions and types of the OUT parameters
             cstmt.registerOutParameter(2, Types.INTEGER);
@@ -56,28 +57,32 @@ public class SacmObra implements Serializable {
             List<ObraDto> obraList = new ArrayList<ObraDto>();
             while (rs.next()) {
                 ObraDto obra = new ObraDto();
-                obra.setIdObra(rs.getInt(1));
-                obra.setNumeroObra(rs.getInt(2));
-                obra.setIdObraAlbum(rs.getInt(3));
-                obra.setTituloObra(rs.getString(4));
-                obra.setDescripcionObra(rs.getString(5));
-                obra.setIdVersion(rs.getInt(6));
-                obra.setTituloVersion(rs.getString(7));
-                obra.setDescripcionVersion(rs.getString(8));
-                obra.setDuracionVersion(rs.getString(9));
-                obra.setWavVersion(rs.getObject(10) == null ? null : rs.getString(10));
-                obra.setMp3Version(rs.getObject(11) == null ? null : rs.getString(11));
-                obra.setAiffVersion(rs.getObject(12) == null ? null : rs.getString(12));
-                obra.setLyricVersion(rs.getObject(13) == null ? null : rs.getString(13));
-                obra.setTypeVersion(rs.getString(14));
+                obra.setId_obra(rs.getInt(1));
+                obra.setObra_numero(rs.getInt(2));
+                obra.setObra_id_album(rs.getInt(3));
+                obra.setObra_titulo(rs.getString(4));
+                obra.setObra_descripcion(rs.getString(5));
+                obra.setVersión_id(rs.getInt(6));
+                obra.setVersión_titulo(rs.getString(7));
+                obra.setVersión_descripcion(rs.getString(8));
+                obra.setVersión_duracion(rs.getString(9));
+                obra.setVersión_wav(rs.getObject(10) == null ? null : rs.getString(10));
+                obra.setVersión_mp3(rs.getObject(11) == null ? null : rs.getString(11));
+                obra.setVersión_aiff(rs.getObject(12) == null ? null : rs.getString(12));
+                obra.setVersión_lyric(rs.getObject(13) == null ? null : rs.getString(13));
+                obra.setVersión_type(rs.getString(14));
                 obraList.add(obra);
             }
 
             // 6. Set value of dateValue property using first OUT param
             obraResponse = new ObraResultDto();
-            obraResponse.getHeaderResponse().setErrorCode(cstmt.getInt(2));
-            obraResponse.getHeaderResponse().setErrorMsg(cstmt.getString(3));
-            obraResponse.setObraList(obraList);
+            obraResponse.setResponseBD(new HeaderDto());
+            obraResponse.getResponseBD().setCodErr(cstmt.getInt(2));
+            obraResponse.getResponseBD().setCodMsg(cstmt.getString(3));
+            obraResponse.setResponseService(new HeaderDto());
+            obraResponse.getResponseService().setCodErr(cstmt.getInt(2));
+            obraResponse.getResponseService().setCodMsg(cstmt.getString(3));
+            obraResponse.setVersiones(obraList);
 
             cstmt.close();
             rs.close();
@@ -88,8 +93,9 @@ public class SacmObra implements Serializable {
             // a failure occurred log message;
             _logger.severe(e.getMessage());
             obraResponse = new ObraResultDto();
-            obraResponse.getHeaderResponse().setErrorCode(1);
-            obraResponse.getHeaderResponse().setErrorMsg(e.getMessage());
+            obraResponse.setResponseService(new HeaderDto());
+            obraResponse.getResponseService().setCodErr(1);
+            obraResponse.getResponseService().setCodMsg(e.getMessage());
             return obraResponse;
         }
         _logger.info("Finish getVersiones");

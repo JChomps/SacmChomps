@@ -12,40 +12,31 @@ public class EstadoResultDto implements Serializable {
     public EstadoResultDto() {
         super();
     }
-    private EstadoDto estado = new EstadoDto();
-    private List<EstadoDto> estadoList = new ArrayList<EstadoDto>();
-    private HeaderDto headerRequest;
-    private HeaderDto headerResponse = new HeaderDto();
+    private HeaderDto ResponseBD;
+    private HeaderDto ResponseService;
+    private List<EstadoDto> estados = new ArrayList<EstadoDto>();
 
-    public void setHeaderRequest(HeaderDto headerRequest) {
-        this.headerRequest = headerRequest;
+    public void setResponseBD(HeaderDto ResponseBD) {
+        this.ResponseBD = ResponseBD;
     }
 
-    public HeaderDto getHeaderRequest() {
-        return headerRequest;
+    public HeaderDto getResponseBD() {
+        return ResponseBD;
     }
 
-    public void setHeaderResponse(HeaderDto headerResponse) {
-        this.headerResponse = headerResponse;
+    public void setResponseService(HeaderDto ResponseService) {
+        this.ResponseService = ResponseService;
     }
 
-    public HeaderDto getHeaderResponse() {
-        return headerResponse;
+    public HeaderDto getResponseService() {
+        return ResponseService;
     }
 
-    public void setEstado(EstadoDto estado) {
-        this.estado = estado;
+    public void setEstados(List<EstadoDto> estados) {
+        this.estados = estados;
     }
 
-    public EstadoDto getEstado() {
-        return estado;
-    }
-
-    public void setEstadoList(List<EstadoDto> estadoList) {
-        this.estadoList = estadoList;
-    }
-
-    public List<EstadoDto> getEstadoList() {
-        return estadoList;
+    public List<EstadoDto> getEstados() {
+        return estados;
     }
 }

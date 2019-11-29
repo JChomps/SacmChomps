@@ -9,130 +9,130 @@ public class ObraDto implements Serializable {
     public ObraDto() {
         super();
     }
-    private Integer idObra;
-    private Integer numeroObra;
-    private Integer idObraAlbum;
-    private String tituloObra;
-    private String descripcionObra;
-    private Integer idVersion;
-    private String tituloVersion;
-    private String descripcionVersion;
-    private String duracionVersion;
-    private String wavVersion;
-    private String mp3Version;
-    private String aiffVersion;
-    private String lyricVersion;
-    private String typeVersion;
+    private Integer id_obra;
+    private Integer obra_numero;
+    private Integer obra_id_album;
+    private String obra_titulo;
+    private String obra_descripcion;
+    private Integer versión_id;
+    private String versión_titulo;
+    private String versión_descripcion;
+    private String versión_duracion;
+    private String versión_wav;
+    private String versión_mp3;
+    private String versión_aiff;
+    private String versión_lyric;
+    private String versión_type;
 
-    public void setIdObra(Integer idObra) {
-        this.idObra = idObra;
+    public void setId_obra(Integer id_obra) {
+        this.id_obra = id_obra;
     }
 
-    public Integer getIdObra() {
-        return idObra;
+    public Integer getId_obra() {
+        return id_obra;
     }
 
-    public void setNumeroObra(Integer numeroObra) {
-        this.numeroObra = numeroObra;
+    public void setObra_numero(Integer obra_numero) {
+        this.obra_numero = obra_numero;
     }
 
-    public Integer getNumeroObra() {
-        return numeroObra;
+    public Integer getObra_numero() {
+        return obra_numero;
     }
 
-    public void setIdObraAlbum(Integer idObraAlbum) {
-        this.idObraAlbum = idObraAlbum;
+    public void setObra_id_album(Integer obra_id_album) {
+        this.obra_id_album = obra_id_album;
     }
 
-    public Integer getIdObraAlbum() {
-        return idObraAlbum;
+    public Integer getObra_id_album() {
+        return obra_id_album;
     }
 
-    public void setTituloObra(String tituloObra) {
-        this.tituloObra = tituloObra;
+    public void setObra_titulo(String obra_titulo) {
+        this.obra_titulo = obra_titulo;
     }
 
-    public String getTituloObra() {
-        return tituloObra;
+    public String getObra_titulo() {
+        return obra_titulo;
     }
 
-    public void setDescripcionObra(String descripcionObra) {
-        this.descripcionObra = descripcionObra;
+    public void setObra_descripcion(String obra_descripcion) {
+        this.obra_descripcion = obra_descripcion;
     }
 
-    public String getDescripcionObra() {
-        return descripcionObra;
+    public String getObra_descripcion() {
+        return obra_descripcion;
     }
 
-    public void setIdVersion(Integer idVersion) {
-        this.idVersion = idVersion;
+    public void setVersión_id(Integer versión_id) {
+        this.versión_id = versión_id;
     }
 
-    public Integer getIdVersion() {
-        return idVersion;
+    public Integer getVersión_id() {
+        return versión_id;
     }
 
-    public void setTituloVersion(String tituloVersion) {
-        this.tituloVersion = tituloVersion;
+    public void setVersión_titulo(String versión_titulo) {
+        this.versión_titulo = versión_titulo;
     }
 
-    public String getTituloVersion() {
-        return tituloVersion;
+    public String getVersión_titulo() {
+        return versión_titulo;
     }
 
-    public void setDescripcionVersion(String descripcionVersion) {
-        this.descripcionVersion = descripcionVersion;
+    public void setVersión_descripcion(String versión_descripcion) {
+        this.versión_descripcion = versión_descripcion;
     }
 
-    public String getDescripcionVersion() {
-        return descripcionVersion;
+    public String getVersión_descripcion() {
+        return versión_descripcion;
     }
 
-    public void setDuracionVersion(String duracionVersion) {
-        this.duracionVersion = duracionVersion;
+    public void setVersión_duracion(String versión_duracion) {
+        this.versión_duracion = versión_duracion;
     }
 
-    public String getDuracionVersion() {
-        return duracionVersion;
+    public String getVersión_duracion() {
+        return versión_duracion;
     }
 
-    public void setWavVersion(String wavVersion) {
-        this.wavVersion = wavVersion;
+    public void setVersión_wav(String versión_wav) {
+        this.versión_wav = versión_wav;
     }
 
-    public String getWavVersion() {
-        return wavVersion;
+    public String getVersión_wav() {
+        return versión_wav;
     }
 
-    public void setMp3Version(String mp3Version) {
-        this.mp3Version = mp3Version;
+    public void setVersión_mp3(String versión_mp3) {
+        this.versión_mp3 = versión_mp3;
     }
 
-    public String getMp3Version() {
-        return mp3Version;
+    public String getVersión_mp3() {
+        return versión_mp3;
     }
 
-    public void setAiffVersion(String aiffVersion) {
-        this.aiffVersion = aiffVersion;
+    public void setVersión_aiff(String versión_aiff) {
+        this.versión_aiff = versión_aiff;
     }
 
-    public String getAiffVersion() {
-        return aiffVersion;
+    public String getVersión_aiff() {
+        return versión_aiff;
     }
 
-    public void setLyricVersion(String lyricVersion) {
-        this.lyricVersion = lyricVersion;
+    public void setVersión_lyric(String versión_lyric) {
+        this.versión_lyric = versión_lyric;
     }
 
-    public String getLyricVersion() {
-        return lyricVersion;
+    public String getVersión_lyric() {
+        return versión_lyric;
     }
 
-    public void setTypeVersion(String typeVersion) {
-        this.typeVersion = typeVersion;
+    public void setVersión_type(String versión_type) {
+        this.versión_type = versión_type;
     }
 
-    public String getTypeVersion() {
-        return typeVersion;
+    public String getVersión_type() {
+        return versión_type;
     }
 }

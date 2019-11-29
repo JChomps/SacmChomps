@@ -1,15 +1,11 @@
 package sacm.com.mx.compositores.domain.restservices;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.DefaultValue;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
-import javax.ws.rs.QueryParam;
-
+import sacm.com.mx.compositores.common.dtos.EstadoDto;
 import sacm.com.mx.compositores.common.dtos.EstadoResultDto;
 import sacm.com.mx.compositores.infraestructure.repositories.SacmEstado;
 
@@ -22,8 +18,8 @@ public class EstadoService {
     @POST
     @Consumes("application/json")
     @Produces("application/json")
-    @Path("getestadosbypais")
-    public EstadoResultDto getEstadosByPais(EstadoResultDto estadoRequest) {
+    @Path("SACM_CAT_ESTADO")
+    public EstadoResultDto getEstadosByPais(EstadoDto estadoRequest) {
         return SacmEstado.getEstadosByPais(estadoRequest);
     }
 }

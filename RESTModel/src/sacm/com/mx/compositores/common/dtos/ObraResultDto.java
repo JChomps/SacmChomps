@@ -12,40 +12,31 @@ public class ObraResultDto implements Serializable {
     public ObraResultDto() {
         super();
     }
-    private  HeaderDto headerRequest;
-    private  HeaderDto headerResponse = new HeaderDto();
-    private  ObraDto obra = new ObraDto();
-    private  List<ObraDto> obraList = new ArrayList<ObraDto>();
+    private HeaderDto ResponseBD;
+    private HeaderDto ResponseService;
+    private List<ObraDto> Versiones = new ArrayList<ObraDto>();
 
-    public void setHeaderRequest(HeaderDto headerRequest) {
-        this.headerRequest = headerRequest;
+    public void setResponseBD(HeaderDto ResponseBD) {
+        this.ResponseBD = ResponseBD;
     }
 
-    public HeaderDto getHeaderRequest() {
-        return headerRequest;
+    public HeaderDto getResponseBD() {
+        return ResponseBD;
     }
 
-    public void setHeaderResponse(HeaderDto headerResponse) {
-        this.headerResponse = headerResponse;
+    public void setResponseService(HeaderDto ResponseService) {
+        this.ResponseService = ResponseService;
     }
 
-    public HeaderDto getHeaderResponse() {
-        return headerResponse;
+    public HeaderDto getResponseService() {
+        return ResponseService;
     }
 
-    public void setObra(ObraDto obra) {
-        this.obra = obra;
+    public void setVersiones(List<ObraDto> Versiones) {
+        this.Versiones = Versiones;
     }
 
-    public ObraDto getObra() {
-        return obra;
-    }
-
-    public void setObraList(List<ObraDto> obraList) {
-        this.obraList = obraList;
-    }
-
-    public List<ObraDto> getObraList() {
-        return obraList;
+    public List<ObraDto> getVersiones() {
+        return Versiones;
     }
 }

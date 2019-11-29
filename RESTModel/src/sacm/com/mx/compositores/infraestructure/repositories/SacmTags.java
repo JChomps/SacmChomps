@@ -68,8 +68,8 @@ public class SacmTags implements Serializable {
 
             // 6. Set value of dateValue property using first OUT param
             tagsResponse = new TagsResultDto();
-            tagsResponse.getHeaderResponse().setErrorCode(cstmt.getInt(2));
-            tagsResponse.getHeaderResponse().setErrorMsg(cstmt.getString(3));
+            tagsResponse.getHeaderResponse().setCodErr(cstmt.getInt(2));
+            tagsResponse.getHeaderResponse().setCodMsg(cstmt.getString(3));
             tagsResponse.getTag().setIdTag(tagsRequest.getTag().getIdTag());
             tagsResponse.setTagsList(tagsList);
 
@@ -82,8 +82,8 @@ public class SacmTags implements Serializable {
             // a failure occurred log message;
             _logger.severe(e.getMessage());
             tagsResponse = new TagsResultDto();
-            tagsResponse.getHeaderResponse().setErrorCode(1);
-            tagsResponse.getHeaderResponse().setErrorMsg(e.getMessage());
+            tagsResponse.getHeaderResponse().setCodErr(1);
+            tagsResponse.getHeaderResponse().setCodMsg(e.getMessage());
             return tagsResponse;
         }
         _logger.info("Finish getEstados");

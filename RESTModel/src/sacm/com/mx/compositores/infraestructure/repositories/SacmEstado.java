@@ -33,7 +33,7 @@ public class SacmEstado implements Serializable {
         super();
     }
 
-    public static EstadoResultDto getEstadosByPais(EstadoResultDto estadoRequest) {
+    public static EstadoResultDto getEstadosByPais(EstadoDto estadoRequest) {
         CallableStatement cstmt = null;
         ResultSet rs = null;
         Connection conn = null;
@@ -44,7 +44,7 @@ public class SacmEstado implements Serializable {
             cstmt = conn.prepareCall("{call SACM_PRC_CONSULTA_ESTADO(?,?,?,?)}");
 
             // 3. Set the bind values of the IN parameters
-            cstmt.setObject(1, estadoRequest.getEstado().getIdPais());
+            cstmt.setObject(1, estadoRequest.getId_pais());
 
             // 4. Register the positions and types of the OUT parameters
             cstmt.registerOutParameter(2, Types.INTEGER);
@@ -56,22 +56,26 @@ public class SacmEstado implements Serializable {
 
             // print the results
             rs = (ResultSet) cstmt.getObject(4);
-            List<EstadoDto> estadoList = new ArrayList<EstadoDto>();
+            List<EstadoDto> estados = new ArrayList<EstadoDto>();
             while (rs.next()) {
                 EstadoDto estado = new EstadoDto();
-                estado.setIdPais(rs.getInt(1));
+                estado.setId_pais(rs.getInt(1));
                 estado.setPais(rs.getString(2));
-                estado.setIdEstado(rs.getInt(3));
+                estado.setId_estado(rs.getInt(3));
                 estado.setEstado(rs.getString(4));
-                estadoList.add(estado);
+                estados.add(estado);
             }
 
             // 6. Set value of dateValue property using first OUT param
             estadoResponse = new EstadoResultDto();
-            estadoResponse.getHeaderResponse().setErrorCode(cstmt.getInt(2));
-            estadoResponse.getHeaderResponse().setErrorMsg(cstmt.getString(3));
-            estadoResponse.getEstado().setIdPais(estadoRequest.getEstado().getIdPais());
-            estadoResponse.setEstadoList(estadoList);
+            estadoResponse.setResponseBD(new HeaderDto());
+            estadoResponse.getResponseBD().setCodErr(cstmt.getInt(2));
+            estadoResponse.getResponseBD().setCodMsg(cstmt.getString(3));
+            estadoResponse.setEstados(estados);
+            
+            estadoResponse.setResponseService(new HeaderDto());
+            estadoResponse.getResponseService().setCodErr(cstmt.getInt(2));
+            estadoResponse.getResponseService().setCodMsg(cstmt.getString(3));
 
             cstmt.close();
             rs.close();
@@ -82,8 +86,9 @@ public class SacmEstado implements Serializable {
             // a failure occurred log message;
             _logger.severe(e.getMessage());
             estadoResponse = new EstadoResultDto();
-            estadoResponse.getHeaderResponse().setErrorCode(1);
-            estadoResponse.getHeaderResponse().setErrorMsg(e.getMessage());
+            estadoResponse.setResponseService(new HeaderDto());
+            estadoResponse.getResponseService().setCodErr(1);
+            estadoResponse.getResponseService().setCodMsg(e.getMessage());
             return estadoResponse;
         }
 

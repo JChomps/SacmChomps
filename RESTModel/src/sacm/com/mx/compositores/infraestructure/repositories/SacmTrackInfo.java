@@ -69,8 +69,8 @@ public class SacmTrackInfo implements Serializable {
 
             trackInfoResponse = new TrackInfoResultDto();
             // 6. Set value of dateValue property using first OUT param
-            trackInfoResponse.getHeaderResponse().setErrorCode(cstmt.getInt(2));
-            trackInfoResponse.getHeaderResponse().setErrorMsg(cstmt.getString(3));
+            trackInfoResponse.getHeaderResponse().setCodErr(cstmt.getInt(2));
+            trackInfoResponse.getHeaderResponse().setCodMsg(cstmt.getString(3));
             trackInfoResponse.getTrackInfo().setIdObra(trackinfoRequest.getTrackInfo().getIdObra());
             trackInfoResponse.setTrackInfoList(trackInfoList);
 
@@ -83,8 +83,8 @@ public class SacmTrackInfo implements Serializable {
             // a failure occurred log message;
             _logger.severe(e.getMessage());
             trackInfoResponse = new TrackInfoResultDto();
-            trackInfoResponse.getHeaderResponse().setErrorCode(1);
-            trackInfoResponse.getHeaderResponse().setErrorMsg(e.getMessage());
+            trackInfoResponse.getHeaderResponse().setCodErr(1);
+            trackInfoResponse.getHeaderResponse().setCodMsg(e.getMessage());
             return trackInfoResponse;
         }
         _logger.info("Finish getEstados");

@@ -9,40 +9,22 @@ public class HeaderDto implements Serializable {
     public HeaderDto() {
         super();
     }
-    private String operacion;
-    private String sistemaOrigen;
-    private Integer errorCode;
-    private String errorMsg;
+    private Integer CodErr;
+    private String CodMsg;
 
-    public void setOperacion(String operacion) {
-        this.operacion = operacion;
+    public void setCodErr(Integer CodErr) {
+        this.CodErr = CodErr;
     }
 
-    public String getOperacion() {
-        return operacion;
+    public Integer getCodErr() {
+        return CodErr;
     }
 
-    public void setSistemaOrigen(String sistemaOrigen) {
-        this.sistemaOrigen = sistemaOrigen;
+    public void setCodMsg(String CodMsg) {
+        this.CodMsg = CodMsg;
     }
 
-    public String getSistemaOrigen() {
-        return sistemaOrigen;
-    }
-
-    public void setErrorCode(Integer errorCode) {
-        this.errorCode = errorCode;
-    }
-
-    public Integer getErrorCode() {
-        return errorCode;
-    }
-
-    public void setErrorMsg(String errorMsg) {
-        this.errorMsg = errorMsg;
-    }
-
-    public String getErrorMsg() {
-        return errorMsg;
+    public String getCodMsg() {
+        return CodMsg;
     }
 }

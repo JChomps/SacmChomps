@@ -5,17 +5,12 @@ import java.io.Serializable;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Types;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import oracle.adf.share.logging.ADFLogger;
 
-import sacm.com.mx.compositores.common.dtos.EstadoResultDto;
 import sacm.com.mx.compositores.common.dtos.HeaderDto;
-import sacm.com.mx.compositores.common.dtos.TagsDto;
+import sacm.com.mx.compositores.common.dtos.LegalesDto;
 import sacm.com.mx.compositores.common.dtos.LegalesResultDto;
 import sacm.com.mx.compositores.infraestructure.utils.AppModule;
 
@@ -30,9 +25,8 @@ public class SacmLegales implements Serializable {
         super();
     }
 
-    public static LegalesResultDto getLegales(LegalesResultDto legalesRequest) {
+    public static LegalesResultDto getLegales(LegalesDto legalesRequest) {
         CallableStatement cstmt = null;
-        ResultSet rs = null;
         Connection conn = null;
 
         try {
@@ -57,15 +51,18 @@ public class SacmLegales implements Serializable {
 
             // 6. Set value of dateValue property using first OUT param
             legalesResponse = new LegalesResultDto();
-            legalesResponse.getHeaderResponse().setErrorCode(cstmt.getInt(5));
-            legalesResponse.getHeaderResponse().setErrorMsg(cstmt.getString(6));
-            legalesResponse.getLegal().setTituloTerminos(cstmt.getString(1));
-            legalesResponse.getLegal().setMensajeTerminos(cstmt.getString(2));
-            legalesResponse.getLegal().setTituloAviso(cstmt.getString(3));
-            legalesResponse.getLegal().setMensajeAviso(cstmt.getString(4));
+            legalesResponse.setResponseBD(new HeaderDto());
+            legalesResponse.getResponseBD().setCodErr(cstmt.getInt(5));
+            legalesResponse.getResponseBD().setCodMsg(cstmt.getString(6));
+            legalesResponse.setResponseService(new HeaderDto());
+            legalesResponse.getResponseService().setCodErr(cstmt.getInt(5));
+            legalesResponse.getResponseService().setCodMsg(cstmt.getString(6));
+            legalesResponse.getTerminosPortal().setTitulo_terminos(cstmt.getString(1));
+            legalesResponse.getTerminosPortal().setMensaje_terminos(cstmt.getString(2));
+            legalesResponse.getTerminosPortal().setTitulo_aviso(cstmt.getString(3));
+            legalesResponse.getTerminosPortal().setMensaje_aviso(cstmt.getString(4));
 
             cstmt.close();
-            rs.close();
             conn.close();
             conn = null;
 
@@ -73,8 +70,9 @@ public class SacmLegales implements Serializable {
             // a failure occurred log message;
             _logger.severe(e.getMessage());
             legalesResponse = new LegalesResultDto();
-            legalesResponse.getHeaderResponse().setErrorCode(1);
-            legalesResponse.getHeaderResponse().setErrorMsg(e.getMessage());
+            legalesResponse.setResponseService(new HeaderDto());
+            legalesResponse.getResponseService().setCodErr(1);
+            legalesResponse.getResponseService().setCodMsg(e.getMessage());
             return legalesResponse;
         }
         _logger.info("Finish getLegales");
