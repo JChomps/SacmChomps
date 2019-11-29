@@ -17,7 +17,7 @@ public class UsuarioDto implements Serializable {
     private String nombre;
     private String apellido_paterno;
     private String apellido_materno;
-    private String compañía;
+    private String compania;
     private String puesto;
     private Integer id_sexo;
     private Integer id_pais;
@@ -86,12 +86,12 @@ public class UsuarioDto implements Serializable {
         return apellido_materno;
     }
 
-    public void setCompañía(String compañía) {
-        this.compañía = compañía;
+    public void setCompania(String compania) {
+        this.compania = compania;
     }
 
-    public String getCompañía() {
-        return compañía;
+    public String getCompania() {
+        return compania;
     }
 
     public void setPuesto(String puesto) {

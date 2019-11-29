@@ -62,15 +62,15 @@ public class SacmObra implements Serializable {
                 obra.setObra_id_album(rs.getInt(3));
                 obra.setObra_titulo(rs.getString(4));
                 obra.setObra_descripcion(rs.getString(5));
-                obra.setVersión_id(rs.getInt(6));
-                obra.setVersión_titulo(rs.getString(7));
-                obra.setVersión_descripcion(rs.getString(8));
-                obra.setVersión_duracion(rs.getString(9));
-                obra.setVersión_wav(rs.getObject(10) == null ? null : rs.getString(10));
-                obra.setVersión_mp3(rs.getObject(11) == null ? null : rs.getString(11));
-                obra.setVersión_aiff(rs.getObject(12) == null ? null : rs.getString(12));
-                obra.setVersión_lyric(rs.getObject(13) == null ? null : rs.getString(13));
-                obra.setVersión_type(rs.getString(14));
+                obra.setVersion_id(rs.getInt(6));
+                obra.setVersion_titulo(rs.getString(7));
+                obra.setVersion_descripcion(rs.getString(8));
+                obra.setVersion_duracion(rs.getString(9));
+                obra.setVersion_wav(rs.getObject(10) == null ? null : rs.getString(10));
+                obra.setVersion_mp3(rs.getObject(11) == null ? null : rs.getString(11));
+                obra.setVersion_aiff(rs.getObject(12) == null ? null : rs.getString(12));
+                obra.setVersion_lyric(rs.getObject(13) == null ? null : rs.getString(13));
+                obra.setVersion_type(rs.getString(14));
                 obraList.add(obra);
             }
 

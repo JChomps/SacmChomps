@@ -18,7 +18,7 @@ public class LegalesService {
     @POST
     @Consumes("application/json")
     @Produces("application/json")
-    @Path("SACM_TERMINOS_AVISO")
+    @Path("sacm_terminos_aviso")
     public LegalesResultDto getLegales(LegalesDto legalesRequest) {
         return SacmLegales.getLegales(legalesRequest);
     }

@@ -16,7 +16,7 @@ public class PaisDto implements Serializable {
     private String capital;
     private String isocode2;
     private String isocode3;
-    private String código_tel;
+    private String codigo_tel;
 
     public void setId_pais(Integer id_pais) {
         this.id_pais = id_pais;
@@ -58,11 +58,11 @@ public class PaisDto implements Serializable {
         return isocode3;
     }
 
-    public void setCódigo_tel(String código_tel) {
-        this.código_tel = código_tel;
+    public void setCodigo_tel(String codigo_tel) {
+        this.codigo_tel = codigo_tel;
     }
 
-    public String getCódigo_tel() {
-        return código_tel;
+    public String getCodigo_tel() {
+        return codigo_tel;
     }
 }

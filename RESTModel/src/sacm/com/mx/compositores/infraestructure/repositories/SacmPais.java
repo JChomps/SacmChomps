@@ -63,7 +63,7 @@ public class SacmPais implements Serializable {
                 pais.setIsocode2(rs.getString(3));
                 pais.setIsocode3(rs.getString(4));
                 pais.setCapital(rs.getString(5));
-                pais.setCódigo_tel(rs.getString(6));
+                pais.setCodigo_tel(rs.getString(6));
                 //pais.setActivo(rs.getInt(7));
                 //pais.setCreadoPor(rs.getString(8));
                 //pais.setFechaCreacion(rs.getDate(9));

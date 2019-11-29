@@ -18,7 +18,7 @@ public class SexoService {
     @POST
     @Consumes("application/json")
     @Produces("application/json")
-    @Path("SACM_CAT_SEXO")
+    @Path("sacm_cat_sexo")
     public SexoResultDto getSexoByIdSexo(SexoDto sexoRequest) {
         return SacmSexo.getSexoByIdSexo(sexoRequest);
     }

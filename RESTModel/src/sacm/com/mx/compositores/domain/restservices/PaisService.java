@@ -18,7 +18,7 @@ public class PaisService {
     @POST
     @Consumes("application/json")
     @Produces("application/json")
-    @Path("SACM_CAT_PAIS")
+    @Path("sacm_cat_pais")
     public PaisResultDto getPaisesByIdPais(PaisDto paisRequest) {
         return SacmPais.getPaisesByIdPais(paisRequest);
     }

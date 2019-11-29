@@ -18,7 +18,7 @@ public class EstadoService {
     @POST
     @Consumes("application/json")
     @Produces("application/json")
-    @Path("SACM_CAT_ESTADO")
+    @Path("sacm_cat_estado")
     public EstadoResultDto getEstadosByPais(EstadoDto estadoRequest) {
         return SacmEstado.getEstadosByPais(estadoRequest);
     }

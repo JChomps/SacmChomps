@@ -19,7 +19,7 @@ public class UsuarioService {
     @POST
     @Consumes("application/json")
     @Produces("application/json")
-    @Path("SACM_ACTUALIZA_PWD_USUARIO")
+    @Path("sacm_actualiza_pwd_usuario")
     public UsuarioResultDto updatePassword(UsuarioDto usuarioRequest) {
         return SacmUsuario.updatePassword(usuarioRequest);
     }
@@ -27,7 +27,7 @@ public class UsuarioService {
     @POST
     @Consumes("application/json")
     @Produces("application/json")
-    @Path("changepassword")
+    @Path("sacm_cambia_pwd_usuario")
     public UsuarioResultDto changePassword(UsuarioDto usuarioRequest) {
         return SacmUsuario.changePassword(usuarioRequest);
     }
@@ -35,7 +35,7 @@ public class UsuarioService {
     @POST
     @Consumes("application/json")
     @Produces("application/json")
-    @Path("SACM_ENVIA_CORREO_ACT_PWD")
+    @Path("sacm_envia_correo_pwd")
     public UsuarioResultDto restaurarPassword(UsuarioDto usuarioRequest) {
         return SacmUsuario.restaurarPassword(usuarioRequest);
     }
@@ -43,7 +43,7 @@ public class UsuarioService {
     @POST
     @Consumes("application/json")
     @Produces("application/json")
-    @Path("SACM_LOGIN_USER")
+    @Path("sacm_login_user")
     public UsuarioResultDto login(UsuarioDto usuarioRequest) {
         return SacmUsuario.login(usuarioRequest);
     } 
@@ -51,7 +51,7 @@ public class UsuarioService {
     @POST
     @Consumes("application/json")
     @Produces("application/json")
-    @Path("SACM_REGISTRO_USER")
+    @Path("sacm_registro_user")
     public UsuarioResultDto registrarUsuario(UsuarioDto usuarioRequest) {
         return SacmUsuario.registrarUsuario(usuarioRequest);
     } 

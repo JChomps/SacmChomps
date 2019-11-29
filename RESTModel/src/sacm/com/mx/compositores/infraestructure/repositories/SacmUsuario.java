@@ -275,7 +275,7 @@ public class SacmUsuario {
             cstmt.setObject(3, LoginUser.getApellido_materno());
             cstmt.setObject(4, LoginUser.getPassword());
             cstmt.setObject(5, LoginUser.getEmail());
-            cstmt.setObject(6, LoginUser.getCompañía());
+            cstmt.setObject(6, LoginUser.getCompania());
             cstmt.setObject(7, LoginUser.getPuesto());
             cstmt.setObject(8, LoginUser.getId_sexo());
             cstmt.setObject(9, LoginUser.getId_pais());
