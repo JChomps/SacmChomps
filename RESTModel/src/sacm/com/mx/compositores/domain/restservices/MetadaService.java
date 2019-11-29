@@ -9,6 +9,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import sacm.com.mx.compositores.common.dtos.MetadataDto;
 import sacm.com.mx.compositores.common.dtos.MetadataResultDto;
 import sacm.com.mx.compositores.infraestructure.repositories.SacmMetadata;
 
@@ -21,8 +22,8 @@ public class MetadaService {
     @POST
     @Consumes("application/json")
     @Produces("application/json")
-    @Path("getmetadata")
-    public MetadataResultDto getMetadata(MetadataResultDto metadataRequest) {
+    @Path("sacm_metadata")
+    public MetadataResultDto getMetadata(MetadataDto metadataRequest) {
         return SacmMetadata.getMetadata(metadataRequest);
     }
 }

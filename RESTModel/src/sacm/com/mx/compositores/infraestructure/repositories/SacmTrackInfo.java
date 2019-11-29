@@ -30,7 +30,7 @@ public class SacmTrackInfo implements Serializable {
         super();
     }
 
-    public static TrackInfoResultDto getTrackInfoByIdObra(TrackInfoResultDto trackinfoRequest) {
+    public static TrackInfoResultDto getTrackInfoByIdObra(TrackInfoDto trackinfoRequest) {
         CallableStatement cstmt = null;
         ResultSet rs = null;
         Connection conn = null;
@@ -42,7 +42,7 @@ public class SacmTrackInfo implements Serializable {
             cstmt = conn.prepareCall("{call SACM_PRC_CONSULTA_TRACKINFO(?,?,?,?)}");
 
             // 3. Set the bind values of the IN parameters
-            cstmt.setObject(1, trackinfoRequest.getTrackInfo().getIdObra());
+            cstmt.setObject(1, trackinfoRequest.getIdObra());
 
             // 4. Register the positions and types of the OUT parameters
             cstmt.registerOutParameter(2, Types.INTEGER);
@@ -71,7 +71,7 @@ public class SacmTrackInfo implements Serializable {
             // 6. Set value of dateValue property using first OUT param
             trackInfoResponse.getHeaderResponse().setCodErr(cstmt.getInt(2));
             trackInfoResponse.getHeaderResponse().setCodMsg(cstmt.getString(3));
-            trackInfoResponse.getTrackInfo().setIdObra(trackinfoRequest.getTrackInfo().getIdObra());
+            trackInfoResponse.getTrackInfo().setIdObra(trackinfoRequest.getIdObra());
             trackInfoResponse.setTrackInfoList(trackInfoList);
 
             cstmt.close();

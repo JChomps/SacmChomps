@@ -6,6 +6,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
+import sacm.com.mx.compositores.common.dtos.BeneficioDto;
 import sacm.com.mx.compositores.common.dtos.BeneficioResultDto;
 import sacm.com.mx.compositores.infraestructure.repositories.SacmBeneficio;
 
@@ -19,7 +20,7 @@ public class BeneficioService {
     @Consumes("application/json")
     @Produces("application/json")
     @Path("sacm_beneficios")
-    public BeneficioResultDto getAcativaCuenta(BeneficioResultDto beneficioRequest) {
+    public BeneficioResultDto getAcativaCuenta(BeneficioDto beneficioRequest) {
         return SacmBeneficio.getBeneficios(beneficioRequest);
     }
 }

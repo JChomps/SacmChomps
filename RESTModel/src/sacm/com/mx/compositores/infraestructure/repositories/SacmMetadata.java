@@ -26,7 +26,7 @@ public class SacmMetadata {
         super();
     }
 
-    public static MetadataResultDto getMetadata(MetadataResultDto metadataRequest) {
+    public static MetadataResultDto getMetadata(MetadataDto metadataRequest) {
         CallableStatement cstmt = null;
         ResultSet rs = null;
         Connection conn = null;
@@ -38,7 +38,7 @@ public class SacmMetadata {
             cstmt = conn.prepareCall("{call SACM_PRC_CONSULTA_METADATA(?,?,?,?)}");
 
             // 3. Set the bind values of the IN parameters
-            cstmt.setObject(1, metadataRequest.getMetadata().getIdObra());
+            cstmt.setObject(1, metadataRequest.getIdObra());
 
             // 4. Register the positions and types of the OUT parameters
             cstmt.registerOutParameter(2, Types.INTEGER);
@@ -69,7 +69,7 @@ public class SacmMetadata {
             // 6. Set value of dateValue property using first OUT param
             metadataResponse.getHeaderResponse().setCodErr(cstmt.getInt(2));
             metadataResponse.getHeaderResponse().setCodMsg(cstmt.getString(3));
-            metadataResponse.getMetadata().setIdObra(metadataRequest.getMetadata().getIdObra());
+            metadataResponse.getMetadata().setIdObra(metadataRequest.getIdObra());
             metadataResponse.setMetadataList(metadataList);
 
             cstmt.close();

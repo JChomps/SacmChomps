@@ -30,7 +30,7 @@ public class SacmTags implements Serializable {
         super();
     }
 
-    public static TagsResultDto getTagsByIdTag(TagsResultDto tagsRequest) {
+    public static TagsResultDto getTagsByIdTag(TagsDto tagsRequest) {
         CallableStatement cstmt = null;
         ResultSet rs = null;
         Connection conn = null;
@@ -42,7 +42,7 @@ public class SacmTags implements Serializable {
             cstmt = conn.prepareCall("{call SACM_PRC_CONSULTA_TAGS(?,?,?,?)}");
 
             // 3. Set the bind values of the IN parameters
-            cstmt.setObject(1, tagsRequest.getTag().getIdTag());
+            cstmt.setObject(1, tagsRequest.getIdTag());
 
             // 4. Register the positions and types of the OUT parameters
             cstmt.registerOutParameter(2, Types.INTEGER);
@@ -70,7 +70,7 @@ public class SacmTags implements Serializable {
             tagsResponse = new TagsResultDto();
             tagsResponse.getHeaderResponse().setCodErr(cstmt.getInt(2));
             tagsResponse.getHeaderResponse().setCodMsg(cstmt.getString(3));
-            tagsResponse.getTag().setIdTag(tagsRequest.getTag().getIdTag());
+            tagsResponse.getTag().setIdTag(tagsRequest.getIdTag());
             tagsResponse.setTagsList(tagsList);
 
             cstmt.close();

@@ -5,6 +5,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
+import sacm.com.mx.compositores.common.dtos.ActivacionDto;
 import sacm.com.mx.compositores.common.dtos.ActivacionResultDto;
 import sacm.com.mx.compositores.infraestructure.repositories.SacmActivacion;
 
@@ -17,7 +18,7 @@ public class ActivacionService {
     @POST
     @Produces("application/json")
     @Path("sacm_activa_cuenta")
-    public ActivacionResultDto getAcativaCuenta(ActivacionResultDto ActivRequest) {
+    public ActivacionResultDto getAcativaCuenta(ActivacionDto ActivRequest) {
         return SacmActivacion.getActivacionResult(ActivRequest);
     }
     

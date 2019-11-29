@@ -6,6 +6,7 @@ import java.sql.Types;
 
 import oracle.adf.share.logging.ADFLogger;
 
+import sacm.com.mx.compositores.common.dtos.ActivacionDto;
 import sacm.com.mx.compositores.common.dtos.ActivacionResultDto;
 import sacm.com.mx.compositores.infraestructure.utils.AppModule;
 
@@ -22,7 +23,7 @@ public class SacmActivacion {
     }
 
 
-    public static ActivacionResultDto getActivacionResult(ActivacionResultDto activacionRequest) {
+    public static ActivacionResultDto getActivacionResult(ActivacionDto activacionRequest) {
         CallableStatement cstmt = null;
         Connection conn = null;
 
@@ -32,7 +33,7 @@ public class SacmActivacion {
             cstmt = conn.prepareCall("{call SACM_PRC_USUARIO_ACTIVA_CTA(?,?,?)}");
 
             // 3. Set the bind values of the IN parameters
-            cstmt.setObject(1, activacionRequest.getActivacion().getPimail());
+            cstmt.setObject(1, activacionRequest.getPimail());
 
             // 4. Register the positions and types of the OUT parameters
             cstmt.registerOutParameter(2, Types.INTEGER);

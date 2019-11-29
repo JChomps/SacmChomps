@@ -6,6 +6,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 
+import sacm.com.mx.compositores.common.dtos.TagsDto;
 import sacm.com.mx.compositores.common.dtos.TagsResultDto;
 import sacm.com.mx.compositores.infraestructure.repositories.SacmTags;
 
@@ -17,8 +18,8 @@ public class TagsService {
 
     @POST
     @Produces("application/json")
-    @Path("gettagsbyidtag")
-    public TagsResultDto getTagsByIdTag(TagsResultDto tagsRequest) {
+    @Path("sacm_cat_tags")
+    public TagsResultDto getTagsByIdTag(TagsDto tagsRequest) {
         return SacmTags.getTagsByIdTag(tagsRequest);
     }
 }

@@ -7,9 +7,11 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 
+import sacm.com.mx.compositores.common.dtos.CompObraDto;
 import sacm.com.mx.compositores.common.dtos.CompObraResultDto;
 import sacm.com.mx.compositores.common.dtos.ObraDto;
 import sacm.com.mx.compositores.common.dtos.ObraResultDto;
+import sacm.com.mx.compositores.common.dtos.PalabraDto;
 import sacm.com.mx.compositores.common.dtos.PalabraIdObra;
 import sacm.com.mx.compositores.infraestructure.repositories.SacmObra;
 
@@ -32,7 +34,7 @@ public class ObraService {
     @Consumes("application/json")
     @Produces("application/json")
     @Path("sacm_consulta_obra")
-    public ObraResultDto getObraByPalabra(PalabraIdObra palabraRequest) {
+    public ObraResultDto getObraByPalabra(PalabraDto palabraRequest) {
         return SacmObra.sacmConsultaObra(palabraRequest);
     }
     
@@ -48,7 +50,7 @@ public class ObraService {
     @Consumes("application/json")
     @Produces("application/json")
     @Path("sacm_compartir_obra")
-    public ObraResultDto compartirObra(CompObraResultDto obraRequest) {
+    public ObraResultDto compartirObra(CompObraDto obraRequest) {
         return SacmObra.compartirObra(obraRequest);
     }
     }

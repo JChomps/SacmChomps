@@ -28,7 +28,7 @@ public class SacmBeneficio implements Serializable {
         super();
     }
     
-    public static BeneficioResultDto getBeneficios(BeneficioResultDto beneficioRequest) {
+    public static BeneficioResultDto getBeneficios(BeneficioDto beneficioRequest) {
         CallableStatement cstmt = null;
         ResultSet rs = null;
         Connection conn = null;
