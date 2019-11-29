@@ -11,11 +11,11 @@ public class ActivacionDto {
     
     private String mail;
 
-    public String getMail() {
+    public String getPimail() {
         return mail;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setPimail(String pimail) {
+        this.mail = pimail;
     }
     }

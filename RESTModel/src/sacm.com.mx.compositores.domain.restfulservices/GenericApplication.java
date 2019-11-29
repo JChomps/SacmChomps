@@ -9,6 +9,8 @@ import javax.ws.rs.core.Application;
 import oracle.wsm.metadata.annotation.PolicyReference;
 import oracle.wsm.metadata.annotation.PolicySet;
 
+import sacm.com.mx.compositores.domain.restservices.ActivacionService;
+import sacm.com.mx.compositores.domain.restservices.BeneficioService;
 import sacm.com.mx.compositores.domain.restservices.EstadoService;
 import sacm.com.mx.compositores.domain.restservices.LegalesService;
 import sacm.com.mx.compositores.domain.restservices.MetadaService;
@@ -26,6 +28,8 @@ public class GenericApplication extends Application {
         Set<Class<?>> classes = new HashSet<Class<?>>();
 
         // Register root resources.
+        classes.add(ActivacionService.class);
+        classes.add(BeneficioService.class);        
         classes.add(ObraService.class);
         classes.add(PaisService.class);
         classes.add(EstadoService.class);

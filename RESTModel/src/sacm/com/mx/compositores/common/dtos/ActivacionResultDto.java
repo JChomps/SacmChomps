@@ -1,33 +1,32 @@
 package sacm.com.mx.compositores.common.dtos;
 
-
 public class ActivacionResultDto {
 
     @SuppressWarnings("compatibility:-8073432289962294725")
     private static final long serialVersionUID = 1L;
     
     private ActivacionDto activacion= new ActivacionDto();
-    private HeaderDto ResponseBD;
-    private HeaderDto ResponseService = new HeaderDto();
+    private HeaderDto headerRequest;
+    private HeaderDto headerResponse = new HeaderDto();
     
     public ActivacionResultDto() {
         super();
     }
 
     public HeaderDto getHeaderRequest() {
-        return ResponseBD;
+        return headerRequest;
     }
 
     public void setHeaderRequest(HeaderDto headerRequest) {
-        this.ResponseBD = headerRequest;
+        this.headerRequest = headerRequest;
     }
 
     public HeaderDto getHeaderResponse() {
-        return ResponseService;
+        return headerResponse;
     }
 
     public void setHeaderResponse(HeaderDto headerResponse) {
-        this.ResponseService = headerResponse;
+        this.headerResponse = headerResponse;
     }
 
     public ActivacionDto getActivacion() {

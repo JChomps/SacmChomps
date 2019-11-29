@@ -14,6 +14,7 @@ public class ObraResultDto implements Serializable {
     }
     private HeaderDto ResponseBD;
     private HeaderDto ResponseService;
+    private ObraDto obra= new ObraDto();
     private List<ObraDto> Versiones = new ArrayList<ObraDto>();
 
     public void setResponseBD(HeaderDto ResponseBD) {
@@ -38,5 +39,13 @@ public class ObraResultDto implements Serializable {
 
     public List<ObraDto> getVersiones() {
         return Versiones;
+    }
+
+    public ObraDto getObra() {
+        return obra;
+    }
+
+    public void setObra(ObraDto obra) {
+        this.obra = obra;
     }
 }

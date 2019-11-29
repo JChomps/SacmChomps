@@ -14,6 +14,7 @@ public class ObraDto implements Serializable {
     private Integer obra_id_album;
     private String obra_titulo;
     private String obra_descripcion;
+    private String imagen;
     private Integer version_id;
     private String version_titulo;
     private String version_descripcion;
@@ -134,5 +135,13 @@ public class ObraDto implements Serializable {
 
     public String getVersion_type() {
         return version_type;
+    }
+
+    public String get_Imagen() {
+        return imagen;
+    }
+
+    public void set_Imagen(String imagen) {
+        this.imagen = imagen;
     }
 }
