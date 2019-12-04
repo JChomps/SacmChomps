@@ -2,6 +2,9 @@ package sacm.com.mx.compositores.common.dtos;
 
 import java.io.Serializable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TrackInfoDto implements Serializable {
     @SuppressWarnings("compatibility:8331476752143004815")
     private static final long serialVersionUID = 1L;
@@ -15,8 +18,8 @@ public class TrackInfoDto implements Serializable {
     private String descripcionObra;
     private Integer idAlbum;
     private String nombreAlbum;
-    private Integer idParticipante;
-    private String participante;
+    private List<ParticipanteDto> participante = new ArrayList<ParticipanteDto>();
+    
 
     public void setIdObra(Integer idObra) {
         this.idObra = idObra;
@@ -66,19 +69,12 @@ public class TrackInfoDto implements Serializable {
         return nombreAlbum;
     }
 
-    public void setIdParticipante(Integer idParticipante) {
-        this.idParticipante = idParticipante;
-    }
 
-    public Integer getIdParticipante() {
-        return idParticipante;
-    }
-
-    public void setParticipante(String participante) {
-        this.participante = participante;
-    }
-
-    public String getParticipante() {
+    public List<ParticipanteDto> getParticipante() {
         return participante;
+    }
+
+    public void setParticipante(List<ParticipanteDto> participante) {
+        this.participante = participante;
     }
 }

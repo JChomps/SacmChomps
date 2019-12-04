@@ -5,16 +5,17 @@ import java.io.Serializable;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Types;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.Map;
+import java.util.TreeMap;
+
 import oracle.adf.share.logging.ADFLogger;
 
-import sacm.com.mx.compositores.common.dtos.EstadoResultDto;
-import sacm.com.mx.compositores.common.dtos.HeaderDto;
+import sacm.com.mx.compositores.common.dtos.ParticipanteDto;
 import sacm.com.mx.compositores.common.dtos.TrackInfoDto;
 import sacm.com.mx.compositores.common.dtos.TrackInfoResultDto;
 import sacm.com.mx.compositores.infraestructure.utils.AppModule;
@@ -55,24 +56,65 @@ public class SacmTrackInfo implements Serializable {
             rs = (ResultSet) cstmt.getObject(4);
             // print the results
             List<TrackInfoDto> trackInfoList = new ArrayList<TrackInfoDto>();
+            List<TrackInfoDto> trackInfoListResult = new ArrayList<TrackInfoDto>();
+            List<ParticipanteDto> ParticipanteList = new ArrayList<ParticipanteDto>();
+            Map<Integer, TrackInfoDto> map = new TreeMap<Integer, TrackInfoDto>();
             while (rs.next()) {
                 TrackInfoDto trackInfo = new TrackInfoDto();
+                ParticipanteDto participante = new ParticipanteDto();
                 trackInfo.setIdObra(rs.getInt(1));
                 trackInfo.setNumeroObra(rs.getInt(2));
                 trackInfo.setTituloObra(rs.getString(3));
                 trackInfo.setDescripcionObra(rs.getString(4));
                 trackInfo.setIdAlbum(rs.getInt(5));
                 trackInfo.setNombreAlbum(rs.getString(6));
-                trackInfo.setParticipante(rs.getString(7));
+                participante.setId_participante(rs.getInt(7));
+                participante.setParticipante(rs.getString(8));
+                trackInfo.getParticipante().add(participante);
                 trackInfoList.add(trackInfo);
             }
+
+            for (TrackInfoDto str : trackInfoList) {
+                map.put(str.getIdObra(), str);
+            }
+
+            for (TrackInfoDto value : map.values()) {                
+                trackInfoListResult.add(value);
+            }
+           
+            for (TrackInfoDto strTIR : trackInfoListResult) {
+                for (TrackInfoDto strTI : trackInfoList) {
+                    if (strTI.getIdObra() == strTIR.getIdObra()) {                       
+                            ParticipanteDto part = new ParticipanteDto();
+                            part.setId_participante(strTI.getParticipante().get(0).getId_participante());
+                            part.setParticipante(strTI.getParticipante().get(0).getParticipante());
+                            strTIR.getParticipante().add(part);
+                        
+                    }
+                }
+                strTIR.getParticipante().remove(0);
+            }
+
+            /*     for (TrackInfoDto strTIR : trackInfoListResult) {
+                ParticipanteList = new ArrayList<ParticipanteDto>();
+                for (TrackInfoDto strTI : trackInfoList) {
+                    if (strTI.getIdObra() == strTIR.getIdObra()) {
+                        for (ParticipanteDto strP : strTI.getParticipante()) {
+                            ParticipanteList.add(strP);
+                        }
+                    }
+                    strTIR.setParticipante(ParticipanteList);
+                }
+
+            }*/
+
 
             trackInfoResponse = new TrackInfoResultDto();
             // 6. Set value of dateValue property using first OUT param
             trackInfoResponse.getHeaderResponse().setCodErr(cstmt.getInt(2));
             trackInfoResponse.getHeaderResponse().setCodMsg(cstmt.getString(3));
             trackInfoResponse.getTrackInfo().setIdObra(trackinfoRequest.getIdObra());
-            trackInfoResponse.setTrackInfoList(trackInfoList);
+            trackInfoResponse.setTrackInfoList(trackInfoListResult);
 
             cstmt.close();
             rs.close();

@@ -3,7 +3,10 @@ package sacm.com.mx.compositores.common.dtos;
 import java.io.Serializable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class TagsResultDto implements Serializable {
     @SuppressWarnings("compatibility:-3447506902476224828")
@@ -13,40 +16,44 @@ public class TagsResultDto implements Serializable {
         super();
     }
 
-    private HeaderDto headerRequest;
-    private HeaderDto headerResponse = new HeaderDto();
-    private TagsDto tag = new TagsDto();
-    private List<TagsDto> tagsList = new ArrayList<TagsDto>();
+  
+    private HeaderDto ResponseBD;
+    private HeaderDto ResponseService;
+    private Map<String, Tag> tagsMap = new HashMap<String, Tag>();
+    private List<Tag> tagsList = new ArrayList<Tag>();
+  
+   
 
-    public void setHeaderRequest(HeaderDto headerRequest) {
-        this.headerRequest = headerRequest;
+    public HeaderDto getResponseBD() {
+        return ResponseBD;
     }
 
-    public HeaderDto getHeaderRequest() {
-        return headerRequest;
+    public void setResponseBD(HeaderDto ResponseBD) {
+        this.ResponseBD = ResponseBD;
     }
 
-    public void setHeaderResponse(HeaderDto headerResponse) {
-        this.headerResponse = headerResponse;
+    public HeaderDto getResponseService() {
+        return ResponseService;
     }
 
-    public HeaderDto getHeaderResponse() {
-        return headerResponse;
+    public void setResponseService(HeaderDto ResponseService) {
+        this.ResponseService = ResponseService;
     }
 
-    public void setTag(TagsDto tag) {
-        this.tag = tag;
+    public Map<String, Tag> getTagsMap() {
+        return tagsMap;
     }
 
-    public TagsDto getTag() {
-        return tag;
+    public void setTagsMap(Map<String, Tag> tagsMap) {
+        this.tagsMap = tagsMap;
     }
 
-    public void setTagsList(List<TagsDto> tagsList) {
-        this.tagsList = tagsList;
-    }
 
-    public List<TagsDto> getTagsList() {
+    public List<Tag> getTagsList() {
         return tagsList;
+    }
+
+    public void setTagsList(List<Tag> tagsList) {
+        this.tagsList = tagsList;
     }
 }

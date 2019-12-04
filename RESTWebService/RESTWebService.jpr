@@ -186,10 +186,18 @@
             <value n="id" v="ADF Model REST Runtime"/>
             <value n="isJDK" v="false"/>
          </hash>
+         <hash>
+            <url n="id" path="../../../../Users/Jorge/AppData/Roaming/JDeveloper/system12.2.1.4.42.190911.2248/o.jdeveloper/CORS.library"/>
+            <value n="isJDK" v="false"/>
+         </hash>
       </list>
       <list n="libraryReferences">
          <hash>
             <value n="id" v="ADF Model REST Runtime"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <url n="id" path="../../../../Users/Jorge/AppData/Roaming/JDeveloper/system12.2.1.4.42.190911.2248/o.jdeveloper/CORS.library"/>
             <value n="isJDK" v="false"/>
          </hash>
       </list>
