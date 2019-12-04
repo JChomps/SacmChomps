@@ -12,34 +12,14 @@ public class MetadataResultDto implements Serializable {
     public MetadataResultDto() {
         super();
     }
-    private HeaderDto headerRequest;
-    private HeaderDto headerResponse = new HeaderDto();
-    private MetadataDto metadata = new MetadataDto();
+    private HeaderDto ResponseBD;
+    private HeaderDto ResponseService;
+    //private MetadataDto metadata = new MetadataDto();
     private List<MetadataDto> metadataList = new ArrayList<MetadataDto>();
 
-    public void setHeaderRequest(HeaderDto headerRequest) {
-        this.headerRequest = headerRequest;
-    }
+   
 
-    public HeaderDto getHeaderRequest() {
-        return headerRequest;
-    }
-
-    public void setHeaderResponse(HeaderDto headerResponse) {
-        this.headerResponse = headerResponse;
-    }
-
-    public HeaderDto getHeaderResponse() {
-        return headerResponse;
-    }
-
-    public void setMetadata(MetadataDto metadata) {
-        this.metadata = metadata;
-    }
-
-    public MetadataDto getMetadata() {
-        return metadata;
-    }
+   
 
     public void setMetadataList(List<MetadataDto> metadataList) {
         this.metadataList = metadataList;
@@ -47,5 +27,21 @@ public class MetadataResultDto implements Serializable {
 
     public List<MetadataDto> getMetadataList() {
         return metadataList;
+    }
+
+    public HeaderDto getResponseBD() {
+        return ResponseBD;
+    }
+
+    public void setResponseBD(HeaderDto ResponseBD) {
+        this.ResponseBD = ResponseBD;
+    }
+
+    public HeaderDto getResponseService() {
+        return ResponseService;
+    }
+
+    public void setResponseService(HeaderDto ResponseService) {
+        this.ResponseService = ResponseService;
     }
 }

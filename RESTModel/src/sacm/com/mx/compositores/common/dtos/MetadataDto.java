@@ -2,6 +2,9 @@ package sacm.com.mx.compositores.common.dtos;
 
 import java.io.Serializable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MetadataDto implements Serializable {
     @SuppressWarnings("compatibility:5986417196412719825")
     private static final long serialVersionUID = 1L;
@@ -13,12 +16,7 @@ public class MetadataDto implements Serializable {
     private Integer numeroObra;
     private String tituloObra;
     private String descripcionObra;
-    private Integer idTag;
-    private String nameTag;
-    private Integer idTagItem;
-    private String nameTagItem;
-    private Integer idTagPadre;
-    private String estado;
+    private List<Tag> tagsList = new ArrayList<Tag>();
 
     public void setIdObra(Integer idObra) {
         this.idObra = idObra;
@@ -52,51 +50,11 @@ public class MetadataDto implements Serializable {
         return descripcionObra;
     }
 
-    public void setIdTag(Integer idTag) {
-        this.idTag = idTag;
+    public List<Tag> getTagsList() {
+        return tagsList;
     }
 
-    public Integer getIdTag() {
-        return idTag;
-    }
-
-    public void setNameTag(String nameTag) {
-        this.nameTag = nameTag;
-    }
-
-    public String getNameTag() {
-        return nameTag;
-    }
-
-    public void setIdTagItem(Integer idTagItem) {
-        this.idTagItem = idTagItem;
-    }
-
-    public Integer getIdTagItem() {
-        return idTagItem;
-    }
-
-    public void setNameTagItem(String nameTagItem) {
-        this.nameTagItem = nameTagItem;
-    }
-
-    public String getNameTagItem() {
-        return nameTagItem;
-    }
-
-    public void setIdTagPadre(Integer idTagPadre) {
-        this.idTagPadre = idTagPadre;
-    }
-
-    public Integer getIdTagPadre() {
-        return idTagPadre;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-    public String getEstado() {
-        return estado;
+    public void setTagsList(List<Tag> tagsList) {
+        this.tagsList = tagsList;
     }
 }

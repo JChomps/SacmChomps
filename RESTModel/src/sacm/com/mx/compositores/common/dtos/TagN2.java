@@ -11,16 +11,16 @@ public class TagN2 {
         return idTagN2;
     }
 
-    public void setId_TagN2(int id_TagN2) {
-        this.idTagN2 = id_TagN2;
+    public void setId_TagN2(int idTagN2) {
+        this.idTagN2 = idTagN2;
     }
 
-    public String getNombre_TagN2() {
+    public String getNombreTagN2() {
         return tagNameN2;
     }
 
-    public void setNombre_TagN2(String nombre_TagN2) {
-        this.tagNameN2 = nombre_TagN2;
+    public void setNombreTagN2(String nombreTagN2) {
+        this.tagNameN2 = nombreTagN2;
     }
 
    

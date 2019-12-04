@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import java.sql.Types;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -65,9 +67,8 @@ public class SacmTags implements Serializable {
             // 5. Execute the statement
             cstmt.executeUpdate();
 
-            rs = (ResultSet) cstmt.getObject(4);
-            // print the results
-            List<TagsDto> tagsList = new ArrayList<TagsDto>();
+            rs = (ResultSet) cstmt.getObject(4);         
+            
             List<Tag> tagList = new ArrayList<Tag>();
             List<Tag> tagListResult = new ArrayList<Tag>();
             List<TagN1> tagsListN1 = new ArrayList<TagN1>();
@@ -89,8 +90,9 @@ public class SacmTags implements Serializable {
                 tagN1.setNombre_TagN1(rs.getString(4));
 
                 tagN2.setId_TagN2(rs.getInt(5));
-                tagN2.setNombre_TagN2(rs.getString(6));
+                tagN2.setNombreTagN2(rs.getString(6));
                 tagN1.getTagsListN2().add(tagN2);
+                
                 tag.getTagsListN1().add(tagN1);
 
 
@@ -121,10 +123,11 @@ public class SacmTags implements Serializable {
                     }
 
                 }
+                
                 for (TagN1 value : mapN1.values()) {
                     tagsListN1.add(value);
                 }
-                strTLR.setTagsListN1(tagsListN1);
+                
                 
                 for (TagN1 strN1 : tagsListN1) {
                     tagsListN2 = new ArrayList<TagN2>();
@@ -138,18 +141,19 @@ public class SacmTags implements Serializable {
                                                     .getTagsListN2()
                                                     .get(0)
                                                     .getId_TagN2());
-                            partN2.setNombre_TagN2(strTL.getTagsListN1()
+                            partN2.setNombreTagN2(strTL.getTagsListN1()
                                                         .get(0)
                                                         .getTagsListN2()
                                                         .get(0)
-                                                        .getNombre_TagN2());
+                                                        .getNombreTagN2());
                             strN1.getTagsListN2().add(partN2);
-
+                           // strTLR.getTagsListN1().
                         }
                        
-                    }
-
+                    }                    
                 }
+                strTLR.setTagsListN1(tagsListN1);
+                
             }
 
     
@@ -160,6 +164,7 @@ public class SacmTags implements Serializable {
             tagsResponse.setResponseBD(new HeaderDto());
             tagsResponse.getResponseBD().setCodErr(cstmt.getInt(2));
             tagsResponse.getResponseBD().setCodMsg(cstmt.getString(3));
+            
             tagsResponse.setResponseService(new HeaderDto());
             tagsResponse.getResponseService().setCodErr(cstmt.getInt(2));
             tagsResponse.getResponseService().setCodMsg(cstmt.getString(3));
