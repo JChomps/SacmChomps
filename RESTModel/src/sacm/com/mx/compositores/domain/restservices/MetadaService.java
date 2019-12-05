@@ -23,7 +23,7 @@ public class MetadaService {
     @Consumes("application/json")
     @Produces("application/json")
     @Path("sacm_metadata")
-    public MetadataResultDto getMetadata(MetadataDto metadataRequest) {
+    public MetadataResultDto getMetadata2(MetadataDto metadataRequest) {
         return SacmMetadata.getMetadata(metadataRequest);
     }
 }

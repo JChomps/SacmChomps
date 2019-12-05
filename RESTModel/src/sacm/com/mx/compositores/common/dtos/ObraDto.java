@@ -2,6 +2,9 @@ package sacm.com.mx.compositores.common.dtos;
 
 import java.io.Serializable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ObraDto implements Serializable {
     @SuppressWarnings("compatibility:-4925587381889895210")
     private static final long serialVersionUID = 1L;
@@ -24,6 +27,7 @@ public class ObraDto implements Serializable {
     private String version_aiff;
     private String version_lyric;
     private String version_type;
+    private List<VersionDto> versiones = new ArrayList<VersionDto>();
 
     public void setId_obra(Integer id_obra) {
         this.id_obra = id_obra;
@@ -143,5 +147,13 @@ public class ObraDto implements Serializable {
 
     public void set_Imagen(String imagen) {
         this.imagen = imagen;
+    }
+
+    public List<VersionDto> getVersiones() {
+        return versiones;
+    }
+
+    public void setVersiones(List<VersionDto> versiones) {
+        this.versiones = versiones;
     }
 }

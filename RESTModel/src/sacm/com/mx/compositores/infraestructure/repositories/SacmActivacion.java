@@ -8,6 +8,7 @@ import oracle.adf.share.logging.ADFLogger;
 
 import sacm.com.mx.compositores.common.dtos.ActivacionDto;
 import sacm.com.mx.compositores.common.dtos.ActivacionResultDto;
+import sacm.com.mx.compositores.common.dtos.HeaderDto;
 import sacm.com.mx.compositores.infraestructure.utils.AppModule;
 
 public class SacmActivacion {
@@ -45,8 +46,14 @@ public class SacmActivacion {
 
             // 6. Set value of dateValue property using first OUT param
             activacionResponse = new ActivacionResultDto();
-            activacionResponse.getHeaderResponse().setCodErr(cstmt.getInt(2));
-            activacionResponse.getHeaderResponse().setCodMsg(cstmt.getString(3));
+            activacionResponse.setResponseBD(new HeaderDto());
+            activacionResponse.getResponseBD().setCodErr(cstmt.getInt(2));
+            activacionResponse.getResponseBD().setCodMsg(cstmt.getString(3));
+
+            activacionResponse.setResponseService(new HeaderDto());
+            activacionResponse.getResponseService().setCodErr(cstmt.getInt(2));
+            activacionResponse.getResponseService().setCodMsg(cstmt.getString(3));
+            
 
             cstmt.close();
             conn.close();
@@ -56,8 +63,9 @@ public class SacmActivacion {
             // a failure occurred log message;
             _logger.severe(e.getMessage());
             activacionResponse = new ActivacionResultDto();
-            activacionResponse.getHeaderResponse().setCodErr(1);
-            activacionResponse.getHeaderResponse().setCodMsg(e.getMessage());
+            activacionResponse.setResponseService(new HeaderDto());
+            activacionResponse.getResponseService().setCodErr(1);
+            activacionResponse.getResponseService().setCodMsg(e.getMessage());
             return activacionResponse;
         }
 

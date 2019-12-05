@@ -14,6 +14,8 @@ import oracle.adf.share.logging.ADFLogger;
 
 import sacm.com.mx.compositores.common.dtos.BeneficioDto;
 import sacm.com.mx.compositores.common.dtos.BeneficioResultDto;
+import sacm.com.mx.compositores.common.dtos.HeaderDto;
+import sacm.com.mx.compositores.common.dtos.ObraResultDto;
 import sacm.com.mx.compositores.infraestructure.utils.AppModule;
 
 public class SacmBeneficio implements Serializable {
@@ -29,9 +31,11 @@ public class SacmBeneficio implements Serializable {
     }
     
     public static BeneficioResultDto getBeneficios(BeneficioDto beneficioRequest) {
+        List<BeneficioDto> beneficioList = new ArrayList<BeneficioDto>();
         CallableStatement cstmt = null;
         ResultSet rs = null;
         Connection conn = null;
+        
 
         try {
             conn = AppModule.getDbConexionJDBC();
@@ -49,10 +53,9 @@ public class SacmBeneficio implements Serializable {
 
             // 5. Execute the statement
             cstmt.executeUpdate();
-
+            if(cstmt.getInt(1)==0)
             rs = (ResultSet) cstmt.getObject(3);
             // print the results
-            List<BeneficioDto> beneficioList = new ArrayList<BeneficioDto>();
             while (rs.next()) {
                 BeneficioDto beneficio= new BeneficioDto();
 
@@ -65,8 +68,13 @@ public class SacmBeneficio implements Serializable {
 
             beneficioResponse = new BeneficioResultDto();
             // 6. Set value of dateValue property using first OUT param
-            beneficioResponse.getHeaderResponse().setCodErr(cstmt.getInt(1));
-            beneficioResponse.getHeaderResponse().setCodMsg(cstmt.getString(2));
+            beneficioResponse.setResponseBD(new HeaderDto());
+            beneficioResponse.getResponseBD().setCodErr(cstmt.getInt(1));
+            beneficioResponse.getResponseBD().setCodMsg(cstmt.getString(2));
+            beneficioResponse.setResponseService(new HeaderDto());
+            beneficioResponse.getResponseService().setCodErr(cstmt.getInt(1));
+            beneficioResponse.getResponseService().setCodMsg(cstmt.getString(2));
+            
             beneficioResponse.setBeneficioList(beneficioList);
 
             cstmt.close();
@@ -78,8 +86,9 @@ public class SacmBeneficio implements Serializable {
             // a failure occurred log message;
             _logger.severe(e.getMessage());
             beneficioResponse = new BeneficioResultDto();
-            beneficioResponse.getHeaderResponse().setCodErr(1);
-            beneficioResponse.getHeaderResponse().setCodMsg(e.getMessage());
+            beneficioResponse.setResponseService(new HeaderDto());
+            beneficioResponse.getResponseService().setCodErr(1);
+            beneficioResponse.getResponseService().setCodMsg(e.getMessage());
             return beneficioResponse;
         }
         _logger.info("Finish getPaises");

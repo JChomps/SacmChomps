@@ -6,28 +6,14 @@ public class ActivacionResultDto {
     private static final long serialVersionUID = 1L;
     
     private ActivacionDto activacion= new ActivacionDto();
-    private HeaderDto headerRequest;
-    private HeaderDto headerResponse = new HeaderDto();
+        private HeaderDto ResponseBD;
+        private HeaderDto ResponseService;
     
     public ActivacionResultDto() {
         super();
     }
 
-    public HeaderDto getHeaderRequest() {
-        return headerRequest;
-    }
-
-    public void setHeaderRequest(HeaderDto headerRequest) {
-        this.headerRequest = headerRequest;
-    }
-
-    public HeaderDto getHeaderResponse() {
-        return headerResponse;
-    }
-
-    public void setHeaderResponse(HeaderDto headerResponse) {
-        this.headerResponse = headerResponse;
-    }
+   
 
     public ActivacionDto getActivacion() {
         return activacion;
@@ -36,4 +22,20 @@ public class ActivacionResultDto {
     public void setActivacion(ActivacionDto activacion) {
         this.activacion = activacion;
     }
+
+    public HeaderDto getResponseBD() {
+        return ResponseBD;
     }
+
+    public void setResponseBD(HeaderDto ResponseBD) {
+        this.ResponseBD = ResponseBD;
+    }
+
+    public HeaderDto getResponseService() {
+        return ResponseService;
+    }
+
+    public void setResponseService(HeaderDto ResponseService) {
+        this.ResponseService = ResponseService;
+    }
+}

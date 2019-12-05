@@ -19,7 +19,7 @@ public class TagsResultDto implements Serializable {
   
     private HeaderDto ResponseBD;
     private HeaderDto ResponseService;
-    private Map<String, Tag> tagsMap = new HashMap<String, Tag>();
+    
     private List<Tag> tagsList = new ArrayList<Tag>();
   
    
@@ -38,14 +38,6 @@ public class TagsResultDto implements Serializable {
 
     public void setResponseService(HeaderDto ResponseService) {
         this.ResponseService = ResponseService;
-    }
-
-    public Map<String, Tag> getTagsMap() {
-        return tagsMap;
-    }
-
-    public void setTagsMap(Map<String, Tag> tagsMap) {
-        this.tagsMap = tagsMap;
     }
 
 

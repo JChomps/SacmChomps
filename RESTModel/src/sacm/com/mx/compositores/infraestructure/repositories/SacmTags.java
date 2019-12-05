@@ -45,6 +45,8 @@ public class SacmTags implements Serializable {
     }
 
     public static TagsResultDto getTagsByIdTag(TagsDto tagsRequest) {
+        Map<Integer, TagN1> mapN1 = new TreeMap<Integer, TagN1>();
+        List<Tag> tagListResult = new ArrayList<Tag>();
         CallableStatement cstmt = null;
         ResultSet rs = null;
         Connection conn = null;
@@ -66,16 +68,17 @@ public class SacmTags implements Serializable {
 
             // 5. Execute the statement
             cstmt.executeUpdate();
+            if(cstmt.getInt(2)==0){
 
             rs = (ResultSet) cstmt.getObject(4);         
             
             List<Tag> tagList = new ArrayList<Tag>();
-            List<Tag> tagListResult = new ArrayList<Tag>();
+            
             List<TagN1> tagsListN1 = new ArrayList<TagN1>();
             List<TagN2> tagsListN2 = new ArrayList<TagN2>();
 
             Map<Integer, Tag> map = new HashMap<Integer, Tag>();
-            Map<Integer, TagN1> mapN1 = new TreeMap<Integer, TagN1>();
+            
 
 
             while (rs.next()) {
@@ -155,6 +158,8 @@ public class SacmTags implements Serializable {
                 strTLR.setTagsListN1(tagsListN1);
                 
             }
+                rs.close();
+            }
 
     
 
@@ -173,7 +178,7 @@ public class SacmTags implements Serializable {
             tagsResponse.setTagsList(tagListResult);
 
             cstmt.close();
-            rs.close();
+           
             conn.close();
             conn = null;
 

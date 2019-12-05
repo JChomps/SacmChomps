@@ -15,6 +15,8 @@ import java.util.TreeMap;
 
 import oracle.adf.share.logging.ADFLogger;
 
+import sacm.com.mx.compositores.common.dtos.HeaderDto;
+import sacm.com.mx.compositores.common.dtos.MetadataResultDto;
 import sacm.com.mx.compositores.common.dtos.ParticipanteDto;
 import sacm.com.mx.compositores.common.dtos.TrackInfoDto;
 import sacm.com.mx.compositores.common.dtos.TrackInfoResultDto;
@@ -32,6 +34,7 @@ public class SacmTrackInfo implements Serializable {
     }
 
     public static TrackInfoResultDto getTrackInfoByIdObra(TrackInfoDto trackinfoRequest) {
+        List<TrackInfoDto> trackInfoListResult = new ArrayList<TrackInfoDto>();
         CallableStatement cstmt = null;
         ResultSet rs = null;
         Connection conn = null;
@@ -52,81 +55,79 @@ public class SacmTrackInfo implements Serializable {
 
             // 5. Execute the statement
             cstmt.executeUpdate();
-
-            rs = (ResultSet) cstmt.getObject(4);
-            // print the results
-            List<TrackInfoDto> trackInfoList = new ArrayList<TrackInfoDto>();
-            List<TrackInfoDto> trackInfoListResult = new ArrayList<TrackInfoDto>();
-            List<ParticipanteDto> ParticipanteList = new ArrayList<ParticipanteDto>();
-            Map<Integer, TrackInfoDto> map = new TreeMap<Integer, TrackInfoDto>();
-            while (rs.next()) {
-                TrackInfoDto trackInfo = new TrackInfoDto();
-                ParticipanteDto participante = new ParticipanteDto();
-                trackInfo.setIdObra(rs.getInt(1));
-                trackInfo.setNumeroObra(rs.getInt(2));
-                trackInfo.setTituloObra(rs.getString(3));
-                trackInfo.setDescripcionObra(rs.getString(4));
-                trackInfo.setIdAlbum(rs.getInt(5));
-                trackInfo.setNombreAlbum(rs.getString(6));
-                participante.setId_participante(rs.getInt(7));
-                participante.setParticipante(rs.getString(8));
-                trackInfo.getParticipante().add(participante);
-                trackInfoList.add(trackInfo);
-            }
-
-            for (TrackInfoDto str : trackInfoList) {
-                map.put(str.getIdObra(), str);
-            }
-
-            for (TrackInfoDto value : map.values()) {                
-                trackInfoListResult.add(value);
-            }
-           
-            for (TrackInfoDto strTIR : trackInfoListResult) {
-                for (TrackInfoDto strTI : trackInfoList) {
-                    if (strTI.getIdObra() == strTIR.getIdObra()) {                       
-                            ParticipanteDto part = new ParticipanteDto();
-                            part.setId_participante(strTI.getParticipante().get(0).getId_participante());
-                            part.setParticipante(strTI.getParticipante().get(0).getParticipante());
-                            strTIR.getParticipante().add(part);
-                        
-                    }
+            if (cstmt.getInt(2) == 0) {
+                rs = (ResultSet) cstmt.getObject(4);
+                // print the results
+                List<TrackInfoDto> trackInfoList = new ArrayList<TrackInfoDto>();
+                Map<Integer, TrackInfoDto> map = new TreeMap<Integer, TrackInfoDto>();
+                while (rs.next()) {
+                    TrackInfoDto trackInfo = new TrackInfoDto();
+                    ParticipanteDto participante = new ParticipanteDto();
+                    trackInfo.setIdObra(rs.getInt(1));
+                    trackInfo.setNumeroObra(rs.getInt(2));
+                    trackInfo.setTituloObra(rs.getString(3));
+                    trackInfo.setDescripcionObra(rs.getString(4));
+                    trackInfo.setIdAlbum(rs.getInt(5));
+                    trackInfo.setNombreAlbum(rs.getString(6));
+                    participante.setId_participante(rs.getInt(7));
+                    participante.setParticipante(rs.getString(8));
+                    trackInfo.getParticipante().add(participante);
+                    trackInfoList.add(trackInfo);
                 }
-                strTIR.getParticipante().remove(0);
-            }
 
-            /*     for (TrackInfoDto strTIR : trackInfoListResult) {
-                ParticipanteList = new ArrayList<ParticipanteDto>();
-                for (TrackInfoDto strTI : trackInfoList) {
-                    if (strTI.getIdObra() == strTIR.getIdObra()) {
-                        for (ParticipanteDto strP : strTI.getParticipante()) {
-                            ParticipanteList.add(strP);
+                for (TrackInfoDto str : trackInfoList) {
+                    map.put(str.getIdObra(), str);
+                }
+
+                for (TrackInfoDto value : map.values()) {
+                    trackInfoListResult.add(value);
+                }
+
+                for (TrackInfoDto strTIR : trackInfoListResult) {
+                    for (TrackInfoDto strTI : trackInfoList) {
+                        if (strTI.getIdObra() == strTIR.getIdObra()) {
+                            ParticipanteDto part = new ParticipanteDto();
+                            part.setId_participante(strTI.getParticipante()
+                                                         .get(0)
+                                                         .getId_participante());
+                            part.setParticipante(strTI.getParticipante()
+                                                      .get(0)
+                                                      .getParticipante());
+                            strTIR.getParticipante().add(part);
+
                         }
                     }
-                    strTIR.setParticipante(ParticipanteList);
+                    strTIR.getParticipante().remove(0);
                 }
-
-            }*/
+                rs.close();
+            }
 
 
             trackInfoResponse = new TrackInfoResultDto();
             // 6. Set value of dateValue property using first OUT param
-            trackInfoResponse.getHeaderResponse().setCodErr(cstmt.getInt(2));
-            trackInfoResponse.getHeaderResponse().setCodMsg(cstmt.getString(3));
-            trackInfoResponse.getTrackInfo().setIdObra(trackinfoRequest.getIdObra());
+            trackInfoResponse.setResponseBD(new HeaderDto());
+            trackInfoResponse.getResponseBD().setCodErr(cstmt.getInt(2));
+            trackInfoResponse.getResponseBD().setCodMsg(cstmt.getString(3));
+            trackInfoResponse.setResponseService(new HeaderDto());
+            trackInfoResponse.getResponseService().setCodErr(cstmt.getInt(2));
+            trackInfoResponse.getResponseService().setCodMsg(cstmt.getString(3));
+
+
             trackInfoResponse.setTrackInfoList(trackInfoListResult);
 
             cstmt.close();
-            rs.close();
+
             conn.close();
             conn = null;
 
         } catch (Exception e) {
             // a failure occurred log message;
+
             _logger.severe(e.getMessage());
             trackInfoResponse = new TrackInfoResultDto();
-            trackInfoResponse.getHeaderResponse().setCodErr(1);
-            trackInfoResponse.getHeaderResponse().setCodMsg(e.getMessage());
+            trackInfoResponse.setResponseService(new HeaderDto());
+            trackInfoResponse.getResponseService().setCodErr(1);
+            trackInfoResponse.getResponseService().setCodMsg(e.getMessage());
             return trackInfoResponse;
         }
         _logger.info("Finish getEstados");

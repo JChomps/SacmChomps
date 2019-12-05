@@ -34,6 +34,8 @@ public class SacmEstado implements Serializable {
     }
 
     public static EstadoResultDto getEstadosByPais(EstadoDto estadoRequest) {
+
+        List<EstadoDto> estados = new ArrayList<EstadoDto>();
         CallableStatement cstmt = null;
         ResultSet rs = null;
         Connection conn = null;
@@ -53,10 +55,9 @@ public class SacmEstado implements Serializable {
 
             // 5. Execute the statement
             cstmt.executeUpdate();
-
+            if(cstmt.getInt(2)==0){
             // print the results
             rs = (ResultSet) cstmt.getObject(4);
-            List<EstadoDto> estados = new ArrayList<EstadoDto>();
             while (rs.next()) {
                 EstadoDto estado = new EstadoDto();
                 estado.setId_pais(rs.getInt(1));
@@ -65,7 +66,8 @@ public class SacmEstado implements Serializable {
                 estado.setEstado(rs.getString(4));
                 estados.add(estado);
             }
-
+                rs.close();
+            }
             // 6. Set value of dateValue property using first OUT param
             estadoResponse = new EstadoResultDto();
             estadoResponse.setResponseBD(new HeaderDto());
@@ -78,7 +80,7 @@ public class SacmEstado implements Serializable {
             estadoResponse.getResponseService().setCodMsg(cstmt.getString(3));
 
             cstmt.close();
-            rs.close();
+            
             conn.close();
             conn = null;
 

@@ -12,26 +12,12 @@ public class BeneficioResultDto {
         super();
     }
     
-    private HeaderDto headerRequest;
-    private HeaderDto headerResponse = new HeaderDto();
+    private HeaderDto ResponseBD;
+    private HeaderDto ResponseService;
     private BeneficioDto beneficio;
     private List<BeneficioDto> beneficioList= new ArrayList<BeneficioDto> ();
 
-    public HeaderDto getHeaderRequest() {
-        return headerRequest;
-    }
-
-    public void setHeaderRequest(HeaderDto headerRequest) {
-        this.headerRequest = headerRequest;
-    }
-
-    public HeaderDto getHeaderResponse() {
-        return headerResponse;
-    }
-
-    public void setHeaderResponse(HeaderDto headerResponse) {
-        this.headerResponse = headerResponse;
-    }
+   
 
     public BeneficioDto getBeneficio() {
         return beneficio;
@@ -47,5 +33,21 @@ public class BeneficioResultDto {
 
     public void setBeneficioList(List<BeneficioDto> beneficioList) {
         this.beneficioList = beneficioList;
+    }
+
+    public HeaderDto getResponseBD() {
+        return ResponseBD;
+    }
+
+    public void setResponseBD(HeaderDto ResponseBD) {
+        this.ResponseBD = ResponseBD;
+    }
+
+    public HeaderDto getResponseService() {
+        return ResponseService;
+    }
+
+    public void setResponseService(HeaderDto ResponseService) {
+        this.ResponseService = ResponseService;
     }
 }

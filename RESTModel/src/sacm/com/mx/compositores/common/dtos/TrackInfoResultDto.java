@@ -12,34 +12,12 @@ public class TrackInfoResultDto implements Serializable {
     public TrackInfoResultDto() {
         super();
     }
-    private HeaderDto headerRequest;
-    private HeaderDto headerResponse = new HeaderDto();
-    private TrackInfoDto trackInfo = new TrackInfoDto();
+    private HeaderDto ResponseBD;
+    private HeaderDto ResponseService;
     private List<TrackInfoDto> trackInfoList = new ArrayList<TrackInfoDto>();
 
-    public void setHeaderRequest(HeaderDto headerRequest) {
-        this.headerRequest = headerRequest;
-    }
-
-    public HeaderDto getHeaderRequest() {
-        return headerRequest;
-    }
-
-    public void setHeaderResponse(HeaderDto headerResponse) {
-        this.headerResponse = headerResponse;
-    }
-
-    public HeaderDto getHeaderResponse() {
-        return headerResponse;
-    }
-
-    public void setTrackInfo(TrackInfoDto trackInfo) {
-        this.trackInfo = trackInfo;
-    }
-
-    public TrackInfoDto getTrackInfo() {
-        return trackInfo;
-    }
+   
+   
 
     public void setTrackInfoList(List<TrackInfoDto> trackInfoList) {
         this.trackInfoList = trackInfoList;
@@ -47,5 +25,21 @@ public class TrackInfoResultDto implements Serializable {
 
     public List<TrackInfoDto> getTrackInfoList() {
         return trackInfoList;
+    }
+
+    public HeaderDto getResponseBD() {
+        return ResponseBD;
+    }
+
+    public void setResponseBD(HeaderDto ResponseBD) {
+        this.ResponseBD = ResponseBD;
+    }
+
+    public HeaderDto getResponseService() {
+        return ResponseService;
+    }
+
+    public void setResponseService(HeaderDto ResponseService) {
+        this.ResponseService = ResponseService;
     }
 }
