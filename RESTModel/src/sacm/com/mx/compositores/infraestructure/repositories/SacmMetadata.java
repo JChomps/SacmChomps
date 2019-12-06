@@ -57,8 +57,8 @@ public class SacmMetadata {
 
             // 5. Execute the statement
             cstmt.executeUpdate();
+            
             if( cstmt.getInt(2)==0){
-
             rs = (ResultSet) cstmt.getObject(4);
         
             // print the results

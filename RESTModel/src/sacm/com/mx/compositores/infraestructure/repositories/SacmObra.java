@@ -17,15 +17,13 @@ import java.util.TreeMap;
 import oracle.adf.share.logging.ADFLogger;
 
 import sacm.com.mx.compositores.common.dtos.CompObraDto;
-import sacm.com.mx.compositores.common.dtos.CompObraResultDto;
 import sacm.com.mx.compositores.common.dtos.HeaderDto;
+import sacm.com.mx.compositores.common.dtos.Obra;
 import sacm.com.mx.compositores.common.dtos.ObraDto;
 import sacm.com.mx.compositores.common.dtos.ObraResultDto;
 import sacm.com.mx.compositores.common.dtos.PalabraDto;
-import sacm.com.mx.compositores.common.dtos.PalabraIdObra;
-import sacm.com.mx.compositores.common.dtos.ParticipanteDto;
-import sacm.com.mx.compositores.common.dtos.TrackInfoDto;
 import sacm.com.mx.compositores.common.dtos.VersionDto;
+import sacm.com.mx.compositores.common.dtos.VersionResultDto;
 import sacm.com.mx.compositores.infraestructure.utils.AppModule;
 
 
@@ -35,13 +33,14 @@ public class SacmObra implements Serializable {
 
     private static ADFLogger _logger = ADFLogger.createADFLogger(SacmEstado.class);
     private static ObraResultDto obraResponse;
+    private static VersionResultDto obraRes;
 
     public SacmObra() {
         super();
     }
 
-    public static ObraResultDto getVersionesByIdObra(ObraDto obraRequest) {
-        List<ObraDto> obraListResult = new ArrayList<ObraDto>();
+    public static VersionResultDto getVersionesByIdObra(ObraDto obraRequest) {
+        List<Obra> obraListResult = new ArrayList<Obra>();
         CallableStatement cstmt = null;
         ResultSet rs = null;
         Connection conn = null;
@@ -50,7 +49,7 @@ public class SacmObra implements Serializable {
             conn = AppModule.getDbConexionJDBC();
 
             // 2. Define the PL/SQL block for the statement to invoke
-            cstmt = conn.prepareCall("{call SACM_PRC_CONSULTA_VERSIONES(?,?,?,?)}");
+            cstmt = conn.prepareCall("{call SACM_PKG_BUSCADOR.PRC_CONSULTA_VERSIONES(?,?,?,?)}");
 
             // 3. Set the bind values of the IN parameters
             cstmt.setObject(1, obraRequest.getId_obra());
@@ -65,11 +64,11 @@ public class SacmObra implements Serializable {
             if (cstmt.getInt(2) == 0) {
                 // print the results
                 rs = (ResultSet) cstmt.getObject(4);
-                List<ObraDto> obraList = new ArrayList<ObraDto>();
-                Map<Integer, ObraDto> map = new TreeMap<Integer, ObraDto>();
+                List<Obra> obraList = new ArrayList<Obra>();
+                Map<Integer, Obra> map = new TreeMap<Integer, Obra>();
                 byte[] bdata;
                 while (rs.next()) {
-                    ObraDto obra = new ObraDto();
+                    Obra obra = new Obra();
                     VersionDto version = new VersionDto();
                     obra.setId_obra(rs.getInt(1));
                     obra.setObra_numero(rs.getInt(2));
@@ -97,16 +96,16 @@ public class SacmObra implements Serializable {
                     obraList.add(obra);
                 }
 
-                for (ObraDto str : obraList) {
+                for (Obra str : obraList) {
                     map.put(str.getId_obra(), str);
                 }
 
-                for (ObraDto value : map.values()) {
+                for (Obra value : map.values()) {
                     obraListResult.add(value);
                 }
 
-                for (ObraDto strTIR : obraListResult) {
-                    for (ObraDto strTI : obraList) {
+                for (Obra strTIR : obraListResult) {
+                    for (Obra strTI : obraList) {
                         if (strTI.getId_obra() == strTIR.getId_obra()) {
                             VersionDto ver = new VersionDto();
 
@@ -147,14 +146,14 @@ public class SacmObra implements Serializable {
                 rs.close();
             }
             // 6. Set value of dateValue property using first OUT param
-            obraResponse = new ObraResultDto();
-            obraResponse.setResponseBD(new HeaderDto());
-            obraResponse.getResponseBD().setCodErr(cstmt.getInt(2));
-            obraResponse.getResponseBD().setCodMsg(cstmt.getString(3));
-            obraResponse.setResponseService(new HeaderDto());
-            obraResponse.getResponseService().setCodErr(cstmt.getInt(2));
-            obraResponse.getResponseService().setCodMsg(cstmt.getString(3));
-            obraResponse.setObras(obraListResult);
+            obraRes = new VersionResultDto();
+            obraRes.setResponseBD(new HeaderDto());
+            obraRes.getResponseBD().setCodErr(cstmt.getInt(2));
+            obraRes.getResponseBD().setCodMsg(cstmt.getString(3));
+            obraRes.setResponseService(new HeaderDto());
+            obraRes.getResponseService().setCodErr(cstmt.getInt(2));
+            obraRes.getResponseService().setCodMsg(cstmt.getString(3));
+            obraRes.setObras(obraListResult);
 
             cstmt.close();
 
@@ -164,43 +163,57 @@ public class SacmObra implements Serializable {
         } catch (Exception e) {
             // a failure occurred log message;
             _logger.severe(e.getMessage());
-            obraResponse = new ObraResultDto();
-            obraResponse.setResponseService(new HeaderDto());
-            obraResponse.getResponseService().setCodErr(1);
-            obraResponse.getResponseService().setCodMsg(e.getMessage());
-            return obraResponse;
+            obraRes = new VersionResultDto();
+            obraRes.setResponseService(new HeaderDto());
+            obraRes.getResponseService().setCodErr(1);
+            obraRes.getResponseService().setCodMsg(e.getMessage());
+            return obraRes;
         }
         _logger.info("Finish getVersiones");
         // 9. Return the result
-        return obraResponse;
+        return obraRes;
     }
 
     public static ObraResultDto sacmConsultaObra(PalabraDto palabra) {
         List<ObraDto> obraList = new ArrayList<ObraDto>();
-        CallableStatement cstmt = null;
+       CallableStatement cstmt = null;
         ResultSet rs = null;
         Connection conn = null;
-
+        int valores[]= new int[7];
+        for(int str : palabra.getArray_options()){
+            valores[str-1]=1;
+            }
+       
+       
 
         try {
             conn = AppModule.getDbConexionJDBC();
 
             // 2. Define the PL/SQL block for the statement to invoke
-            cstmt = conn.prepareCall("{call SACM_PRC_CONSULTA_OBRA_PALABRA(?,?,?,?)}");
+            cstmt = conn.prepareCall("{call SACM_PKG_BUSCADOR.PRC_CONSULTA_OBRA_PALABRA(?,?,?,?,?,?,?,?,?,?,?,?,?)}");
 
             // 3. Set the bind values of the IN parameters
             cstmt.setObject(1, palabra.getPalabra());
-
+            cstmt.setObject(2, palabra.getId_album());
+            cstmt.setObject(3, valores[0]);
+            cstmt.setObject(4, valores[1]);
+            cstmt.setObject(5, valores[2]);
+            cstmt.setObject(6, valores[3]);
+            cstmt.setObject(7, valores[4]);
+            cstmt.setObject(8, valores[5]);
+            cstmt.setObject(9, valores[6]);
+            cstmt.setObject(10, palabra.getSearch());
+            
             // 4. Register the positions and types of the OUT parameters
-            cstmt.registerOutParameter(2, Types.INTEGER);
-            cstmt.registerOutParameter(3, Types.VARCHAR);
-            cstmt.registerOutParameter(4, -10);
+            cstmt.registerOutParameter(11, Types.INTEGER);
+            cstmt.registerOutParameter(12, Types.VARCHAR);
+            cstmt.registerOutParameter(13, -10);
 
             // 5. Execute the statement
             cstmt.executeUpdate();
-            if (cstmt.getInt(2) == 0) {
+            if (cstmt.getInt(11) == 0) {
                 // print the results
-                rs = (ResultSet) cstmt.getObject(4);
+                rs = (ResultSet) cstmt.getObject(13);
                 byte[] bdata;
                 while (rs.next()) {
                     ObraDto obra = new ObraDto();
@@ -229,17 +242,18 @@ public class SacmObra implements Serializable {
             // 6. Set value of dateValue property using first OUT param
             obraResponse = new ObraResultDto();
             obraResponse.setResponseBD(new HeaderDto());
-            obraResponse.getResponseBD().setCodErr(cstmt.getInt(2));
-            obraResponse.getResponseBD().setCodMsg(cstmt.getString(3));
+            obraResponse.getResponseBD().setCodErr(cstmt.getInt(11));
+            obraResponse.getResponseBD().setCodMsg(cstmt.getString(12));
             obraResponse.setResponseService(new HeaderDto());
-            obraResponse.getResponseService().setCodErr(cstmt.getInt(2));
-            obraResponse.getResponseService().setCodMsg(cstmt.getString(3));
+            obraResponse.getResponseService().setCodErr(cstmt.getInt(11));
+           obraResponse.getResponseService().setCodMsg(cstmt.getString(12));
             obraResponse.setObras(obraList);
 
             cstmt.close();
 
             conn.close();
             conn = null;
+        
 
         } catch (Exception e) {
             // a failure occurred log message;
@@ -252,6 +266,96 @@ public class SacmObra implements Serializable {
         }
         _logger.info("Finish getVersiones");
         // 9. Return the result
+        
+            obraResponse.setObras(obraList);
+        return obraResponse;
+    }
+
+    
+    public static ObraResultDto sacmConsultaObraByAlbum(PalabraDto palabra) {
+        List<ObraDto> obraList = new ArrayList<ObraDto>();
+        CallableStatement cstmt = null;
+        ResultSet rs = null;
+        Connection conn = null;
+        int valores[]= new int[7];
+        for(int str : palabra.getArray_options()){
+            valores[str-1]=1;
+            }
+        
+        
+
+        try {
+            conn = AppModule.getDbConexionJDBC();
+
+            // 2. Define the PL/SQL block for the statement to invoke
+            cstmt = conn.prepareCall("{call SACM_PKG_BUSCADOR.PRC_CONSULTA_ALBUM(?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+
+            // 3. Set the bind values of the IN parameters
+            cstmt.setObject(1, palabra.getPalabra());
+            cstmt.setObject(2, palabra.getId_album());
+            cstmt.setObject(3, valores[0]);
+            cstmt.setObject(4, valores[1]);
+            cstmt.setObject(5, valores[2]);
+            cstmt.setObject(6, valores[3]);
+            cstmt.setObject(7, valores[4]);
+            cstmt.setObject(8, valores[5]);
+            cstmt.setObject(9, valores[6]);
+            cstmt.setObject(10, palabra.getSearch());
+            
+            // 4. Register the positions and types of the OUT parameters
+            cstmt.registerOutParameter(11, Types.INTEGER);
+            cstmt.registerOutParameter(12, Types.VARCHAR);
+            cstmt.registerOutParameter(13, -10);
+
+            // 5. Execute the statement
+            cstmt.executeUpdate();
+            if (cstmt.getInt(11) == 0) {
+                // print the results
+                rs = (ResultSet) cstmt.getObject(13);
+                byte[] bdata;
+                while (rs.next()) {
+                    ObraDto obra = new ObraDto();
+                    obra.setObra_id_album(rs.getInt(1));
+                    obra.setObra_nombre(rs.getString(2));
+                    obra.setObra_descripcion(rs.getString(3));                   
+                    bdata = (rs.getObject(4) == null ? null : rs.getBlob(4).getBytes(1, (int) rs.getBlob(4).length()));
+                    obra.set_Imagen(rs.getObject(4) == null ? null : new String(bdata));
+                   
+
+                    obraList.add(obra);
+                }
+                rs.close();
+            }
+
+            // 6. Set value of dateValue property using first OUT param
+            obraResponse = new ObraResultDto();
+            obraResponse.setResponseBD(new HeaderDto());
+            obraResponse.getResponseBD().setCodErr(cstmt.getInt(11));
+            obraResponse.getResponseBD().setCodMsg(cstmt.getString(12));
+            obraResponse.setResponseService(new HeaderDto());
+            obraResponse.getResponseService().setCodErr(cstmt.getInt(11));
+           obraResponse.getResponseService().setCodMsg(cstmt.getString(12));
+            obraResponse.setObras(obraList);
+
+            cstmt.close();
+
+            conn.close();
+            conn = null;
+        
+
+        } catch (Exception e) {
+            // a failure occurred log message;
+            _logger.severe(e.getMessage());
+            obraResponse = new ObraResultDto();
+            obraResponse.setResponseService(new HeaderDto());
+            obraResponse.getResponseService().setCodErr(1);
+            obraResponse.getResponseService().setCodMsg(e.getMessage());
+            return obraResponse;
+        }
+        _logger.info("Finish getVersiones");
+        // 9. Return the result
+        
+            obraResponse.setObras(obraList);
         return obraResponse;
     }
 
@@ -264,7 +368,7 @@ public class SacmObra implements Serializable {
             conn = AppModule.getDbConexionJDBC();
 
             // 2. Define the PL/SQL block for the statement to invoke
-            cstmt = conn.prepareCall("{call SACM_PRC_CONSULTA_AUDIO(?,?,?,?)}");
+            cstmt = conn.prepareCall("{call SACM_PKG_BUSCADOR.PRC_CONSULTA_AUDIO(?,?,?,?)}");
 
             // 3. Set the bind values of the IN parameters
             cstmt.setObject(1, obraRequest.getId_obra());
@@ -339,12 +443,12 @@ public class SacmObra implements Serializable {
         CallableStatement cstmt = null;
         Connection conn = null;
         ObraDto obra = new ObraDto();
-        ObraResultDto obraResponse = new ObraResultDto();
+      //  ObraResultDto obraResponse = new ObraResultDto();
         try {
             conn = AppModule.getDbConexionJDBC();
 
             // 2. Define the PL/SQL block for the statement to invoke
-            cstmt = conn.prepareCall("{call SACM_PRC_COMPARTIR_OBRA(?,?,?,?,?,?,?)}");
+            cstmt = conn.prepareCall("{call SACM_PKG_BUSCADOR.PRC_COMPARTIR_OBRA(?,?,?,?,?,?,?)}");
 
             // 3. Set the bind values of the IN parameters
             cstmt.setObject(1, obraRequest.getIdUserOrigen());
@@ -366,7 +470,14 @@ public class SacmObra implements Serializable {
                 obra.setObra_titulo(cstmt.getString(5));
                 obraList.add(obra);
             }
-
+            
+            obraResponse = new ObraResultDto();
+            obraResponse.setResponseBD(new HeaderDto());
+            obraResponse.getResponseBD().setCodErr(cstmt.getInt(2));
+            obraResponse.getResponseBD().setCodMsg(cstmt.getString(3));
+            obraResponse.setResponseService(new HeaderDto());
+            obraResponse.getResponseService().setCodErr(cstmt.getInt(2));
+            obraResponse.getResponseService().setCodMsg(cstmt.getString(3));
             obraResponse.setObras(obraList);
 
             cstmt.close();

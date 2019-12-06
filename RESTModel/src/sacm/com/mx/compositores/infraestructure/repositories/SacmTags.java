@@ -45,18 +45,16 @@ public class SacmTags implements Serializable {
     }
 
     public static TagsResultDto getTagsByIdTag(TagsDto tagsRequest) {
-        Map<Integer, TagN1> mapN1 = new TreeMap<Integer, TagN1>();
         List<Tag> tagListResult = new ArrayList<Tag>();
         CallableStatement cstmt = null;
         ResultSet rs = null;
         Connection conn = null;
-
-
+        
         try {
             conn = AppModule.getDbConexionJDBC();
 
             // 2. Define the PL/SQL block for the statement to invoke
-            cstmt = conn.prepareCall("{call SACM_PRC_CONSULTA_TAGS(?,?,?,?)}");
+            cstmt = conn.prepareCall("{call SACM_PKG_BUSCADOR.PRC_CONSULTA_TAGS(?,?,?,?)}");
 
             // 3. Set the bind values of the IN parameters
             cstmt.setObject(1, tagsRequest.getIdTag());
@@ -68,117 +66,44 @@ public class SacmTags implements Serializable {
 
             // 5. Execute the statement
             cstmt.executeUpdate();
-            if(cstmt.getInt(2)==0){
+            if (cstmt.getInt(2) == 0) {
 
-            rs = (ResultSet) cstmt.getObject(4);         
-            
-            List<Tag> tagList = new ArrayList<Tag>();
-            
-            List<TagN1> tagsListN1 = new ArrayList<TagN1>();
-            List<TagN2> tagsListN2 = new ArrayList<TagN2>();
+                rs = (ResultSet) cstmt.getObject(4);
+                List<Tag> tagList = new ArrayList<Tag>();               
 
-            Map<Integer, Tag> map = new HashMap<Integer, Tag>();
-            
+                while (rs.next()) {
+                    Tag tag = new Tag();
+                    TagN1 tagN1 = new TagN1();
+                    TagN2 tagN2 = new TagN2();
 
+                    tag.setIdTag(rs.getInt(1));
+                    tag.setTagName(rs.getString(2));
+                    tagN1.setId_TagN1(rs.getInt(3));
+                    tagN1.setNombre_TagN1(rs.getString(4));
 
-            while (rs.next()) {
-                // TagsDto tagDto = new TagsDto();
-                Tag tag = new Tag();
-                TagN1 tagN1 = new TagN1();
-                TagN2 tagN2 = new TagN2();
+                    tagN2.setId_TagN2(rs.getInt(5));
+                    tagN2.setNombreTagN2(rs.getString(6));
+                    tagN1.getTagsListN2().add(tagN2);
 
-                tag.setIdTag(rs.getInt(1));
-                tag.setTagName(rs.getString(2));
-                tagN1.setId_TagN1(rs.getInt(3));
-                tagN1.setNombre_TagN1(rs.getString(4));
-
-                tagN2.setId_TagN2(rs.getInt(5));
-                tagN2.setNombreTagN2(rs.getString(6));
-                tagN1.getTagsListN2().add(tagN2);
-                
-                tag.getTagsListN1().add(tagN1);
-
-
-                tagList.add(tag);
-            }
-
-            for (Tag str : tagList) {
-                map.put(str.getIdTag(), str);
-            }
-
-            for (Tag value : map.values()) {
-                tagListResult.add(value);
-            }
-
-            for (Tag strTLR : tagListResult) {
-                mapN1 = new TreeMap<Integer, TagN1>();
-                tagsListN1 = new ArrayList<TagN1>();
-                for (Tag strTL : tagList) {
-                    if (strTL.getIdTag() == strTLR.getIdTag()) {
-                        TagN1 partN1 = new TagN1();
-                        partN1.setId_TagN1(strTL.getTagsListN1()
-                                                .get(0)
-                                                .getId_TagN1());
-                        partN1.setNombre_TagN1(strTL.getTagsListN1()
-                                                    .get(0)
-                                                    .getNombre_TagN1());
-                        mapN1.put(partN1.getId_TagN1(), partN1);
-                    }
-
+                    tag.getTagsListN1().add(tagN1);
+                    tagList.add(tag);
                 }
                 
-                for (TagN1 value : mapN1.values()) {
-                    tagsListN1.add(value);
-                }
-                
-                
-                for (TagN1 strN1 : tagsListN1) {
-                    tagsListN2 = new ArrayList<TagN2>();
-                    for (Tag strTL : tagList) {
-                        if (strN1.getId_TagN1() == strTL.getTagsListN1()
-                                                        .get(0)
-                                                        .getId_TagN1()) {
-                            TagN2 partN2 = new TagN2();
-                            partN2.setId_TagN2(strTL.getTagsListN1()
-                                                    .get(0)
-                                                    .getTagsListN2()
-                                                    .get(0)
-                                                    .getId_TagN2());
-                            partN2.setNombreTagN2(strTL.getTagsListN1()
-                                                        .get(0)
-                                                        .getTagsListN2()
-                                                        .get(0)
-                                                        .getNombreTagN2());
-                            strN1.getTagsListN2().add(partN2);
-                           // strTLR.getTagsListN1().
-                        }
-                       
-                    }                    
-                }
-                strTLR.setTagsListN1(tagsListN1);
-                
-            }
+                organizaList(tagListResult, tagList);
                 rs.close();
             }
-
-    
-
 
             // 6. Set value of dateValue property using first OUT param
             tagsResponse = new TagsResultDto();
             tagsResponse.setResponseBD(new HeaderDto());
             tagsResponse.getResponseBD().setCodErr(cstmt.getInt(2));
             tagsResponse.getResponseBD().setCodMsg(cstmt.getString(3));
-            
             tagsResponse.setResponseService(new HeaderDto());
             tagsResponse.getResponseService().setCodErr(cstmt.getInt(2));
             tagsResponse.getResponseService().setCodMsg(cstmt.getString(3));
-            // tagsResponse.getTag().setIdTag(tagsRequest.getIdTag());
-            // tagsResponse.setTagsMap(map);
             tagsResponse.setTagsList(tagListResult);
 
             cstmt.close();
-           
             conn.close();
             conn = null;
 
@@ -197,4 +122,65 @@ public class SacmTags implements Serializable {
     }
 
 
+    private static void organizaList(List<Tag> tagListResult, List<Tag> tagList) {
+        Map<Integer, TagN1> mapN1 = new TreeMap<Integer, TagN1>();
+        Map<Integer, Tag> map = new HashMap<Integer, Tag>();
+        List<TagN1> tagsListN1 = new ArrayList<TagN1>();
+        List<TagN2> tagsListN2 = new ArrayList<TagN2>();
+
+        for (Tag str : tagList) {
+            map.put(str.getIdTag(), str);
+        }
+
+        for (Tag value : map.values()) {
+            tagListResult.add(value);
+        }
+
+        for (Tag strTLR : tagListResult) {
+            mapN1 = new TreeMap<Integer, TagN1>();
+            tagsListN1 = new ArrayList<TagN1>();
+            for (Tag strTL : tagList) {
+                if (strTL.getIdTag() == strTLR.getIdTag()) {
+                    TagN1 partN1 = new TagN1();
+                    partN1.setId_TagN1(strTL.getTagsListN1()
+                                            .get(0)
+                                            .getId_TagN1());
+                    partN1.setNombre_TagN1(strTL.getTagsListN1()
+                                                .get(0)
+                                                .getNombre_TagN1());
+                    mapN1.put(partN1.getId_TagN1(), partN1);
+                }
+
+            }
+
+            for (TagN1 value : mapN1.values()) {
+                tagsListN1.add(value);
+            }
+
+            for (TagN1 strN1 : tagsListN1) {
+                tagsListN2 = new ArrayList<TagN2>();
+                for (Tag strTL : tagList) {
+                    if (strN1.getId_TagN1() == strTL.getTagsListN1()
+                                                    .get(0)
+                                                    .getId_TagN1()) {
+                        TagN2 partN2 = new TagN2();
+                        partN2.setId_TagN2(strTL.getTagsListN1()
+                                                .get(0)
+                                                .getTagsListN2()
+                                                .get(0)
+                                                .getId_TagN2());
+                        partN2.setNombreTagN2(strTL.getTagsListN1()
+                                                   .get(0)
+                                                   .getTagsListN2()
+                                                   .get(0)
+                                                   .getNombreTagN2());
+                        strN1.getTagsListN2().add(partN2);
+                    }
+
+                }
+            }
+            strTLR.setTagsListN1(tagsListN1);
+
+        }
+    }
 }

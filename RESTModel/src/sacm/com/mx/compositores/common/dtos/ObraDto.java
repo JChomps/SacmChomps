@@ -13,6 +13,7 @@ public class ObraDto implements Serializable {
         super();
     }
     private Integer id_obra;
+    private String obra_nombre;
     private Integer obra_numero;
     private Integer obra_id_album;
     private String obra_titulo;
@@ -155,5 +156,13 @@ public class ObraDto implements Serializable {
 
     public void setVersiones(List<VersionDto> versiones) {
         this.versiones = versiones;
+    }
+
+    public String getObra_nombre() {
+        return obra_nombre;
+    }
+
+    public void setObra_nombre(String obra_nombre) {
+        this.obra_nombre = obra_nombre;
     }
 }
