@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.Types;
 
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 import java.util.Map;
@@ -82,6 +83,7 @@ public class SacmObra implements Serializable {
                     bdata =
                         (rs.getObject(10) == null ? null : rs.getBlob(10).getBytes(1, (int) rs.getBlob(10).length()));
                     version.setVersion_wav(rs.getObject(10) == null ? null : new String(bdata));
+                   
                     bdata =
                         (rs.getObject(11) == null ? null : rs.getBlob(11).getBytes(1, (int) rs.getBlob(11).length()));
                     version.setVersion_mp3(rs.getObject(11) == null ? null : new String(bdata));
@@ -398,8 +400,14 @@ public class SacmObra implements Serializable {
                     obra.setVersion_duracion(rs.getString(7));
                     bdata = (rs.getObject(8) == null ? null : rs.getBlob(8).getBytes(1, (int) rs.getBlob(8).length()));
                     obra.setVersion_wav(rs.getObject(8) == null ? null : new String(bdata));
+                    
+                    
                     bdata = (rs.getObject(9) == null ? null : rs.getBlob(9).getBytes(1, (int) rs.getBlob(9).length()));
                     obra.setVersion_mp3(rs.getObject(9) == null ? null : new String(bdata));
+                    // obra.setVersion_mp3(rs.getObject(9) == null ? null : Base64.getEncoder().encodeToString(bdata));//new String(bdata));
+                   
+                    
+                    
                     bdata =
                         (rs.getObject(10) == null ? null : rs.getBlob(10).getBytes(1, (int) rs.getBlob(10).length()));
                     obra.setVersion_aiff(rs.getObject(10) == null ? null : new String(bdata));

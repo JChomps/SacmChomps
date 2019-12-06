@@ -30,7 +30,7 @@ public class ObraDto implements Serializable {
     private String version_aiff;
     private String version_lyric;
     private String version_type;
-    private List<VersionDto> versiones = new ArrayList<VersionDto>();
+   
 
     public void setId_obra(Integer id_obra) {
         this.id_obra = id_obra;
@@ -152,13 +152,7 @@ public class ObraDto implements Serializable {
         this.imagen = imagen;
     }
 
-    public List<VersionDto> getVersiones() {
-        return versiones;
-    }
-
-    public void setVersiones(List<VersionDto> versiones) {
-        this.versiones = versiones;
-    }
+   
 
     public String getObra_nombre() {
         return obra_nombre;
