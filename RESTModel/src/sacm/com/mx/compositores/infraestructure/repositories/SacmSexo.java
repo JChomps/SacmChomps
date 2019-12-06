@@ -40,7 +40,7 @@ public class SacmSexo implements Serializable {
             conn = AppModule.getDbConexionJDBC();
 
             // 2. Define the PL/SQL block for the statement to invoke
-            cstmt = conn.prepareCall("{call SACM_PRC_CONSULTA_SEXO(?,?,?,?)}");
+            cstmt = conn.prepareCall("{call SACM_PKG_REGISTRO_USUARIO.PRC_CONSULTA_SEXO(?,?,?,?)}");
 
             // 3. Set the bind values of the IN parameters
             cstmt.setObject(1, sexoRequest.getId_sexo());

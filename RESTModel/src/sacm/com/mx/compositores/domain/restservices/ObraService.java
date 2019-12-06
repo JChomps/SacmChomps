@@ -42,10 +42,19 @@ public class ObraService {
     @POST
     @Consumes("application/json")
     @Produces("application/json")
-    @Path("sacm_consulta_obra_album")
+    @Path("sacm_consulta_album")
     public ObraResultDto getObraByAlbum(PalabraDto palabraRequest) {
         return SacmObra.sacmConsultaObraByAlbum(palabraRequest);
     }
+    
+    @POST
+    @Consumes("application/json")
+    @Produces("application/json")
+    @Path("sacm_consulta_obra_album")
+    public ObraResultDto getObraByAlbum(ObraDto obraRequest) {
+        return SacmObra.sacmConsultaObraByAlbum(obraRequest);
+    }
+
 
     @POST
     @Consumes("application/json")

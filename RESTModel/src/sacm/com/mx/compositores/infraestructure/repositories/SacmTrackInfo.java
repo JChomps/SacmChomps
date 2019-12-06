@@ -43,7 +43,7 @@ public class SacmTrackInfo implements Serializable {
             conn = AppModule.getDbConexionJDBC();
 
             // 2. Define the PL/SQL block for the statement to invoke
-            cstmt = conn.prepareCall("{call SACM_PRC_CONSULTA_TRACKINFO(?,?,?,?)}");
+            cstmt = conn.prepareCall("{call SACM_PKG_BUSCADOR.PRC_CONSULTA_TRACKINFO(?,?,?,?)}");
 
             // 3. Set the bind values of the IN parameters
             cstmt.setObject(1, trackinfoRequest.getIdObra());

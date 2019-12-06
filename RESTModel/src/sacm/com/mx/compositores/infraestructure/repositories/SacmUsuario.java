@@ -31,7 +31,7 @@ public class SacmUsuario {
             conn = AppModule.getDbConexionJDBC();
 
             // 2. Define the PL/SQL block for the statement to invoke
-            cstmt = conn.prepareCall("{call SACM_PRC_ACTUALIZA_PWD_USUARIO(?,?,?,?,?)}");
+            cstmt = conn.prepareCall("{call SACM_PKG_INICIO_SESION.PRC_ACTUALIZA_PWD_USUARIO(?,?,?,?,?)}");
 
             // 3. Set the bind values of the IN parameters
             cstmt.setObject(1, usuarioRequest.getId_usuario());
@@ -86,7 +86,7 @@ public class SacmUsuario {
             conn = AppModule.getDbConexionJDBC();
 
             // 2. Define the PL/SQL block for the statement to invoke
-            cstmt = conn.prepareCall("{call SACM_PRC_CAMBIA_PWD_USUARIO(?,?,?,?,?,?)}");
+            cstmt = conn.prepareCall("{call PRC_USUARIO_REGISTRO.PRC_CAMBIA_PWD_USUARIO(?,?,?,?,?,?)}");
 
             // 3. Set the bind values of the IN parameters
             cstmt.setObject(1, usuarioRequest.getEmail());
@@ -141,7 +141,7 @@ public class SacmUsuario {
             conn = AppModule.getDbConexionJDBC();
 
             // 2. Define the PL/SQL block for the statement to invoke
-            cstmt = conn.prepareCall("{call SACM_PRC_ENVIA_CORREO_REST_PWD(?,?,?,?)}");
+            cstmt = conn.prepareCall("{call SACM_PKG_INICIO_SESION.PRC_ENVIA_CORREO_REST_PWD(?,?,?,?)}");
 
             // 3. Set the bind values of the IN parameters
             cstmt.setObject(1, usuarioRequest.getEmail());
@@ -195,7 +195,7 @@ public class SacmUsuario {
             conn = AppModule.getDbConexionJDBC();
 
             // 2. Define the PL/SQL block for the statement to invoke
-            cstmt = conn.prepareCall("{call SACM_PRC_USUARIO_REGISTRADO(?,?,?,?,?,?,?,?,?,?,?)}");
+            cstmt = conn.prepareCall("{call SACM_PKG_INICIO_SESION.PRC_USUARIO_REGISTRADO(?,?,?,?,?,?,?,?,?,?,?)}");
 
             // 3. Set the bind values of the IN parameters
             cstmt.setObject(1, usuarioRequest.getEmail());
@@ -265,7 +265,7 @@ public class SacmUsuario {
             conn = AppModule.getDbConexionJDBC();
 
             // 2. Define the PL/SQL block for the statement to invoke
-            cstmt = conn.prepareCall("{call SACM_PRC_USUARIO_REGISTRO(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+            cstmt = conn.prepareCall("{call SACM_PKG_REGISTRO_USUARIO.PRC_USUARIO_REGISTRO(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
 
             // 3. Set the bind values of the IN parameters
 

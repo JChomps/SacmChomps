@@ -31,10 +31,10 @@ public class SacmActivacion {
         try {
             conn = AppModule.getDbConexionJDBC();
             // 2. Define the PL/SQL block for the statement to invoke
-            cstmt = conn.prepareCall("{call SACM_PRC_USUARIO_ACTIVA_CTA(?,?,?)}");
+            cstmt = conn.prepareCall("{call SACM_PKG_REGISTRO_USUARIO.PRC_USUARIO_ACTIVA_CTA(?,?,?)}");
 
             // 3. Set the bind values of the IN parameters
-            cstmt.setObject(1, activacionRequest.getPimail());
+            cstmt.setObject(1, activacionRequest.getId_Usuario());
 
             // 4. Register the positions and types of the OUT parameters
             cstmt.registerOutParameter(2, Types.INTEGER);

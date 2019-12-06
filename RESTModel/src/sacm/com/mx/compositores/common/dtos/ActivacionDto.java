@@ -10,6 +10,7 @@ public class ActivacionDto {
     }
     
     private String mail;
+    private int id_Usuario;
 
     public String getPimail() {
         return mail;
@@ -18,4 +19,12 @@ public class ActivacionDto {
     public void setPimail(String pimail) {
         this.mail = pimail;
     }
+
+    public int getId_Usuario() {
+        return id_Usuario;
     }
+
+    public void setId_Usuario(int id_Usuario) {
+        this.id_Usuario = id_Usuario;
+    }
+}

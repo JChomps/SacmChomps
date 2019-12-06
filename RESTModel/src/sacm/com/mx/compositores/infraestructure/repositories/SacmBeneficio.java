@@ -41,7 +41,7 @@ public class SacmBeneficio implements Serializable {
             conn = AppModule.getDbConexionJDBC();
 
             // 2. Define the PL/SQL block for the statement to invoke
-            cstmt = conn.prepareCall("{call SACM_PRC_CONSULTA_BENEFICIOS(?,?,?)}");
+            cstmt = conn.prepareCall("{call SACM_PKG_BUSCADOR.PRC_CONSULTA_BENEFICIOS(?,?,?)}");
 
             // 3. Set the bind values of the IN parameters
            

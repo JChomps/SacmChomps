@@ -40,7 +40,7 @@ public class SacmPais implements Serializable {
             conn = AppModule.getDbConexionJDBC();
 
             // 2. Define the PL/SQL block for the statement to invoke
-            cstmt = conn.prepareCall("{call SACM_PRC_CONSULTA_PAIS(?,?,?,?)}");
+            cstmt = conn.prepareCall("{call SACM_PKG_REGISTRO_USUARIO.PRC_CONSULTA_PAIS(?,?,?,?)}");
 
             // 3. Set the bind values of the IN parameters
             cstmt.setObject(1, paisRequest.getId_pais());

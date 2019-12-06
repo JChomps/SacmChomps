@@ -5,7 +5,7 @@ public class ActivacionResultDto {
     @SuppressWarnings("compatibility:-8073432289962294725")
     private static final long serialVersionUID = 1L;
     
-    private ActivacionDto activacion= new ActivacionDto();
+   // private ActivacionDto activacion= new ActivacionDto();
         private HeaderDto ResponseBD;
         private HeaderDto ResponseService;
     
@@ -15,13 +15,7 @@ public class ActivacionResultDto {
 
    
 
-    public ActivacionDto getActivacion() {
-        return activacion;
-    }
-
-    public void setActivacion(ActivacionDto activacion) {
-        this.activacion = activacion;
-    }
+   
 
     public HeaderDto getResponseBD() {
         return ResponseBD;

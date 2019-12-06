@@ -43,7 +43,7 @@ public class SacmEstado implements Serializable {
         try {
             conn = AppModule.getDbConexionJDBC();
             // 2. Define the PL/SQL block for the statement to invoke
-            cstmt = conn.prepareCall("{call SACM_PRC_CONSULTA_ESTADO(?,?,?,?)}");
+            cstmt = conn.prepareCall("{call SACM_PKG_REGISTRO_USUARIO.PRC_CONSULTA_ESTADO(?,?,?,?)}");
 
             // 3. Set the bind values of the IN parameters
             cstmt.setObject(1, estadoRequest.getId_pais());
