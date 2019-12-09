@@ -78,7 +78,7 @@ public class SacmSugerencia {
             if (cstmt.getInt(10) == 0) {
                 // print the results
                 rs = (ResultSet) cstmt.getObject(12);
-               
+
                 List<SugerenciaDto> sugerenciaList = new ArrayList<SugerenciaDto>();
                 List<Tag> tagList = new ArrayList<Tag>();
                 List<TagN1> tagsListN1 = new ArrayList<TagN1>();
@@ -88,7 +88,7 @@ public class SacmSugerencia {
                 Map<Integer, Tag> mapTag = new HashMap<Integer, Tag>();
                 Map<Integer, TagN1> mapTagN1 = new HashMap<Integer, TagN1>();
                 Map<Integer, TagN2> mapTagN2 = new HashMap<Integer, TagN2>();
-               
+
                 while (rs.next()) {
                     SugerenciaDto obra = new SugerenciaDto();
                     NombreParticipante participante = new NombreParticipante();
@@ -107,7 +107,7 @@ public class SacmSugerencia {
                     participante.setId_participante(rs.getInt(10));
                     participante.setNombre(rs.getString(11));
                     participante.setApellido_paterno(rs.getString(12));
-                    participante.setApellido_materno(rs.getString(13));                    
+                    participante.setApellido_materno(rs.getString(13));
                     tag.setIdTag(rs.getInt(14));
                     tag.setTagName(rs.getString(15));
                     tagN1.setId_TagN1(rs.getInt(16));
@@ -158,8 +158,7 @@ public class SacmSugerencia {
                     for (NombreParticipante value : mapP.values()) {
                         partList.add(value);
                     }
-                    
-                    
+
 
                     mapTagN1 = new HashMap<Integer, TagN1>();
                     tagsListN1 = new ArrayList<TagN1>();
@@ -182,7 +181,7 @@ public class SacmSugerencia {
                     for (Tag value : mapTag.values()) {
                         tagList.add(value);
                     }
-                    
+
                     for (Tag strTag : tagList) {
                         mapTagN1 = new HashMap<Integer, TagN1>();
                         tagsListN1 = new ArrayList<TagN1>();
@@ -202,19 +201,19 @@ public class SacmSugerencia {
                                                             .get(0)
                                                             .getNombre_TagN1());
                                 //tagsListN1.add(partN1);
-                                mapTagN1.put(partN1.getId_TagN1(),partN1);
+                                mapTagN1.put(partN1.getId_TagN1(), partN1);
                             }
 
                         }
-                                  
-                    
+
+
                         for (TagN1 value : mapTagN1.values()) {
                             tagsListN1.add(value);
                         }
-                        
+
                         for (TagN1 strTagN1 : tagsListN1) {
                             tagsListN2 = new ArrayList<TagN2>();
-                            mapTagN2=  new HashMap<Integer, TagN2>();
+                            mapTagN2 = new HashMap<Integer, TagN2>();
                             for (SugerenciaDto strMD : sugerenciaList) {
                                 if (strTagN1.getId_TagN1() == strMD.getTagsList()
                                                                    .get(0)
@@ -230,19 +229,17 @@ public class SacmSugerencia {
                                                             .get(0)
                                                             .getId_TagN2());
                                     partN2.setNombreTagN2(strMD.getTagsList()
-                                                                .get(0)
-                                                                .getTagsListN1()
-                                                                .get(0)
-                                                                .getTagsListN2()
-                                                                .get(0)
-                                                                .getNombreTagN2());
-                                   // tagsListN2.add(partN2);
-                                    mapTagN2.put(partN2.getId_TagN2(),partN2);
-                                    // strTLR.getTagsListN1().
+                                                               .get(0)
+                                                               .getTagsListN1()
+                                                               .get(0)
+                                                               .getTagsListN2()
+                                                               .get(0)
+                                                               .getNombreTagN2());
+                                    mapTagN2.put(partN2.getId_TagN2(), partN2);
                                 }
 
                             }
-                            
+
                             for (TagN2 value : mapTagN2.values()) {
                                 tagsListN2.add(value);
                             }
@@ -251,8 +248,8 @@ public class SacmSugerencia {
 
                         strTag.setTagsListN1(tagsListN1);
                     }
-                    
-                    
+
+
                     strTIR.setTagsList(tagList);
                     strTIR.setParticipante(partList);
                 }

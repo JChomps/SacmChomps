@@ -82,14 +82,15 @@ public class SacmObra implements Serializable {
                     version.setVersion_duracion(rs.getString(9));
                     bdata =
                         (rs.getObject(10) == null ? null : rs.getBlob(10).getBytes(1, (int) rs.getBlob(10).length()));
-                    version.setVersion_wav(rs.getObject(10) == null ? null : new String(bdata));
-                   
+                    version.setVersion_wav(rs.getObject(10) == null ? null : Base64.getEncoder().encodeToString(bdata));
+
                     bdata =
                         (rs.getObject(11) == null ? null : rs.getBlob(11).getBytes(1, (int) rs.getBlob(11).length()));
-                    version.setVersion_mp3(rs.getObject(11) == null ? null : new String(bdata));
+                    version.setVersion_mp3(rs.getObject(11) == null ? null : Base64.getEncoder().encodeToString(bdata));
                     bdata =
                         (rs.getObject(12) == null ? null : rs.getBlob(12).getBytes(1, (int) rs.getBlob(12).length()));
-                    version.setVersion_aiff(rs.getObject(12) == null ? null : new String(bdata));
+                    version.setVersion_aiff(rs.getObject(12) == null ? null :
+                                            Base64.getEncoder().encodeToString(bdata));
                     version.setVersion_lyric(rs.getObject(13) == null ? null : rs.getString(13));
                     version.setVersion_type(rs.getString(14));
 
@@ -178,15 +179,14 @@ public class SacmObra implements Serializable {
 
     public static ObraResultDto sacmConsultaObra(PalabraDto palabra) {
         List<ObraDto> obraList = new ArrayList<ObraDto>();
-       CallableStatement cstmt = null;
+        CallableStatement cstmt = null;
         ResultSet rs = null;
         Connection conn = null;
-        int valores[]= new int[7];
-        for(int str : palabra.getArray_options()){
-            valores[str-1]=1;
-            }
-       
-       
+        int valores[] = new int[7];
+        for (int str : palabra.getArray_options()) {
+            valores[str - 1] = 1;
+        }
+
 
         try {
             conn = AppModule.getDbConexionJDBC();
@@ -205,7 +205,7 @@ public class SacmObra implements Serializable {
             cstmt.setObject(8, valores[5]);
             cstmt.setObject(9, valores[6]);
             cstmt.setObject(10, palabra.getSearch());
-            
+
             // 4. Register the positions and types of the OUT parameters
             cstmt.registerOutParameter(11, Types.INTEGER);
             cstmt.registerOutParameter(12, Types.VARCHAR);
@@ -223,17 +223,17 @@ public class SacmObra implements Serializable {
                     obra.setObra_numero(rs.getInt(2));
                     obra.setObra_id_album(rs.getInt(3));
                     bdata = (rs.getObject(4) == null ? null : rs.getBlob(4).getBytes(1, (int) rs.getBlob(4).length()));
-                    obra.set_Imagen(rs.getObject(4) == null ? null : new String(bdata));
+                    obra.set_Imagen(rs.getObject(4) == null ? null : Base64.getEncoder().encodeToString(bdata));
                     obra.setObra_titulo(rs.getString(5));
                     obra.setObra_descripcion(rs.getString(6));
                     obra.setVersion_duracion(rs.getString(7));
                     bdata = (rs.getObject(8) == null ? null : rs.getBlob(8).getBytes(1, (int) rs.getBlob(8).length()));
-                    obra.setVersion_wav(rs.getObject(8) == null ? null : new String(bdata));
+                    obra.setVersion_wav(rs.getObject(8) == null ? null : Base64.getEncoder().encodeToString(bdata));
                     bdata = (rs.getObject(9) == null ? null : rs.getBlob(9).getBytes(1, (int) rs.getBlob(9).length()));
-                    obra.setVersion_mp3(rs.getObject(9) == null ? null : new String(bdata));
+                    obra.setVersion_mp3(rs.getObject(9) == null ? null : Base64.getEncoder().encodeToString(bdata));
                     bdata =
                         (rs.getObject(10) == null ? null : rs.getBlob(10).getBytes(1, (int) rs.getBlob(10).length()));
-                    obra.setVersion_aiff(rs.getObject(10) == null ? null : new String(bdata));
+                    obra.setVersion_aiff(rs.getObject(10) == null ? null : Base64.getEncoder().encodeToString(bdata));
                     obra.setVersion_lyric(rs.getObject(11) == null ? null : rs.getString(11));
 
                     obraList.add(obra);
@@ -248,14 +248,14 @@ public class SacmObra implements Serializable {
             obraResponse.getResponseBD().setCodMsg(cstmt.getString(12));
             obraResponse.setResponseService(new HeaderDto());
             obraResponse.getResponseService().setCodErr(cstmt.getInt(11));
-           obraResponse.getResponseService().setCodMsg(cstmt.getString(12));
+            obraResponse.getResponseService().setCodMsg(cstmt.getString(12));
             obraResponse.setObras(obraList);
 
             cstmt.close();
 
             conn.close();
             conn = null;
-        
+
 
         } catch (Exception e) {
             // a failure occurred log message;
@@ -268,23 +268,22 @@ public class SacmObra implements Serializable {
         }
         _logger.info("Finish getVersiones");
         // 9. Return the result
-        
-            obraResponse.setObras(obraList);
+
+        obraResponse.setObras(obraList);
         return obraResponse;
     }
 
-    
+
     public static ObraResultDto sacmConsultaObraByAlbum(PalabraDto palabra) {
         List<ObraDto> obraList = new ArrayList<ObraDto>();
         CallableStatement cstmt = null;
         ResultSet rs = null;
         Connection conn = null;
-        int valores[]= new int[7];
-        for(int str : palabra.getArray_options()){
-            valores[str-1]=1;
-            }
-        
-        
+        int valores[] = new int[7];
+        for (int str : palabra.getArray_options()) {
+            valores[str - 1] = 1;
+        }
+
 
         try {
             conn = AppModule.getDbConexionJDBC();
@@ -303,7 +302,7 @@ public class SacmObra implements Serializable {
             cstmt.setObject(8, valores[5]);
             cstmt.setObject(9, valores[6]);
             cstmt.setObject(10, palabra.getSearch());
-            
+
             // 4. Register the positions and types of the OUT parameters
             cstmt.registerOutParameter(11, Types.INTEGER);
             cstmt.registerOutParameter(12, Types.VARCHAR);
@@ -319,10 +318,10 @@ public class SacmObra implements Serializable {
                     ObraDto obra = new ObraDto();
                     obra.setObra_id_album(rs.getInt(1));
                     obra.setObra_nombre(rs.getString(2));
-                    obra.setObra_descripcion(rs.getString(3));                   
+                    obra.setObra_descripcion(rs.getString(3));
                     bdata = (rs.getObject(4) == null ? null : rs.getBlob(4).getBytes(1, (int) rs.getBlob(4).length()));
-                    obra.set_Imagen(rs.getObject(4) == null ? null : new String(bdata));
-                   
+                    obra.set_Imagen(rs.getObject(4) == null ? null : Base64.getEncoder().encodeToString(bdata));
+
 
                     obraList.add(obra);
                 }
@@ -336,14 +335,14 @@ public class SacmObra implements Serializable {
             obraResponse.getResponseBD().setCodMsg(cstmt.getString(12));
             obraResponse.setResponseService(new HeaderDto());
             obraResponse.getResponseService().setCodErr(cstmt.getInt(11));
-           obraResponse.getResponseService().setCodMsg(cstmt.getString(12));
+            obraResponse.getResponseService().setCodMsg(cstmt.getString(12));
             obraResponse.setObras(obraList);
 
             cstmt.close();
 
             conn.close();
             conn = null;
-        
+
 
         } catch (Exception e) {
             // a failure occurred log message;
@@ -356,8 +355,8 @@ public class SacmObra implements Serializable {
         }
         _logger.info("Finish getVersiones");
         // 9. Return the result
-        
-            obraResponse.setObras(obraList);
+
+        obraResponse.setObras(obraList);
         return obraResponse;
     }
 
@@ -394,23 +393,23 @@ public class SacmObra implements Serializable {
                     obra.setObra_numero(rs.getInt(2));
                     obra.setObra_id_album(rs.getInt(3));
                     bdata = (rs.getObject(4) == null ? null : rs.getBlob(4).getBytes(1, (int) rs.getBlob(4).length()));
-                    obra.set_Imagen(rs.getObject(4) == null ? null : new String(bdata));
+                    obra.set_Imagen(rs.getObject(4) == null ? null : Base64.getEncoder().encodeToString(bdata));
                     obra.setObra_titulo(rs.getString(5));
                     obra.setObra_descripcion(rs.getString(6));
                     obra.setVersion_duracion(rs.getString(7));
                     bdata = (rs.getObject(8) == null ? null : rs.getBlob(8).getBytes(1, (int) rs.getBlob(8).length()));
-                    obra.setVersion_wav(rs.getObject(8) == null ? null : new String(bdata));
-                    
-                    
+                    obra.setVersion_wav(rs.getObject(8) == null ? null : Base64.getEncoder().encodeToString(bdata));
+
+
                     bdata = (rs.getObject(9) == null ? null : rs.getBlob(9).getBytes(1, (int) rs.getBlob(9).length()));
-                    obra.setVersion_mp3(rs.getObject(9) == null ? null : new String(bdata));
-                    // obra.setVersion_mp3(rs.getObject(9) == null ? null : Base64.getEncoder().encodeToString(bdata));//new String(bdata));
-                   
-                    
-                    
+                    // obra.setVersion_mp3(rs.getObject(9) == null ? null : new String(bdata));
+                    obra.setVersion_mp3(rs.getObject(9) == null ? null :
+                                        Base64.getEncoder().encodeToString(bdata)); //new String(bdata));
+
+
                     bdata =
                         (rs.getObject(10) == null ? null : rs.getBlob(10).getBytes(1, (int) rs.getBlob(10).length()));
-                    obra.setVersion_aiff(rs.getObject(10) == null ? null : new String(bdata));
+                    obra.setVersion_aiff(rs.getObject(10) == null ? null : Base64.getEncoder().encodeToString(bdata));
 
                     // obra.setVersion_lyric(rs.getObject(11) == null ? null : rs.getString(11));
 
@@ -451,7 +450,7 @@ public class SacmObra implements Serializable {
         CallableStatement cstmt = null;
         Connection conn = null;
         ObraDto obra = new ObraDto();
-      //  ObraResultDto obraResponse = new ObraResultDto();
+        //  ObraResultDto obraResponse = new ObraResultDto();
         try {
             conn = AppModule.getDbConexionJDBC();
 
@@ -478,7 +477,7 @@ public class SacmObra implements Serializable {
                 obra.setObra_titulo(cstmt.getString(5));
                 obraList.add(obra);
             }
-            
+
             obraResponse = new ObraResultDto();
             obraResponse.setResponseBD(new HeaderDto());
             obraResponse.getResponseBD().setCodErr(cstmt.getInt(2));
@@ -505,7 +504,6 @@ public class SacmObra implements Serializable {
         // 9. Return the result
         return obraResponse;
     }
-    
 
 
     public static ObraResultDto sacmConsultaObraByAlbum(ObraDto obraRequest) {
@@ -541,17 +539,17 @@ public class SacmObra implements Serializable {
                     obra.setObra_numero(rs.getInt(2));
                     obra.setObra_id_album(rs.getInt(3));
                     bdata = (rs.getObject(4) == null ? null : rs.getBlob(4).getBytes(1, (int) rs.getBlob(4).length()));
-                    obra.set_Imagen(rs.getObject(4) == null ? null : new String(bdata));
+                    obra.set_Imagen(rs.getObject(4) == null ? null : Base64.getEncoder().encodeToString(bdata));
                     obra.setObra_titulo(rs.getString(5));
                     obra.setObra_descripcion(rs.getString(6));
                     obra.setVersion_duracion(rs.getString(7));
                     bdata = (rs.getObject(8) == null ? null : rs.getBlob(8).getBytes(1, (int) rs.getBlob(8).length()));
-                    obra.setVersion_wav(rs.getObject(8) == null ? null : new String(bdata));
+                    obra.setVersion_wav(rs.getObject(8) == null ? null : Base64.getEncoder().encodeToString(bdata));
                     bdata = (rs.getObject(9) == null ? null : rs.getBlob(9).getBytes(1, (int) rs.getBlob(9).length()));
-                    obra.setVersion_mp3(rs.getObject(9) == null ? null : new String(bdata));
+                    obra.setVersion_mp3(rs.getObject(9) == null ? null : Base64.getEncoder().encodeToString(bdata));
                     bdata =
                         (rs.getObject(10) == null ? null : rs.getBlob(10).getBytes(1, (int) rs.getBlob(10).length()));
-                    obra.setVersion_aiff(rs.getObject(10) == null ? null : new String(bdata));
+                    obra.setVersion_aiff(rs.getObject(10) == null ? null : Base64.getEncoder().encodeToString(bdata));
                     obra.setVersion_lyric(rs.getObject(11) == null ? null : rs.getString(11));
 
                     obraList.add(obra);
@@ -566,14 +564,14 @@ public class SacmObra implements Serializable {
             obraResponse.getResponseBD().setCodMsg(cstmt.getString(3));
             obraResponse.setResponseService(new HeaderDto());
             obraResponse.getResponseService().setCodErr(cstmt.getInt(2));
-           obraResponse.getResponseService().setCodMsg(cstmt.getString(3));
+            obraResponse.getResponseService().setCodMsg(cstmt.getString(3));
             obraResponse.setObras(obraList);
 
             cstmt.close();
 
             conn.close();
             conn = null;
-        
+
 
         } catch (Exception e) {
             // a failure occurred log message;
@@ -586,8 +584,8 @@ public class SacmObra implements Serializable {
         }
         _logger.info("Finish getVersiones");
         // 9. Return the result
-        
-            obraResponse.setObras(obraList);
+
+        obraResponse.setObras(obraList);
         return obraResponse;
     }
 
