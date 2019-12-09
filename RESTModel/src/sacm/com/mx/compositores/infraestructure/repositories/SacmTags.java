@@ -82,7 +82,7 @@ public class SacmTags implements Serializable {
                     tagN1.setId_TagN1(rs.getInt(3));
                     tagN1.setNombre_TagN1(rs.getString(4));
 
-                    tagN2.setId_TagN2(rs.getInt(5));
+                    tagN2.setId_TagN2(Integer.toString(rs.getInt(5)));
                     tagN2.setNombreTagN2(rs.getString(6));
                     tagN1.getTagsListN2().add(tagN2);
 

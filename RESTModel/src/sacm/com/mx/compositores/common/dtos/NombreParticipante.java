@@ -6,6 +6,7 @@ public class NombreParticipante {
     }
     private int id_participante;
     private String nombre;
+    private String segundo_nombre;
     private String apellido_materno;
     private String apellido_paterno;
 
@@ -39,5 +40,13 @@ public class NombreParticipante {
 
     public void setApellido_paterno(String apellido_paterno) {
         this.apellido_paterno = apellido_paterno;
+    }
+
+    public String getSegundo_nombre() {
+        return segundo_nombre;
+    }
+
+    public void setSegundo_nombre(String segundo_nombre) {
+        this.segundo_nombre = segundo_nombre;
     }
 }

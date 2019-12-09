@@ -7,6 +7,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 
+import sacm.com.mx.compositores.common.dtos.AlbumResultDto;
 import sacm.com.mx.compositores.common.dtos.CompObraDto;
 import sacm.com.mx.compositores.common.dtos.ObraDto;
 import sacm.com.mx.compositores.common.dtos.ObraResultDto;
@@ -43,7 +44,7 @@ public class ObraService {
     @Consumes("application/json")
     @Produces("application/json")
     @Path("sacm_consulta_album")
-    public ObraResultDto getObraByAlbum(PalabraDto palabraRequest) {
+    public AlbumResultDto getObraByAlbum(PalabraDto palabraRequest) {
         return SacmObra.sacmConsultaObraByAlbum(palabraRequest);
     }
     

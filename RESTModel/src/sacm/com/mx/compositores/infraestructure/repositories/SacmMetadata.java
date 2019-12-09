@@ -82,7 +82,7 @@ public class SacmMetadata {
                 tagN1.setId_TagN1(rs.getInt(7));
                 tagN1.setNombre_TagN1(rs.getString(8));
 
-                tagN2.setId_TagN2(rs.getInt(9));
+                tagN2.setId_TagN2(rs.getString(9));
                 tagN2.setNombreTagN2(rs.getString(10));
 
                 tagN1.getTagsListN2().add(tagN2);

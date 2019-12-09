@@ -17,6 +17,8 @@ import java.util.TreeMap;
 
 import oracle.adf.share.logging.ADFLogger;
 
+import sacm.com.mx.compositores.common.dtos.AlbumDto;
+import sacm.com.mx.compositores.common.dtos.AlbumResultDto;
 import sacm.com.mx.compositores.common.dtos.CompObraDto;
 import sacm.com.mx.compositores.common.dtos.HeaderDto;
 import sacm.com.mx.compositores.common.dtos.Obra;
@@ -274,8 +276,9 @@ public class SacmObra implements Serializable {
     }
 
 
-    public static ObraResultDto sacmConsultaObraByAlbum(PalabraDto palabra) {
-        List<ObraDto> obraList = new ArrayList<ObraDto>();
+    public static AlbumResultDto sacmConsultaObraByAlbum(PalabraDto palabra) {
+        AlbumResultDto AlbumRes = new AlbumResultDto();
+        List<AlbumDto> obraList = new ArrayList<AlbumDto>();
         CallableStatement cstmt = null;
         ResultSet rs = null;
         Connection conn = null;
@@ -315,12 +318,12 @@ public class SacmObra implements Serializable {
                 rs = (ResultSet) cstmt.getObject(13);
                 byte[] bdata;
                 while (rs.next()) {
-                    ObraDto obra = new ObraDto();
-                    obra.setObra_id_album(rs.getInt(1));
-                    obra.setObra_nombre(rs.getString(2));
-                    obra.setObra_descripcion(rs.getString(3));
+                    AlbumDto obra = new AlbumDto();
+                    obra.setId_album(rs.getInt(1));
+                    obra.setNombre_album(rs.getString(2));
+                    obra.setAlbum_descripcion(rs.getString(3));
                     bdata = (rs.getObject(4) == null ? null : rs.getBlob(4).getBytes(1, (int) rs.getBlob(4).length()));
-                    obra.set_Imagen(rs.getObject(4) == null ? null : Base64.getEncoder().encodeToString(bdata));
+                    obra.setImagen_album(rs.getObject(4) == null ? null : Base64.getEncoder().encodeToString(bdata));
 
 
                     obraList.add(obra);
@@ -329,14 +332,14 @@ public class SacmObra implements Serializable {
             }
 
             // 6. Set value of dateValue property using first OUT param
-            obraResponse = new ObraResultDto();
-            obraResponse.setResponseBD(new HeaderDto());
-            obraResponse.getResponseBD().setCodErr(cstmt.getInt(11));
-            obraResponse.getResponseBD().setCodMsg(cstmt.getString(12));
-            obraResponse.setResponseService(new HeaderDto());
-            obraResponse.getResponseService().setCodErr(cstmt.getInt(11));
-            obraResponse.getResponseService().setCodMsg(cstmt.getString(12));
-            obraResponse.setObras(obraList);
+            AlbumRes = new AlbumResultDto();
+            AlbumRes.setResponseBD(new HeaderDto());
+            AlbumRes.getResponseBD().setCodErr(cstmt.getInt(11));
+            AlbumRes.getResponseBD().setCodMsg(cstmt.getString(12));
+            AlbumRes.setResponseService(new HeaderDto());
+            AlbumRes.getResponseService().setCodErr(cstmt.getInt(11));
+            AlbumRes.getResponseService().setCodMsg(cstmt.getString(12));
+            AlbumRes.setAlbumes(obraList);
 
             cstmt.close();
 
@@ -347,17 +350,17 @@ public class SacmObra implements Serializable {
         } catch (Exception e) {
             // a failure occurred log message;
             _logger.severe(e.getMessage());
-            obraResponse = new ObraResultDto();
-            obraResponse.setResponseService(new HeaderDto());
-            obraResponse.getResponseService().setCodErr(1);
-            obraResponse.getResponseService().setCodMsg(e.getMessage());
-            return obraResponse;
+            AlbumRes = new AlbumResultDto();
+            AlbumRes.setResponseService(new HeaderDto());
+            AlbumRes.getResponseService().setCodErr(1);
+            AlbumRes.getResponseService().setCodMsg(e.getMessage());
+            return AlbumRes;
         }
         _logger.info("Finish getVersiones");
         // 9. Return the result
 
-        obraResponse.setObras(obraList);
-        return obraResponse;
+        AlbumRes.setAlbumes(obraList);
+        return AlbumRes;
     }
 
     public static ObraResultDto ConsultaObraByAudio(ObraDto obraRequest) {

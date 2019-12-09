@@ -10,7 +10,10 @@ public class SugerenciaResultDto {
     
     private HeaderDto ResponseBD;
     private HeaderDto ResponseService;
-    private List<SugerenciaDto> obras= new ArrayList<SugerenciaDto>();
+    private List<ObraDto> Obras= new ArrayList<ObraDto>();
+    private List<AlbumDto> Albumes= new ArrayList<AlbumDto>();
+    private List<NombreParticipante> Participantes= new ArrayList<NombreParticipante>();
+    private List<TagSugerencia> Tags= new ArrayList<TagSugerencia>();
 
     public HeaderDto getResponseBD() {
         return ResponseBD;
@@ -28,11 +31,35 @@ public class SugerenciaResultDto {
         this.ResponseService = ResponseService;
     }
 
-    public List<SugerenciaDto> getObras() {
-        return obras;
+    public List<ObraDto> getObras() {
+        return Obras;
     }
 
-    public void setObras(List<SugerenciaDto> obras) {
-        this.obras = obras;
+    public void setObras(List<ObraDto> Obras) {
+        this.Obras = Obras;
+    }
+
+    public List<AlbumDto> getAlbumes() {
+        return Albumes;
+    }
+
+    public void setAlbumes(List<AlbumDto> Albumes) {
+        this.Albumes = Albumes;
+    }
+
+    public List<NombreParticipante> getParticipantes() {
+        return Participantes;
+    }
+
+    public void setParticipantes(List<NombreParticipante> Participantes) {
+        this.Participantes = Participantes;
+    }
+
+    public List<TagSugerencia> getTags() {
+        return Tags;
+    }
+
+    public void setTags(List<TagSugerencia> Tags) {
+        this.Tags = Tags;
     }
 }
