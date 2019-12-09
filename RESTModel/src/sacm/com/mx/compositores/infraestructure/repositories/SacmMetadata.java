@@ -192,12 +192,8 @@ public class SacmMetadata {
                     }
 
                 }
-                
-                
-               /* for (TagN1 str : tagsListN1) {
-                    mapTagN1.put(str.getId_TagN1(), str);
-                }*/
-
+                          
+            
                 for (TagN1 value : mapTagN1.values()) {
                     tagsListN1.add(value);
                 }

@@ -17,6 +17,7 @@ import sacm.com.mx.compositores.domain.restservices.MetadaService;
 import sacm.com.mx.compositores.domain.restservices.ObraService;
 import sacm.com.mx.compositores.domain.restservices.PaisService;
 import sacm.com.mx.compositores.domain.restservices.SexoService;
+import sacm.com.mx.compositores.domain.restservices.SugerenciaService;
 import sacm.com.mx.compositores.domain.restservices.TagsService;
 import sacm.com.mx.compositores.domain.restservices.TestService;
 import sacm.com.mx.compositores.domain.restservices.TrancInfoService;
@@ -39,6 +40,7 @@ public class GenericApplication extends Application {
         classes.add(MetadaService.class);
         classes.add(UsuarioService.class);
         classes.add(LegalesService.class);
+        classes.add(SugerenciaService.class); 
         classes.add(TagsService.class);
 
         // Register provider classes.

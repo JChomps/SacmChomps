@@ -54,21 +54,22 @@ public class SacmTags implements Serializable {
             conn = AppModule.getDbConexionJDBC();
 
             // 2. Define the PL/SQL block for the statement to invoke
-            cstmt = conn.prepareCall("{call SACM_PKG_BUSCADOR.PRC_CONSULTA_TAGS(?,?,?,?)}");
+            cstmt = conn.prepareCall("{call SACM_PKG_BUSCADOR.PRC_CONSULTA_TAGS(?,?,?,?,?)}");
 
             // 3. Set the bind values of the IN parameters
             cstmt.setObject(1, tagsRequest.getIdTag());
+            cstmt.setObject(2, tagsRequest.getIdTagHijo());
 
             // 4. Register the positions and types of the OUT parameters
-            cstmt.registerOutParameter(2, Types.INTEGER);
-            cstmt.registerOutParameter(3, Types.VARCHAR);
-            cstmt.registerOutParameter(4, -10);
+            cstmt.registerOutParameter(3, Types.INTEGER);
+            cstmt.registerOutParameter(4, Types.VARCHAR);
+            cstmt.registerOutParameter(5, -10);
 
             // 5. Execute the statement
             cstmt.executeUpdate();
-            if (cstmt.getInt(2) == 0) {
+            if (cstmt.getInt(3) == 0) {
 
-                rs = (ResultSet) cstmt.getObject(4);
+                rs = (ResultSet) cstmt.getObject(5);
                 List<Tag> tagList = new ArrayList<Tag>();               
 
                 while (rs.next()) {
@@ -96,11 +97,11 @@ public class SacmTags implements Serializable {
             // 6. Set value of dateValue property using first OUT param
             tagsResponse = new TagsResultDto();
             tagsResponse.setResponseBD(new HeaderDto());
-            tagsResponse.getResponseBD().setCodErr(cstmt.getInt(2));
-            tagsResponse.getResponseBD().setCodMsg(cstmt.getString(3));
+            tagsResponse.getResponseBD().setCodErr(cstmt.getInt(3));
+            tagsResponse.getResponseBD().setCodMsg(cstmt.getString(4));
             tagsResponse.setResponseService(new HeaderDto());
-            tagsResponse.getResponseService().setCodErr(cstmt.getInt(2));
-            tagsResponse.getResponseService().setCodMsg(cstmt.getString(3));
+            tagsResponse.getResponseService().setCodErr(cstmt.getInt(3));
+            tagsResponse.getResponseService().setCodMsg(cstmt.getString(4));
             tagsResponse.setTagsList(tagListResult);
 
             cstmt.close();

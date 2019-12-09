@@ -15,8 +15,7 @@ public class ObraDto implements Serializable {
     private Integer id_obra;
     private Integer id_album;
     private String obra_nombre;
-    private Integer obra_numero;
-    
+    private Integer obra_numero;    
     private Integer obra_id_album;
     private String obra_titulo;
     private String obra_descripcion;
