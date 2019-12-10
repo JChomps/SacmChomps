@@ -18,6 +18,7 @@ public class SugerenciaService {
         super();
     }
     
+    /*-----------------------------------------------------sacm_consulta_sugerencia Service-------------------------------------------------------------------*/
     @POST
     @Produces("application/json")
     @Path("sacm_consulta_sugerencia")

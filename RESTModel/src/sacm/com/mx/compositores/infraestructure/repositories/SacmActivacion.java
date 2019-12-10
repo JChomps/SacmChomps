@@ -22,7 +22,8 @@ public class SacmActivacion {
     public SacmActivacion() {
         super();
     }
-
+        
+ /*---------------------------------------------------------sacm_activa_cuenta Service----------------------------------------------------------------------*/
 
     public static ActivacionResultDto getActivacionResult(ActivacionDto activacionRequest) {
         CallableStatement cstmt = null;
@@ -32,14 +33,11 @@ public class SacmActivacion {
             conn = AppModule.getDbConexionJDBC();
             // 2. Define the PL/SQL block for the statement to invoke
             cstmt = conn.prepareCall("{call SACM_PKG_REGISTRO_USUARIO.PRC_USUARIO_ACTIVA_CTA(?,?,?)}");
-
             // 3. Set the bind values of the IN parameters
             cstmt.setObject(1, activacionRequest.getId_Usuario());
-
             // 4. Register the positions and types of the OUT parameters
             cstmt.registerOutParameter(2, Types.INTEGER);
             cstmt.registerOutParameter(3, Types.VARCHAR);
-
             // 5. Execute the statement
             cstmt.executeUpdate();         
             
@@ -53,8 +51,7 @@ public class SacmActivacion {
             activacionResponse.setResponseService(new HeaderDto());
             activacionResponse.getResponseService().setCodErr(cstmt.getInt(2));
             activacionResponse.getResponseService().setCodMsg(cstmt.getString(3));
-            
-
+            // 9. Close the JDBC CallableStatement
             cstmt.close();
             conn.close();
             conn = null;

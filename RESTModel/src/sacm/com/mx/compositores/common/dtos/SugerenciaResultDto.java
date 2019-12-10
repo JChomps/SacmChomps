@@ -12,7 +12,7 @@ public class SugerenciaResultDto {
     private HeaderDto ResponseService;
     private List<ObraDto> Obras= new ArrayList<ObraDto>();
     private List<AlbumDto> Albumes= new ArrayList<AlbumDto>();
-    private List<NombreParticipante> Participantes= new ArrayList<NombreParticipante>();
+    private List<NombreParticipanteDto> Participantes= new ArrayList<NombreParticipanteDto>();
     private List<TagSugerencia> Tags= new ArrayList<TagSugerencia>();
 
     public HeaderDto getResponseBD() {
@@ -47,11 +47,11 @@ public class SugerenciaResultDto {
         this.Albumes = Albumes;
     }
 
-    public List<NombreParticipante> getParticipantes() {
+    public List<NombreParticipanteDto> getParticipantes() {
         return Participantes;
     }
 
-    public void setParticipantes(List<NombreParticipante> Participantes) {
+    public void setParticipantes(List<NombreParticipanteDto> Participantes) {
         this.Participantes = Participantes;
     }
 

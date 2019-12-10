@@ -5,7 +5,7 @@ public class ActivacionResultDto {
     @SuppressWarnings("compatibility:-8073432289962294725")
     private static final long serialVersionUID = 1L;
     
-   // private ActivacionDto activacion= new ActivacionDto();
+   // Cabeceras para errores
         private HeaderDto ResponseBD;
         private HeaderDto ResponseService;
     

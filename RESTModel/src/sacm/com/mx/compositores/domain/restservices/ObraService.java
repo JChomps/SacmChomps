@@ -20,7 +20,7 @@ public class ObraService {
     public ObraService() {
         super();
     }
-
+    /*-----------------------------------------------------sacm_versiones Service-------------------------------------------------------------------*/ 
     @POST
     @Consumes("application/json")
     @Produces("application/json")
@@ -29,7 +29,7 @@ public class ObraService {
         return SacmObra.getVersionesByIdObra(obraRequest);
     }
 
-
+    /*-----------------------------------------------------sacm_consulta_obra Service-------------------------------------------------------------------*/
     @POST
     @Consumes("application/json")
     @Produces("application/json")
@@ -38,8 +38,7 @@ public class ObraService {
         return SacmObra.sacmConsultaObra(palabraRequest);
     }
     
-   
-
+    /*-----------------------------------------------------sacm_consulta_album Service-------------------------------------------------------------------*/
     @POST
     @Consumes("application/json")
     @Produces("application/json")
@@ -47,7 +46,7 @@ public class ObraService {
     public AlbumResultDto getObraByAlbum(PalabraDto palabraRequest) {
         return SacmObra.sacmConsultaObraByAlbum(palabraRequest);
     }
-    
+    /*-----------------------------------------------------sacm_consulta_obra_album Service-------------------------------------------------------------------*/
     @POST
     @Consumes("application/json")
     @Produces("application/json")
@@ -56,7 +55,7 @@ public class ObraService {
         return SacmObra.sacmConsultaObraByAlbum(obraRequest);
     }
 
-
+    /*-----------------------------------------------------sacm_audio_obra Service-------------------------------------------------------------------*/
     @POST
     @Consumes("application/json")
     @Produces("application/json")
@@ -65,6 +64,7 @@ public class ObraService {
         return SacmObra.ConsultaObraByAudio(obraRequest);
     }
 
+    /*-----------------------------------------------------sacm_compartir_obra Service-------------------------------------------------------------------*/
     @POST
     @Consumes("application/json")
     @Produces("application/json")

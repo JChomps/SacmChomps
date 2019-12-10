@@ -29,54 +29,45 @@ public class SacmBeneficio implements Serializable {
     public SacmBeneficio() {
         super();
     }
-    
+ /*--------------------------------------------------------- sacm_beneficios ----------------------------------------------------------------------*/
+
     public static BeneficioResultDto getBeneficios(BeneficioDto beneficioRequest) {
         List<BeneficioDto> beneficioList = new ArrayList<BeneficioDto>();
         CallableStatement cstmt = null;
         ResultSet rs = null;
-        Connection conn = null;
-        
+        Connection conn = null;       
 
         try {
             conn = AppModule.getDbConexionJDBC();
-
             // 2. Define the PL/SQL block for the statement to invoke
             cstmt = conn.prepareCall("{call SACM_PKG_BUSCADOR.PRC_CONSULTA_BENEFICIOS(?,?,?)}");
-
-            // 3. Set the bind values of the IN parameters
-           
-
             // 4. Register the positions and types of the OUT parameters
             cstmt.registerOutParameter(1, Types.INTEGER);
             cstmt.registerOutParameter(2, Types.VARCHAR);
             cstmt.registerOutParameter(3, -10);
-
             // 5. Execute the statement
             cstmt.executeUpdate();
             if(cstmt.getInt(1)==0)
             rs = (ResultSet) cstmt.getObject(3);
-            // print the results
+            // read the results
             while (rs.next()) {
                 BeneficioDto beneficio= new BeneficioDto();
-
                 beneficio.setIdBeneficio(rs.getInt(1));
                 beneficio.setTitulo(rs.getString(2));
-                beneficio.setDescripcion(rs.getString(3));
-                
+                beneficio.setDescripcion(rs.getString(3));                
                 beneficioList.add(beneficio);
             }
 
             beneficioResponse = new BeneficioResultDto();
-            // 6. Set value of dateValue property using first OUT param
+            // 6. Set value of dateValue property using OUT params
             beneficioResponse.setResponseBD(new HeaderDto());
             beneficioResponse.getResponseBD().setCodErr(cstmt.getInt(1));
             beneficioResponse.getResponseBD().setCodMsg(cstmt.getString(2));
             beneficioResponse.setResponseService(new HeaderDto());
             beneficioResponse.getResponseService().setCodErr(cstmt.getInt(1));
-            beneficioResponse.getResponseService().setCodMsg(cstmt.getString(2));
-            
+            beneficioResponse.getResponseService().setCodMsg(cstmt.getString(2));            
             beneficioResponse.setBeneficioList(beneficioList);
-
+            // 9. Close the JDBC CallableStatement
             cstmt.close();
             rs.close();
             conn.close();

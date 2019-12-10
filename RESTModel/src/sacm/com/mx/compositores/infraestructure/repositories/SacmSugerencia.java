@@ -17,7 +17,7 @@ import oracle.adf.share.logging.ADFLogger;
 import sacm.com.mx.compositores.common.dtos.AlbumDto;
 import sacm.com.mx.compositores.common.dtos.HeaderDto;
 import sacm.com.mx.compositores.common.dtos.MetadataDto;
-import sacm.com.mx.compositores.common.dtos.NombreParticipante;
+import sacm.com.mx.compositores.common.dtos.NombreParticipanteDto;
 import sacm.com.mx.compositores.common.dtos.ObraDto;
 import sacm.com.mx.compositores.common.dtos.ObraResultDto;
 import sacm.com.mx.compositores.common.dtos.PalabraDto;
@@ -42,34 +42,30 @@ public class SacmSugerencia {
         super();
     }
 
+    /*---------------------------------------------------------------------- sacm_consulta_sugerencia ----------------------------------------------------------------------*/
     public static SugerenciaResultDto sacmgetSugerencia(PalabraDto palabra) {
-        List<SugerenciaDto> sugerenciaListResult = new ArrayList<SugerenciaDto>();
         List<ObraDto> obraList = new ArrayList<ObraDto>();
         List<AlbumDto> albumList = new ArrayList<AlbumDto>();
-        List<NombreParticipante> participanteList = new ArrayList<NombreParticipante>();
+        List<NombreParticipanteDto> participanteList = new ArrayList<NombreParticipanteDto>();
         List<TagSugerencia> tagList = new ArrayList<TagSugerencia>();
 
         Map<Integer, ObraDto> mapObra = new TreeMap<Integer, ObraDto>();
         Map<Integer, AlbumDto> mapAlbum = new HashMap<Integer, AlbumDto>();
-        Map<Integer, NombreParticipante> mapParticipante = new HashMap<Integer, NombreParticipante>();
+        Map<Integer, NombreParticipanteDto> mapParticipante = new HashMap<Integer, NombreParticipanteDto>();
         Map<String, TagSugerencia> mapTag = new HashMap<String, TagSugerencia>();
-
-
+        
         CallableStatement cstmt = null;
         ResultSet rs = null;
         Connection conn = null;
+        //Ordenamos el arreglo de entrada de acuerdo a sus valores
         int valores[] = new int[7];
         for (int str : palabra.getArray_options()) {
             valores[str - 1] = 1;
         }
-
-
         try {
             conn = AppModule.getDbConexionJDBC();
-
             // 2. Define the PL/SQL block for the statement to invoke
             cstmt = conn.prepareCall("{call SACM_PKG_BUSCADOR.PRC_CONSULTA_SUGERENCIAS(?,?,?,?,?,?,?,?,?,?,?,?)}");
-
             // 3. Set the bind values of the IN parameters
             cstmt.setObject(1, palabra.getPalabra());
             cstmt.setObject(2, palabra.getId_album());
@@ -80,25 +76,21 @@ public class SacmSugerencia {
             cstmt.setObject(7, valores[4]);
             cstmt.setObject(8, valores[5]);
             cstmt.setObject(9, valores[6]);
-
             // 4. Register the positions and types of the OUT parameters
             cstmt.registerOutParameter(10, Types.INTEGER);
             cstmt.registerOutParameter(11, Types.VARCHAR);
             cstmt.registerOutParameter(12, -10);
-
             // 5. Execute the statement
             cstmt.executeUpdate();
             if (cstmt.getInt(10) == 0) {
                 // print the results
                 rs = (ResultSet) cstmt.getObject(12);
-
-
                 while (rs.next()) {
                     ObraDto obra = new ObraDto();
                     AlbumDto album = new AlbumDto();
-                    NombreParticipante participante = new NombreParticipante();
+                    NombreParticipanteDto participante = new NombreParticipanteDto();
                     TagSugerencia tag = new TagSugerencia();
-
+                    //Creamos los objetos de acuerdo a su  categoría 
                     switch (rs.getString(1)) {
                     case "OBRA":
                         obra.setId_obra(rs.getInt(2));
@@ -129,26 +121,23 @@ public class SacmSugerencia {
                         tag.setTag_path_id(rs.getString(21));
                         mapTag.put(tag.getTag_path_id(), tag);
                         break;
-
                     default:
                         break;
                     }
                 }
-
+                //Convertimos los maps a listas sin elementos repetidos 
                 for (ObraDto value : mapObra.values()) {
                     obraList.add(value);
                 }
                 for (AlbumDto value : mapAlbum.values()) {
                     albumList.add(value);
                 }
-                for (NombreParticipante value : mapParticipante.values()) {
+                for (NombreParticipanteDto value : mapParticipante.values()) {
                     participanteList.add(value);
                 }
                 for (TagSugerencia value : mapTag.values()) {
                     tagList.add(value);
-                }
-
-                //   organizaSugerencia(sugerenciaListResult,sugerenciaList);
+                }               
                 rs.close();
             }
 
@@ -164,13 +153,10 @@ public class SacmSugerencia {
             sugerenciaResponse.setAlbumes(albumList);
             sugerenciaResponse.setParticipantes(participanteList);
             sugerenciaResponse.setTags(tagList);
-
+            // 9. Close the JDBC CallableStatement
             cstmt.close();
-
             conn.close();
             conn = null;
-
-
         } catch (Exception e) {
             // a failure occurred log message;
             _logger.severe(e.getMessage());
@@ -182,155 +168,10 @@ public class SacmSugerencia {
         }
         _logger.info("Finish getVersiones");
         // 9. Return the result
-
         sugerenciaResponse.setObras(obraList);
         sugerenciaResponse.setAlbumes(albumList);
         sugerenciaResponse.setParticipantes(participanteList);
         sugerenciaResponse.setTags(tagList);
         return sugerenciaResponse;
     }
-
-  /*  private static void organizaSugerencia(List<SugerenciaDto> sugerenciaListResult,
-                                           List<SugerenciaDto> sugerenciaList) {
-
-        List<Tag> tagList = new ArrayList<Tag>();
-        List<TagN1> tagsListN1 = new ArrayList<TagN1>();
-        List<TagN2> tagsListN2 = new ArrayList<TagN2>();
-
-        Map<Integer, SugerenciaDto> map = new TreeMap<Integer, SugerenciaDto>();
-        Map<Integer, Tag> mapTag = new HashMap<Integer, Tag>();
-        Map<Integer, TagN1> mapTagN1 = new HashMap<Integer, TagN1>();
-        Map<Integer, TagN2> mapTagN2 = new HashMap<Integer, TagN2>();
-
-        for (SugerenciaDto str : sugerenciaList) {
-            map.put(str.getId_Obra(), str);
-        }
-
-        for (SugerenciaDto value : map.values()) {
-            sugerenciaListResult.add(value);
-        }
-
-        for (SugerenciaDto strTIR : sugerenciaListResult) {
-            List<NombreParticipante> partList = new ArrayList<NombreParticipante>();
-            Map<Integer, NombreParticipante> mapP = new TreeMap<Integer, NombreParticipante>();
-
-            for (SugerenciaDto strTI : sugerenciaList) {
-
-                if (strTI.getId_Obra() == strTIR.getId_Obra()) {
-                    NombreParticipante part = new NombreParticipante();
-                    part.setId_participante(strTI.getParticipante()
-                                                 .get(0)
-                                                 .getId_participante());
-                    part.setNombre(strTI.getParticipante()
-                                        .get(0)
-                                        .getNombre());
-                    part.setApellido_paterno(strTI.getParticipante()
-                                                  .get(0)
-                                                  .getApellido_paterno());
-                    part.setApellido_materno(strTI.getParticipante()
-                                                  .get(0)
-                                                  .getApellido_materno());
-
-                    mapP.put(part.getId_participante(), part);
-                }
-            }
-
-            for (NombreParticipante value : mapP.values()) {
-                partList.add(value);
-            }
-
-
-            mapTagN1 = new HashMap<Integer, TagN1>();
-            tagsListN1 = new ArrayList<TagN1>();
-            mapTag = new HashMap<Integer, Tag>();
-            tagList = new ArrayList<Tag>();
-            for (SugerenciaDto strMD : sugerenciaList) {
-                if (strMD.getId_Obra() == strTIR.getId_Obra()) {
-                    Tag parTag = new Tag();
-                    parTag.setIdTag(strMD.getTagsList()
-                                         .get(0)
-                                         .getIdTag());
-                    parTag.setTagName(strMD.getTagsList()
-                                           .get(0)
-                                           .getTagName());
-                    mapTag.put(parTag.getIdTag(), parTag);
-                }
-            }
-
-
-            for (Tag value : mapTag.values()) {
-                tagList.add(value);
-            }
-
-            for (Tag strTag : tagList) {
-                mapTagN1 = new HashMap<Integer, TagN1>();
-                tagsListN1 = new ArrayList<TagN1>();
-                for (SugerenciaDto strMD : sugerenciaList) {
-                    if (strTag.getIdTag() == strMD.getTagsList()
-                                                  .get(0)
-                                                  .getIdTag()) {
-                        TagN1 partN1 = new TagN1();
-                        partN1.setId_TagN1(strMD.getTagsList()
-                                                .get(0)
-                                                .getTagsListN1()
-                                                .get(0)
-                                                .getId_TagN1());
-                        partN1.setNombre_TagN1(strMD.getTagsList()
-                                                    .get(0)
-                                                    .getTagsListN1()
-                                                    .get(0)
-                                                    .getNombre_TagN1());
-                        mapTagN1.put(partN1.getId_TagN1(), partN1);
-                    }
-
-                }
-
-
-                for (TagN1 value : mapTagN1.values()) {
-                    tagsListN1.add(value);
-                }
-
-                for (TagN1 strTagN1 : tagsListN1) {
-                    tagsListN2 = new ArrayList<TagN2>();
-                    mapTagN2 = new HashMap<Integer, TagN2>();
-                    for (SugerenciaDto strMD : sugerenciaList) {
-                        if (strTagN1.getId_TagN1() == strMD.getTagsList()
-                                                           .get(0)
-                                                           .getTagsListN1()
-                                                           .get(0)
-                                                           .getId_TagN1()) {
-                            TagN2 partN2 = new TagN2();
-                            partN2.setId_TagN2(strMD.getTagsList()
-                                                    .get(0)
-                                                    .getTagsListN1()
-                                                    .get(0)
-                                                    .getTagsListN2()
-                                                    .get(0)
-                                                    .getId_TagN2());
-                            partN2.setNombreTagN2(strMD.getTagsList()
-                                                       .get(0)
-                                                       .getTagsListN1()
-                                                       .get(0)
-                                                       .getTagsListN2()
-                                                       .get(0)
-                                                       .getNombreTagN2());
-                            mapTagN2.put(partN2.getId_TagN2(), partN2);
-                        }
-
-                    }
-
-                    for (TagN2 value : mapTagN2.values()) {
-                        tagsListN2.add(value);
-                    }
-                    strTagN1.setTagsListN2(tagsListN2);
-                }
-
-                strTag.setTagsListN1(tagsListN1);
-            }
-
-
-            strTIR.setTagsList(tagList);
-            strTIR.setParticipante(partList);
-        }
-    }*/
 }

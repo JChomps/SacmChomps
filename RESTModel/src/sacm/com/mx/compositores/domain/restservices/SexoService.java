@@ -15,6 +15,7 @@ public class SexoService {
         super();
     }
 
+    /*-----------------------------------------------------sacm_cat_sexo Service-------------------------------------------------------------------*/
     @POST
     @Consumes("application/json")
     @Produces("application/json")

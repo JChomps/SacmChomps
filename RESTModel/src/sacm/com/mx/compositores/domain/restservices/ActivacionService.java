@@ -15,6 +15,8 @@ public class ActivacionService {
         super();
     }
     
+    
+    /*-----------------------------------------------------sacm_activa_cuenta Service-------------------------------------------------------------------*/
     @POST
     @Produces("application/json")
     @Path("sacm_activa_cuenta")

@@ -15,6 +15,7 @@ public class LegalesService {
         super();
     }
 
+    /*-----------------------------------------------------sacm_terminos_aviso Service-------------------------------------------------------------------*/
     @POST
     @Consumes("application/json")
     @Produces("application/json")

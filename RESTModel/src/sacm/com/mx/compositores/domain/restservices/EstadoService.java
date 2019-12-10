@@ -15,6 +15,7 @@ public class EstadoService {
         super();
     }
 
+    /*-----------------------------------------------------sacm_cat_estado Service-------------------------------------------------------------------*/
     @POST
     @Consumes("application/json")
     @Produces("application/json")

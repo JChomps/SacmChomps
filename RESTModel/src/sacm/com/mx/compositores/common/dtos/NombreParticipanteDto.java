@@ -1,7 +1,7 @@
 package sacm.com.mx.compositores.common.dtos;
 
-public class NombreParticipante {
-    public NombreParticipante() {
+public class NombreParticipanteDto {
+    public NombreParticipanteDto() {
         super();
     }
     private int id_participante;

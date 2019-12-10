@@ -17,7 +17,7 @@ public class SugerenciaDto {
     private Integer id_Album;
     private String nombre_Album;    
     private String descripcion_Album; 
-    private List<NombreParticipante> participante = new ArrayList<NombreParticipante>();
+    private List<NombreParticipanteDto> participante = new ArrayList<NombreParticipanteDto>();
     private List<Tag> tagsList = new ArrayList<Tag>();
 
 
@@ -93,11 +93,11 @@ public class SugerenciaDto {
         this.descripcion_Album = descripcion_Album;
     }
 
-    public List<NombreParticipante> getParticipante() {
+    public List<NombreParticipanteDto> getParticipante() {
         return participante;
     }
 
-    public void setParticipante(List<NombreParticipante> participante) {
+    public void setParticipante(List<NombreParticipanteDto> participante) {
         this.participante = participante;
     }
 

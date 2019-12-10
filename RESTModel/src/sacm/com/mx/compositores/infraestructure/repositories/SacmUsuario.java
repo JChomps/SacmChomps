@@ -24,6 +24,7 @@ public class SacmUsuario {
      * @param usuarioRequest
      * @return
      */
+    /*------------------------------------------------------------------- sacm_actualiza_pwd_usuario --------------------------------------------------------------------------*/
     public static UsuarioResultDto updatePassword(UsuarioDto usuarioRequest) {
         CallableStatement cstmt = null;
         Connection conn = null;
@@ -79,6 +80,7 @@ public class SacmUsuario {
      * @param usuarioRequest
      * @return
      */
+    /*------------------------------------------------------------- sacm_cambia_pwd_usuario -------------------------------------------------------------------*/
     public static UsuarioResultDto changePassword(UsuarioDto usuarioRequest) {
         CallableStatement cstmt = null;
         Connection conn = null;
@@ -87,17 +89,14 @@ public class SacmUsuario {
 
             // 2. Define the PL/SQL block for the statement to invoke
             cstmt = conn.prepareCall("{call PRC_USUARIO_REGISTRO.PRC_CAMBIA_PWD_USUARIO(?,?,?,?,?,?)}");
-
             // 3. Set the bind values of the IN parameters
             cstmt.setObject(1, usuarioRequest.getEmail());
             cstmt.setObject(2, usuarioRequest.getPassword());
             cstmt.setObject(3, usuarioRequest.getPasswordNuevo());
-
             // 4. Register the positions and types of the OUT parameters
             cstmt.registerOutParameter(4, Types.VARCHAR);
             cstmt.registerOutParameter(5, Types.INTEGER);
             cstmt.registerOutParameter(6, Types.VARCHAR);
-
             // 5. Execute the statement
             cstmt.executeUpdate();
 

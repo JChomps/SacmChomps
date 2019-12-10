@@ -14,8 +14,8 @@ import sacm.com.mx.compositores.infraestructure.repositories.SacmBeneficio;
 public class BeneficioService {
     public BeneficioService() {
         super();
-    }
-    
+    }    
+    /*-----------------------------------------------------sacm_beneficios Service-------------------------------------------------------------------*/
     @POST
     @Consumes("application/json")
     @Produces("application/json")

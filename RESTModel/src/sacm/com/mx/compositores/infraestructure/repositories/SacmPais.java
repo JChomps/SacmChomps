@@ -31,28 +31,23 @@ public class SacmPais implements Serializable {
         super();
     }
 
+    /*------------------------------------------------------------- sacm_cat_pais ------------------------------------------------------------------------------*/
     public static PaisResultDto getPaisesByIdPais(PaisDto paisRequest) {
         CallableStatement cstmt = null;
         ResultSet rs = null;
         Connection conn = null;
-
         try {
             conn = AppModule.getDbConexionJDBC();
-
             // 2. Define the PL/SQL block for the statement to invoke
             cstmt = conn.prepareCall("{call SACM_PKG_REGISTRO_USUARIO.PRC_CONSULTA_PAIS(?,?,?,?)}");
-
             // 3. Set the bind values of the IN parameters
             cstmt.setObject(1, paisRequest.getId_pais());
-
             // 4. Register the positions and types of the OUT parameters
             cstmt.registerOutParameter(2, Types.INTEGER);
             cstmt.registerOutParameter(3, Types.VARCHAR);
             cstmt.registerOutParameter(4, -10);
-
             // 5. Execute the statement
             cstmt.executeUpdate();
-
             rs = (ResultSet) cstmt.getObject(4);
             // print the results
             List<PaisDto> paisList = new ArrayList<PaisDto>();
@@ -63,12 +58,7 @@ public class SacmPais implements Serializable {
                 pais.setIsocode2(rs.getString(3));
                 pais.setIsocode3(rs.getString(4));
                 pais.setCapital(rs.getString(5));
-                pais.setCodigo_tel(rs.getString(6));
-                //pais.setActivo(rs.getInt(7));
-                //pais.setCreadoPor(rs.getString(8));
-                //pais.setFechaCreacion(rs.getDate(9));
-                //pais.setModificadoPor(rs.getString(10));
-                //pais.setFechaModificacion(rs.getDate(11));
+                pais.setCodigo_tel(rs.getString(6));               
                 paisList.add(pais);
             }
 
@@ -82,12 +72,11 @@ public class SacmPais implements Serializable {
             paisResponse.setResponseService(new HeaderDto());
             paisResponse.getResponseService().setCodErr(cstmt.getInt(2));
             paisResponse.getResponseService().setCodMsg(cstmt.getString(3));
-
+            // 9. Close the JDBC CallableStatement
             cstmt.close();
             rs.close();
             conn.close();
             conn = null;
-
         } catch (Exception e) {
             // a failure occurred log message;
             _logger.severe(e.getMessage());
