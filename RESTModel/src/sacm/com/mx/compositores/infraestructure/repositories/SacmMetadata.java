@@ -114,7 +114,7 @@ public class SacmMetadata {
             metadataResponse.getResponseService().setCodMsg(e.getMessage());
             return metadataResponse;
         }
-        _logger.info("Finish getmetadatas");
+        _logger.info("Finish getMetadatas");
         // 10. Return the result
         return metadataResponse;
     }

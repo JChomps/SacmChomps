@@ -211,7 +211,7 @@ public class SacmObra implements Serializable {
             obraResponse.getResponseService().setCodMsg(e.getMessage());
             return obraResponse;
         }
-        _logger.info("Finish getVersiones");
+        _logger.info("Finish getConsultaObra");
         // 9. Return the result
         obraResponse.setObras(obraList);
         return obraResponse;
@@ -288,7 +288,7 @@ public class SacmObra implements Serializable {
             AlbumRes.getResponseService().setCodMsg(e.getMessage());
             return AlbumRes;
         }
-        _logger.info("Finish getVersiones");
+        _logger.info("Finish getConsultaAlbum");
         // 9. Return the result
         AlbumRes.setAlbumes(obraList);
         return AlbumRes;
@@ -361,7 +361,7 @@ public class SacmObra implements Serializable {
             obraResponse.getResponseService().setCodMsg(e.getMessage());
             return obraResponse;
         }
-        _logger.info("Finish getVersiones");
+        _logger.info("Finish getAudioObra");
         // 9. Return the result
         return obraResponse;
     }
@@ -413,7 +413,7 @@ public class SacmObra implements Serializable {
             obraResponse.getResponseService().setCodMsg(e.getMessage());
             return obraResponse;
         }
-        _logger.info("Finish getVersiones");
+        _logger.info("Finish CompartirObra");
         // 9. Return the result
         return obraResponse;
     }
@@ -488,7 +488,7 @@ public class SacmObra implements Serializable {
             obraResponse.getResponseService().setCodMsg(e.getMessage());
             return obraResponse;
         }
-        _logger.info("Finish getVersiones");
+        _logger.info("Finish getConsultaObraAlbum");
         // 9. Return the result
         obraResponse.setObras(obraList);
         return obraResponse;

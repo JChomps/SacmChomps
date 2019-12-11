@@ -13,8 +13,7 @@ public class PalabraIdObra implements Serializable {
 
     private HeaderDto headerRequest;
     private HeaderDto headerResponse = new HeaderDto();
-    private PalabraDto busqueda;
-    
+    private PalabraDto busqueda;    
 
     public HeaderDto getHeaderRequest() {
         return headerRequest;

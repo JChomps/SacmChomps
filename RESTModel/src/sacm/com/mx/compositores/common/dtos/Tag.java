@@ -13,7 +13,6 @@ public class Tag {
     private Integer idTag;
     private String tagName;
     private List<TagN1> tagsListN1 = new ArrayList<TagN1>();
-   // private Map<String, TagN1> tagsMapN1 = new HashMap<String, TagN1>();
     public Integer getIdTag() {
         return idTag;
     }

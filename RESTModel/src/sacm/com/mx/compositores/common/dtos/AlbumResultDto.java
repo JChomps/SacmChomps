@@ -7,7 +7,7 @@ public class AlbumResultDto {
     public AlbumResultDto() {
         super();
     }
-    // Cabeceras para errores
+    
     private HeaderDto ResponseBD;
     private HeaderDto ResponseService;
     private List<AlbumDto> Albumes = new ArrayList<AlbumDto>();

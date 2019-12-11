@@ -66,7 +66,7 @@ public class SacmActivacion {
             return activacionResponse;
         }
 
-        _logger.info("Finish getActivacionResult");
+        _logger.info("Finish Activacion Cuenta");
         // 9. Return the result
         return activacionResponse;
     }

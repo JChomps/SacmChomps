@@ -82,7 +82,7 @@ public class SacmBeneficio implements Serializable {
             beneficioResponse.getResponseService().setCodMsg(e.getMessage());
             return beneficioResponse;
         }
-        _logger.info("Finish getPaises");
+        _logger.info("Finish getBeneficios");
         // 9. Return the result
         return beneficioResponse;
     }

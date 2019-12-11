@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PalabraDto {
-    @SuppressWarnings("compatibility:-7830055730249044691")
-    private static final long serialVersionUID = 1L;
     public PalabraDto() {
         super();
     }

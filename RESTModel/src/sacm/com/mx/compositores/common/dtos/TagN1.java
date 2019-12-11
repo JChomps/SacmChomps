@@ -14,7 +14,6 @@ public class TagN1 {
     private int idTagN1;
     private String tagNameN1;
     private List<TagN2> tagsListN2 = new ArrayList<TagN2>();
-   // private Map<String, TagN2> tagsMapN2 = new HashMap<String, TagN2>();
 
    
 

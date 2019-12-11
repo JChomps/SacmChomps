@@ -34,7 +34,6 @@ public class ObraResultDto implements Serializable {
         return ResponseService;
     }
 
-   
 
     public List<ObraDto> getObras() {
         return obras;

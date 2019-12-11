@@ -17,10 +17,6 @@ public class MetadataResultDto implements Serializable {
     //private MetadataDto metadata = new MetadataDto();
     private List<MetadataDto> metadataList = new ArrayList<MetadataDto>();
 
-   
-
-   
-
     public void setMetadataList(List<MetadataDto> metadataList) {
         this.metadataList = metadataList;
     }

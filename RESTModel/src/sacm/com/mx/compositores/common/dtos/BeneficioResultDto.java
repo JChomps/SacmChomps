@@ -17,8 +17,6 @@ public class BeneficioResultDto {
     private BeneficioDto beneficio;
     private List<BeneficioDto> beneficioList= new ArrayList<BeneficioDto> ();
 
-   
-
     public BeneficioDto getBeneficio() {
         return beneficio;
     }

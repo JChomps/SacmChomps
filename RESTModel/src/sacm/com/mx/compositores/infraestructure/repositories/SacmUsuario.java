@@ -33,19 +33,15 @@ public class SacmUsuario {
 
             // 2. Define the PL/SQL block for the statement to invoke
             cstmt = conn.prepareCall("{call SACM_PKG_INICIO_SESION.PRC_ACTUALIZA_PWD_USUARIO(?,?,?,?,?)}");
-
             // 3. Set the bind values of the IN parameters
             cstmt.setObject(1, usuarioRequest.getId_usuario());
             cstmt.setObject(2, usuarioRequest.getPassword());
-
             // 4. Register the positions and types of the OUT parameters
             cstmt.registerOutParameter(3, Types.INTEGER);
             cstmt.registerOutParameter(4, Types.INTEGER);
             cstmt.registerOutParameter(5, Types.VARCHAR);
-
             // 5. Execute the statement
             cstmt.executeUpdate();
-
             // 6. Set value of dateValue property using OUT param
             usuarioResponse = new UsuarioResultDto();
             usuarioResponse.setUpdatePWD(new UsuarioDto());
