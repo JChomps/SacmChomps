@@ -16,6 +16,7 @@ public class UsuarioService {
         super();
     }
 
+    /*-----------------------------------------------------sacm_actualiza_pwd_usuario Service-------------------------------------------------------------------*/
     @POST
     @Consumes("application/json")
     @Produces("application/json")
@@ -24,6 +25,7 @@ public class UsuarioService {
         return SacmUsuario.updatePassword(usuarioRequest);
     }
 
+    /*-----------------------------------------------------sacm_cambia_pwd_usuario Service-------------------------------------------------------------------*/
     @POST
     @Consumes("application/json")
     @Produces("application/json")
@@ -32,6 +34,7 @@ public class UsuarioService {
         return SacmUsuario.changePassword(usuarioRequest);
     }
 
+    /*-----------------------------------------------------sacm_envia_correo_pwd Service-------------------------------------------------------------------*/
     @POST
     @Consumes("application/json")
     @Produces("application/json")
@@ -40,6 +43,7 @@ public class UsuarioService {
         return SacmUsuario.restaurarPassword(usuarioRequest);
     }
 
+    /*-----------------------------------------------------sacm_login_user Service-------------------------------------------------------------------*/
     @POST
     @Consumes("application/json")
     @Produces("application/json")
@@ -48,6 +52,7 @@ public class UsuarioService {
         return SacmUsuario.login(usuarioRequest);
     } 
 
+    /*-----------------------------------------------------sacm_registro_user Service-------------------------------------------------------------------*/
     @POST
     @Consumes("application/json")
     @Produces("application/json")
