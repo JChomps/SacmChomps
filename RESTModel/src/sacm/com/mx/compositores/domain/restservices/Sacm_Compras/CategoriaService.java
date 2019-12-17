@@ -17,7 +17,7 @@ public class CategoriaService {
     /*-----------------------------------------------------sacm_consulta_categorias Service-------------------------------------------------------------------*/
     @POST
     @Produces("application/json")
-    @Path("sacm_consulta_categorias")
+    @Path("sacm_consulta_categorias") 
     public CategoriaResultDto getAgregaCarrito(CategoriaDto CategoriaRequest) {
         return SacmCategoria.getConsultaCat(CategoriaRequest);
     }
