@@ -21,16 +21,16 @@ import java.util.TreeMap;
 
 import oracle.adf.share.logging.ADFLogger;
 
-import sacm.com.mx.compositores.common.dtos.EstadoResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Registro_Usuario.EstadoResultDto;
 import sacm.com.mx.compositores.common.dtos.HeaderDto;
-import sacm.com.mx.compositores.common.dtos.ObraResultDto;
-import sacm.com.mx.compositores.common.dtos.ParticipanteDto;
-import sacm.com.mx.compositores.common.dtos.Tag;
-import sacm.com.mx.compositores.common.dtos.TagN1;
-import sacm.com.mx.compositores.common.dtos.TagN2;
-import sacm.com.mx.compositores.common.dtos.TagsDto;
-import sacm.com.mx.compositores.common.dtos.TagsResultDto;
-import sacm.com.mx.compositores.common.dtos.TrackInfoDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.ObraResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.ParticipanteDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.Tag;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.TagN1;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.TagN2;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.TagsDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.TagsResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.TrackInfoDto;
 import sacm.com.mx.compositores.infraestructure.utils.AppModule;
 
 public class SacmTags implements Serializable {
@@ -74,15 +74,15 @@ public class SacmTags implements Serializable {
                     tag.setIdTag(rs.getInt(1));
                     tag.setTagName(rs.getString(2));
                     //Asignamiento de valores al objeto Tag nivel 1
-                    tagN1.setId_TagN1(rs.getInt(3));
-                    tagN1.setNombre_TagN1(rs.getString(4));
+                    tagN1.setIdTag(rs.getInt(3));
+                    tagN1.setTagName(rs.getString(4));
                     //Asignamiento de valores al objeto Tag nivel 2
-                    tagN2.setId_TagN2(Integer.toString(rs.getInt(5)));
-                    tagN2.setNombreTagN2(rs.getString(6));
+                    tagN2.setIdTag(Integer.toString(rs.getInt(5)));
+                    tagN2.setTagName(rs.getString(6));
                     //Se agrega el elemento Tag de nivel 2 en el objeto Tag nivel 1
-                    tagN1.getTagsListN2().add(tagN2);
+                    tagN1.getTagsList().add(tagN2);
                     //Se agrega el elemento Tag de nivel 1 en el objeto Tag nivel 2
-                    tag.getTagsListN1().add(tagN1);
+                    tag.getTagsList().add(tagN1);
                     tagList.add(tag);
                 }                
                 organizaList(tagListResult, tagList);
@@ -137,13 +137,13 @@ public class SacmTags implements Serializable {
             for (Tag strTL : tagList) {
                 if (strTL.getIdTag() == strTLR.getIdTag()) {
                     TagN1 partN1 = new TagN1();
-                    partN1.setId_TagN1(strTL.getTagsListN1()
+                    partN1.setIdTag(strTL.getTagsList()
                                             .get(0)
-                                            .getId_TagN1());
-                    partN1.setNombre_TagN1(strTL.getTagsListN1()
+                                            .getIdTag());
+                    partN1.setTagName(strTL.getTagsList()
                                                 .get(0)
-                                                .getNombre_TagN1());
-                    mapN1.put(partN1.getId_TagN1(), partN1);
+                                                .getTagName());
+                    mapN1.put(partN1.getIdTag(), partN1);
                 }
             }
             for (TagN1 value : mapN1.values()) {
@@ -151,7 +151,7 @@ public class SacmTags implements Serializable {
             }
             //Organización y eliminación de elementos Tag nivel 2 repetidos
             OrganizaTagN1(tagsListN1,tagList);
-            strTLR.setTagsListN1(tagsListN1);
+            strTLR.setTagsList(tagsListN1);
 
         }
     }
@@ -161,21 +161,21 @@ public class SacmTags implements Serializable {
         for (TagN1 strN1 : tagsListN1) {
             tagsListN2 = new ArrayList<TagN2>();
             for (Tag strTL : tagList) {
-                if (strN1.getId_TagN1() == strTL.getTagsListN1()
+                if (strN1.getIdTag() == strTL.getTagsList()
                                                 .get(0)
-                                                .getId_TagN1()) {
+                                                .getIdTag()) {
                     TagN2 partN2 = new TagN2();
-                    partN2.setId_TagN2(strTL.getTagsListN1()
+                    partN2.setIdTag(strTL.getTagsList()
                                             .get(0)
-                                            .getTagsListN2()
+                                            .getTagsList()
                                             .get(0)
-                                            .getId_TagN2());
-                    partN2.setNombreTagN2(strTL.getTagsListN1()
+                                            .getIdTag());
+                    partN2.setTagName(strTL.getTagsList()
                                                .get(0)
-                                               .getTagsListN2()
+                                               .getTagsList()
                                                .get(0)
-                                               .getNombreTagN2());
-                    strN1.getTagsListN2().add(partN2);
+                                               .getTagName());
+                    strN1.getTagsList().add(partN2);
                 }
             }
         }

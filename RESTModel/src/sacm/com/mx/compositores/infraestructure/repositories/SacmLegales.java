@@ -10,8 +10,8 @@ import java.sql.Types;
 import oracle.adf.share.logging.ADFLogger;
 
 import sacm.com.mx.compositores.common.dtos.HeaderDto;
-import sacm.com.mx.compositores.common.dtos.LegalesDto;
-import sacm.com.mx.compositores.common.dtos.LegalesResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Registro_Usuario.LegalesDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Registro_Usuario.LegalesResultDto;
 import sacm.com.mx.compositores.infraestructure.utils.AppModule;
 
 public class SacmLegales implements Serializable {

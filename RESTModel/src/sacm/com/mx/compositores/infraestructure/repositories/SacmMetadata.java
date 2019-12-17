@@ -16,13 +16,13 @@ import java.util.TreeMap;
 import oracle.adf.share.logging.ADFLogger;
 
 import sacm.com.mx.compositores.common.dtos.HeaderDto;
-import sacm.com.mx.compositores.common.dtos.LegalesResultDto;
-import sacm.com.mx.compositores.common.dtos.MetadataDto;
-import sacm.com.mx.compositores.common.dtos.MetadataResultDto;
-import sacm.com.mx.compositores.common.dtos.Tag;
-import sacm.com.mx.compositores.common.dtos.TagN1;
-import sacm.com.mx.compositores.common.dtos.TagN2;
-import sacm.com.mx.compositores.common.dtos.TagsResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Registro_Usuario.LegalesResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.MetadataDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.MetadataResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.Tag;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.TagN1;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.TagN2;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.TagsResultDto;
 import sacm.com.mx.compositores.infraestructure.utils.AppModule;
 
 public class SacmMetadata {
@@ -71,15 +71,15 @@ public class SacmMetadata {
                     tag.setIdTag(rs.getInt(5));
                     tag.setTagName(rs.getString(6));
                     // Leer Tag nivel 1
-                    tagN1.setId_TagN1(rs.getInt(7));
-                    tagN1.setNombre_TagN1(rs.getString(8));
+                    tagN1.setIdTag(rs.getInt(7));
+                    tagN1.setTagName(rs.getString(8));
                     //Lectura de Tag nivel 2
-                    tagN2.setId_TagN2(rs.getString(9));
-                    tagN2.setNombreTagN2(rs.getString(10));
+                    tagN2.setIdTag(rs.getString(9));
+                    tagN2.setTagName(rs.getString(10));
                     //Se agrega el objeto Tag de nivel 2 dentro del objeto Tag nivel 1
-                    tagN1.getTagsListN2().add(tagN2);
+                    tagN1.getTagsList().add(tagN2);
                     //Se agrega el objeto Tag de nivel 1 dentro del objeto Tag 
-                    tag.getTagsListN1().add(tagN1);
+                    tag.getTagsList().add(tagN1);
                     //Se agrega el objeto Tag dentro del objeto Metadata
                     metadata.getTagsList().add(tag);
 
@@ -173,17 +173,17 @@ public class SacmMetadata {
                                               .get(0)
                                               .getIdTag()) {
                     TagN1 partN1 = new TagN1();
-                    partN1.setId_TagN1(strMD.getTagsList()
+                    partN1.setIdTag(strMD.getTagsList()
                                             .get(0)
-                                            .getTagsListN1()
+                                            .getTagsList()
                                             .get(0)
-                                            .getId_TagN1());
-                    partN1.setNombre_TagN1(strMD.getTagsList()
+                                            .getIdTag());
+                    partN1.setTagName(strMD.getTagsList()
                                                 .get(0)
-                                                .getTagsListN1()
+                                                .getTagsList()
                                                 .get(0)
-                                                .getNombre_TagN1());
-                    mapTagN1.put(partN1.getId_TagN1(), partN1);
+                                                .getTagName());
+                    mapTagN1.put(partN1.getIdTag(), partN1);
                 }
             }
             // Eliminación de objetos Tag de nivel 1
@@ -192,7 +192,7 @@ public class SacmMetadata {
             }
             OrganizarTagsN1(tagsListN1,metadataList);
             //Agregar lista de objetos tag nivel 1 al objeto tag correspondiente
-            strTag.setTagsListN1(tagsListN1);
+            strTag.setTagsList(tagsListN1);
         }
     }
 
@@ -202,31 +202,31 @@ public class SacmMetadata {
         for (TagN1 strTagN1 : tagsListN1) {
             tagsListN2 = new ArrayList<TagN2>();
             for (MetadataDto strMD : metadataList) {
-                if (strTagN1.getId_TagN1() == strMD.getTagsList()
+                if (strTagN1.getIdTag() == strMD.getTagsList()
                                                    .get(0)
-                                                   .getTagsListN1()
+                                                   .getTagsList()
                                                    .get(0)
-                                                   .getId_TagN1()) {
+                                                   .getIdTag()) {
                     TagN2 partN2 = new TagN2();
-                    partN2.setId_TagN2(strMD.getTagsList()
+                    partN2.setIdTag(strMD.getTagsList()
                                             .get(0)
-                                            .getTagsListN1()
+                                            .getTagsList()
                                             .get(0)
-                                            .getTagsListN2()
+                                            .getTagsList()
                                             .get(0)
-                                            .getId_TagN2());
-                    partN2.setNombreTagN2(strMD.getTagsList()
+                                            .getIdTag());
+                    partN2.setTagName(strMD.getTagsList()
                                                .get(0)
-                                               .getTagsListN1()
+                                               .getTagsList()
                                                .get(0)
-                                               .getTagsListN2()
+                                               .getTagsList()
                                                .get(0)
-                                               .getNombreTagN2());
+                                               .getTagName());
                     tagsListN2.add(partN2);
                 }
             }
             //Agregar lista de objetos tag nivel 2 al objeto tag nivel 1 correspondiente
-            strTagN1.setTagsListN2(tagsListN2);
+            strTagN1.setTagsList(tagsListN2);
         }
     }
 }

@@ -6,8 +6,8 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
-import sacm.com.mx.compositores.common.dtos.UsuarioDto;
-import sacm.com.mx.compositores.common.dtos.UsuarioResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Inicio_Sesion.UsuarioDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Inicio_Sesion.UsuarioResultDto;
 import sacm.com.mx.compositores.infraestructure.repositories.SacmUsuario;
 
 @Path("/usuario")

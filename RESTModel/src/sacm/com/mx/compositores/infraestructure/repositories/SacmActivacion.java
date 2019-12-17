@@ -6,8 +6,8 @@ import java.sql.Types;
 
 import oracle.adf.share.logging.ADFLogger;
 
-import sacm.com.mx.compositores.common.dtos.ActivacionDto;
-import sacm.com.mx.compositores.common.dtos.ActivacionResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Registro_Usuario.ActivacionDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Registro_Usuario.ActivacionResultDto;
 import sacm.com.mx.compositores.common.dtos.HeaderDto;
 import sacm.com.mx.compositores.infraestructure.utils.AppModule;
 

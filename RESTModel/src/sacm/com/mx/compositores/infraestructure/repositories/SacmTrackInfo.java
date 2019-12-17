@@ -16,10 +16,10 @@ import java.util.TreeMap;
 import oracle.adf.share.logging.ADFLogger;
 
 import sacm.com.mx.compositores.common.dtos.HeaderDto;
-import sacm.com.mx.compositores.common.dtos.MetadataResultDto;
-import sacm.com.mx.compositores.common.dtos.ParticipanteDto;
-import sacm.com.mx.compositores.common.dtos.TrackInfoDto;
-import sacm.com.mx.compositores.common.dtos.TrackInfoResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.MetadataResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.ParticipanteDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.TrackInfoDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.TrackInfoResultDto;
 import sacm.com.mx.compositores.infraestructure.utils.AppModule;
 
 public class SacmTrackInfo implements Serializable {

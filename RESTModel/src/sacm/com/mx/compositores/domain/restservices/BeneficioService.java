@@ -6,8 +6,8 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
-import sacm.com.mx.compositores.common.dtos.BeneficioDto;
-import sacm.com.mx.compositores.common.dtos.BeneficioResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Registro_Usuario.BeneficioDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Registro_Usuario.BeneficioResultDto;
 import sacm.com.mx.compositores.infraestructure.repositories.SacmBeneficio;
 
 @Path("/beneficio")

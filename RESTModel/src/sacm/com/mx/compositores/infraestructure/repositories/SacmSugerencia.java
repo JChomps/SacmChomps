@@ -14,21 +14,21 @@ import java.util.TreeMap;
 
 import oracle.adf.share.logging.ADFLogger;
 
-import sacm.com.mx.compositores.common.dtos.AlbumDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.AlbumDto;
 import sacm.com.mx.compositores.common.dtos.HeaderDto;
-import sacm.com.mx.compositores.common.dtos.MetadataDto;
-import sacm.com.mx.compositores.common.dtos.NombreParticipanteDto;
-import sacm.com.mx.compositores.common.dtos.ObraDto;
-import sacm.com.mx.compositores.common.dtos.ObraResultDto;
-import sacm.com.mx.compositores.common.dtos.PalabraDto;
-import sacm.com.mx.compositores.common.dtos.ParticipanteDto;
-import sacm.com.mx.compositores.common.dtos.SugerenciaDto;
-import sacm.com.mx.compositores.common.dtos.SugerenciaResultDto;
-import sacm.com.mx.compositores.common.dtos.Tag;
-import sacm.com.mx.compositores.common.dtos.TagN1;
-import sacm.com.mx.compositores.common.dtos.TagN2;
-import sacm.com.mx.compositores.common.dtos.TagSugerencia;
-import sacm.com.mx.compositores.common.dtos.TrackInfoDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.MetadataDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.NombreParticipanteDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.ObraDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.ObraResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.PalabraDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.ParticipanteDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.SugerenciaDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.SugerenciaResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.Tag;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.TagN1;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.TagN2;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.TagSugerencia;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.TrackInfoDto;
 import sacm.com.mx.compositores.infraestructure.utils.AppModule;
 
 public class SacmSugerencia {

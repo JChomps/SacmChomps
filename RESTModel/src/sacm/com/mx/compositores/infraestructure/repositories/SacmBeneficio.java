@@ -12,10 +12,10 @@ import java.util.List;
 
 import oracle.adf.share.logging.ADFLogger;
 
-import sacm.com.mx.compositores.common.dtos.BeneficioDto;
-import sacm.com.mx.compositores.common.dtos.BeneficioResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Registro_Usuario.BeneficioDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Registro_Usuario.BeneficioResultDto;
 import sacm.com.mx.compositores.common.dtos.HeaderDto;
-import sacm.com.mx.compositores.common.dtos.ObraResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.ObraResultDto;
 import sacm.com.mx.compositores.infraestructure.utils.AppModule;
 
 public class SacmBeneficio implements Serializable {

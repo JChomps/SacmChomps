@@ -5,8 +5,8 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
-import sacm.com.mx.compositores.common.dtos.SexoDto;
-import sacm.com.mx.compositores.common.dtos.SexoResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Registro_Usuario.SexoDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Registro_Usuario.SexoResultDto;
 import sacm.com.mx.compositores.infraestructure.repositories.SacmSexo;
 
 @Path("/sexo")

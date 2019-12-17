@@ -15,11 +15,11 @@ import javax.validation.ValidationException;
 
 import oracle.adf.share.logging.ADFLogger;
 
-import sacm.com.mx.compositores.common.dtos.EstadoDto;
-import sacm.com.mx.compositores.common.dtos.EstadoResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Registro_Usuario.EstadoDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Registro_Usuario.EstadoResultDto;
 import sacm.com.mx.compositores.common.dtos.HeaderDto;
-import sacm.com.mx.compositores.common.dtos.MetadataDto;
-import sacm.com.mx.compositores.common.dtos.MetadataResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.MetadataDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.MetadataResultDto;
 import sacm.com.mx.compositores.infraestructure.utils.AppModule;
 
 public class SacmEstado implements Serializable {

@@ -5,8 +5,8 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
-import sacm.com.mx.compositores.common.dtos.PaisDto;
-import sacm.com.mx.compositores.common.dtos.PaisResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Registro_Usuario.PaisDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Registro_Usuario.PaisResultDto;
 import sacm.com.mx.compositores.infraestructure.repositories.SacmPais;
 
 @Path("/pais")

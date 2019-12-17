@@ -7,8 +7,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 
-import sacm.com.mx.compositores.common.dtos.TrackInfoDto;
-import sacm.com.mx.compositores.common.dtos.TrackInfoResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.TrackInfoDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.TrackInfoResultDto;
 import sacm.com.mx.compositores.infraestructure.repositories.SacmTrackInfo;
 
 @Path("/trackInfo")

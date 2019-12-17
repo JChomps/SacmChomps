@@ -7,12 +7,12 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 
-import sacm.com.mx.compositores.common.dtos.AlbumResultDto;
-import sacm.com.mx.compositores.common.dtos.CompObraDto;
-import sacm.com.mx.compositores.common.dtos.ObraDto;
-import sacm.com.mx.compositores.common.dtos.ObraResultDto;
-import sacm.com.mx.compositores.common.dtos.PalabraDto;
-import sacm.com.mx.compositores.common.dtos.VersionResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.AlbumResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.CompObraDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.ObraDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.ObraResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.PalabraDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.VersionResultDto;
 import sacm.com.mx.compositores.infraestructure.repositories.SacmObra;
 
 @Path("/obra")

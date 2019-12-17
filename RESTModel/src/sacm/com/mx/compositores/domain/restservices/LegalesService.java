@@ -5,8 +5,8 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
-import sacm.com.mx.compositores.common.dtos.LegalesDto;
-import sacm.com.mx.compositores.common.dtos.LegalesResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Registro_Usuario.LegalesDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Registro_Usuario.LegalesResultDto;
 import sacm.com.mx.compositores.infraestructure.repositories.SacmLegales;
 
 @Path("/legales")

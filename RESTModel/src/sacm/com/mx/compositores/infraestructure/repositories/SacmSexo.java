@@ -13,10 +13,10 @@ import java.util.List;
 
 import oracle.adf.share.logging.ADFLogger;
 
-import sacm.com.mx.compositores.common.dtos.EstadoResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Registro_Usuario.EstadoResultDto;
 import sacm.com.mx.compositores.common.dtos.HeaderDto;
-import sacm.com.mx.compositores.common.dtos.SexoDto;
-import sacm.com.mx.compositores.common.dtos.SexoResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Registro_Usuario.SexoDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Registro_Usuario.SexoResultDto;
 import sacm.com.mx.compositores.infraestructure.utils.AppModule;
 
 public class SacmSexo implements Serializable {

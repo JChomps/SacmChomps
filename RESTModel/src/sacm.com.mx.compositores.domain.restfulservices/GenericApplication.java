@@ -16,7 +16,9 @@ import sacm.com.mx.compositores.domain.restservices.LegalesService;
 import sacm.com.mx.compositores.domain.restservices.MetadaService;
 import sacm.com.mx.compositores.domain.restservices.ObraService;
 import sacm.com.mx.compositores.domain.restservices.PaisService;
+import sacm.com.mx.compositores.domain.restservices.Sacm_Compras.CarritoService;
 import sacm.com.mx.compositores.domain.restservices.SexoService;
+import sacm.com.mx.compositores.domain.restservices.SolicitudesServices;
 import sacm.com.mx.compositores.domain.restservices.SugerenciaService;
 import sacm.com.mx.compositores.domain.restservices.TagsService;
 import sacm.com.mx.compositores.domain.restservices.TestService;
@@ -30,18 +32,22 @@ public class GenericApplication extends Application {
 
         // Register root resources.
         classes.add(ActivacionService.class);
-        classes.add(BeneficioService.class);        
+        classes.add(BeneficioService.class);
+        classes.add(CarritoService.class);
+        classes.add(EstadoService.class);
+        classes.add(LegalesService.class);
+        classes.add(MetadaService.class);
         classes.add(ObraService.class);
         classes.add(PaisService.class);
-        classes.add(EstadoService.class);
-        classes.add(TestService.class);
         classes.add(SexoService.class);
-        classes.add(TrancInfoService.class);
-        classes.add(MetadaService.class);
-        classes.add(UsuarioService.class);
-        classes.add(LegalesService.class);
+        classes.add(SolicitudesServices.class);
         classes.add(SugerenciaService.class); 
         classes.add(TagsService.class);
+        classes.add(TrancInfoService.class);       
+        classes.add(UsuarioService.class);
+        
+       
+       
 
         // Register provider classes.
 

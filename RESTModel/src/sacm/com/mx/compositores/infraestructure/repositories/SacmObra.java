@@ -17,16 +17,16 @@ import java.util.TreeMap;
 
 import oracle.adf.share.logging.ADFLogger;
 
-import sacm.com.mx.compositores.common.dtos.AlbumDto;
-import sacm.com.mx.compositores.common.dtos.AlbumResultDto;
-import sacm.com.mx.compositores.common.dtos.CompObraDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.AlbumDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.AlbumResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.CompObraDto;
 import sacm.com.mx.compositores.common.dtos.HeaderDto;
-import sacm.com.mx.compositores.common.dtos.Obra;
-import sacm.com.mx.compositores.common.dtos.ObraDto;
-import sacm.com.mx.compositores.common.dtos.ObraResultDto;
-import sacm.com.mx.compositores.common.dtos.PalabraDto;
-import sacm.com.mx.compositores.common.dtos.VersionDto;
-import sacm.com.mx.compositores.common.dtos.VersionResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.Obra;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.ObraDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.ObraResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.PalabraDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.VersionDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.VersionResultDto;
 import sacm.com.mx.compositores.infraestructure.utils.AppModule;
 
 

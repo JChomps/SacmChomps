@@ -6,8 +6,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 
-import sacm.com.mx.compositores.common.dtos.TagsDto;
-import sacm.com.mx.compositores.common.dtos.TagsResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.TagsDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.TagsResultDto;
 import sacm.com.mx.compositores.infraestructure.repositories.SacmTags;
 
 @Path("/tag")
