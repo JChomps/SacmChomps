@@ -5,14 +5,13 @@ import java.util.List;
 
 import sacm.com.mx.compositores.common.dtos.HeaderDto;
 
-
-public class CategoriaResultDto {
-    public CategoriaResultDto() {
+public class CarritoResultDto {
+    public CarritoResultDto() {
         super();
     }
     private HeaderDto ResponseBD;
     private HeaderDto ResponseService;
-    private List<CategoriaDto> Categorias = new ArrayList<CategoriaDto>();
+    private List<CarritoDto> Carrito = new ArrayList<CarritoDto>();
 
     public HeaderDto getResponseBD() {
         return ResponseBD;
@@ -30,11 +29,11 @@ public class CategoriaResultDto {
         this.ResponseService = ResponseService;
     }
 
-    public List<CategoriaDto> getCategorias() {
-        return Categorias;
+    public List<CarritoDto> getCarrito() {
+        return Carrito;
     }
 
-    public void setCategorias(List<CategoriaDto> Categorias) {
-        this.Categorias = Categorias;
+    public void setCarrito(List<CarritoDto> Carrito) {
+        this.Carrito = Carrito;
     }
 }

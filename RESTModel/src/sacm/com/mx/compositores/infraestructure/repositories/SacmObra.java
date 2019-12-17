@@ -140,6 +140,7 @@ public class SacmObra implements Serializable {
         for (int str : palabra.getArray_options()) {
             valores[str - 1] = 1;
         }
+        String cadena =  palabra.getSearch().toString();
         try {
             conn = AppModule.getDbConexionJDBC();
             // 2. Define the PL/SQL block for the statement to invoke
@@ -154,7 +155,7 @@ public class SacmObra implements Serializable {
             cstmt.setObject(7, valores[4]);
             cstmt.setObject(8, valores[5]);
             cstmt.setObject(9, valores[6]);
-            cstmt.setObject(10, palabra.getSearch());
+            cstmt.setObject(10, cadena.substring(1,cadena.length()-1));
             // 4. Register the positions and types of the OUT parameters
             cstmt.registerOutParameter(11, Types.INTEGER);
             cstmt.registerOutParameter(12, Types.VARCHAR);

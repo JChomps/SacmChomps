@@ -12,7 +12,6 @@ public class Tag {
     
     private Integer idTag;
     private String tagName;
-    private List<TagN1> tagsListN1 = new ArrayList<TagN1>();
     private List<TagN1> tagsList = new ArrayList<TagN1>();
     public Integer getIdTag() {
         return idTag;

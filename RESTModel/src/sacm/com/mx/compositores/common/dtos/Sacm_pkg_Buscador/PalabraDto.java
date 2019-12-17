@@ -13,7 +13,8 @@ public class PalabraDto {
     private int id_album;
     private int id_obra;
     private List<Integer> array_options = new ArrayList<Integer>();
-    private String search;
+    private List<Integer> Search = new ArrayList<Integer>();
+   // private String search;
 
     public String getPalabra() {
         return palabra;
@@ -39,14 +40,7 @@ public class PalabraDto {
         this.array_options = array_options;
     }
 
-    public String getSearch() {
-        return search;
-    }
-
-    public void setSearch(String search) {
-        this.search = search;
-    }
-
+    
     public int getId_usuario() {
         return id_usuario;
     }
@@ -61,5 +55,13 @@ public class PalabraDto {
 
     public void setId_obra(int id_obra) {
         this.id_obra = id_obra;
+    }
+
+    public List<Integer> getSearch() {
+        return Search;
+    }
+
+    public void setSearch(List<Integer> Search) {
+        this.Search = Search;
     }
 }
