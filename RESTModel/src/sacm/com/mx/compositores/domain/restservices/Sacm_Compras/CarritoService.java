@@ -10,7 +10,7 @@ import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Compras.CarritoDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Compras.CarritoResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Registro_Usuario.ActivacionResultDto;
 import sacm.com.mx.compositores.infraestructure.repositories.SacmActivacion;
-import sacm.com.mx.compositores.infraestructure.repositories.SacmAgregarCarrito;
+import sacm.com.mx.compositores.infraestructure.repositories.SacmCarrito;
 
 @Path("/carrito")
 public class CarritoService {
@@ -23,7 +23,7 @@ public class CarritoService {
     @Produces("application/json")
     @Path("sacm_agrega_carrito")
     public PalabraIdObra getAgregaCarrito(PalabraDto IdRequest) {
-        return SacmAgregarCarrito.getAgregar(IdRequest);
+        return SacmCarrito.getAgregar(IdRequest);
     }
     
     /*-----------------------------------------------------sacm_elimina_carrito Service-------------------------------------------------------------------*/
@@ -31,7 +31,7 @@ public class CarritoService {
     @Produces("application/json")
     @Path("sacm_elimina_carrito")
     public PalabraIdObra getEliminaCarrito(CarritoDto carritoRequest) {
-        return SacmAgregarCarrito.getElimina(carritoRequest);
+        return SacmCarrito.getElimina(carritoRequest);
     }
     
     /*-----------------------------------------------------sacm_consulta_carrito Service-------------------------------------------------------------------*/
@@ -39,7 +39,7 @@ public class CarritoService {
     @Produces("application/json")
     @Path("sacm_consulta_carrito")
     public CarritoResultDto getConsultaCarrito(PalabraDto IdRequest) {
-        return SacmAgregarCarrito.getConsulta(IdRequest);
+        return SacmCarrito.getConsulta(IdRequest);
     }
     
 }

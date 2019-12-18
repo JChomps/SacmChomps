@@ -19,6 +19,7 @@ import sacm.com.mx.compositores.domain.restservices.PaisService;
 import sacm.com.mx.compositores.domain.restservices.QuickService;
 import sacm.com.mx.compositores.domain.restservices.Sacm_Compras.CarritoService;
 import sacm.com.mx.compositores.domain.restservices.Sacm_Compras.CategoriaService;
+import sacm.com.mx.compositores.domain.restservices.Sacm_ComprasProyectos.ProyectoService;
 import sacm.com.mx.compositores.domain.restservices.SexoService;
 import sacm.com.mx.compositores.domain.restservices.SolicitudesServices;
 import sacm.com.mx.compositores.domain.restservices.SugerenciaService;
@@ -42,6 +43,7 @@ public class GenericApplication extends Application {
         classes.add(MetadaService.class);
         classes.add(ObraService.class);
         classes.add(PaisService.class);
+        classes.add(ProyectoService.class);
         classes.add(QuickService.class);
         classes.add(SexoService.class);
         classes.add(SolicitudesServices.class);

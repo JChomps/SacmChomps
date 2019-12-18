@@ -11,20 +11,14 @@ import java.util.List;
 
 import oracle.adf.share.logging.ADFLogger;
 
-import oracle.mds.internal.core.IdRequest;
-
 import sacm.com.mx.compositores.common.dtos.HeaderDto;
-import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.Obra;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.PalabraDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.PalabraIdObra;
-import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.VersionDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Compras.CarritoDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Compras.CarritoResultDto;
-import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Registro_Usuario.ActivacionDto;
-import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Registro_Usuario.ActivacionResultDto;
 import sacm.com.mx.compositores.infraestructure.utils.AppModule;
 
-public class SacmAgregarCarrito {
+public class SacmCarrito {
     @SuppressWarnings("compatibility:-4232378700098733855")
     private static final long serialVersionUID = 1L;
 
@@ -32,7 +26,7 @@ public class SacmAgregarCarrito {
     private static ADFLogger _logger = ADFLogger.createADFLogger(SacmActivacion.class);
     private static PalabraIdObra agregarResponse;
 
-    public SacmAgregarCarrito() {
+    public SacmCarrito() {
         super();
 
     }
@@ -83,7 +77,7 @@ public class SacmAgregarCarrito {
         // 9. Return the result
         return agregarResponse;
     }
-    /*---------------------------------------------------------sacm_elimina_carrito Service----------------------------------------------------------------------*/
+    /*---------------------------------------------------------sacm_agregar_carrito Service----------------------------------------------------------------------*/
 
     public static PalabraIdObra getAgregar(PalabraDto IdRequest) {
         CallableStatement cstmt = null;

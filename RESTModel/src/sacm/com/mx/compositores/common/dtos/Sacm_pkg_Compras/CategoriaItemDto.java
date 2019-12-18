@@ -8,7 +8,7 @@ public class CategoriaItemDto {
     private Integer id_categoria_item;
     private String etiqueta;
     private Double valor;
-    private Double valor_acumualdo=0.00000d;
+    private Double valor_acumualdo;
 
     public Integer getId_categoria_item() {
         return id_categoria_item;
