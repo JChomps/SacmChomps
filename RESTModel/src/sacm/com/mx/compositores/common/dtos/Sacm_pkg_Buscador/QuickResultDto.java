@@ -1,14 +1,17 @@
-package sacm.com.mx.compositores.common.dtos.Sacm_pkg_Proyectos;
+package sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import sacm.com.mx.compositores.common.dtos.HeaderDto;
 
-public class ProyectoPadreDto {
-    public ProyectoPadreDto() {
+public class QuickResultDto {
+    public QuickResultDto() {
         super();
     }
     private HeaderDto ResponseBD;
     private HeaderDto ResponseService;
-    private Integer id_proyecto;
+    private List<TagsDto> quick = new ArrayList<TagsDto>();
 
     public HeaderDto getResponseBD() {
         return ResponseBD;
@@ -26,11 +29,11 @@ public class ProyectoPadreDto {
         this.ResponseService = ResponseService;
     }
 
-    public Integer getId_proyecto() {
-        return id_proyecto;
+    public List<TagsDto> getQuick() {
+        return quick;
     }
 
-    public void setId_proyecto(Integer id_proyecto) {
-        this.id_proyecto = id_proyecto;
+    public void setQuick(List<TagsDto> quick) {
+        this.quick = quick;
     }
 }

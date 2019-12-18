@@ -7,7 +7,6 @@ import javax.ws.rs.Produces;
 
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Proyectos.ProyectoDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Proyectos.ProyectoPadreDto;
-import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Proyectos.ProyectoPadreResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Proyectos.ProyectoResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Proyectos.SubProyectoDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Proyectos.SubProyectoResultDto;
@@ -42,7 +41,7 @@ public class ProyectoService {
     @Consumes("application/json")
     @Produces("application/json")
     @Path("sacm_crea_proyecto")
-    public ProyectoPadreDto CreaProyecto( ProyectoDto projectRequest) {
+    public ProyectoResultDto CreaProyecto( ProyectoDto projectRequest) {
         return SacmProyecto.getCreaProyecto(projectRequest);
     }
     
@@ -51,7 +50,7 @@ public class ProyectoService {
     @Consumes("application/json")
     @Produces("application/json")
     @Path("sacm_crea_subproyecto")
-    public ProyectoPadreDto CreaSubProyecto( SubProyectoDto projectRequest) {
+    public ProyectoResultDto CreaSubProyecto( SubProyectoDto projectRequest) {
         return SacmProyecto.getCreaSubProyecto(projectRequest);
     }
     

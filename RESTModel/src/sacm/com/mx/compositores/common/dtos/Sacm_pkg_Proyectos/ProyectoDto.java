@@ -1,5 +1,7 @@
 package sacm.com.mx.compositores.common.dtos.Sacm_pkg_Proyectos;
 
+import java.util.List;
+
 public class ProyectoDto {
     public ProyectoDto() {
         super();
@@ -20,6 +22,7 @@ public class ProyectoDto {
     private String atributo_08;
     private String atributo_09;
     private String atributo_10;
+    private List<SubProyectoDto> SubProjectList =null;
 
     public String getNombre() {
         return nombre;
@@ -139,5 +142,13 @@ public class ProyectoDto {
 
     public void setId_proyecto(Integer id_proyecto) {
         this.id_proyecto = id_proyecto;
+    }
+
+    public List<SubProyectoDto> getSubProjectList() {
+        return SubProjectList;
+    }
+
+    public void setSubProjectList(List<SubProyectoDto> SubProjectList) {
+        this.SubProjectList = SubProjectList;
     }
 }

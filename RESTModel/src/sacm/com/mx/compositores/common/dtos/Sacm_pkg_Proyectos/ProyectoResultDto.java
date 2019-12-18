@@ -12,8 +12,8 @@ public class ProyectoResultDto {
     }
     private HeaderDto ResponseBD;
     private HeaderDto ResponseService;
-    private List<ProyectoDto> ProjectList = new ArrayList<ProyectoDto>();
-    private List<ProyectoDto> sdfsdfsd = null;
+    private Integer id_proyecto;
+    private List<ProyectoDto> ProjectList =null;// new ArrayList<ProyectoDto>();
 
     public HeaderDto getResponseBD() {
         return ResponseBD;
@@ -37,5 +37,13 @@ public class ProyectoResultDto {
 
     public void setProjectList(List<ProyectoDto> ProjectList) {
         this.ProjectList = ProjectList;
+    }
+
+    public Integer getId_proyecto() {
+        return id_proyecto;
+    }
+
+    public void setId_proyecto(Integer id_proyecto) {
+        this.id_proyecto = id_proyecto;
     }
 }
