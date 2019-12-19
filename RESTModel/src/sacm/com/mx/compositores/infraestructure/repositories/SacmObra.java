@@ -21,7 +21,6 @@ import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.AlbumDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.AlbumResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.CompObraDto;
 import sacm.com.mx.compositores.common.dtos.HeaderDto;
-import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.Obra;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.ObraDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.ObraResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.PalabraDto;
@@ -36,15 +35,15 @@ public class SacmObra implements Serializable {
 
     private static ADFLogger _logger = ADFLogger.createADFLogger(SacmEstado.class);
     private static ObraResultDto obraResponse;
-    private static VersionResultDto obraRes;
+    private static ObraResultDto obraRes;
 
     public SacmObra() {
         super();
     }
     /*------------------------------------------------------------ sacm_versiones -------------------------------------------------------------------------*/
 
-    public static VersionResultDto getVersionesByIdObra(ObraDto obraRequest) {
-        List<Obra> obraListResult = new ArrayList<Obra>();
+    public static ObraResultDto getVersionesByIdObra(ObraDto obraRequest) {
+        List<ObraDto> obraListResult = new ArrayList<ObraDto>();
         CallableStatement cstmt = null;
         ResultSet rs = null;
         Connection conn = null;
@@ -63,11 +62,11 @@ public class SacmObra implements Serializable {
             if (cstmt.getInt(2) == 0) {
                 // read the results
                 rs = (ResultSet) cstmt.getObject(4);
-                List<Obra> obraList = new ArrayList<Obra>();
+                List<ObraDto> obraList = new ArrayList<ObraDto>();
 
                 byte[] bdata;
                 while (rs.next()) {
-                    Obra obra = new Obra();
+                    ObraDto obra = new ObraDto();
                     VersionDto version = new VersionDto();
                     obra.setId_obra(rs.getInt(1));
                     obra.setObra_numero(rs.getInt(2));
@@ -93,6 +92,7 @@ public class SacmObra implements Serializable {
                     version.setVersion_lyric(rs.getObject(13) == null ? null : rs.getString(13));
                     version.setVersion_type(rs.getString(14));
                     //Se agrega version al objeto Obra
+                    obra.setVersiones(new ArrayList<VersionDto>());
                     obra.getVersiones().add(version);
                     obraList.add(obra);
                 }
@@ -101,7 +101,7 @@ public class SacmObra implements Serializable {
                 rs.close();
             }
             // 6. Set value of dateValue property using first OUT param
-            obraRes = new VersionResultDto();
+            obraRes = new ObraResultDto();
             obraRes.setResponseBD(new HeaderDto());
             obraRes.getResponseBD().setCodErr(cstmt.getInt(2));
             obraRes.getResponseBD().setCodMsg(cstmt.getString(3));
@@ -117,7 +117,7 @@ public class SacmObra implements Serializable {
         } catch (Exception e) {
             // a failure occurred log message;
             _logger.severe(e.getMessage());
-            obraRes = new VersionResultDto();
+            obraRes = new ObraResultDto();
             obraRes.setResponseService(new HeaderDto());
             obraRes.getResponseService().setCodErr(1);
             obraRes.getResponseService().setCodMsg(e.getMessage());
@@ -127,7 +127,6 @@ public class SacmObra implements Serializable {
         // 9. Return the result
         return obraRes;
     }
-
 
     /*----------------------------------------------------------------- sacm_consulta_obra -------------------------------------------------------------------------*/
 
@@ -218,7 +217,6 @@ public class SacmObra implements Serializable {
         return obraResponse;
     }
 
-
     /*-------------------------------------------------------------------------- sacm_consulta_album -----------------------------------------------------------------------*/
     public static AlbumResultDto sacmConsultaObraByAlbum(PalabraDto palabra) {
         AlbumResultDto AlbumRes = new AlbumResultDto();
@@ -294,6 +292,7 @@ public class SacmObra implements Serializable {
         AlbumRes.setAlbumes(obraList);
         return AlbumRes;
     }
+    
     /*-----------------------------------------------------------sacm_audio_obra ------------------------------------------------------------------------*/
     public static ObraResultDto ConsultaObraByAudio(ObraDto obraRequest) {
         CallableStatement cstmt = null;
@@ -419,7 +418,6 @@ public class SacmObra implements Serializable {
         return obraResponse;
     }
 
-
     /*----------------------------------------------------------------- sacm_consulta_obra_album -------------------------------------------------------------------*/
     public static ObraResultDto sacmConsultaObraByAlbum(ObraDto obraRequest) {
         List<ObraDto> obraList = new ArrayList<ObraDto>();
@@ -494,20 +492,21 @@ public class SacmObra implements Serializable {
         obraResponse.setObras(obraList);
         return obraResponse;
     }
+    
 
-    private static void OrdenamientoObra(List<Obra> obraListResult, List<Obra> obraList) {
-        Map<Integer, Obra> map = new TreeMap<Integer, Obra>();
+    private static void OrdenamientoObra(List<ObraDto> obraListResult, List<ObraDto> obraList) {
+        Map<Integer, ObraDto> map = new TreeMap<Integer, ObraDto>();
         //Conversión a Map para borrar obras duplicadas
-        for (Obra str : obraList) {
+        for (ObraDto str : obraList) {
             map.put(str.getId_obra(), str);
         }
         
-        for (Obra value : map.values()) {
+        for (ObraDto value : map.values()) {
             obraListResult.add(value);
         }
         //Ordenamiento de versiones dentro de Obras correspondientes
-        for (Obra strTIR : obraListResult) {
-            for (Obra strTI : obraList) {
+        for (ObraDto strTIR : obraListResult) {
+            for (ObraDto strTI : obraList) {
                 if (strTI.getId_obra() == strTIR.getId_obra()) {
                     VersionDto ver = new VersionDto();
                     ver.setVersion_id(strTI.getVersiones()

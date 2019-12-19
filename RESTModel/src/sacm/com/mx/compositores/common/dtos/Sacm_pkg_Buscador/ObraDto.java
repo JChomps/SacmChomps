@@ -29,6 +29,7 @@ public class ObraDto implements Serializable {
     private String version_aiff;
     private String version_lyric;
     private String version_type;
+    private List<VersionDto> versiones = null;// new ArrayList<VersionDto>();
    
 
     public void setId_obra(Integer id_obra) {
@@ -167,5 +168,13 @@ public class ObraDto implements Serializable {
 
     public void setId_album(Integer id_album) {
         this.id_album = id_album;
+    }
+
+    public List<VersionDto> getVersiones() {
+        return versiones;
+    }
+
+    public void setVersiones(List<VersionDto> versiones) {
+        this.versiones = versiones;
     }
 }

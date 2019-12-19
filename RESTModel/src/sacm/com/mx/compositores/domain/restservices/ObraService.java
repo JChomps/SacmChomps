@@ -25,7 +25,7 @@ public class ObraService {
     @Consumes("application/json")
     @Produces("application/json")
     @Path("sacm_versiones")
-    public VersionResultDto getVersionesByIdObra(ObraDto obraRequest) {
+    public ObraResultDto getVersionesByIdObra(ObraDto obraRequest) {
         return SacmObra.getVersionesByIdObra(obraRequest);
     }
 

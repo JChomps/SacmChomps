@@ -1,4 +1,4 @@
-package sacm.com.mx.compositores.domain.restservices;
+package sacm.com.mx.compositores.domain.restservices.Sacm_Registro_Usuario;
 
 
 import javax.ws.rs.Consumes;

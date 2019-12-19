@@ -6,10 +6,14 @@ public class ProyectoDto {
     public ProyectoDto() {
         super();
     }
-    
+    //variables de salida  
     private Integer id_proyecto;
+    private Integer id_subproyecto;
     private String nombre;
     private Integer id_usuario;
+    private Integer id_obra;
+    private Integer  obra_numero;
+    private String obra_titulo;
     private String descripcion;
     private String cliente;
     private String atributo_01;
@@ -23,6 +27,10 @@ public class ProyectoDto {
     private String atributo_09;
     private String atributo_10;
     private List<SubProyectoDto> SubProjectList =null;
+    
+    //Variables utilizadas solo para entrada
+    private String tipo;
+    
 
     public String getNombre() {
         return nombre;
@@ -150,5 +158,45 @@ public class ProyectoDto {
 
     public void setSubProjectList(List<SubProyectoDto> SubProjectList) {
         this.SubProjectList = SubProjectList;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public Integer getId_obra() {
+        return id_obra;
+    }
+
+    public void setId_obra(Integer id_obra) {
+        this.id_obra = id_obra;
+    }
+
+    public Integer getObra_numero() {
+        return obra_numero;
+    }
+
+    public void setObra_numero(Integer obra_numero) {
+        this.obra_numero = obra_numero;
+    }
+
+    public String getObra_titulo() {
+        return obra_titulo;
+    }
+
+    public void setObra_titulo(String obra_titulo) {
+        this.obra_titulo = obra_titulo;
+    }
+
+    public Integer getId_subproyecto() {
+        return id_subproyecto;
+    }
+
+    public void setId_subproyecto(Integer id_subproyecto) {
+        this.id_subproyecto = id_subproyecto;
     }
 }

@@ -6,6 +6,7 @@ public class SubProyectoDto {
     }
     
     private Integer id_proyecto;
+    private Integer id_subproyecto;
     private String nombre;
     private Integer id_usuario;
     private String descripcion;
@@ -139,5 +140,13 @@ public class SubProyectoDto {
 
     public void setAtributo_10(String atributo_10) {
         this.atributo_10 = atributo_10;
+    }
+
+    public Integer getId_subproyecto() {
+        return id_subproyecto;
+    }
+
+    public void setId_subproyecto(Integer id_subproyecto) {
+        this.id_subproyecto = id_subproyecto;
     }
 }

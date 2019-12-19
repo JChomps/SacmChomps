@@ -16,7 +16,9 @@ public class ObraResultDto implements Serializable {
     }
     private HeaderDto ResponseBD;
     private HeaderDto ResponseService;
-    private List<ObraDto> obras= new ArrayList<ObraDto>();
+    private List<ObraDto> obras=null;// new ArrayList<ObraDto>();
+    private List<ObraDto> inboxList= null;//new ArrayList<ObraDto>();
+    private List<ObraDto> sharedList= null;//new ArrayList<ObraDto>();
      
    // private List<ObraDto> Versiones = new ArrayList<ObraDto>();
 
@@ -43,5 +45,21 @@ public class ObraResultDto implements Serializable {
 
     public void setObras(List<ObraDto> obras) {
         this.obras = obras;
+    }
+
+    public List<ObraDto> getInboxList() {
+        return inboxList;
+    }
+
+    public void setInboxList(List<ObraDto> inboxList) {
+        this.inboxList = inboxList;
+    }
+
+    public List<ObraDto> getSharedList() {
+        return sharedList;
+    }
+
+    public void setSharedList(List<ObraDto> sharedList) {
+        this.sharedList = sharedList;
     }
 }
