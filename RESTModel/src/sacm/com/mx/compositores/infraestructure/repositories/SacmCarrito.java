@@ -1,5 +1,6 @@
 package sacm.com.mx.compositores.infraestructure.repositories;
 
+import java.sql.Blob;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -9,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
+import javax.sql.rowset.serial.SerialBlob;
+
 import oracle.adf.share.logging.ADFLogger;
 
 import sacm.com.mx.compositores.common.dtos.HeaderDto;
@@ -16,6 +19,11 @@ import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.PalabraDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.PalabraIdObra;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Compras.CarritoDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Compras.CarritoResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Compras.CategoriaDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Compras.RegistroDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Compras.RegistroResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Inicio_Sesion.UsuarioDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Inicio_Sesion.UsuarioResultDto;
 import sacm.com.mx.compositores.infraestructure.utils.AppModule;
 
 public class SacmCarrito {
@@ -25,6 +33,7 @@ public class SacmCarrito {
 
     private static ADFLogger _logger = ADFLogger.createADFLogger(SacmActivacion.class);
     private static PalabraIdObra agregarResponse;
+    private static RegistroResultDto registroResponse;
 
     public SacmCarrito() {
         super();
@@ -138,6 +147,7 @@ public class SacmCarrito {
             conn = AppModule.getDbConexionJDBC();
             // 2. Define the PL/SQL block for the statement to invoke
             cstmt = conn.prepareCall("{call SACM_PKG_COMPRAS.PRC_CARRITO_CONSULTA(?,?,?,?)}");
+            
             // 3. Set the bind values of the IN parameters
             cstmt.setObject(1, IdRequest.getId_usuario());
             // 4. Register the positions and types of the OUT parameters
@@ -192,5 +202,257 @@ public class SacmCarrito {
         _logger.info("Finish Activacion Cuenta");
         // 9. Return the result
         return carritoResponse;
+    }
+
+       
+    
+    public static RegistroResultDto registraSolicitud(RegistroDto IdRequest)  {
+        CallableStatement cstmt = null;
+        Connection conn = null;
+        try {
+            conn = AppModule.getDbConexionJDBC();
+
+            // 2. Define the PL/SQL block for the statement to invoke
+            cstmt = conn.prepareCall("{call SACM_PKG_COMPRAS.PRC_REGISTRA_REQUEST(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+
+            // 3. Set the bind values of the IN parameters
+            cstmt.setObject(1,"nff");// IdRequest.getTipo_produccion());
+            
+            cstmt.setObject(2,null);// IdRequest.getId_licenciatario());
+            cstmt.setObject(3,null);// IdRequest.getId_marca());
+            
+            cstmt.setObject(4,null);// IdRequest.getId_carrito_detalle());
+            cstmt.setObject(5,null);// IdRequest.getArray_id_carrito_detalle());
+            
+            cstmt.setObject(6,null);// IdRequest.getAudv_descripcion());
+            cstmt.setObject(7,null);//"");// IdRequest.getAudv_sinopsis());
+            cstmt.setObject(8,null);//IdRequest.getAudv_presupuesto());
+            cstmt.setObject(9,null);// IdRequest.getAudv_descripcion());
+            cstmt.setObject(10,null);//null);// IdRequest.getAudv_story_board());
+            cstmt.setObject(11,null);// IdRequest.getAudv_num_capitulos());
+            
+            cstmt.setObject(12, null);//IdRequest.getSpot_titulo());
+            cstmt.setObject(13,null);// IdRequest.getSpot_agencia());
+            cstmt.setObject(14,null);// IdRequest.getSpot_producto());
+            cstmt.setObject(15,null);// IdRequest.getSpot_campania());
+            cstmt.setObject(16,null);// IdRequest.getSpot_sinopsis());
+            cstmt.setObject(17,null);// IdRequest.getSpot_otro_tpo_uso());
+            cstmt.setObject(18,null);// IdRequest.getSpot_notas());
+            
+            cstmt.setObject(19,1);// IdRequest.getId_categ_proposito());
+            cstmt.setObject(20,null);// IdRequest.getId_categ_tpouso_spot());
+            cstmt.setObject(21,null);// IdRequest.getId_categ_tpouso_audv());
+            cstmt.setObject(22,89);// IdRequest.getId_categ_tiempo_uso());
+            cstmt.setObject(23,4);// IdRequest.getId_categ_creatividad());
+            cstmt.setObject(24,7);// IdRequest.getId_categ_letra());
+            cstmt.setObject(25,6);// IdRequest.getId_categ_exclusividad());
+            cstmt.setObject(26,5);// IdRequest.getId_categ_master());
+            cstmt.setObject(27, 4);//IdRequest.getId_categ_vigencia());            
+            cstmt.setObject(28,3);// IdRequest.getId_categ_mnf());
+            
+            cstmt.setObject(29,null);// IdRequest.getLetra_sample());
+            cstmt.setObject(30,null);// IdRequest.getMusica_sample());
+            
+            cstmt.setObject(31,"null");// IdRequest.getArray_lifts());
+            cstmt.setObject(32,"null");// IdRequest.getArray_medios());
+            cstmt.setObject(33,"null");// IdRequest.getId_territorio_mex());
+            cstmt.setObject(34,"null");// IdRequest.getArray_territorio_lat());
+            cstmt.setObject(35,"null");// IdRequest.getArray_territorio_nta());
+            cstmt.setObject(36,"null");// IdRequest.getArray_territorio_eur());
+            cstmt.setObject(37,"null");// IdRequest.getArray_territorio_asi());
+            cstmt.setObject(38,"null");// IdRequest.getId_territorio_www());
+
+            // 4. Register the positions and types of the OUT parameters
+            cstmt.registerOutParameter(39, Types.INTEGER);
+            cstmt.registerOutParameter(40, Types.VARCHAR);
+            
+            cstmt.registerOutParameter(41, Types.INTEGER);
+            cstmt.registerOutParameter(42, Types.INTEGER);
+            cstmt.registerOutParameter(43, Types.INTEGER);
+            cstmt.registerOutParameter(44, Types.INTEGER);
+            cstmt.registerOutParameter(45, Types.INTEGER);
+            cstmt.registerOutParameter(46, Types.INTEGER);
+            cstmt.registerOutParameter(47, Types.VARCHAR);
+            cstmt.registerOutParameter(48, Types.VARCHAR);
+
+            // 5. Execute the statement
+            cstmt.executeUpdate();
+
+         /*   registroResponse = new RegistroResultDto();
+            RegistroDto registro = new RegistroDto();
+            // 6. Set value of dateValue property using first OUT param
+            registroResponse.setResponseBD(new HeaderDto());
+            registroResponse.getResponseBD().setCodErr(cstmt.getInt(39));
+            registroResponse.getResponseBD().setCodMsg(cstmt.getString(40));
+
+            registroResponse.setResponseService(new HeaderDto());
+            registroResponse.getResponseService().setCodErr(cstmt.getInt(39));
+            registroResponse.getResponseService().setCodMsg(cstmt.getString(40));
+            if (cstmt.getInt(10) == 0) {
+                registro.setId_cotizacion(cstmt.getInt(41));
+                registro.setMonto(cstmt.getInt(42));
+                registro.setSuggested_fee(cstmt.getInt(43));
+                registro.setFloor_fee(cstmt.getInt(44));
+                registro.setDescuento(cstmt.getInt(45));
+                registro.setMonto_final(new Integer(cstmt.getString(46)));
+                registro.setAutorizado_flg(cstmt.getString(47));
+                registro.setAutorizado_msg(cstmt.getInt(48));
+                registroResponse.setRespuesta(new ArrayList<RegistroDto>());
+                registroResponse.getRespuesta().add(registro);
+            }
+*/
+
+            cstmt.close();
+            conn.close();
+            conn = null;
+
+        } catch (Exception e) {
+            // a failure occurred log message;
+            _logger.severe(e.getMessage());
+            registroResponse = new RegistroResultDto();
+            registroResponse.setResponseService(new HeaderDto());
+            registroResponse.getResponseService().setCodErr(1);
+            registroResponse.getResponseService().setCodMsg(e.getMessage());
+            return registroResponse;
+        }
+        _logger.info("Finish registo");
+        // 9. Return the result
+        return registroResponse;
+    }
+    
+    /*---------------------------------------------------------sacm_consulta_carrito Service----------------------------------------------------------------------*/
+
+    public static RegistroResultDto registraSolicitud2(RegistroDto IdRequest){
+               
+       
+        CallableStatement cstmt = null;
+        Connection conn = null;
+        ResultSet rs = null;
+        byte[] byteData = {(byte)0x1a, (byte)0x2b, (byte)0x3c};   
+
+        try {
+            conn = AppModule.getDbConexionJDBC();
+            // 2. Define the PL/SQL block for the statement to invoke
+            cstmt = conn.prepareCall("{call SACM_PKG_COMPRAS.PRC_REGISTRA_REQUEST(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+
+            
+            // 3. Set the bind values of the IN parameters
+            cstmt.setObject(1,"nff");// IdRequest.getTipo_produccion());
+            
+            cstmt.setObject(2, IdRequest.getId_licenciatario());
+            cstmt.setObject(3, IdRequest.getId_marca());
+            
+            cstmt.setObject(4, IdRequest.getId_carrito_detalle());
+            cstmt.setObject(5, IdRequest.getArray_id_carrito_detalle());
+            
+            cstmt.setObject(6,IdRequest.getAudv_descripcion());
+            cstmt.setObject(7, IdRequest.getAudv_sinopsis());
+            cstmt.setObject(8, IdRequest.getAudv_presupuesto());
+            cstmt.setObject(9, IdRequest.getAudv_descripcion());
+            
+                         
+           
+           // cstmt.setBlob(10,blob);//null);// IdRequest.getAudv_story_board());
+           byteData =(IdRequest.getAudv_story_board() == null ? null : Base64.getDecoder().decode(IdRequest.getAudv_story_board()));          
+            
+          //  byteData=Base64.getDecoder().decode(IdRequest.getAudv_story_board());
+            
+            cstmt.setObject(10,  byteData, java.sql.Types.BLOB);//10, byteData, java.sql.Types.BLOB);
+            cstmt.setObject(29,  null, java.sql.Types.BLOB);
+            cstmt.setObject(30,  null, java.sql.Types.BLOB);
+            
+            cstmt.setObject(11, IdRequest.getAudv_num_capitulos());
+            
+            cstmt.setObject(12,IdRequest.getSpot_titulo());
+            cstmt.setObject(13, IdRequest.getSpot_agencia());
+            cstmt.setObject(14,IdRequest.getSpot_producto());
+            cstmt.setObject(15, IdRequest.getSpot_campania());
+            cstmt.setObject(16, IdRequest.getSpot_sinopsis());
+            cstmt.setObject(17, IdRequest.getSpot_otro_tpo_uso());
+            cstmt.setObject(18, IdRequest.getSpot_notas());
+            
+            cstmt.setObject(19,1);// IdRequest.getId_categ_proposito());
+            cstmt.setObject(20, IdRequest.getId_categ_tpouso_spot());
+            cstmt.setObject(21, IdRequest.getId_categ_tpouso_audv());
+            cstmt.setObject(22, IdRequest.getId_categ_tiempo_uso());
+            cstmt.setObject(23, IdRequest.getId_categ_creatividad());
+            cstmt.setObject(24, IdRequest.getId_categ_letra());
+            cstmt.setObject(25, IdRequest.getId_categ_exclusividad());
+            cstmt.setObject(26,IdRequest.getId_categ_master());
+            cstmt.setObject(27,IdRequest.getId_categ_vigencia());            
+            cstmt.setObject(28, IdRequest.getId_categ_mnf());
+            
+            //cstmt.setBlob(29,blob);// IdRequest.getLetra_sample());
+            //cstmt.setBlob(30,blob);// IdRequest.getMusica_sample());
+           
+            
+            cstmt.setObject(31, IdRequest.getArray_lifts());
+            cstmt.setObject(32,IdRequest.getArray_medios());
+            cstmt.setObject(33, IdRequest.getId_territorio_mex());
+            cstmt.setObject(34, IdRequest.getArray_territorio_lat());
+            cstmt.setObject(35,IdRequest.getArray_territorio_nta());
+            cstmt.setObject(36, IdRequest.getArray_territorio_eur());
+            cstmt.setObject(37, IdRequest.getArray_territorio_asi());
+            cstmt.setObject(38, IdRequest.getId_territorio_www());
+            // 4. Register the positions and types of the OUT parameters
+            cstmt.registerOutParameter(39, Types.INTEGER);
+            cstmt.registerOutParameter(40, Types.VARCHAR);
+            
+            cstmt.registerOutParameter(41, Types.INTEGER);
+            cstmt.registerOutParameter(42, Types.INTEGER);
+            cstmt.registerOutParameter(43, Types.INTEGER);
+            cstmt.registerOutParameter(44, Types.INTEGER);
+            cstmt.registerOutParameter(45, Types.INTEGER);
+            cstmt.registerOutParameter(46, Types.INTEGER);
+            cstmt.registerOutParameter(47, Types.VARCHAR);
+            cstmt.registerOutParameter(48, Types.VARCHAR);
+            // 5. Execute the statement
+            cstmt.executeUpdate();
+
+          /*  if (cstmt.getInt(2) == 0) {
+                // read the results
+                rs = (ResultSet) cstmt.getObject(4);
+                while (rs.next()) {
+                    CarritoDto carrito = new CarritoDto();
+                    carrito.setId_usuario(rs.getInt(1));
+                    carrito.setId_carrito(rs.getInt(2));
+                    carrito.setId_carrito_detalle(rs.getInt(3));
+                    carrito.setId_obra(rs.getInt(4));
+                    carrito.setNumero_obra(rs.getInt(5));
+                    carrito.setTitulo_obra(rs.getString(6));
+                    carritoList.add(carrito);
+                }
+                rs.close();
+            }*/
+
+
+            // 6. Set value of dateValue property using first OUT param
+            registroResponse = new RegistroResultDto();
+            registroResponse.setResponseBD(new HeaderDto());
+            registroResponse.getResponseBD().setCodErr(cstmt.getInt(39));
+            registroResponse.getResponseBD().setCodMsg(cstmt.getString(40));
+
+            registroResponse.setResponseService(new HeaderDto());
+            registroResponse.getResponseService().setCodErr(cstmt.getInt(39));
+            registroResponse.getResponseService().setCodMsg(cstmt.getString(40));
+         
+            // 9. Close the JDBC CallableStatement
+            cstmt.close();
+            conn.close();
+            conn = null;
+
+        } catch (Exception e) {
+            // a failure occurred log message;
+            _logger.severe(e.getMessage());
+            registroResponse = new RegistroResultDto();
+            registroResponse.setResponseService(new HeaderDto());
+            registroResponse.getResponseService().setCodErr(1);
+            registroResponse.getResponseService().setCodMsg(e.getMessage());
+            return registroResponse;
+        }
+
+        _logger.info("Finish Activacion Cuenta");
+        // 9. Return the result
+        return registroResponse;
     }
 }

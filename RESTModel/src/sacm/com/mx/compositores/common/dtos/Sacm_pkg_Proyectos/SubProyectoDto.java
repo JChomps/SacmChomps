@@ -21,7 +21,7 @@ public class SubProyectoDto {
     private String atributo_08;
     private String atributo_09;
     private String atributo_10;
-
+/*
     public Integer getId_proyecto() {
         return id_proyecto;
     }
@@ -148,5 +148,5 @@ public class SubProyectoDto {
 
     public void setId_subproyecto(Integer id_subproyecto) {
         this.id_subproyecto = id_subproyecto;
-    }
+    }*/
 }

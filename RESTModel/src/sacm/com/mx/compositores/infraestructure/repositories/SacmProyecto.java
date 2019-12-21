@@ -33,7 +33,7 @@ public class SacmProyecto {
 
     private static ADFLogger _logger = ADFLogger.createADFLogger(SacmActivacion.class);
     private static ProyectoResultDto proyectoResponse;
-    private static SubProyectoResultDto subProyectoResponse;
+    private static ProyectoResultDto subProyectoResponse;
     private static ObraResultDto obraResponse;
 
     public SacmProyecto() {
@@ -90,7 +90,7 @@ public class SacmProyecto {
     }
 
     /*---------------------------------------------------------sacm_elimina_proyecto_hijo Service----------------------------------------------------------------------*/
-    public static SubProyectoResultDto getEliminaSubProyecto(SubProyectoDto proyectoRequest) {
+    public static ProyectoResultDto getEliminaSubProyecto(ProyectoDto proyectoRequest) {
         CallableStatement cstmt = null;
         Connection conn = null;
 
@@ -109,7 +109,7 @@ public class SacmProyecto {
 
 
             // 6. Set value of dateValue property using first OUT param
-            subProyectoResponse = new SubProyectoResultDto();
+            subProyectoResponse = new ProyectoResultDto();
             subProyectoResponse.setResponseBD(new HeaderDto());
             subProyectoResponse.getResponseBD().setCodErr(cstmt.getInt(3));
             subProyectoResponse.getResponseBD().setCodMsg(cstmt.getString(4));
@@ -125,7 +125,7 @@ public class SacmProyecto {
         } catch (Exception e) {
             // a failure occurred log message;
             _logger.severe(e.getMessage());
-            subProyectoResponse = new SubProyectoResultDto();
+            subProyectoResponse = new ProyectoResultDto();
             subProyectoResponse.setResponseService(new HeaderDto());
             subProyectoResponse.getResponseService().setCodErr(1);
             subProyectoResponse.getResponseService().setCodMsg(e.getMessage());
@@ -206,7 +206,7 @@ public class SacmProyecto {
     }
 
     /*---------------------------------------------------------sacm_crear_subproyecto Service----------------------------------------------------------------------*/
-    public static ProyectoResultDto getCreaSubProyecto(SubProyectoDto projectRequest) {
+    public static ProyectoResultDto getCreaSubProyecto(ProyectoDto projectRequest) {
         ProyectoResultDto proyecto = new ProyectoResultDto();
         CallableStatement cstmt = null;
         Connection conn = null;
@@ -276,9 +276,9 @@ public class SacmProyecto {
     }
 
     /*---------------------------------------------------------sacm_consulta_proyecto_subp Service----------------------------------------------------------------------*/
-    public static ProyectoResultDto getConsultaProyecto(SubProyectoDto projectRequest) {
+    public static ProyectoResultDto getConsultaProyecto(ProyectoDto projectRequest) {
         List<ProyectoDto> ProjectListResult = new ArrayList<ProyectoDto>();
-        List<SubProyectoDto> SubProjectListResult = new ArrayList<SubProyectoDto>();
+        List<ProyectoDto> SubProjectListResult = new ArrayList<ProyectoDto>();
         ResultSet rs = null;
         CallableStatement cstmt = null;
         Connection conn = null;
@@ -302,7 +302,7 @@ public class SacmProyecto {
                 List<ProyectoDto> obraList = new ArrayList<ProyectoDto>();
                 while (rs.next()) {
                     ProyectoDto proyecto = new ProyectoDto();
-                    SubProyectoDto subProyecto = new SubProyectoDto();
+                    ProyectoDto subProyecto = new ProyectoDto();
                     //Verificar el parametro "nivel" del cursor para saber si es un proyecto o un subproyecto
                     if (rs.getInt(4) == 1) {
                         proyecto.setId_proyecto(rs.getInt(1));
@@ -664,14 +664,14 @@ public class SacmProyecto {
     /*---------------------------------------------------------Método de ordenamiento de proyectos y subproyectos ----------------------------------------------------------------------*/
 
     private static void OrdenaProyectod(List<ProyectoDto> ProjectListResult,
-                                        List<SubProyectoDto> SubProjectListResult) {
-        List<SubProyectoDto> SubProjectList = new ArrayList<SubProyectoDto>();
+                                        List<ProyectoDto> SubProjectListResult) {
+        List<ProyectoDto> SubProjectList = new ArrayList<ProyectoDto>();
 
         for (ProyectoDto strProyecto : ProjectListResult) {
-            SubProjectList = new ArrayList<SubProyectoDto>();
-            for (SubProyectoDto strSubProyecto : SubProjectListResult) {
+            SubProjectList = new ArrayList<ProyectoDto>();
+            for (ProyectoDto strSubProyecto : SubProjectListResult) {
                 if (strProyecto.getId_proyecto() == strSubProyecto.getId_subproyecto()) {
-                    SubProyectoDto subP = new SubProyectoDto();
+                    ProyectoDto subP = new ProyectoDto();
                     subP.setId_proyecto(strSubProyecto.getId_proyecto());
                     subP.setNombre(strSubProyecto.getNombre());
                     SubProjectList.add(subP);

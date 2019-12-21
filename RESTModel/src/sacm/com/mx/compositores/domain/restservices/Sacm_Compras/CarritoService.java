@@ -8,6 +8,8 @@ import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.PalabraDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.PalabraIdObra;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Compras.CarritoDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Compras.CarritoResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Compras.RegistroDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Compras.RegistroResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Registro_Usuario.ActivacionResultDto;
 import sacm.com.mx.compositores.infraestructure.repositories.SacmActivacion;
 import sacm.com.mx.compositores.infraestructure.repositories.SacmCarrito;
@@ -40,6 +42,14 @@ public class CarritoService {
     @Path("sacm_consulta_carrito")
     public CarritoResultDto getConsultaCarrito(PalabraDto IdRequest) {
         return SacmCarrito.getConsulta(IdRequest);
+    }
+    
+    /*-----------------------------------------------------sacm_registra_solicitud Service-------------------------------------------------------------------*/
+    @POST
+    @Produces("application/json")
+    @Path("sacm_registra_solicitud")
+    public RegistroResultDto registraSolicitud(RegistroDto IdRequest) {
+        return SacmCarrito.registraSolicitud2(IdRequest);
     }
     
 }

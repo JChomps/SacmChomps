@@ -33,7 +33,7 @@ public class ProyectoService {
     @Consumes("application/json")
     @Produces("application/json")
     @Path("sacm_elimina_proyecto_hijo")
-    public SubProyectoResultDto EliminaSubProyecto( SubProyectoDto projectRequest) {
+    public ProyectoResultDto EliminaSubProyecto( ProyectoDto projectRequest) {
         return SacmProyecto.getEliminaSubProyecto(projectRequest);
     }
     
@@ -51,7 +51,7 @@ public class ProyectoService {
     @Consumes("application/json")
     @Produces("application/json")
     @Path("sacm_crea_subproyecto")
-    public ProyectoResultDto CreaSubProyecto( SubProyectoDto projectRequest) {
+    public ProyectoResultDto CreaSubProyecto( ProyectoDto projectRequest) {
         return SacmProyecto.getCreaSubProyecto(projectRequest);
     }
     
@@ -60,7 +60,7 @@ public class ProyectoService {
     @Consumes("application/json")
     @Produces("application/json")
     @Path("sacm_consulta_proyecto_subp")
-    public ProyectoResultDto CronsultaProyecto( SubProyectoDto projectRequest) {
+    public ProyectoResultDto CronsultaProyecto( ProyectoDto projectRequest) {
         return SacmProyecto.getConsultaProyecto(projectRequest);
     }
     

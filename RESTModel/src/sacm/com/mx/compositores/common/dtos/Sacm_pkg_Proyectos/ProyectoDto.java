@@ -26,7 +26,7 @@ public class ProyectoDto {
     private String atributo_08;
     private String atributo_09;
     private String atributo_10;
-    private List<SubProyectoDto> SubProjectList =null;
+    private List<ProyectoDto> SubProjectList =null;
     
     //Variables utilizadas solo para entrada
     private String tipo;
@@ -152,11 +152,11 @@ public class ProyectoDto {
         this.id_proyecto = id_proyecto;
     }
 
-    public List<SubProyectoDto> getSubProjectList() {
+    public List<ProyectoDto> getSubProjectList() {
         return SubProjectList;
     }
 
-    public void setSubProjectList(List<SubProyectoDto> SubProjectList) {
+    public void setSubProjectList(List<ProyectoDto> SubProjectList) {
         this.SubProjectList = SubProjectList;
     }
 
