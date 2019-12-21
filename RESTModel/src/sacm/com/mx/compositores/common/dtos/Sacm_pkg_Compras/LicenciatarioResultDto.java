@@ -5,13 +5,12 @@ import java.util.List;
 
 import sacm.com.mx.compositores.common.dtos.HeaderDto;
 
-public class RegistroResultDto {
+public class LicenciatarioResultDto {
     private HeaderDto ResponseBD;
     private HeaderDto ResponseService;
-    private List<RegistroDto> Respuesta =new ArrayList<RegistroDto>();// 
-    
-    
-    public RegistroResultDto() {
+    private List<MarcasDto> Licenciatarios = new ArrayList<MarcasDto>();
+    private List<MarcasDto> Marcas = new ArrayList<MarcasDto>();
+    public LicenciatarioResultDto() {
         super();
     }
 
@@ -31,12 +30,19 @@ public class RegistroResultDto {
         this.ResponseService = ResponseService;
     }
 
-
-    public List<RegistroDto> getRespuesta() {
-        return Respuesta;
+    public List<MarcasDto> getLicenciatarios() {
+        return Licenciatarios;
     }
 
-    public void setRespuesta(List<RegistroDto> Respuesta) {
-        this.Respuesta = Respuesta;
+    public void setLicenciatarios(List<MarcasDto> Licenciatarios) {
+        this.Licenciatarios = Licenciatarios;
+    }
+
+    public List<MarcasDto> getMarcas() {
+        return Marcas;
+    }
+
+    public void setMarcas(List<MarcasDto> Marcas) {
+        this.Marcas = Marcas;
     }
 }

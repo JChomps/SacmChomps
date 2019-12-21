@@ -43,13 +43,13 @@ public class RegistroDto {
     private String array_territorio_asi;
     private Integer id_territorio_www;
     private Integer id_cotizacion;
-    private Integer monto;
+    private Double monto;
     private Integer suggested_fee;
     private Integer floor_fee;
     private Integer descuento;
-    private Integer monto_final;
+    private Double monto_final;
     private String autorizado_flg;
-    private Integer autorizado_msg;
+    private String autorizado_msg;
 
     public Integer getId_licenciatario() {
         return id_licenciatario;
@@ -363,11 +363,11 @@ public class RegistroDto {
         this.id_cotizacion = id_cotizacion;
     }
 
-    public Integer getMonto() {
+    public Double getMonto() {
         return monto;
     }
 
-    public void setMonto(Integer monto) {
+    public void setMonto(Double monto) {
         this.monto = monto;
     }
 
@@ -395,11 +395,11 @@ public class RegistroDto {
         this.descuento = descuento;
     }
 
-    public Integer getMonto_final() {
+    public Double getMonto_final() {
         return monto_final;
     }
 
-    public void setMonto_final(Integer monto_final) {
+    public void setMonto_final(Double monto_final) {
         this.monto_final = monto_final;
     }
 
@@ -411,11 +411,11 @@ public class RegistroDto {
         this.autorizado_flg = autorizado_flg;
     }
 
-    public Integer getAutorizado_msg() {
+    public String getAutorizado_msg() {
         return autorizado_msg;
     }
 
-    public void setAutorizado_msg(Integer autorizado_msg) {
+    public void setAutorizado_msg(String autorizado_msg) {
         this.autorizado_msg = autorizado_msg;
     }
 }
