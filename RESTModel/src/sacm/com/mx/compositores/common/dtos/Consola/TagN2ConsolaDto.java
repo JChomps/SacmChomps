@@ -1,20 +1,17 @@
-package sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador;
+package sacm.com.mx.compositores.common.dtos.Consola;
 
-public class TagN2 {
-    public TagN2() {
+public class TagN2ConsolaDto {
+    private Integer idTag;
+    private String tagName;
+    public TagN2ConsolaDto() {
         super();
     }
-   
-    private String idTag;  
-    private String tagName;
 
-   
-
-    public String getIdTag() {
+    public Integer getIdTag() {
         return idTag;
     }
 
-    public void setIdTag(String idTag) {
+    public void setIdTag(Integer idTag) {
         this.idTag = idTag;
     }
 

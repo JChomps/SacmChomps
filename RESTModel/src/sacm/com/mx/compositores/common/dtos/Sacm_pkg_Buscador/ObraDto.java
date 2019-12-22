@@ -29,6 +29,16 @@ public class ObraDto implements Serializable {
     private String version_aiff;
     private String version_lyric;
     private String version_type;
+    private Integer carga_audio;
+    private String wav;
+    private String mp3;
+    private String aiff;
+    private String lyric;
+    private Integer consagrada;
+    private Integer control;
+    private Integer preAutorizacion;
+    private Integer activo;
+    private Integer duracion;
     private List<VersionDto> versiones = null;// new ArrayList<VersionDto>();
    
 
@@ -176,5 +186,85 @@ public class ObraDto implements Serializable {
 
     public void setVersiones(List<VersionDto> versiones) {
         this.versiones = versiones;
+    }
+
+    public Integer getCarga_audio() {
+        return carga_audio;
+    }
+
+    public void setCarga_audio(Integer carga_audio) {
+        this.carga_audio = carga_audio;
+    }
+
+    public String getWav() {
+        return wav;
+    }
+
+    public void setWav(String wav) {
+        this.wav = wav;
+    }
+
+    public String getMp3() {
+        return mp3;
+    }
+
+    public void setMp3(String mp3) {
+        this.mp3 = mp3;
+    }
+
+    public String getAiff() {
+        return aiff;
+    }
+
+    public void setAiff(String aiff) {
+        this.aiff = aiff;
+    }
+
+    public String getLyric() {
+        return lyric;
+    }
+
+    public void setLyric(String lyric) {
+        this.lyric = lyric;
+    }
+
+    public Integer getConsagrada() {
+        return consagrada;
+    }
+
+    public void setConsagrada(Integer consagrada) {
+        this.consagrada = consagrada;
+    }
+
+    public Integer getControl() {
+        return control;
+    }
+
+    public void setControl(Integer control) {
+        this.control = control;
+    }
+
+    public Integer getPreAutorizacion() {
+        return preAutorizacion;
+    }
+
+    public void setPreAutorizacion(Integer preAutorizacion) {
+        this.preAutorizacion = preAutorizacion;
+    }
+
+    public Integer getActivo() {
+        return activo;
+    }
+
+    public void setActivo(Integer activo) {
+        this.activo = activo;
+    }
+
+    public Integer getDuracion() {
+        return duracion;
+    }
+
+    public void setDuracion(Integer duracion) {
+        this.duracion = duracion;
     }
 }

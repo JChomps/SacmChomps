@@ -1,18 +1,18 @@
-package sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador;
+package sacm.com.mx.compositores.common.dtos.Consola;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class Tag {
-    public Tag() {
-        super();
-    }
-    
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.TagN2;
+
+public class TagConsolaDto {
     private Integer idTag;
     private String tagName;
-    private List<TagN1> tagsList = new ArrayList<TagN1>();
+    private List<TagN2ConsolaDto> tagsList =null;// new ArrayList<TagN1>();
+    public TagConsolaDto() {
+        super();
+    }
+
     public Integer getIdTag() {
         return idTag;
     }
@@ -29,14 +29,11 @@ public class Tag {
         this.tagName = tagName;
     }
 
-
-    public List<TagN1> getTagsList() {
+    public List<TagN2ConsolaDto> getTagsList() {
         return tagsList;
     }
 
-    public void setTagsList(List<TagN1> tagsList) {
+    public void setTagsList(List<TagN2ConsolaDto> tagsList) {
         this.tagsList = tagsList;
     }
-
-  
 }

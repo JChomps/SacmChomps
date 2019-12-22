@@ -4,11 +4,14 @@ public class NombreParticipanteDto {
     public NombreParticipanteDto() {
         super();
     }
-    private int id_participante;
+    private Integer id_participante;
     private String nombre;
     private String segundo_nombre;
     private String apellido_materno;
     private String apellido_paterno;
+    private String email;
+    private String consagrado;
+    private String activo;
 
     public int getId_participante() {
         return id_participante;
@@ -48,5 +51,29 @@ public class NombreParticipanteDto {
 
     public void setSegundo_nombre(String segundo_nombre) {
         this.segundo_nombre = segundo_nombre;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getConsagrado() {
+        return consagrado;
+    }
+
+    public void setConsagrado(String consagrado) {
+        this.consagrado = consagrado;
+    }
+
+    public String getActivo() {
+        return activo;
+    }
+
+    public void setActivo(String activo) {
+        this.activo = activo;
     }
 }

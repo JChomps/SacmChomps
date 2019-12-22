@@ -236,17 +236,10 @@ public class SacmCarrito {
             cstmt.setObject(8, IdRequest.getAudv_presupuesto());
             cstmt.setObject(9, IdRequest.getAudv_descripcion());
 
-
-            // cstmt.setBlob(10,blob);//null);// IdRequest.getAudv_story_board());
             byteData =
                 (IdRequest.getAudv_story_board() == null ? null :
                  Base64.getDecoder().decode(IdRequest.getAudv_story_board()));
-
-            //  byteData=Base64.getDecoder().decode(IdRequest.getAudv_story_board());
-
-            cstmt.setObject(10, byteData, java.sql
-                                              .Types
-                                              .BLOB); //10, byteData, java.sql.Types.BLOB);
+            cstmt.setObject(10, byteData, java.sql.Types.BLOB); //10, byteData, java.sql.Types.BLOB);
 
 
             cstmt.setObject(11, IdRequest.getAudv_num_capitulos());

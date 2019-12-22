@@ -5,22 +5,80 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
+import sacm.com.mx.compositores.common.dtos.Consola.ParticipanteResultDto;
+import sacm.com.mx.compositores.common.dtos.Consola.TagConsolaResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.ObraDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.ObraResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.TagsResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.VersionResultDto;
 import sacm.com.mx.compositores.infraestructure.repositories.SacmConsola;
 
 
-@Path("/Consola")
+@Path("/consola")
 public class ConsolaService {
     public ConsolaService() {
         super();
     }
     
+    
+    /*-----------------------------------------------------sacm_consulta_obra_consola Service-------------------------------------------------------------------*/
+    
     @POST
     @Consumes("application/json")
     @Produces("application/json")
     @Path("sacm_consulta_obra_consola")
-    public ObraResultDto getMetadata2(ObraDto obraRequest) {
+    public ObraResultDto ConsultaObraConsola(ObraDto obraRequest) {
         return SacmConsola.getObra(obraRequest);
     }
+    
+    /*-----------------------------------------------------sacm_consulta_participante_obra_consola Service-------------------------------------------------------------------*/
+    
+    @POST
+    @Consumes("application/json")
+    @Produces("application/json")
+    @Path("sacm_consulta_participante_obra_consola")
+    public ParticipanteResultDto ConsultaParticipanteObraConsola(ObraDto obraRequest) {
+        return SacmConsola.getParticipanteObra(obraRequest);
+    }
+    
+    /*-----------------------------------------------------sacm_consulta_version_obra_consola Service-------------------------------------------------------------------*/
+    
+    @POST
+    @Consumes("application/json")
+    @Produces("application/json")
+    @Path("sacm_consulta_version_obra_consola")
+    public VersionResultDto ConsultaVersionObraConsola(ObraDto obraRequest) {
+        return SacmConsola.getVersionObra(obraRequest);
+    }
+    
+    
+    /*-----------------------------------------------------sacm_inserta_obra_consola Service-------------------------------------------------------------------*/
+    
+    @POST
+    @Consumes("application/json")
+    @Produces("application/json")
+    @Path("sacm_inserta_obra_consola")
+    public ObraResultDto InsertaObraConsola(ObraDto obraRequest) {
+        return SacmConsola.InsertaObra(obraRequest);
+    }
+    /*-----------------------------------------------------sacm_actualiza_obra_consola Service-------------------------------------------------------------------*/
+    
+    @POST
+    @Consumes("application/json")
+    @Produces("application/json")
+    @Path("sacm_actualiza_obra_consola")
+    public ObraResultDto ActualizaObraConsola(ObraDto obraRequest) {
+        return SacmConsola.ActualizaObra(obraRequest);
+    }
+    
+    /*-----------------------------------------------------sacm_consulta_tag_consola Service-------------------------------------------------------------------*/
+    
+    @POST
+    @Consumes("application/json")
+    @Produces("application/json")
+    @Path("sacm_consulta_tag_consola")
+    public TagConsolaResultDto ConsultaTagConsola(ObraDto obraRequest) {
+        return SacmConsola.ConsultaTagObra(obraRequest);
+    }
+  
 }

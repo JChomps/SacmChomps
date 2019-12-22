@@ -15,7 +15,7 @@ public class VersionResultDto {
     private HeaderDto ResponseBD;
     private HeaderDto ResponseService;
    
-    private List<Obra> Obras = new ArrayList<Obra>();
+    private List<VersionDto> Versiones = null;
 
     public void setResponseBD(HeaderDto ResponseBD) {
         this.ResponseBD = ResponseBD;
@@ -33,13 +33,16 @@ public class VersionResultDto {
         return ResponseService;
     }
 
-   
 
-    public List<Obra> getObras() {
-        return Obras;
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
-    public void setObras(List<Obra> Obras) {
-        this.Obras = Obras;
+    public List<VersionDto> getVersiones() {
+        return Versiones;
+    }
+
+    public void setVersiones(List<VersionDto> Versiones) {
+        this.Versiones = Versiones;
     }
 }

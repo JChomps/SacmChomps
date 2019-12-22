@@ -13,6 +13,7 @@ public class VersionDto {
     private String version_aiff;
     private String version_lyric;
     private String version_type;
+    private String version;
 
     public Integer getVersion_id() {
         return version_id;
@@ -84,5 +85,13 @@ public class VersionDto {
 
     public void setVersion_type(String version_type) {
         this.version_type = version_type;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
     }
 }
