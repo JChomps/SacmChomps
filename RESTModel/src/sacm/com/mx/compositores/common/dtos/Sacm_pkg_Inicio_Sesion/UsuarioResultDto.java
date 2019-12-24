@@ -18,6 +18,7 @@ public class UsuarioResultDto implements Serializable {
     private UsuarioDto LoginUser;
     private UsuarioDto UpdatePWD;
     private UsuarioDto SendEmail;
+    private List<UsuarioDto> usuarios=null;
     
     
 
@@ -59,5 +60,13 @@ public class UsuarioResultDto implements Serializable {
 
     public UsuarioDto getSendEmail() {
         return SendEmail;
+    }
+
+    public List<UsuarioDto> getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuarios(List<UsuarioDto> usuarios) {
+        this.usuarios = usuarios;
     }
 }

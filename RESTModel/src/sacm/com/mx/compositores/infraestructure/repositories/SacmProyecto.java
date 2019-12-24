@@ -615,12 +615,13 @@ public class SacmProyecto {
                 while (rs.next()) {
                     ProyectoDto proyecto = new ProyectoDto();
                     proyecto.setId_proyecto(rs.getInt(1));
-                    if (rs.getInt(2) != 0) {
-                        proyecto.setId_subproyecto(rs.getInt(2));
+                    proyecto.setNombre(rs.getString(2));
+                    if (rs.getInt(3) != 0) {
+                        proyecto.setId_subproyecto(rs.getInt(3));
                     }
-                    proyecto.setId_obra(rs.getInt(3));
-                    proyecto.setObra_numero(rs.getInt(4));
-                    proyecto.setObra_titulo(rs.getString(5));
+                    proyecto.setId_obra(rs.getInt(4));
+                    proyecto.setObra_numero(rs.getInt(5));
+                    proyecto.setObra_titulo(rs.getString(6));
                     proyectoListResult.add(proyecto);
                 }
 

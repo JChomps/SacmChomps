@@ -10,6 +10,7 @@ public class UsuarioDto implements Serializable {
         super();
     }
 
+    
     private String email;
     private String password;
     private Integer id_usuario;

@@ -32,6 +32,8 @@ import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.ObraDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.ObraResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.VersionDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.VersionResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Inicio_Sesion.UsuarioDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Inicio_Sesion.UsuarioResultDto;
 import sacm.com.mx.compositores.infraestructure.utils.AppModule;
 
 public class SacmConsola {
@@ -44,6 +46,7 @@ public class SacmConsola {
     private static ParticipanteResultDto participanteResult;
     private static VersionResultDto versionResult;
     private static TagConsolaResultDto tagsResponse;
+    private static UsuarioResultDto usuarioResponse;
 
 
     public SacmConsola() {
@@ -86,16 +89,30 @@ public class SacmConsola {
                     obra.setObra_numero(rs.getInt(2));
                     obra.setObra_titulo(rs.getString(3));
                     obra.setObra_descripcion(rs.getString(4));
-
+                    
+                    if(rs.getObject(5) != null){
                     bdata = (rs.getObject(5) == null ? null : rs.getBlob(5).getBytes(1, (int) rs.getBlob(5).length()));
                     obra.setVersion_wav(rs.getObject(5) == null ? null : Base64.getEncoder().encodeToString(bdata));
-
+                    }else{
+                            obra.setVersion_wav("");
+                        }
+                    
+                    
+                    if(rs.getObject(6) != null){
                     bdata = (rs.getObject(6) == null ? null : rs.getBlob(6).getBytes(1, (int) rs.getBlob(6).length()));
                     obra.setVersion_mp3(rs.getObject(6) == null ? null : Base64.getEncoder().encodeToString(bdata));
+                    }else{
+                            obra.setVersion_mp3("");
+                        }
+                    
+                    
+                    if(rs.getObject(7) != null){
                     bdata =(rs.getObject(7) == null ? null : rs.getBlob(7).getBytes(1, (int) rs.getBlob(7).length()));
                     obra.setVersion_aiff(rs.getObject(7) == null ? null : Base64.getEncoder().encodeToString(bdata));
-
-                    obra.setVersion_lyric(rs.getObject(8) == null ? null : rs.getString(8));
+                    }else{
+                            obra.setVersion_aiff("");
+                        }
+                    obra.setVersion_lyric(rs.getObject(8) == null ? "" : rs.getString(8));
 
                     obraList.add(obra);
                 }
@@ -500,6 +517,138 @@ public class SacmConsola {
         // 9. Return the result
         return tagsResponse;
     }
+
+
+    /*-------------------------------------------------------------- sacm_actualiza_usuario_consola --------------------------------------------------------------------------*/
+    public static UsuarioResultDto ActualizaUsuario(UsuarioDto usuarioRequest) {
+      
+        CallableStatement cstmt = null;
+      
+        Connection conn = null;
+        try {
+            conn = AppModule.getDbConexionJDBC();
+            // 2. Define the PL/SQL block for the statement to invoke
+            cstmt = conn.prepareCall("{call SACM_PKG_CONSOLA_ADMIN.ACTUALIZA_USUARIOS(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+            // 3. Set the bind values of the IN parameters
+            cstmt.setObject(1, usuarioRequest.getId_usuario());
+            cstmt.setObject(2, usuarioRequest.getEmail());
+            cstmt.setObject(3, usuarioRequest.getCompania());
+            cstmt.setObject(4, usuarioRequest.getPuesto());
+            cstmt.setObject(5, usuarioRequest.getId_sexo());
+            cstmt.setObject(6, usuarioRequest.getId_pais());
+            cstmt.setObject(7, usuarioRequest.getId_estado());
+            cstmt.setObject(8, usuarioRequest.getMunicipio());
+            cstmt.setObject(9, usuarioRequest.getCodigo_postal());
+            cstmt.setObject(10, usuarioRequest.getDireccion());
+            cstmt.setObject(11, usuarioRequest.getTelefono());
+            cstmt.setObject(12, usuarioRequest.getExtension());
+            cstmt.setObject(13, usuarioRequest.getEstatus());
+
+            // 4. Register the positions and types of the OUT parameters
+           
+            cstmt.registerOutParameter(14, Types.INTEGER);
+            cstmt.registerOutParameter(15, Types.VARCHAR);
+
+            // 5. Execute the statement
+            cstmt.executeUpdate();
+          
+            // 6. Set value of dateValue property using first OUT param
+            usuarioResponse = new UsuarioResultDto();
+            usuarioResponse.setResponseBD(new HeaderDto());
+            usuarioResponse.getResponseBD().setCodErr(cstmt.getInt(14));
+            usuarioResponse.getResponseBD().setCodMsg(cstmt.getString(15));
+            usuarioResponse.setResponseService(new HeaderDto());
+            usuarioResponse.getResponseService().setCodErr(cstmt.getInt(14));
+            usuarioResponse.getResponseService().setCodMsg(cstmt.getString(15));
+         //   usuarioResponse.setTagsList(tagListResult);
+            // 9. Close the JDBC CallableStatement
+            cstmt.close();
+            conn.close();
+            conn = null;
+
+        } catch (Exception e) {
+            // a failure occurred log message;
+            _logger.severe(e.getMessage());
+            usuarioResponse = new UsuarioResultDto();
+            usuarioResponse.setResponseService(new HeaderDto());
+            usuarioResponse.getResponseService().setCodErr(1);
+            usuarioResponse.getResponseService().setCodMsg(e.getMessage());
+            return usuarioResponse;
+        }
+        _logger.info("Finish getEstados");
+        // 9. Return the result
+       
+        return usuarioResponse;
+    }
+
+    /*-------------------------------------------------------------- sacm_actualiza_usuario_consola --------------------------------------------------------------------------*/
+    /*   public static UsuarioResultDto ConsultaUsuario(UsuarioDto usuarioRequest) {
+        CallableStatement cstmt = null;
+        Connection conn = null;
+        ResultSet rs = null;
+        try {
+            conn = AppModule.getDbConexionJDBC();
+
+            // 2. Define the PL/SQL block for the statement to invoke
+            cstmt = conn.prepareCall("{call SACM_PKG_CONSOLA_ADMIN.CONSULTA_USUARIOS(?,?,?,?,?)}");
+
+            // 3. Set the bind values of the IN parameters
+            cstmt.setObject(1, usuarioRequest.getNombre());
+            cstmt.setObject(2, usuarioRequest.getEmail());
+
+            // 4. Register the positions and types of the OUT parameters
+            cstmt.registerOutParameter(3, -10);           
+            cstmt.registerOutParameter(4, Types.INTEGER);
+            cstmt.registerOutParameter(5, Types.VARCHAR);
+
+            // 5. Execute the statement
+            cstmt.executeUpdate();
+
+           
+            if (cstmt.getInt(4) == 0) {   
+                rs = (ResultSet) cstmt.getObject(2);
+                while (rs.next()) {
+                    UsuarioDto usuario = new UsuarioDto();
+                    
+                    usuario.setNombre(rs.getString(1));
+                    usuario.setApellido_paterno(rs.getString(2));
+                    usuario.setEmail(rs.getString(3));
+                    usuario.setCompania(rs.getString(4));
+                    usuario.setPuesto(rs.getString(5));
+                    usuario.setId_pais(new Integer(cstmt.getString(8)));
+                    usuario.setEstatus(cstmt.getString(9));
+                    usuarioResponse.setLoginUser(usuario);
+                }
+                
+                rs.close();
+            }
+            cstmt.close();
+            conn.close();
+            conn = null;
+            
+            usuarioResponse = new UsuarioResultDto();           
+            // 6. Set value of dateValue property using first OUT param
+            usuarioResponse.setResponseBD(new HeaderDto());
+            usuarioResponse.getResponseBD().setCodErr(cstmt.getInt(4));
+            usuarioResponse.getResponseBD().setCodMsg(cstmt.getString(5));
+
+            usuarioResponse.setResponseService(new HeaderDto());
+            usuarioResponse.getResponseService().setCodErr(cstmt.getInt(4));
+            usuarioResponse.getResponseService().setCodMsg(cstmt.getString(5));
+
+        } catch (Exception e) {
+            // a failure occurred log message;
+            _logger.severe(e.getMessage());
+            usuarioResponse = new UsuarioResultDto();
+            usuarioResponse.setResponseService(new HeaderDto());
+            usuarioResponse.getResponseService().setCodErr(1);
+            usuarioResponse.getResponseService().setCodMsg(e.getMessage());
+            return usuarioResponse;
+        }
+        _logger.info("Finish Login");
+        // 9. Return the result
+        return usuarioResponse;
+    }*/
 
     private static void organizaList(List<TagConsolaDto> tagListResult, List<TagConsolaDto> tagList) {
         Map<Integer, TagN2ConsolaDto> mapN1 = new TreeMap<Integer, TagN2ConsolaDto>();

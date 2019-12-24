@@ -8,7 +8,7 @@ import sacm.com.mx.compositores.common.dtos.HeaderDto;
 public class RegistroResultDto {
     private HeaderDto ResponseBD;
     private HeaderDto ResponseService;
-    private List<RegistroDto> Respuesta =new ArrayList<RegistroDto>();// 
+    private List<RegistroDto> Respuesta=null;// =new ArrayList<RegistroDto>();// 
     
     
     public RegistroResultDto() {

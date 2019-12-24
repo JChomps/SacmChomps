@@ -11,6 +11,8 @@ import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.ObraDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.ObraResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.TagsResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.VersionResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Inicio_Sesion.UsuarioDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Inicio_Sesion.UsuarioResultDto;
 import sacm.com.mx.compositores.infraestructure.repositories.SacmConsola;
 
 
@@ -80,5 +82,25 @@ public class ConsolaService {
     public TagConsolaResultDto ConsultaTagConsola(ObraDto obraRequest) {
         return SacmConsola.ConsultaTagObra(obraRequest);
     }
+    
+    /*-----------------------------------------------------sacm_actualiza_usuario_consola Service-------------------------------------------------------------------*/
+    
+    @POST
+    @Consumes("application/json")
+    @Produces("application/json")
+    @Path("sacm_actualiza_usuario_consola")
+    public UsuarioResultDto ConsultaTagConsola(UsuarioDto usuarioRequest) {
+        return SacmConsola.ActualizaUsuario(usuarioRequest);
+    }
+    
+    /*-----------------------------------------------------sacm_consulta_usuario_consola Service-------------------------------------------------------------------*/
+    
+  /*  @POST
+    @Consumes("application/json")
+    @Produces("application/json")
+    @Path("sacm_actualiza_usuario_consola")
+    public UsuarioResultDto sacm_consulta_usuario_consola(UsuarioDto usuarioRequest) {
+        return SacmConsola.ConsultaUsuario(usuarioRequest);
+    }*/
   
 }

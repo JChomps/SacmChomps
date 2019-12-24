@@ -10,7 +10,7 @@ public class ActivacionDto {
     }
     
     private String mail;
-    private int id_Usuario;
+    private Integer id_Usuario;
 
     public String getPimail() {
         return mail;

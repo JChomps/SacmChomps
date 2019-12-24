@@ -46,7 +46,7 @@ public class SacmSolicitudes {
             // 2. Define the PL/SQL block for the statement to invoke
             cstmt = conn.prepareCall("{call SACM_PKG_PERFIL_CLIENTE.PRC_CONSULTA_SOLICITUDES(?,?,?,?)}");
             // 3. Set the bind values of the IN parameters
-            cstmt.setObject(1,usuarioRequest.getId_Usuario());
+            cstmt.setObject(1, usuarioRequest.getId_Usuario());
             // 4. Register the positions and types of the OUT parameters
             cstmt.registerOutParameter(2, Types.INTEGER);
             cstmt.registerOutParameter(3, Types.VARCHAR);
@@ -72,8 +72,8 @@ public class SacmSolicitudes {
                     cotizacion.setFecha_cotizacion(rs.getString(7));
                     cotizacion.setId_usuario(rs.getInt(8));
                     cotizacion.setTipo_produccion(rs.getString(9));
-                    cotizacion.setLicenciatario(rs.getString(10));
-                    cotizacion.setId_licenciatario(rs.getInt(11));
+                    cotizacion.setId_licenciatario(rs.getInt(10));
+                    cotizacion.setLicenciatario(rs.getString(11));
                     cotizacion.setId_marca(rs.getInt(12));
                     cotizacion.setMarca(rs.getString(13));
                     cotizacion.setId_carrito(rs.getInt(14));
@@ -197,7 +197,7 @@ public class SacmSolicitudes {
             }
             //Organización y eliminación de elementos Tag nivel 2 repetidos
             OrganizaObras(cotizacionList, solicitudList);
-            
+
             slt.setItems(cotizacionList);
 
         }
@@ -211,33 +211,33 @@ public class SacmSolicitudes {
             obrasList = new ArrayList<ObraDto>();
             for (SolicitudDto strTL : solicitudList) {
                 if (strC.getId_cotizacion() == strTL.getItems()
-                                                .get(0)
-                                                .getId_cotizacion()) {
+                                                    .get(0)
+                                                    .getId_cotizacion()) {
                     ObraDto obra = new ObraDto();
                     obra.setId_obra(strTL.getItems()
-                                            .get(0)
-                                            .getObras()
-                                            .get(0)
-                                            .getId_obra());
+                                         .get(0)
+                                         .getObras()
+                                         .get(0)
+                                         .getId_obra());
                     obra.setObra_numero(strTL.getItems()
-                                            .get(0)
-                                            .getObras()
-                                            .get(0)
-                                            .getObra_numero());
+                                             .get(0)
+                                             .getObras()
+                                             .get(0)
+                                             .getObra_numero());
                     obra.setObra_titulo(strTL.getItems()
-                                            .get(0)
-                                            .getObras()
-                                            .get(0)
-                                            .getObra_titulo());
+                                             .get(0)
+                                             .getObras()
+                                             .get(0)
+                                             .getObra_titulo());
                     obra.setObra_descripcion(strTL.getItems()
-                                            .get(0)
-                                            .getObras()
-                                            .get(0)
-                                            .getObra_descripcion());
+                                                  .get(0)
+                                                  .getObras()
+                                                  .get(0)
+                                                  .getObra_descripcion());
                     strC.getObras().add(obra);
                 }
             }
         }
-        
+
     }
 }
