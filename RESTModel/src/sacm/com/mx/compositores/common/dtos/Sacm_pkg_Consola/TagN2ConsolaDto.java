@@ -1,4 +1,4 @@
-package sacm.com.mx.compositores.common.dtos.Consola;
+package sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola;
 
 public class TagN2ConsolaDto {
     private Integer idTag;

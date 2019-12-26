@@ -22,10 +22,11 @@ import oracle.adf.share.logging.ADFLogger;
 
 import oracle.mds.internal.core.IdRequest;
 
-import sacm.com.mx.compositores.common.dtos.Consola.ParticipanteResultDto;
-import sacm.com.mx.compositores.common.dtos.Consola.TagConsolaDto;
-import sacm.com.mx.compositores.common.dtos.Consola.TagConsolaResultDto;
-import sacm.com.mx.compositores.common.dtos.Consola.TagN2ConsolaDto;
+import sacm.com.mx.compositores.common.dtos.CotizacionDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.ParticipanteResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.TagConsolaDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.TagConsolaResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.TagN2ConsolaDto;
 import sacm.com.mx.compositores.common.dtos.HeaderDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.NombreParticipanteDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.ObraDto;
@@ -34,6 +35,9 @@ import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.VersionDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.VersionResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Inicio_Sesion.UsuarioDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Inicio_Sesion.UsuarioResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Perfil.SolicitudDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Perfil.SolicitudResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Registro_Usuario.ActivacionDto;
 import sacm.com.mx.compositores.infraestructure.utils.AppModule;
 
 public class SacmConsola {
@@ -59,18 +63,18 @@ public class SacmConsola {
         CallableStatement cstmt = null;
         ResultSet rs = null;
         Connection conn = null;
-        Short a=0 ;
+        Short a = 0;
 
         try {
             conn = AppModule.getDbConexionJDBC();
             // 2. Define the PL/SQL block for the statement to invoke
             cstmt = conn.prepareCall("{call SACM_PKG_CONSOLA_ADMIN.CONSULTA_OBRA(?,?,?,?,?,?)}");
             // 3. Set the bind values of the IN parameters
-           //= new Boolean(true);
+            //= new Boolean(true);
             cstmt.setObject(1, obraRequest.getObra_numero());
             cstmt.setObject(2, obraRequest.getObra_titulo());
-            cstmt.setObject(3,obraRequest.getCarga_audio());
-           
+            cstmt.setObject(3, obraRequest.getCarga_audio());
+
 
             // 4. Register the positions and types of the OUT parameters
             cstmt.registerOutParameter(4, -10);
@@ -79,7 +83,7 @@ public class SacmConsola {
 
             // 5. Execute the statement
             cstmt.executeUpdate();
-             if (cstmt.getInt(5) == 0) {
+            if (cstmt.getInt(5) == 0) {
                 // print the results
                 rs = (ResultSet) cstmt.getObject(4);
                 byte[] bdata;
@@ -89,29 +93,33 @@ public class SacmConsola {
                     obra.setObra_numero(rs.getInt(2));
                     obra.setObra_titulo(rs.getString(3));
                     obra.setObra_descripcion(rs.getString(4));
-                    
-                    if(rs.getObject(5) != null){
-                    bdata = (rs.getObject(5) == null ? null : rs.getBlob(5).getBytes(1, (int) rs.getBlob(5).length()));
-                    obra.setVersion_wav(rs.getObject(5) == null ? null : Base64.getEncoder().encodeToString(bdata));
-                    }else{
-                            obra.setVersion_wav("");
-                        }
-                    
-                    
-                    if(rs.getObject(6) != null){
-                    bdata = (rs.getObject(6) == null ? null : rs.getBlob(6).getBytes(1, (int) rs.getBlob(6).length()));
-                    obra.setVersion_mp3(rs.getObject(6) == null ? null : Base64.getEncoder().encodeToString(bdata));
-                    }else{
-                            obra.setVersion_mp3("");
-                        }
-                    
-                    
-                    if(rs.getObject(7) != null){
-                    bdata =(rs.getObject(7) == null ? null : rs.getBlob(7).getBytes(1, (int) rs.getBlob(7).length()));
-                    obra.setVersion_aiff(rs.getObject(7) == null ? null : Base64.getEncoder().encodeToString(bdata));
-                    }else{
-                            obra.setVersion_aiff("");
-                        }
+
+                    if (rs.getObject(5) != null) {
+                        bdata =
+                            (rs.getObject(5) == null ? null : rs.getBlob(5).getBytes(1, (int) rs.getBlob(5).length()));
+                        obra.setVersion_wav(rs.getObject(5) == null ? null : Base64.getEncoder().encodeToString(bdata));
+                    } else {
+                        obra.setVersion_wav("");
+                    }
+
+
+                    if (rs.getObject(6) != null) {
+                        bdata =
+                            (rs.getObject(6) == null ? null : rs.getBlob(6).getBytes(1, (int) rs.getBlob(6).length()));
+                        obra.setVersion_mp3(rs.getObject(6) == null ? null : Base64.getEncoder().encodeToString(bdata));
+                    } else {
+                        obra.setVersion_mp3("");
+                    }
+
+
+                    if (rs.getObject(7) != null) {
+                        bdata =
+                            (rs.getObject(7) == null ? null : rs.getBlob(7).getBytes(1, (int) rs.getBlob(7).length()));
+                        obra.setVersion_aiff(rs.getObject(7) == null ? null :
+                                             Base64.getEncoder().encodeToString(bdata));
+                    } else {
+                        obra.setVersion_aiff("");
+                    }
                     obra.setVersion_lyric(rs.getObject(8) == null ? "" : rs.getString(8));
 
                     obraList.add(obra);
@@ -323,7 +331,7 @@ public class SacmConsola {
             cstmt.setObject(13, obraRequest.getPreAutorizacion());
             cstmt.setObject(14, obraRequest.getActivo());
             cstmt.setObject(15, obraRequest.getDuracion());
-            
+
 
             // 4. Register the positions and types of the OUT parameters
             cstmt.registerOutParameter(16, Types.INTEGER);
@@ -483,7 +491,7 @@ public class SacmConsola {
                     tagN2.setTagName(rs.getString(2));
 
                     //Se agrega el elemento Tag de nivel 1 en el objeto Tag nivel 2
-                    
+
                     tag.getTagsList().add(tagN2);
                     tagList.add(tag);
                 }
@@ -521,9 +529,9 @@ public class SacmConsola {
 
     /*-------------------------------------------------------------- sacm_actualiza_usuario_consola --------------------------------------------------------------------------*/
     public static UsuarioResultDto ActualizaUsuario(UsuarioDto usuarioRequest) {
-      
+
         CallableStatement cstmt = null;
-      
+
         Connection conn = null;
         try {
             conn = AppModule.getDbConexionJDBC();
@@ -545,13 +553,13 @@ public class SacmConsola {
             cstmt.setObject(13, usuarioRequest.getEstatus());
 
             // 4. Register the positions and types of the OUT parameters
-           
+
             cstmt.registerOutParameter(14, Types.INTEGER);
             cstmt.registerOutParameter(15, Types.VARCHAR);
 
             // 5. Execute the statement
             cstmt.executeUpdate();
-          
+
             // 6. Set value of dateValue property using first OUT param
             usuarioResponse = new UsuarioResultDto();
             usuarioResponse.setResponseBD(new HeaderDto());
@@ -560,7 +568,7 @@ public class SacmConsola {
             usuarioResponse.setResponseService(new HeaderDto());
             usuarioResponse.getResponseService().setCodErr(cstmt.getInt(14));
             usuarioResponse.getResponseService().setCodMsg(cstmt.getString(15));
-         //   usuarioResponse.setTagsList(tagListResult);
+            //   usuarioResponse.setTagsList(tagListResult);
             // 9. Close the JDBC CallableStatement
             cstmt.close();
             conn.close();
@@ -577,12 +585,12 @@ public class SacmConsola {
         }
         _logger.info("Finish getEstados");
         // 9. Return the result
-       
+
         return usuarioResponse;
     }
 
     /*-------------------------------------------------------------- sacm_actualiza_usuario_consola --------------------------------------------------------------------------*/
-    /*   public static UsuarioResultDto ConsultaUsuario(UsuarioDto usuarioRequest) {
+    public static UsuarioResultDto ConsultaUsuario(UsuarioDto usuarioRequest) {
         CallableStatement cstmt = null;
         Connection conn = null;
         ResultSet rs = null;
@@ -597,36 +605,41 @@ public class SacmConsola {
             cstmt.setObject(2, usuarioRequest.getEmail());
 
             // 4. Register the positions and types of the OUT parameters
-            cstmt.registerOutParameter(3, -10);           
+            cstmt.registerOutParameter(3, -10);
             cstmt.registerOutParameter(4, Types.INTEGER);
             cstmt.registerOutParameter(5, Types.VARCHAR);
 
             // 5. Execute the statement
             cstmt.executeUpdate();
 
-           
-            if (cstmt.getInt(4) == 0) {   
-                rs = (ResultSet) cstmt.getObject(2);
+
+            if (cstmt.getInt(4) == 0) {
+                rs = (ResultSet) cstmt.getObject(3);
                 while (rs.next()) {
                     UsuarioDto usuario = new UsuarioDto();
-                    
+
                     usuario.setNombre(rs.getString(1));
                     usuario.setApellido_paterno(rs.getString(2));
                     usuario.setEmail(rs.getString(3));
                     usuario.setCompania(rs.getString(4));
                     usuario.setPuesto(rs.getString(5));
-                    usuario.setId_pais(new Integer(cstmt.getString(8)));
-                    usuario.setEstatus(cstmt.getString(9));
+                    usuario.setSexo(rs.getString(6));
+                    usuario.setPais(rs.getString(7));
+                    usuario.setEstado(rs.getString(8));
+                    usuario.setMunicipio(rs.getString(9));
+                    usuario.setCodigo_postal(rs.getString(10));
+                    usuario.setDireccion(rs.getString(11));
+                    usuario.setTelefono(rs.getString(12));
+                    usuario.setExtension(rs.getString(13));
+                    usuario.setEstatus(cstmt.getString(14));
                     usuarioResponse.setLoginUser(usuario);
                 }
-                
+
                 rs.close();
             }
-            cstmt.close();
-            conn.close();
-            conn = null;
             
-            usuarioResponse = new UsuarioResultDto();           
+
+            usuarioResponse = new UsuarioResultDto();
             // 6. Set value of dateValue property using first OUT param
             usuarioResponse.setResponseBD(new HeaderDto());
             usuarioResponse.getResponseBD().setCodErr(cstmt.getInt(4));
@@ -635,6 +648,9 @@ public class SacmConsola {
             usuarioResponse.setResponseService(new HeaderDto());
             usuarioResponse.getResponseService().setCodErr(cstmt.getInt(4));
             usuarioResponse.getResponseService().setCodMsg(cstmt.getString(5));
+            cstmt.close();
+            conn.close();
+            conn = null;
 
         } catch (Exception e) {
             // a failure occurred log message;
@@ -648,8 +664,9 @@ public class SacmConsola {
         _logger.info("Finish Login");
         // 9. Return the result
         return usuarioResponse;
-    }*/
-
+    }
+    
+    
     private static void organizaList(List<TagConsolaDto> tagListResult, List<TagConsolaDto> tagList) {
         Map<Integer, TagN2ConsolaDto> mapN1 = new TreeMap<Integer, TagN2ConsolaDto>();
         Map<Integer, TagConsolaDto> map = new HashMap<Integer, TagConsolaDto>();
@@ -683,10 +700,11 @@ public class SacmConsola {
                 tagsListN1.add(value);
             }
             //Organización y eliminación de elementos Tag nivel 2 repetidos
-           
+
             strTLR.setTagsList(tagsListN1);
 
         }
 
     }
-}
+    
+   }

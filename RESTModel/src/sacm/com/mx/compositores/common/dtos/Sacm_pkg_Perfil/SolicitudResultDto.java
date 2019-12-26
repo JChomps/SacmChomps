@@ -12,7 +12,7 @@ public class SolicitudResultDto {
     
     private HeaderDto ResponseBD;
     private HeaderDto ResponseService;
-    private List<SolicitudDto> Solicitudes = new ArrayList<SolicitudDto>();
+    private List<SolicitudDto> Solicitudes =null; //new ArrayList<SolicitudDto>();
 
     public HeaderDto getResponseBD() {
         return ResponseBD;

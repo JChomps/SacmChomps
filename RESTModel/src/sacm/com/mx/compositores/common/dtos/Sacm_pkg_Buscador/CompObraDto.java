@@ -9,9 +9,9 @@ public class CompObraDto {
         super();
     }
     
-    private int idUserOrigen;
-    private int idUserDestino;
-    private int idObra;
+    private Integer idUserOrigen;
+    private Integer idUserDestino;
+    private Integer idObra;
 
     public int getIdUserOrigen() {
         return idUserOrigen;

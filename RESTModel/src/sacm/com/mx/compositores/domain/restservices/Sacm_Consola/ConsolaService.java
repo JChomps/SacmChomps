@@ -5,15 +5,17 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
-import sacm.com.mx.compositores.common.dtos.Consola.ParticipanteResultDto;
-import sacm.com.mx.compositores.common.dtos.Consola.TagConsolaResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.ParticipanteResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.TagConsolaResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.ObraDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.ObraResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.TagsResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.VersionResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Inicio_Sesion.UsuarioDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Inicio_Sesion.UsuarioResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Perfil.SolicitudResultDto;
 import sacm.com.mx.compositores.infraestructure.repositories.SacmConsola;
+import sacm.com.mx.compositores.infraestructure.repositories.SacmSolicitudes;
 
 
 @Path("/consola")
@@ -95,12 +97,22 @@ public class ConsolaService {
     
     /*-----------------------------------------------------sacm_consulta_usuario_consola Service-------------------------------------------------------------------*/
     
-  /*  @POST
+    @POST
     @Consumes("application/json")
     @Produces("application/json")
-    @Path("sacm_actualiza_usuario_consola")
+    @Path("sacm_consulta_usuario_consola")
     public UsuarioResultDto sacm_consulta_usuario_consola(UsuarioDto usuarioRequest) {
         return SacmConsola.ConsultaUsuario(usuarioRequest);
-    }*/
+    }
+    
+    /*-----------------------------------------------------sacm_consulta_solicitud_consola Service-------------------------------------------------------------------*/
+    
+    @POST
+    @Consumes("application/json")
+    @Produces("application/json")
+    @Path("sacm_consulta_solicitud_consola")
+    public SolicitudResultDto sacm_consulta_solicitud_consola(UsuarioDto usuarioRequest) {
+        return SacmSolicitudes.getSolicitudConsola (usuarioRequest);
+    }
   
 }

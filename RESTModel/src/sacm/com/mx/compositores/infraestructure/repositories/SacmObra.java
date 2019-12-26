@@ -229,6 +229,11 @@ public class SacmObra implements Serializable {
         for (int str : palabra.getArray_options()) {
             valores[str - 1] = 1;
         }
+        
+        String search =palabra.getSearch().toString() ;
+        search= search.substring(0,search.length()-1);
+        search= search.substring(1);
+        
         try {
             conn = AppModule.getDbConexionJDBC();
             // 2. Define the PL/SQL block for the statement to invoke
@@ -243,7 +248,7 @@ public class SacmObra implements Serializable {
             cstmt.setObject(7, valores[4]);
             cstmt.setObject(8, valores[5]);
             cstmt.setObject(9, valores[6]);
-            cstmt.setObject(10, palabra.getSearch());
+            cstmt.setObject(10, search);
             // 4. Register the positions and types of the OUT parameters
             cstmt.registerOutParameter(11, Types.INTEGER);
             cstmt.registerOutParameter(12, Types.VARCHAR);
@@ -388,17 +393,17 @@ public class SacmObra implements Serializable {
             cstmt.executeUpdate();
             List<ObraDto> obraList = new ArrayList<ObraDto>();
             if (cstmt.getInt(6) == 0) {
-                obra.setId_obra(cstmt.getInt(4));
-                obra.setObra_titulo(cstmt.getString(5));
+             //   obra.setId_obra(cstmt.getInt(4));
+               // obra.setObra_titulo(cstmt.getString(5));
                 obraList.add(obra);
             }
             obraResponse = new ObraResultDto();
             obraResponse.setResponseBD(new HeaderDto());
-            obraResponse.getResponseBD().setCodErr(cstmt.getInt(2));
-            obraResponse.getResponseBD().setCodMsg(cstmt.getString(3));
+            obraResponse.getResponseBD().setCodErr(cstmt.getInt(6));
+            obraResponse.getResponseBD().setCodMsg(cstmt.getString(7));
             obraResponse.setResponseService(new HeaderDto());
-            obraResponse.getResponseService().setCodErr(cstmt.getInt(2));
-            obraResponse.getResponseService().setCodMsg(cstmt.getString(3));
+            obraResponse.getResponseService().setCodErr(cstmt.getInt(6));
+            obraResponse.getResponseService().setCodMsg(cstmt.getString(7));
             obraResponse.setObras(obraList);
             // 9. Close the JDBC CallableStatement
             cstmt.close();

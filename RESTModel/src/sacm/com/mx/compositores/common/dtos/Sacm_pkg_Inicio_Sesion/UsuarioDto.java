@@ -20,6 +20,9 @@ public class UsuarioDto implements Serializable {
     private String apellido_materno;
     private String compania;
     private String puesto;
+    private String sexo;
+    private String pais;
+    private String estado;
     private Integer id_sexo;
     private Integer id_pais;
     private Integer id_estado;
@@ -181,5 +184,29 @@ public class UsuarioDto implements Serializable {
 
     public String getPasswordNuevo() {
         return passwordNuevo;
+    }
+
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
+
+    public String getPais() {
+        return pais;
+    }
+
+    public void setPais(String pais) {
+        this.pais = pais;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 }

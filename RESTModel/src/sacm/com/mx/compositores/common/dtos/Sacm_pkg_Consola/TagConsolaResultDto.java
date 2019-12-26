@@ -1,4 +1,4 @@
-package sacm.com.mx.compositores.common.dtos.Consola;
+package sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola;
 
 import java.util.ArrayList;
 import java.util.List;
