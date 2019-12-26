@@ -92,7 +92,7 @@ public class SacmConsola {
                     obra.setId_obra(rs.getInt(1));
                     obra.setObra_numero(rs.getInt(2));
                     obra.setObra_titulo(rs.getString(3));
-                    obra.setObra_descripcion(rs.getString(4));
+                    obra.setObra_descripcion(rs.getObject(4) == null ? "" : rs.getString(4));
 
                     if (rs.getObject(5) != null) {
                         bdata =
@@ -120,7 +120,19 @@ public class SacmConsola {
                     } else {
                         obra.setVersion_aiff("");
                     }
+
                     obra.setVersion_lyric(rs.getObject(8) == null ? "" : rs.getString(8));
+
+                    //   obra.setConsagrada(rs.getInt(9));
+                    obra.setObra_consagrada(rs.getObject(9) == null ? "" : rs.getString(9));
+
+                    obra.setControl(rs.getInt(10));
+
+                    //  obra.setPreAutorizacion(rs.getInt(11));
+                    obra.setObra_preAutorizado(rs.getObject(11) == null ? "" : rs.getString(11));
+
+                    // obra.setActivo(rs.getInt(12));
+                    obra.setObra_activo(rs.getObject(12) == null ? "" : rs.getString(12));
 
                     obraList.add(obra);
                 }
@@ -589,9 +601,9 @@ public class SacmConsola {
         return usuarioResponse;
     }
 
-    /*-------------------------------------------------------------- sacm_actualiza_usuario_consola --------------------------------------------------------------------------*/
+    /*-------------------------------------------------------------- sacm_consulta_usuario_consola --------------------------------------------------------------------------*/
     public static UsuarioResultDto ConsultaUsuario(UsuarioDto usuarioRequest) {
-        CallableStatement cstmt = null;
+       CallableStatement cstmt = null;
         Connection conn = null;
         ResultSet rs = null;
         try {
@@ -599,9 +611,10 @@ public class SacmConsola {
 
             // 2. Define the PL/SQL block for the statement to invoke
             cstmt = conn.prepareCall("{call SACM_PKG_CONSOLA_ADMIN.CONSULTA_USUARIOS(?,?,?,?,?)}");
+            
 
             // 3. Set the bind values of the IN parameters
-            cstmt.setObject(1, usuarioRequest.getNombre());
+           cstmt.setObject(1,usuarioRequest.getNombre());            
             cstmt.setObject(2, usuarioRequest.getEmail());
 
             // 4. Register the positions and types of the OUT parameters
@@ -611,35 +624,34 @@ public class SacmConsola {
 
             // 5. Execute the statement
             cstmt.executeUpdate();
-
-
-            if (cstmt.getInt(4) == 0) {
+            usuarioResponse = new UsuarioResultDto();
+            UsuarioDto usuario = new UsuarioDto();
+             if (cstmt.getInt(4) == 0) {
                 rs = (ResultSet) cstmt.getObject(3);
                 while (rs.next()) {
-                    UsuarioDto usuario = new UsuarioDto();
-
-                    usuario.setNombre(rs.getString(1));
-                    usuario.setApellido_paterno(rs.getString(2));
-                    usuario.setEmail(rs.getString(3));
-                    usuario.setCompania(rs.getString(4));
-                    usuario.setPuesto(rs.getString(5));
-                    usuario.setSexo(rs.getString(6));
-                    usuario.setPais(rs.getString(7));
-                    usuario.setEstado(rs.getString(8));
-                    usuario.setMunicipio(rs.getString(9));
-                    usuario.setCodigo_postal(rs.getString(10));
-                    usuario.setDireccion(rs.getString(11));
-                    usuario.setTelefono(rs.getString(12));
-                    usuario.setExtension(rs.getString(13));
-                    usuario.setEstatus(cstmt.getString(14));
+                     usuario = new UsuarioDto();                     
+                    usuario.setNombre(rs.getObject(1) == null ? "" : rs.getString(1));
+                    usuario.setApellido_paterno(rs.getObject(2) == null ? "" : rs.getString(2));
+                    usuario.setEmail(rs.getObject(3) == null ? "" : rs.getString(3));
+                    usuario.setCompania(rs.getObject(4) == null ? "" : rs.getString(4));
+                    usuario.setPuesto(rs.getObject(5) == null ? "" : rs.getString(5));
+                    usuario.setSexo(rs.getObject(6) == null ? "" : rs.getString(6));
+                    usuario.setPais(rs.getObject(7) == null ? "" : rs.getString(7));
+                    usuario.setEstado(rs.getObject(8) == null ? "" : rs.getString(8));
+                    usuario.setMunicipio(rs.getObject(9) == null ? "" : rs.getString(9));
+                    usuario.setCodigo_postal(rs.getObject(10) == null ? "" : rs.getString(10));
+                    usuario.setDireccion(rs.getObject(11) == null ? "" : rs.getString(11));
+                    usuario.setTelefono(rs.getObject(12) == null ? "" : rs.getString(12));
+                    usuario.setExtension(rs.getObject(13) == null ? "" : rs.getString(13));
+                    usuario.setEstatus(rs.getObject(14) == null ? "" : rs.getString(14));
                     usuarioResponse.setLoginUser(usuario);
                 }
 
                 rs.close();
             }
-            
 
-            usuarioResponse = new UsuarioResultDto();
+
+           // usuarioResponse = new UsuarioResultDto();
             // 6. Set value of dateValue property using first OUT param
             usuarioResponse.setResponseBD(new HeaderDto());
             usuarioResponse.getResponseBD().setCodErr(cstmt.getInt(4));
@@ -665,8 +677,8 @@ public class SacmConsola {
         // 9. Return the result
         return usuarioResponse;
     }
-    
-    
+
+
     private static void organizaList(List<TagConsolaDto> tagListResult, List<TagConsolaDto> tagList) {
         Map<Integer, TagN2ConsolaDto> mapN1 = new TreeMap<Integer, TagN2ConsolaDto>();
         Map<Integer, TagConsolaDto> map = new HashMap<Integer, TagConsolaDto>();
@@ -706,5 +718,5 @@ public class SacmConsola {
         }
 
     }
-    
-   }
+
+}

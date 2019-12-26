@@ -35,9 +35,12 @@ public class ObraDto implements Serializable {
     private String aiff;
     private String lyric;
     private Integer consagrada;
-    private Integer control;
+    private String obra_consagrada;
+    private Integer control;   
     private Integer preAutorizacion;
+    private String obra_preAutorizado;
     private Integer activo;
+    private String obra_activo;
     private Integer duracion;
     private List<VersionDto> versiones = null;// new ArrayList<VersionDto>();
    
@@ -266,5 +269,29 @@ public class ObraDto implements Serializable {
 
     public void setDuracion(Integer duracion) {
         this.duracion = duracion;
+    }
+
+    public String getObra_consagrada() {
+        return obra_consagrada;
+    }
+
+    public void setObra_consagrada(String obra_consagrada) {
+        this.obra_consagrada = obra_consagrada;
+    }
+
+    public String getObra_preAutorizado() {
+        return obra_preAutorizado;
+    }
+
+    public void setObra_preAutorizado(String obra_preAutorizado) {
+        this.obra_preAutorizado = obra_preAutorizado;
+    }
+
+    public String getObra_activo() {
+        return obra_activo;
+    }
+
+    public void setObra_activo(String obra_activo) {
+        this.obra_activo = obra_activo;
     }
 }

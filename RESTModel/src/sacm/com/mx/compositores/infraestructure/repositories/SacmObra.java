@@ -393,8 +393,8 @@ public class SacmObra implements Serializable {
             cstmt.executeUpdate();
             List<ObraDto> obraList = new ArrayList<ObraDto>();
             if (cstmt.getInt(6) == 0) {
-             //   obra.setId_obra(cstmt.getInt(4));
-               // obra.setObra_titulo(cstmt.getString(5));
+                obra.setId_obra(cstmt.getInt(4));
+                obra.setObra_titulo(cstmt.getString(5));
                 obraList.add(obra);
             }
             obraResponse = new ObraResultDto();
