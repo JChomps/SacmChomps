@@ -10,6 +10,7 @@ import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Compras.CarritoDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Compras.CarritoResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Compras.RegistroDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Compras.RegistroResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Inicio_Sesion.UsuarioDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Registro_Usuario.ActivacionResultDto;
 import sacm.com.mx.compositores.infraestructure.repositories.SacmActivacion;
 import sacm.com.mx.compositores.infraestructure.repositories.SacmCarrito;
@@ -50,6 +51,14 @@ public class CarritoService {
     @Path("sacm_registra_solicitud")
     public RegistroResultDto registraSolicitud(RegistroDto IdRequest) {
         return SacmCarrito.registraSolicitud2(IdRequest);
+    }
+    
+    /*-----------------------------------------------------sacm_registra_solicitud Service-------------------------------------------------------------------*/
+    @POST
+    @Produces("application/json")
+    @Path("sacm_vacia_carrito")
+    public RegistroResultDto VaciaCarrito(UsuarioDto IdRequest) {
+        return SacmCarrito.VaciaCarrito(IdRequest);
     }
     
 }

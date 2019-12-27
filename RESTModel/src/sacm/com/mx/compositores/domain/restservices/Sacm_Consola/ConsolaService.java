@@ -5,6 +5,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.AlbumResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.ParticipanteResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.TagConsolaResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.ObraDto;
@@ -113,6 +114,16 @@ public class ConsolaService {
     @Path("sacm_consulta_solicitud_consola")
     public SolicitudResultDto sacm_consulta_solicitud_consola(UsuarioDto usuarioRequest) {
         return SacmSolicitudes.getSolicitudConsola (usuarioRequest);
+    }
+    
+    /*-----------------------------------------------------sacm_consulta_solicitud_consola Service-------------------------------------------------------------------*/
+    
+    @POST
+    @Consumes("application/json")
+    @Produces("application/json")
+    @Path("sacm_consulta_album_consola")
+    public AlbumResultDto sacm_consulta_album_consola(UsuarioDto usuarioRequest) {
+        return SacmConsola.ConsultaAlbum ();
     }
   
 }

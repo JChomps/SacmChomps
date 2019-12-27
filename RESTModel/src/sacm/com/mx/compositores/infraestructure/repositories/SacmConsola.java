@@ -28,11 +28,14 @@ import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.TagConsolaDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.TagConsolaResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.TagN2ConsolaDto;
 import sacm.com.mx.compositores.common.dtos.HeaderDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.AlbumDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.AlbumResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.NombreParticipanteDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.ObraDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.ObraResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.VersionDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.VersionResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Compras.RegistroResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Inicio_Sesion.UsuarioDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Inicio_Sesion.UsuarioResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Perfil.SolicitudDto;
@@ -51,6 +54,7 @@ public class SacmConsola {
     private static VersionResultDto versionResult;
     private static TagConsolaResultDto tagsResponse;
     private static UsuarioResultDto usuarioResponse;
+    private static AlbumResultDto albumResponse;
 
 
     public SacmConsola() {
@@ -599,6 +603,67 @@ public class SacmConsola {
         // 9. Return the result
 
         return usuarioResponse;
+    }
+    
+    /*---------------------------------------------------------sacm_agrega_carrito Service----------------------------------------------------------------------*/
+
+    public static AlbumResultDto ConsultaAlbum() {
+        CallableStatement cstmt = null;
+        Connection conn = null;
+        ResultSet rs = null;
+
+        try {
+            conn = AppModule.getDbConexionJDBC();
+            // 2. Define the PL/SQL block for the statement to invoke
+            cstmt = conn.prepareCall("{call SACM_PKG_CONSOLA_ADMIN.LOV_ALBUMS(?,?,?)}");
+            // 4. Register the positions and types of the OUT parameters
+            cstmt.registerOutParameter(1, -10);
+            cstmt.registerOutParameter(2, Types.INTEGER);
+            cstmt.registerOutParameter(3, Types.VARCHAR);
+            // 5. Execute the statement
+            cstmt.executeUpdate();
+            List<AlbumDto> albumList = new ArrayList<AlbumDto>();
+            if (cstmt.getInt(2) == 0) {
+                
+                // print the results
+                rs = (ResultSet) cstmt.getObject(1);
+                while (rs.next()) {
+                    AlbumDto album = new AlbumDto();
+                    album.setId_album(rs.getInt(1));
+                    album.setNombre_album(rs.getString(2));
+                   
+                    albumList.add(album);
+                }
+                rs.close();
+            }
+            // 6. Set value of dateValue property using first OUT param
+            albumResponse = new AlbumResultDto();
+            albumResponse.setResponseBD(new HeaderDto());
+            albumResponse.getResponseBD().setCodErr(cstmt.getInt(2));
+            albumResponse.getResponseBD().setCodMsg(cstmt.getString(3));
+            albumResponse.setResponseService(new HeaderDto());
+            albumResponse.getResponseService().setCodErr(cstmt.getInt(2));
+            albumResponse.getResponseService().setCodMsg(cstmt.getString(3));
+            if(albumList.size()>0)
+            albumResponse.setAlbumes(albumList);
+            // 9. Close the JDBC CallableStatement
+            cstmt.close();
+            conn.close();
+            conn = null;
+
+        } catch (Exception e) {
+            // a failure occurred log message;
+            _logger.severe(e.getMessage());
+            albumResponse = new AlbumResultDto();
+            albumResponse.setResponseService(new HeaderDto());
+            albumResponse.getResponseService().setCodErr(1);
+            albumResponse.getResponseService().setCodMsg(e.getMessage());
+            return albumResponse;
+        }
+
+        _logger.info("Finish Activacion Cuenta");
+        // 9. Return the result
+        return albumResponse;
     }
 
     /*-------------------------------------------------------------- sacm_consulta_usuario_consola --------------------------------------------------------------------------*/

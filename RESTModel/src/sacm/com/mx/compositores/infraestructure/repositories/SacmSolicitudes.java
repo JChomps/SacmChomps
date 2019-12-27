@@ -18,7 +18,10 @@ import oracle.adf.share.logging.ADFLogger;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Registro_Usuario.ActivacionDto;
 import sacm.com.mx.compositores.common.dtos.CotizacionDto;
 import sacm.com.mx.compositores.common.dtos.HeaderDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.AlbumDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.AlbumResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.ObraDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Compras.RegistroResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Inicio_Sesion.UsuarioDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Perfil.SolicitudDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Perfil.SolicitudResultDto;
@@ -218,6 +221,11 @@ public class SacmSolicitudes {
         
         return SolicitudResponse;
     }
+
+
+   
+    
+
 
     private static void OrganizaSolicitud(List<SolicitudDto> solicitudListResult, List<SolicitudDto> solicitudList) {
         List<CotizacionDto> cotizacionList = new ArrayList<CotizacionDto>();

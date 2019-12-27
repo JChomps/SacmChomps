@@ -86,6 +86,8 @@ public class SacmCarrito {
         // 9. Return the result
         return agregarResponse;
     }
+    
+    
     /*---------------------------------------------------------sacm_agregar_carrito Service----------------------------------------------------------------------*/
 
     public static PalabraIdObra getAgregar(PalabraDto IdRequest) {
@@ -334,6 +336,54 @@ public class SacmCarrito {
                 registroResponse.setRespuesta(new ArrayList<RegistroDto>());
                registroResponse.setRespuesta(Respuesta);}
 
+            // 9. Close the JDBC CallableStatement
+            cstmt.close();
+            conn.close();
+            conn = null;
+
+        } catch (Exception e) {
+            // a failure occurred log message;
+            _logger.severe(e.getMessage());
+            registroResponse = new RegistroResultDto();
+            registroResponse.setResponseService(new HeaderDto());
+            registroResponse.getResponseService().setCodErr(1);
+            registroResponse.getResponseService().setCodMsg(e.getMessage());
+            return registroResponse;
+        }
+
+        _logger.info("Finish Activacion Cuenta");
+        // 9. Return the result
+        return registroResponse;
+    }
+    
+    /*---------------------------------------------------------sacm_vacia_carrito Service----------------------------------------------------------------------*/
+
+    public static RegistroResultDto VaciaCarrito(UsuarioDto userRequest) {
+        CallableStatement cstmt = null;
+        Connection conn = null;
+
+        try {
+            conn = AppModule.getDbConexionJDBC();
+            // 2. Define the PL/SQL block for the statement to invoke
+            cstmt = conn.prepareCall("{call SACM_PKG_COMPRAS.PRC_CARRITO_VACIA(?,?,?)}");
+            // 3. Set the bind values of the IN parameters
+            cstmt.setObject(1, userRequest.getId_usuario());
+            // 4. Register the positions and types of the OUT parameters
+            cstmt.registerOutParameter(2, Types.INTEGER);
+            cstmt.registerOutParameter(3, Types.VARCHAR);
+            // 5. Execute the statement
+            cstmt.executeUpdate();
+
+
+            // 6. Set value of dateValue property using first OUT param
+            registroResponse = new RegistroResultDto();
+            registroResponse.setResponseBD(new HeaderDto());
+            registroResponse.getResponseBD().setCodErr(cstmt.getInt(2));
+            registroResponse.getResponseBD().setCodMsg(cstmt.getString(3));
+
+            registroResponse.setResponseService(new HeaderDto());
+            registroResponse.getResponseService().setCodErr(cstmt.getInt(2));
+            registroResponse.getResponseService().setCodMsg(cstmt.getString(3));
             // 9. Close the JDBC CallableStatement
             cstmt.close();
             conn.close();
