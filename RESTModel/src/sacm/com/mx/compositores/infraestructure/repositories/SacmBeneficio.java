@@ -31,7 +31,7 @@ public class SacmBeneficio implements Serializable {
     }
  /*--------------------------------------------------------- sacm_beneficios ----------------------------------------------------------------------*/
 
-    public static BeneficioResultDto getBeneficios(BeneficioDto beneficioRequest) {
+    public static BeneficioResultDto getBeneficios() {
         List<BeneficioDto> beneficioList = new ArrayList<BeneficioDto>();
         CallableStatement cstmt = null;
         ResultSet rs = null;

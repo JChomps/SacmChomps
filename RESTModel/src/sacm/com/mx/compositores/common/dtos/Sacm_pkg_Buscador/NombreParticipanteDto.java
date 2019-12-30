@@ -5,6 +5,7 @@ public class NombreParticipanteDto {
         super();
     }
     private Integer id_participante;
+    private Integer id_obra;
     private String nombre;
     private String segundo_nombre;
     private String apellido_materno;
@@ -75,5 +76,13 @@ public class NombreParticipanteDto {
 
     public void setActivo(String activo) {
         this.activo = activo;
+    }
+
+    public Integer getId_obra() {
+        return id_obra;
+    }
+
+    public void setId_obra(Integer id_obra) {
+        this.id_obra = id_obra;
     }
 }

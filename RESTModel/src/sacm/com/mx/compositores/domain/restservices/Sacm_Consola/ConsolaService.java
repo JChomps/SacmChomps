@@ -6,12 +6,14 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.AlbumResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.NombreParticipanteDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.ParticipanteResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.TagConsolaResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.ObraDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.ObraResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.TagsResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.VersionResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.TagConsolaDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Inicio_Sesion.UsuarioDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Inicio_Sesion.UsuarioResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Perfil.SolicitudResultDto;
@@ -121,9 +123,59 @@ public class ConsolaService {
     @POST
     @Consumes("application/json")
     @Produces("application/json")
-    @Path("sacm_consulta_album_consola")
-    public AlbumResultDto sacm_consulta_album_consola(UsuarioDto usuarioRequest) {
+    @Path("sacm_lov_album_consola")
+    public AlbumResultDto sacm_consulta_album_consola() {
         return SacmConsola.ConsultaAlbum ();
+    }
+    
+    /*-----------------------------------------------------sacm_lov_tag_consola Service-------------------------------------------------------------------*/
+    
+    @POST
+    @Consumes("application/json")
+    @Produces("application/json")
+    @Path("sacm_lov_tag_consola")
+    public TagConsolaResultDto consultaTag(TagConsolaDto tagRequest) {
+        return SacmConsola.ConsultaLovTag (tagRequest);
+    }
+    
+    /*-----------------------------------------------------sacm_inserta_tag_obra_consola Service-------------------------------------------------------------------*/
+    
+    @POST
+    @Consumes("application/json")
+    @Produces("application/json")
+    @Path("sacm_inserta_tag_obra_consola")
+    public ParticipanteResultDto InsertaTagObra(ObraDto obraRequest) {
+        return SacmConsola.insertaTagObra (obraRequest);
+    }
+    
+    /*-----------------------------------------------------sacm_lov_participantes_consola Service-------------------------------------------------------------------*/
+    
+    @POST
+    @Consumes("application/json")
+    @Produces("application/json")
+    @Path("sacm_lov_participantes_consola")
+    public ParticipanteResultDto lovParticipantes() {
+        return SacmConsola.LovParticipantes ();
+    }
+    
+    /*-----------------------------------------------------sacm_lov_inserta_participantes_consola Service-------------------------------------------------------------------*/
+    
+    @POST
+    @Consumes("application/json")
+    @Produces("application/json")
+    @Path("sacm_lov_inserta_participantes_consola")
+    public ParticipanteResultDto lovInsertaParticipantes(NombreParticipanteDto participanteRequest) {
+        return SacmConsola.LovInsertaParticipantes (participanteRequest);
+    }
+    
+    /*-----------------------------------------------------sacm_lov_obras_consola Service-------------------------------------------------------------------*/
+    
+    @POST
+    @Consumes("application/json")
+    @Produces("application/json")
+    @Path("sacm_lov_obras_consola")
+    public ObraResultDto LovObras() {
+        return SacmConsola.LovObras();
     }
   
 }

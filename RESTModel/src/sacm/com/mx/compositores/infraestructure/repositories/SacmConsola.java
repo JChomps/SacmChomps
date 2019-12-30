@@ -33,6 +33,8 @@ import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.AlbumResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.NombreParticipanteDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.ObraDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.ObraResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.ParticipanteDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.TagsResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.VersionDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.VersionResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Compras.RegistroResultDto;
@@ -742,8 +744,292 @@ public class SacmConsola {
         // 9. Return the result
         return usuarioResponse;
     }
+    
+    /*-------------------------------------------------------------- sacm_lov_tag_consola --------------------------------------------------------------------------*/
+    public static TagConsolaResultDto ConsultaLovTag(TagConsolaDto tagsRequest) {
+        List<TagConsolaDto> tagListResult = new ArrayList<TagConsolaDto>();
+        CallableStatement cstmt = null;
+        ResultSet rs = null;
+        Connection conn = null;
+        try {
+            conn = AppModule.getDbConexionJDBC();
+            // 2. Define the PL/SQL block for the statement to invoke
+            cstmt = conn.prepareCall("{call SACM_PKG_CONSOLA_ADMIN.LOV_TAGS(?,?,?,?,?)}");
+            // 3. Set the bind values of the IN parameters
+            cstmt.setObject(1, tagsRequest.getIdTag());
+            cstmt.setObject(2, tagsRequest.getTagItem());
 
+            // 4. Register the positions and types of the OUT parameters
+            cstmt.registerOutParameter(3, -10);
+            cstmt.registerOutParameter(4, Types.INTEGER);
+            cstmt.registerOutParameter(5, Types.VARCHAR);
 
+            // 5. Execute the statement
+            cstmt.executeUpdate();
+            if (cstmt.getInt(4) == 0) {
+                rs = (ResultSet) cstmt.getObject(3);
+                List<TagConsolaDto> tagList = new ArrayList<TagConsolaDto>();
+                List<TagN2ConsolaDto> tagN2List = new ArrayList<TagN2ConsolaDto>();
+                while (rs.next()) {
+                    TagConsolaDto tag = new TagConsolaDto();
+                    tagN2List = new ArrayList<TagN2ConsolaDto>();
+                    tag.setTagsList(tagN2List);
+                    TagN2ConsolaDto tagN2 = new TagN2ConsolaDto();
+                    //Asignamiento de valores al objeto Tag
+                    //tag.setIdTag(rs.getInt(3));
+                    tag.setTagName(rs.getString(2));
+                    //Asignamiento de valores al objeto Tag nivel 1
+                    tagN2.setIdTag(rs.getInt(1));
+                    tagN2.setTagName(rs.getString(3));
+
+                    //Se agrega el elemento Tag de nivel 1 en el objeto Tag nivel 2
+
+                    tag.getTagsList().add(tagN2);
+                    tagList.add(tag);
+                }
+                organizaListPorNombre(tagListResult, tagList);
+                rs.close();
+            }
+            // 6. Set value of dateValue property using first OUT param
+            tagsResponse = new TagConsolaResultDto();
+            tagsResponse.setResponseBD(new HeaderDto());
+            tagsResponse.getResponseBD().setCodErr(cstmt.getInt(4));
+            tagsResponse.getResponseBD().setCodMsg(cstmt.getString(5));
+            tagsResponse.setResponseService(new HeaderDto());
+            tagsResponse.getResponseService().setCodErr(cstmt.getInt(4));
+            tagsResponse.getResponseService().setCodMsg(cstmt.getString(5));
+            if(tagListResult.size()>0)
+            tagsResponse.setTagsList(tagListResult);
+            // 9. Close the JDBC CallableStatement
+            cstmt.close();
+            conn.close();
+            conn = null;
+
+        } catch (Exception e) {
+            // a failure occurred log message;
+            _logger.severe(e.getMessage());
+            tagsResponse = new TagConsolaResultDto();
+            tagsResponse.setResponseService(new HeaderDto());
+            tagsResponse.getResponseService().setCodErr(1);
+            tagsResponse.getResponseService().setCodMsg(e.getMessage());
+            return tagsResponse;
+        }
+        _logger.info("Finish getEstados");
+        // 9. Return the result
+        return tagsResponse;
+    }
+
+    /*-------------------------------------------------------------- sacm_inserta_tag_obra_consola --------------------------------------------------------------------------*/
+     public static ParticipanteResultDto insertaTagObra(ObraDto obraRequest) {
+        CallableStatement cstmt = null;
+        Connection conn = null;
+        try {
+            conn = AppModule.getDbConexionJDBC();
+            // 2. Define the PL/SQL block for the statement to invoke
+            cstmt = conn.prepareCall("{call SACM_PKG_CONSOLA_ADMIN.INSERTA_TAG_OBRA(?,?,?,?,?)}");
+            // 3. Set the bind values of the IN parameters
+            cstmt.setObject(1, obraRequest.getId_obra());
+            cstmt.setObject(2, obraRequest.getIdTagItem());
+            cstmt.setObject(3, obraRequest.getActivo());
+
+            // 4. Register the positions and types of the OUT parameters
+            cstmt.registerOutParameter(4, Types.INTEGER);
+            cstmt.registerOutParameter(5, Types.VARCHAR);
+
+            // 5. Execute the statement
+            cstmt.executeUpdate();
+           
+            // 6. Set value of dateValue property using first OUT param
+            participanteResult = new ParticipanteResultDto();
+            participanteResult.setResponseBD(new HeaderDto());
+            participanteResult.getResponseBD().setCodErr(cstmt.getInt(4));
+            participanteResult.getResponseBD().setCodMsg(cstmt.getString(5));
+            participanteResult.setResponseService(new HeaderDto());
+            participanteResult.getResponseService().setCodErr(cstmt.getInt(4));
+            participanteResult.getResponseService().setCodMsg(cstmt.getString(5));
+          
+            // 9. Close the JDBC CallableStatement
+            cstmt.close();
+            conn.close();
+            conn = null;
+
+        } catch (Exception e) {
+            // a failure occurred log message;
+            _logger.severe(e.getMessage());
+            participanteResult = new ParticipanteResultDto();
+            participanteResult.setResponseService(new HeaderDto());
+            participanteResult.getResponseService().setCodErr(1);
+            participanteResult.getResponseService().setCodMsg(e.getMessage());
+            return participanteResult;
+        }
+        _logger.info("Finish getEstados");
+        // 9. Return the result
+        return participanteResult;
+    }
+     
+    /*---------------------------------------------------------sacm_agrega_carrito Service----------------------------------------------------------------------*/
+
+    public static ParticipanteResultDto LovParticipantes() {
+        CallableStatement cstmt = null;
+        Connection conn = null;
+        ResultSet rs = null;
+
+        try {
+            conn = AppModule.getDbConexionJDBC();
+            // 2. Define the PL/SQL block for the statement to invoke
+            cstmt = conn.prepareCall("{call SACM_PKG_CONSOLA_ADMIN.LOV_PARTICIPANTES(?,?,?)}");
+            // 4. Register the positions and types of the OUT parameters
+            cstmt.registerOutParameter(1, -10);
+            cstmt.registerOutParameter(2, Types.INTEGER);
+            cstmt.registerOutParameter(3, Types.VARCHAR);
+            // 5. Execute the statement
+            cstmt.executeUpdate();
+            List<NombreParticipanteDto> participanteList = new ArrayList<NombreParticipanteDto>();
+            if (cstmt.getInt(2) == 0) {
+                
+                // print the results
+                rs = (ResultSet) cstmt.getObject(1);
+                while (rs.next()) {
+                    NombreParticipanteDto participante = new NombreParticipanteDto();
+                    participante.setId_participante(rs.getInt(1));
+                    participante.setNombre(rs.getString(2));
+                   
+                    participanteList.add(participante);
+                }
+                rs.close();
+            }
+            // 6. Set value of dateValue property using first OUT param
+            participanteResult = new ParticipanteResultDto();
+            participanteResult.setResponseBD(new HeaderDto());
+            participanteResult.getResponseBD().setCodErr(cstmt.getInt(2));
+            participanteResult.getResponseBD().setCodMsg(cstmt.getString(3));
+            participanteResult.setResponseService(new HeaderDto());
+            participanteResult.getResponseService().setCodErr(cstmt.getInt(2));
+            participanteResult.getResponseService().setCodMsg(cstmt.getString(3));
+            if(participanteList.size()>0)
+            participanteResult.setParticipantes(participanteList);
+            // 9. Close the JDBC CallableStatement
+            cstmt.close();
+            conn.close();
+            conn = null;
+
+        } catch (Exception e) {
+            // a failure occurred log message;
+            _logger.severe(e.getMessage());
+            participanteResult = new ParticipanteResultDto();
+            participanteResult.setResponseService(new HeaderDto());
+            participanteResult.getResponseService().setCodErr(1);
+            participanteResult.getResponseService().setCodMsg(e.getMessage());
+            return participanteResult;
+        }
+
+        _logger.info("Finish Activacion Cuenta");
+        // 9. Return the result
+        return participanteResult;
+    }
+    
+    
+    /*---------------------------------------------------------sacm_lov_obras_consola Service----------------------------------------------------------------------*/
+
+    public static ObraResultDto LovObras() {
+        CallableStatement cstmt = null;
+        Connection conn = null;
+        ResultSet rs = null;
+
+        try {
+            conn = AppModule.getDbConexionJDBC();
+            // 2. Define the PL/SQL block for the statement to invoke
+            cstmt = conn.prepareCall("{call SACM_PKG_CONSOLA_ADMIN.LOV_OBRAS(?,?,?)}");
+            // 4. Register the positions and types of the OUT parameters
+            cstmt.registerOutParameter(1, -10);
+            cstmt.registerOutParameter(2, Types.INTEGER);
+            cstmt.registerOutParameter(3, Types.VARCHAR);
+            // 5. Execute the statement
+            cstmt.executeUpdate();
+            List<ObraDto> obraList = new ArrayList<ObraDto>();
+            if (cstmt.getInt(2) == 0) {
+                
+                // print the results
+                rs = (ResultSet) cstmt.getObject(1);
+                while (rs.next()) {
+                    ObraDto obra = new ObraDto();
+                    obra.setId_obra(rs.getInt(1));
+                    obra.setObra_titulo(rs.getString(2));
+                   
+                    obraList.add(obra);
+                }
+                rs.close();
+            }
+            // 6. Set value of dateValue property using first OUT param
+            obraResponse = new ObraResultDto();
+            obraResponse.setResponseBD(new HeaderDto());
+            obraResponse.getResponseBD().setCodErr(cstmt.getInt(2));
+            obraResponse.getResponseBD().setCodMsg(cstmt.getString(3));
+            obraResponse.setResponseService(new HeaderDto());
+            obraResponse.getResponseService().setCodErr(cstmt.getInt(2));
+            obraResponse.getResponseService().setCodMsg(cstmt.getString(3));
+            if(obraList.size()>0)
+            obraResponse.setObras(obraList);
+            // 9. Close the JDBC CallableStatement
+            cstmt.close();
+            conn.close();
+            conn = null;
+
+        } catch (Exception e) {
+            // a failure occurred log message;
+            _logger.severe(e.getMessage());
+            obraResponse = new ObraResultDto();
+            obraResponse.setResponseService(new HeaderDto());
+            obraResponse.getResponseService().setCodErr(1);
+            obraResponse.getResponseService().setCodMsg(e.getMessage());
+            return obraResponse;
+        }
+
+        _logger.info("Finish Activacion Cuenta");
+        // 9. Return the result
+        return obraResponse;
+    }
+    
+
+    private static void organizaListPorNombre(List<TagConsolaDto> tagListResult, List<TagConsolaDto> tagList) {
+        Map<Integer, TagN2ConsolaDto> mapN1 = new HashMap<Integer, TagN2ConsolaDto>();
+        Map<String, TagConsolaDto> map = new HashMap<String, TagConsolaDto>();
+        List<TagN2ConsolaDto> tagsListN1 = new ArrayList<TagN2ConsolaDto>();
+
+        // Creación de MAp para eliminar elementos Tag repetidos
+        for (TagConsolaDto str : tagList) {
+            map.put(str.getTagName(), str);
+        }
+        for (TagConsolaDto value : map.values()) {
+            tagListResult.add(value);
+        }
+
+        //Organización y eliminación de elementos Tag nivel 1 repetidos
+        for (TagConsolaDto strTLR : tagListResult) {
+            mapN1 = new TreeMap<Integer, TagN2ConsolaDto>();
+            tagsListN1 = new ArrayList<TagN2ConsolaDto>();
+            for (TagConsolaDto strTL : tagList) {
+                if (strTL.getTagName().equals(strTLR.getTagName()) ){
+                    TagN2ConsolaDto partN1 = new TagN2ConsolaDto();
+                    partN1.setIdTag(strTL.getTagsList()
+                                         .get(0)
+                                         .getIdTag());
+                    partN1.setTagName(strTL.getTagsList()
+                                           .get(0)
+                                           .getTagName());
+                    mapN1.put(partN1.getIdTag(), partN1);
+                }
+            }
+            for (TagN2ConsolaDto value : mapN1.values()) {
+                tagsListN1.add(value);
+            }
+            //Organización y eliminación de elementos Tag nivel 2 repetidos
+
+            strTLR.setTagsList(tagsListN1);
+
+        }
+
+    }
     private static void organizaList(List<TagConsolaDto> tagListResult, List<TagConsolaDto> tagList) {
         Map<Integer, TagN2ConsolaDto> mapN1 = new TreeMap<Integer, TagN2ConsolaDto>();
         Map<Integer, TagConsolaDto> map = new HashMap<Integer, TagConsolaDto>();
@@ -784,4 +1070,53 @@ public class SacmConsola {
 
     }
 
+
+    /*---------------------------------------------------------sacm_lov_inserta_participantes_consola Service----------------------------------------------------------------------*/
+
+    public static ParticipanteResultDto LovInsertaParticipantes(NombreParticipanteDto participanteRequest) {
+        List<TagConsolaDto> tagListResult = new ArrayList<TagConsolaDto>();
+        CallableStatement cstmt = null;
+        Connection conn = null;
+        try {
+            conn = AppModule.getDbConexionJDBC();
+            // 2. Define the PL/SQL block for the statement to invoke
+            cstmt = conn.prepareCall("{call SACM_PKG_CONSOLA_ADMIN.INSERTA_PARTICIPANTE_OBRA(?,?,?,?,?)}");
+            // 3. Set the bind values of the IN parameters
+            cstmt.setObject(1, participanteRequest.getId_obra());
+            cstmt.setObject(2, participanteRequest.getId_participante());
+            cstmt.setObject(3, participanteRequest.getActivo());
+
+            // 4. Register the positions and types of the OUT parameters
+            cstmt.registerOutParameter(4, Types.INTEGER);
+            cstmt.registerOutParameter(5, Types.VARCHAR);
+
+            // 5. Execute the statement
+            cstmt.executeUpdate();
+           
+            // 6. Set value of dateValue property using first OUT param
+            participanteResult = new ParticipanteResultDto();
+            participanteResult.setResponseBD(new HeaderDto());
+            participanteResult.getResponseBD().setCodErr(cstmt.getInt(4));
+            participanteResult.getResponseBD().setCodMsg(cstmt.getString(5));
+            participanteResult.setResponseService(new HeaderDto());
+            participanteResult.getResponseService().setCodErr(cstmt.getInt(4));
+            participanteResult.getResponseService().setCodMsg(cstmt.getString(5));
+          
+            cstmt.close();
+            conn.close();
+            conn = null;
+
+        } catch (Exception e) {
+            // a failure occurred log message;
+            _logger.severe(e.getMessage());
+            participanteResult = new ParticipanteResultDto();
+            participanteResult.setResponseService(new HeaderDto());
+            participanteResult.getResponseService().setCodErr(1);
+            participanteResult.getResponseService().setCodMsg(e.getMessage());
+            return participanteResult;
+        }
+        _logger.info("Finish getEstados");
+        // 9. Return the result
+        return participanteResult;
+    }
 }

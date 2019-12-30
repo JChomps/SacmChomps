@@ -9,7 +9,7 @@ import javax.ws.rs.core.Application;
 import oracle.wsm.metadata.annotation.PolicyReference;
 import oracle.wsm.metadata.annotation.PolicySet;
 
-import sacm.com.mx.compositores.domain.restservices.ActivacionService;
+import sacm.com.mx.compositores.domain.restservices.Sacm_Registro_Usuario.ActivacionService;
 import sacm.com.mx.compositores.domain.restservices.Sacm_Registro_Usuario.BeneficioService;
 import sacm.com.mx.compositores.domain.restservices.Sacm_Registro_Usuario.EstadoService;
 import sacm.com.mx.compositores.domain.restservices.Sacm_Registro_Usuario.LegalesService;
@@ -22,6 +22,7 @@ import sacm.com.mx.compositores.domain.restservices.Sacm_Compras.CategoriaServic
 import sacm.com.mx.compositores.domain.restservices.Sacm_Compras.LicenciatarioService;
 import sacm.com.mx.compositores.domain.restservices.Sacm_Consola.ConsolaService;
 import sacm.com.mx.compositores.domain.restservices.Sacm_Proyectos.ProyectoService;
+import sacm.com.mx.compositores.domain.restservices.Sacm_Registro_Usuario.GiroService;
 import sacm.com.mx.compositores.domain.restservices.Sacm_Registro_Usuario.SexoService;
 import sacm.com.mx.compositores.domain.restservices.SolicitudesServices;
 import sacm.com.mx.compositores.domain.restservices.SugerenciaService;
@@ -42,6 +43,7 @@ public class GenericApplication extends Application {
         classes.add(CategoriaService.class); 
         classes.add(ConsolaService.class); 
         classes.add(EstadoService.class);
+        classes.add(GiroService.class);
         classes.add(LegalesService.class);
         classes.add(LicenciatarioService.class);
         classes.add(MetadaService.class);

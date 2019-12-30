@@ -8,6 +8,7 @@ import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.TagN2;
 public class TagConsolaDto {
     private Integer idTag;
     private String tagName;
+    private Integer tagItem;
     private List<TagN2ConsolaDto> tagsList =null;// new ArrayList<TagN1>();
     public TagConsolaDto() {
         super();
@@ -36,4 +37,14 @@ public class TagConsolaDto {
     public void setTagsList(List<TagN2ConsolaDto> tagsList) {
         this.tagsList = tagsList;
     }
+
+    public Integer getTagItem() {
+        return tagItem;
+    }
+
+    public void setTagItem(Integer tagItem) {
+        this.tagItem = tagItem;
+    }
+
+   
 }

@@ -34,6 +34,7 @@ public class ObraDto implements Serializable {
     private String mp3;
     private String aiff;
     private String lyric;
+    private Integer idTagItem;
     private Integer consagrada;
     private String obra_consagrada;
     private Integer control;   
@@ -293,5 +294,13 @@ public class ObraDto implements Serializable {
 
     public void setObra_activo(String obra_activo) {
         this.obra_activo = obra_activo;
+    }
+
+    public Integer getIdTagItem() {
+        return idTagItem;
+    }
+
+    public void setIdTagItem(Integer idTagItem) {
+        this.idTagItem = idTagItem;
     }
 }

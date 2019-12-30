@@ -21,6 +21,6 @@ public class BeneficioService {
     @Produces("application/json")
     @Path("sacm_beneficios")
     public BeneficioResultDto getAcativaCuenta(BeneficioDto beneficioRequest) {
-        return SacmBeneficio.getBeneficios(beneficioRequest);
+        return SacmBeneficio.getBeneficios();
     }
 }
