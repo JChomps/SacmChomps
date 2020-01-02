@@ -1,5 +1,11 @@
 package sacm.com.mx.compositores.infraestructure.repositories;
 
+import java.io.ByteArrayInputStream;
+
+import java.io.FileInputStream;
+
+import java.io.InputStream;
+
 import java.sql.Blob;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -20,13 +26,11 @@ import javax.sql.rowset.serial.SerialBlob;
 import oracle.adf.share.logging.ADFLogger;
 
 
-import oracle.mds.internal.core.IdRequest;
-
 import sacm.com.mx.compositores.common.dtos.CotizacionDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.ParticipanteResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.TagConsolaDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.TagConsolaResultDto;
-import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.TagN2ConsolaDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.TagN1ConsolaDto;
 import sacm.com.mx.compositores.common.dtos.HeaderDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.AlbumDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.AlbumResultDto;
@@ -38,6 +42,7 @@ import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.TagsResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.VersionDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.VersionResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Compras.RegistroResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.TagN2ConsolaDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Inicio_Sesion.UsuarioDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Inicio_Sesion.UsuarioResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Perfil.SolicitudDto;
@@ -304,7 +309,7 @@ public class SacmConsola {
     public static ObraResultDto InsertaObra(ObraDto obraRequest) {
         CallableStatement cstmt = null;
         Connection conn = null;
-        byte[] byteData = { (byte) 0x1a, (byte) 0x2b, (byte) 0x3c };
+        // byte[] byteData = { (byte) 0x1a, (byte) 0x2b, (byte) 0x3c };
 
         try {
             conn = AppModule.getDbConexionJDBC();
@@ -314,33 +319,58 @@ public class SacmConsola {
             cstmt.setObject(1, obraRequest.getId_obra());
             cstmt.setObject(2, obraRequest.getId_album());
 
-            byteData = (obraRequest.get_Imagen() == null ? null : Base64.getDecoder().decode(obraRequest.get_Imagen()));
-            cstmt.setObject(3, byteData, java.sql
-                                             .Types
-                                             .BLOB);
+
+            if (obraRequest.getPicture() != null) {
+                String imagen = obraRequest.getPicture();
+                byte[] byteData = Base64.getDecoder().decode(imagen.getBytes());
+                InputStream targetStream = new ByteArrayInputStream(byteData);
+
+                cstmt.setBlob(3, targetStream);
+            } else
+                cstmt.setObject(3, null);
+
 
             //cstmt.setObject(2, obraRequest.get_Imagen());
             cstmt.setObject(4, obraRequest.getObra_numero());
             cstmt.setObject(5, obraRequest.getObra_titulo());
             cstmt.setObject(6, obraRequest.getObra_descripcion());
 
-            byteData = (obraRequest.getWav() == null ? null : Base64.getDecoder().decode(obraRequest.getWav()));
-            cstmt.setObject(7, byteData, java.sql
-                                             .Types
-                                             .BLOB);
-            //cstmt.setObject(6, obraRequest.getWav());
+            if (obraRequest.getWav() != null) {
+                String imagen = obraRequest.getWav();
+                byte[] byteData = Base64.getDecoder().decode(imagen.getBytes());
+                InputStream targetStream = new ByteArrayInputStream(byteData);
 
-            byteData = (obraRequest.getMp3() == null ? null : Base64.getDecoder().decode(obraRequest.getMp3()));
-            cstmt.setObject(8, byteData, java.sql
+                cstmt.setBlob(7, targetStream);
+            } else {
+                cstmt.setObject(7, null, java.sql
                                              .Types
                                              .BLOB);
-            // cstmt.setObject(7, obraRequest.getMp3());
+            }
 
-            byteData = (obraRequest.getAiff() == null ? null : Base64.getDecoder().decode(obraRequest.getAiff()));
-            cstmt.setObject(9, byteData, java.sql
+
+            if (obraRequest.getMp3() != null) {
+                String imagen = obraRequest.getMp3();
+                byte[] byteData = Base64.getDecoder().decode(imagen.getBytes());
+                InputStream targetStream = new ByteArrayInputStream(byteData);
+
+                cstmt.setBlob(8, targetStream);
+            } else {
+                cstmt.setObject(8, null, java.sql
                                              .Types
                                              .BLOB);
-            // cstmt.setObject(8, obraRequest.getAiff());
+            }
+
+
+            if (obraRequest.getAiff() != null) {
+                String imagen = obraRequest.getAiff();
+                byte[] byteData = Base64.getDecoder().decode(imagen.getBytes());
+                InputStream targetStream = new ByteArrayInputStream(byteData);
+
+                cstmt.setBlob(9, targetStream);
+            } else
+                cstmt.setObject(9, null, java.sql
+                                             .Types
+                                             .BLOB);
 
 
             cstmt.setObject(10, obraRequest.getLyric());
@@ -392,7 +422,7 @@ public class SacmConsola {
     public static ObraResultDto ActualizaObra(ObraDto obraRequest) {
         CallableStatement cstmt = null;
         Connection conn = null;
-        byte[] byteData = { (byte) 0x1a, (byte) 0x2b, (byte) 0x3c };
+
 
         try {
             conn = AppModule.getDbConexionJDBC();
@@ -401,33 +431,58 @@ public class SacmConsola {
             // 3. Set the bind values of the IN parameters
             cstmt.setObject(1, obraRequest.getId_obra());
 
-            byteData = (obraRequest.get_Imagen() == null ? null : Base64.getDecoder().decode(obraRequest.get_Imagen()));
-            cstmt.setObject(2, byteData, java.sql
-                                             .Types
-                                             .BLOB);
+            if (obraRequest.getPicture() != null) {
+                String imagen = obraRequest.getPicture();
+                byte[] byteData = Base64.getDecoder().decode(imagen.getBytes());
+                InputStream targetStream = new ByteArrayInputStream(byteData);
+
+                cstmt.setBlob(2, targetStream);
+            } else
+                cstmt.setObject(2, null);
+
 
             //cstmt.setObject(2, obraRequest.get_Imagen());
             cstmt.setObject(3, obraRequest.getObra_numero());
             cstmt.setObject(4, obraRequest.getObra_titulo());
             cstmt.setObject(5, obraRequest.getObra_descripcion());
 
-            byteData = (obraRequest.getWav() == null ? null : Base64.getDecoder().decode(obraRequest.getWav()));
-            cstmt.setObject(6, byteData, java.sql
-                                             .Types
-                                             .BLOB);
-            //cstmt.setObject(6, obraRequest.getWav());
 
-            byteData = (obraRequest.getMp3() == null ? null : Base64.getDecoder().decode(obraRequest.getMp3()));
-            cstmt.setObject(7, byteData, java.sql
-                                             .Types
-                                             .BLOB);
-            // cstmt.setObject(7, obraRequest.getMp3());
+            if (obraRequest.getWav() != null) {
+                String imagen = obraRequest.getWav();
+                byte[] byteData = Base64.getDecoder().decode(imagen.getBytes());
+                InputStream targetStream = new ByteArrayInputStream(byteData);
 
-            byteData = (obraRequest.getAiff() == null ? null : Base64.getDecoder().decode(obraRequest.getAiff()));
-            cstmt.setObject(8, byteData, java.sql
+                cstmt.setBlob(6, targetStream);
+            } else {
+                cstmt.setObject(6, null, java.sql
                                              .Types
                                              .BLOB);
-            // cstmt.setObject(8, obraRequest.getAiff());
+            }
+
+
+            if (obraRequest.getMp3() != null) {
+                String imagen = obraRequest.getMp3();
+                byte[] byteData = Base64.getDecoder().decode(imagen.getBytes());
+                InputStream targetStream = new ByteArrayInputStream(byteData);
+
+                cstmt.setBlob(7, targetStream);
+            } else {
+                cstmt.setObject(7, null, java.sql
+                                             .Types
+                                             .BLOB);
+            }
+
+
+            if (obraRequest.getAiff() != null) {
+                String imagen = obraRequest.getAiff();
+                byte[] byteData = Base64.getDecoder().decode(imagen.getBytes());
+                InputStream targetStream = new ByteArrayInputStream(byteData);
+
+                cstmt.setBlob(8, targetStream);
+            } else
+                cstmt.setObject(8, null, java.sql
+                                             .Types
+                                             .BLOB);
 
 
             cstmt.setObject(9, obraRequest.getLyric());
@@ -495,12 +550,12 @@ public class SacmConsola {
             if (cstmt.getInt(3) == 0) {
                 rs = (ResultSet) cstmt.getObject(2);
                 List<TagConsolaDto> tagList = new ArrayList<TagConsolaDto>();
-                List<TagN2ConsolaDto> tagN2List = new ArrayList<TagN2ConsolaDto>();
+                List<TagN1ConsolaDto> tagN2List = new ArrayList<TagN1ConsolaDto>();
                 while (rs.next()) {
                     TagConsolaDto tag = new TagConsolaDto();
-                    tagN2List = new ArrayList<TagN2ConsolaDto>();
+                    tagN2List = new ArrayList<TagN1ConsolaDto>();
                     tag.setTagsList(tagN2List);
-                    TagN2ConsolaDto tagN2 = new TagN2ConsolaDto();
+                    TagN1ConsolaDto tagN2 = new TagN1ConsolaDto();
                     //Asignamiento de valores al objeto Tag
                     tag.setIdTag(rs.getInt(3));
                     tag.setTagName(rs.getString(1));
@@ -606,7 +661,7 @@ public class SacmConsola {
 
         return usuarioResponse;
     }
-    
+
     /*---------------------------------------------------------sacm_agrega_carrito Service----------------------------------------------------------------------*/
 
     public static AlbumResultDto ConsultaAlbum() {
@@ -626,14 +681,14 @@ public class SacmConsola {
             cstmt.executeUpdate();
             List<AlbumDto> albumList = new ArrayList<AlbumDto>();
             if (cstmt.getInt(2) == 0) {
-                
+
                 // print the results
                 rs = (ResultSet) cstmt.getObject(1);
                 while (rs.next()) {
                     AlbumDto album = new AlbumDto();
                     album.setId_album(rs.getInt(1));
                     album.setNombre_album(rs.getString(2));
-                   
+
                     albumList.add(album);
                 }
                 rs.close();
@@ -646,8 +701,8 @@ public class SacmConsola {
             albumResponse.setResponseService(new HeaderDto());
             albumResponse.getResponseService().setCodErr(cstmt.getInt(2));
             albumResponse.getResponseService().setCodMsg(cstmt.getString(3));
-            if(albumList.size()>0)
-            albumResponse.setAlbumes(albumList);
+            if (albumList.size() > 0)
+                albumResponse.setAlbumes(albumList);
             // 9. Close the JDBC CallableStatement
             cstmt.close();
             conn.close();
@@ -670,7 +725,7 @@ public class SacmConsola {
 
     /*-------------------------------------------------------------- sacm_consulta_usuario_consola --------------------------------------------------------------------------*/
     public static UsuarioResultDto ConsultaUsuario(UsuarioDto usuarioRequest) {
-       CallableStatement cstmt = null;
+        CallableStatement cstmt = null;
         Connection conn = null;
         ResultSet rs = null;
         try {
@@ -678,10 +733,10 @@ public class SacmConsola {
 
             // 2. Define the PL/SQL block for the statement to invoke
             cstmt = conn.prepareCall("{call SACM_PKG_CONSOLA_ADMIN.CONSULTA_USUARIOS(?,?,?,?,?)}");
-            
+
 
             // 3. Set the bind values of the IN parameters
-           cstmt.setObject(1,usuarioRequest.getNombre());            
+            cstmt.setObject(1, usuarioRequest.getNombre());
             cstmt.setObject(2, usuarioRequest.getEmail());
 
             // 4. Register the positions and types of the OUT parameters
@@ -693,10 +748,10 @@ public class SacmConsola {
             cstmt.executeUpdate();
             usuarioResponse = new UsuarioResultDto();
             UsuarioDto usuario = new UsuarioDto();
-             if (cstmt.getInt(4) == 0) {
+            if (cstmt.getInt(4) == 0) {
                 rs = (ResultSet) cstmt.getObject(3);
                 while (rs.next()) {
-                     usuario = new UsuarioDto();                     
+                    usuario = new UsuarioDto();
                     usuario.setNombre(rs.getObject(1) == null ? "" : rs.getString(1));
                     usuario.setApellido_paterno(rs.getObject(2) == null ? "" : rs.getString(2));
                     usuario.setEmail(rs.getObject(3) == null ? "" : rs.getString(3));
@@ -718,7 +773,7 @@ public class SacmConsola {
             }
 
 
-           // usuarioResponse = new UsuarioResultDto();
+            // usuarioResponse = new UsuarioResultDto();
             // 6. Set value of dateValue property using first OUT param
             usuarioResponse.setResponseBD(new HeaderDto());
             usuarioResponse.getResponseBD().setCodErr(cstmt.getInt(4));
@@ -744,7 +799,7 @@ public class SacmConsola {
         // 9. Return the result
         return usuarioResponse;
     }
-    
+
     /*-------------------------------------------------------------- sacm_lov_tag_consola --------------------------------------------------------------------------*/
     public static TagConsolaResultDto ConsultaLovTag(TagConsolaDto tagsRequest) {
         List<TagConsolaDto> tagListResult = new ArrayList<TagConsolaDto>();
@@ -769,23 +824,43 @@ public class SacmConsola {
             if (cstmt.getInt(4) == 0) {
                 rs = (ResultSet) cstmt.getObject(3);
                 List<TagConsolaDto> tagList = new ArrayList<TagConsolaDto>();
+                List<TagN1ConsolaDto> tagN1List = new ArrayList<TagN1ConsolaDto>();
                 List<TagN2ConsolaDto> tagN2List = new ArrayList<TagN2ConsolaDto>();
+                TagConsolaDto tag = new TagConsolaDto();  
+                TagN1ConsolaDto tagN1 = new TagN1ConsolaDto();
+                tag.setTagsList(tagN1List);
+                tagN1.setTagsList(tagN2List);
                 while (rs.next()) {
-                    TagConsolaDto tag = new TagConsolaDto();
-                    tagN2List = new ArrayList<TagN2ConsolaDto>();
-                    tag.setTagsList(tagN2List);
-                    TagN2ConsolaDto tagN2 = new TagN2ConsolaDto();
-                    //Asignamiento de valores al objeto Tag
-                    //tag.setIdTag(rs.getInt(3));
-                    tag.setTagName(rs.getString(2));
-                    //Asignamiento de valores al objeto Tag nivel 1
-                    tagN2.setIdTag(rs.getInt(1));
-                    tagN2.setTagName(rs.getString(3));
+                   
+                    //Leer el nombre del tag padre
+                   
+                    //comprobar si el tag entrante es de nivel 1 o 2
 
-                    //Se agrega el elemento Tag de nivel 1 en el objeto Tag nivel 2
+                    if (rs.getInt(4) == 1) {
+                        tagN1 = new TagN1ConsolaDto();
+                        
+                        tag.setTagName(rs.getString(2));
+                       
+                       
+                        tagN1.setIdTag(rs.getInt(1));
+                        tagN1.setTagName(rs.getString(3)); 
+                        
+                        
+                        tag.getTagsList().add(tagN1);
+                        tag.setTagsList(tagN1List);
+                        tagList.add(tag);
 
-                    tag.getTagsList().add(tagN2);
-                    tagList.add(tag);
+                    } /* else if (rs.getInt(4) == 2) {
+                        TagN2ConsolaDto tagN2 = new TagN2ConsolaDto();
+                        tagN2.setIdTag(rs.getInt(1));
+                        tagN2.setTagName(rs.getString(3));
+                        tagN1.getTagsList().add(tagN2);
+                    } */
+
+
+                   
+                   
+                   
                 }
                 organizaListPorNombre(tagListResult, tagList);
                 rs.close();
@@ -798,8 +873,8 @@ public class SacmConsola {
             tagsResponse.setResponseService(new HeaderDto());
             tagsResponse.getResponseService().setCodErr(cstmt.getInt(4));
             tagsResponse.getResponseService().setCodMsg(cstmt.getString(5));
-            if(tagListResult.size()>0)
-            tagsResponse.setTagsList(tagListResult);
+            if (tagListResult.size() > 0)
+                tagsResponse.setTagsList(tagListResult);
             // 9. Close the JDBC CallableStatement
             cstmt.close();
             conn.close();
@@ -820,7 +895,7 @@ public class SacmConsola {
     }
 
     /*-------------------------------------------------------------- sacm_inserta_tag_obra_consola --------------------------------------------------------------------------*/
-     public static ParticipanteResultDto insertaTagObra(ObraDto obraRequest) {
+    public static ParticipanteResultDto insertaTagObra(ObraDto obraRequest) {
         CallableStatement cstmt = null;
         Connection conn = null;
         try {
@@ -838,7 +913,7 @@ public class SacmConsola {
 
             // 5. Execute the statement
             cstmt.executeUpdate();
-           
+
             // 6. Set value of dateValue property using first OUT param
             participanteResult = new ParticipanteResultDto();
             participanteResult.setResponseBD(new HeaderDto());
@@ -847,7 +922,7 @@ public class SacmConsola {
             participanteResult.setResponseService(new HeaderDto());
             participanteResult.getResponseService().setCodErr(cstmt.getInt(4));
             participanteResult.getResponseService().setCodMsg(cstmt.getString(5));
-          
+
             // 9. Close the JDBC CallableStatement
             cstmt.close();
             conn.close();
@@ -866,7 +941,7 @@ public class SacmConsola {
         // 9. Return the result
         return participanteResult;
     }
-     
+
     /*---------------------------------------------------------sacm_agrega_carrito Service----------------------------------------------------------------------*/
 
     public static ParticipanteResultDto LovParticipantes() {
@@ -886,14 +961,14 @@ public class SacmConsola {
             cstmt.executeUpdate();
             List<NombreParticipanteDto> participanteList = new ArrayList<NombreParticipanteDto>();
             if (cstmt.getInt(2) == 0) {
-                
+
                 // print the results
                 rs = (ResultSet) cstmt.getObject(1);
                 while (rs.next()) {
                     NombreParticipanteDto participante = new NombreParticipanteDto();
                     participante.setId_participante(rs.getInt(1));
                     participante.setNombre(rs.getString(2));
-                   
+
                     participanteList.add(participante);
                 }
                 rs.close();
@@ -906,8 +981,8 @@ public class SacmConsola {
             participanteResult.setResponseService(new HeaderDto());
             participanteResult.getResponseService().setCodErr(cstmt.getInt(2));
             participanteResult.getResponseService().setCodMsg(cstmt.getString(3));
-            if(participanteList.size()>0)
-            participanteResult.setParticipantes(participanteList);
+            if (participanteList.size() > 0)
+                participanteResult.setParticipantes(participanteList);
             // 9. Close the JDBC CallableStatement
             cstmt.close();
             conn.close();
@@ -927,8 +1002,8 @@ public class SacmConsola {
         // 9. Return the result
         return participanteResult;
     }
-    
-    
+
+
     /*---------------------------------------------------------sacm_lov_obras_consola Service----------------------------------------------------------------------*/
 
     public static ObraResultDto LovObras() {
@@ -948,14 +1023,14 @@ public class SacmConsola {
             cstmt.executeUpdate();
             List<ObraDto> obraList = new ArrayList<ObraDto>();
             if (cstmt.getInt(2) == 0) {
-                
+
                 // print the results
                 rs = (ResultSet) cstmt.getObject(1);
                 while (rs.next()) {
                     ObraDto obra = new ObraDto();
                     obra.setId_obra(rs.getInt(1));
                     obra.setObra_titulo(rs.getString(2));
-                   
+
                     obraList.add(obra);
                 }
                 rs.close();
@@ -968,8 +1043,8 @@ public class SacmConsola {
             obraResponse.setResponseService(new HeaderDto());
             obraResponse.getResponseService().setCodErr(cstmt.getInt(2));
             obraResponse.getResponseService().setCodMsg(cstmt.getString(3));
-            if(obraList.size()>0)
-            obraResponse.setObras(obraList);
+            if (obraList.size() > 0)
+                obraResponse.setObras(obraList);
             // 9. Close the JDBC CallableStatement
             cstmt.close();
             conn.close();
@@ -989,12 +1064,12 @@ public class SacmConsola {
         // 9. Return the result
         return obraResponse;
     }
-    
+
 
     private static void organizaListPorNombre(List<TagConsolaDto> tagListResult, List<TagConsolaDto> tagList) {
-        Map<Integer, TagN2ConsolaDto> mapN1 = new HashMap<Integer, TagN2ConsolaDto>();
+        Map<Integer, TagN1ConsolaDto> mapN1 = new HashMap<Integer, TagN1ConsolaDto>();
         Map<String, TagConsolaDto> map = new HashMap<String, TagConsolaDto>();
-        List<TagN2ConsolaDto> tagsListN1 = new ArrayList<TagN2ConsolaDto>();
+        List<TagN1ConsolaDto> tagsListN1 = new ArrayList<TagN1ConsolaDto>();
 
         // Creación de MAp para eliminar elementos Tag repetidos
         for (TagConsolaDto str : tagList) {
@@ -1006,11 +1081,11 @@ public class SacmConsola {
 
         //Organización y eliminación de elementos Tag nivel 1 repetidos
         for (TagConsolaDto strTLR : tagListResult) {
-            mapN1 = new TreeMap<Integer, TagN2ConsolaDto>();
-            tagsListN1 = new ArrayList<TagN2ConsolaDto>();
+            mapN1 = new TreeMap<Integer, TagN1ConsolaDto>();
+            tagsListN1 = new ArrayList<TagN1ConsolaDto>();
             for (TagConsolaDto strTL : tagList) {
-                if (strTL.getTagName().equals(strTLR.getTagName()) ){
-                    TagN2ConsolaDto partN1 = new TagN2ConsolaDto();
+                if (strTL.getTagName().equals(strTLR.getTagName())) {
+                    TagN1ConsolaDto partN1 = new TagN1ConsolaDto();
                     partN1.setIdTag(strTL.getTagsList()
                                          .get(0)
                                          .getIdTag());
@@ -1020,7 +1095,7 @@ public class SacmConsola {
                     mapN1.put(partN1.getIdTag(), partN1);
                 }
             }
-            for (TagN2ConsolaDto value : mapN1.values()) {
+            for (TagN1ConsolaDto value : mapN1.values()) {
                 tagsListN1.add(value);
             }
             //Organización y eliminación de elementos Tag nivel 2 repetidos
@@ -1030,10 +1105,11 @@ public class SacmConsola {
         }
 
     }
+
     private static void organizaList(List<TagConsolaDto> tagListResult, List<TagConsolaDto> tagList) {
-        Map<Integer, TagN2ConsolaDto> mapN1 = new TreeMap<Integer, TagN2ConsolaDto>();
+        Map<Integer, TagN1ConsolaDto> mapN1 = new TreeMap<Integer, TagN1ConsolaDto>();
         Map<Integer, TagConsolaDto> map = new HashMap<Integer, TagConsolaDto>();
-        List<TagN2ConsolaDto> tagsListN1 = new ArrayList<TagN2ConsolaDto>();
+        List<TagN1ConsolaDto> tagsListN1 = new ArrayList<TagN1ConsolaDto>();
 
         // Creación de MAp para eliminar elementos Tag repetidos
         for (TagConsolaDto str : tagList) {
@@ -1045,11 +1121,11 @@ public class SacmConsola {
 
         //Organización y eliminación de elementos Tag nivel 1 repetidos
         for (TagConsolaDto strTLR : tagListResult) {
-            mapN1 = new TreeMap<Integer, TagN2ConsolaDto>();
-            tagsListN1 = new ArrayList<TagN2ConsolaDto>();
+            mapN1 = new TreeMap<Integer, TagN1ConsolaDto>();
+            tagsListN1 = new ArrayList<TagN1ConsolaDto>();
             for (TagConsolaDto strTL : tagList) {
                 if (strTL.getIdTag() == strTLR.getIdTag()) {
-                    TagN2ConsolaDto partN1 = new TagN2ConsolaDto();
+                    TagN1ConsolaDto partN1 = new TagN1ConsolaDto();
                     partN1.setIdTag(strTL.getTagsList()
                                          .get(0)
                                          .getIdTag());
@@ -1059,7 +1135,7 @@ public class SacmConsola {
                     mapN1.put(partN1.getIdTag(), partN1);
                 }
             }
-            for (TagN2ConsolaDto value : mapN1.values()) {
+            for (TagN1ConsolaDto value : mapN1.values()) {
                 tagsListN1.add(value);
             }
             //Organización y eliminación de elementos Tag nivel 2 repetidos
@@ -1092,7 +1168,7 @@ public class SacmConsola {
 
             // 5. Execute the statement
             cstmt.executeUpdate();
-           
+
             // 6. Set value of dateValue property using first OUT param
             participanteResult = new ParticipanteResultDto();
             participanteResult.setResponseBD(new HeaderDto());
@@ -1101,7 +1177,7 @@ public class SacmConsola {
             participanteResult.setResponseService(new HeaderDto());
             participanteResult.getResponseService().setCodErr(cstmt.getInt(4));
             participanteResult.getResponseService().setCodMsg(cstmt.getString(5));
-          
+
             cstmt.close();
             conn.close();
             conn = null;

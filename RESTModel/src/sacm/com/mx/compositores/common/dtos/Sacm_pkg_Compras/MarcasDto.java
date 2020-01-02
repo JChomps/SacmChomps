@@ -14,7 +14,11 @@ public class MarcasDto {
     private String  codigo_postal;
     private String  persona;
     private Integer id_categoria;
-    private Integer  valor;
+    private Double valor;
+    private Integer id_estado;
+    private String estado;
+    private String municipio;
+    private String direccion;
     
     
     public MarcasDto() {
@@ -117,11 +121,11 @@ public class MarcasDto {
         this.id_categoria = id_categoria;
     }
 
-    public Integer getValor() {
+    public Double getValor() {
         return valor;
     }
 
-    public void setValor(Integer valor) {
+    public void setValor(Double valor) {
         this.valor = valor;
     }
 
@@ -131,5 +135,37 @@ public class MarcasDto {
 
     public void setId_usuario(Integer id_usuario) {
         this.id_usuario = id_usuario;
+    }
+
+    public Integer getId_estado() {
+        return id_estado;
+    }
+
+    public void setId_estado(Integer id_estado) {
+        this.id_estado = id_estado;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getMunicipio() {
+        return municipio;
+    }
+
+    public void setMunicipio(String municipio) {
+        this.municipio = municipio;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
     }
 }

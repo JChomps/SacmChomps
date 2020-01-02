@@ -118,7 +118,7 @@ public class ConsolaService {
         return SacmSolicitudes.getSolicitudConsola (usuarioRequest);
     }
     
-    /*-----------------------------------------------------sacm_consulta_solicitud_consola Service-------------------------------------------------------------------*/
+    /*-----------------------------------------------------sacm_lov_album_consola Service-------------------------------------------------------------------*/
     
     @POST
     @Consumes("application/json")

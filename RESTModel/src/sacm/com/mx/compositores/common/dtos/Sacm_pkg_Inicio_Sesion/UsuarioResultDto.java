@@ -18,6 +18,7 @@ public class UsuarioResultDto implements Serializable {
     private UsuarioDto LoginUser;
     private UsuarioDto UpdatePWD;
     private UsuarioDto SendEmail;
+    private Integer id_usuario;
     private List<UsuarioDto> usuarios=null;
     
     
@@ -68,5 +69,13 @@ public class UsuarioResultDto implements Serializable {
 
     public void setUsuarios(List<UsuarioDto> usuarios) {
         this.usuarios = usuarios;
+    }
+
+    public Integer getId_usuario() {
+        return id_usuario;
+    }
+
+    public void setId_usuario(Integer id_usuario) {
+        this.id_usuario = id_usuario;
     }
 }

@@ -1,5 +1,8 @@
 package sacm.com.mx.compositores.infraestructure.repositories;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+
 import java.sql.Blob;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -15,6 +18,8 @@ import javax.sql.rowset.serial.SerialBlob;
 import oracle.adf.share.logging.ADFLogger;
 
 import sacm.com.mx.compositores.common.dtos.HeaderDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.ObraDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.ObraResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.PalabraDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.PalabraIdObra;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Compras.CarritoDto;
@@ -22,6 +27,8 @@ import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Compras.CarritoResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Compras.CategoriaDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Compras.RegistroDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Compras.RegistroResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Compras.ValidaObraDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Compras.ValidaObraResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Inicio_Sesion.UsuarioDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Inicio_Sesion.UsuarioResultDto;
 import sacm.com.mx.compositores.infraestructure.utils.AppModule;
@@ -34,6 +41,7 @@ public class SacmCarrito {
     private static ADFLogger _logger = ADFLogger.createADFLogger(SacmActivacion.class);
     private static PalabraIdObra agregarResponse;
     private static RegistroResultDto registroResponse;
+    private static ValidaObraResultDto obraResponse;
 
     public SacmCarrito() {
         super();
@@ -215,7 +223,7 @@ public class SacmCarrito {
         CallableStatement cstmt = null;
         Connection conn = null;
         ResultSet rs = null;
-        byte[] byteData = { (byte) 0x1a, (byte) 0x2b, (byte) 0x3c };
+      //  byte[] byteData = { (byte) 0x1a, (byte) 0x2b, (byte) 0x3c };
 
         try {
             conn = AppModule.getDbConexionJDBC();
@@ -238,11 +246,19 @@ public class SacmCarrito {
             cstmt.setObject(8, IdRequest.getAudv_presupuesto());
             cstmt.setObject(9, IdRequest.getAudv_descripcion());
 
-            byteData =
-                (IdRequest.getAudv_story_board() == null ? null :
-                 Base64.getDecoder().decode(IdRequest.getAudv_story_board()));
-            cstmt.setObject(10, byteData, java.sql.Types.BLOB); //10, byteData, java.sql.Types.BLOB);
+            
+            
+            if (IdRequest.getAudv_story_board() != null) {
+                String imagen =IdRequest.getAudv_story_board();
+                byte[] byteData = Base64.getDecoder().decode(imagen.getBytes());
+                InputStream targetStream = new ByteArrayInputStream(byteData);
 
+                cstmt.setBlob(10, targetStream);
+            } else{
+                cstmt.setObject(10, null);
+            }
+            
+           
 
             cstmt.setObject(11, IdRequest.getAudv_num_capitulos());
 
@@ -254,7 +270,7 @@ public class SacmCarrito {
             cstmt.setObject(17, IdRequest.getSpot_otro_tpo_uso());
             cstmt.setObject(18, IdRequest.getSpot_notas());
 
-            cstmt.setObject(19, 1); // IdRequest.getId_categ_proposito());
+            cstmt.setObject(19,  IdRequest.getId_categ_proposito());
             cstmt.setObject(20, IdRequest.getId_categ_tpouso_spot());
             cstmt.setObject(21, IdRequest.getId_categ_tpouso_audv());
             cstmt.setObject(22, IdRequest.getId_categ_tiempo_uso());
@@ -265,21 +281,28 @@ public class SacmCarrito {
             cstmt.setObject(27, IdRequest.getId_categ_vigencia());
             cstmt.setObject(28, IdRequest.getId_categ_mnf());
 
-            //cstmt.setBlob(29,blob);// IdRequest.getLetra_sample());
-            //cstmt.setBlob(30,blob);// IdRequest.getMusica_sample());
-            byteData =
-                (IdRequest.getMusica_sample() == null ? null :
-                 Base64.getDecoder().decode(IdRequest.getMusica_sample()));
-            cstmt.setObject(29, null, java.sql
-                                          .Types
-                                          .BLOB);
-            byteData =
-                (IdRequest.getAudv_story_board() == null ? null :
-                 Base64.getDecoder().decode(IdRequest.getAudv_story_board()));
-            cstmt.setObject(30, null, java.sql
-                                          .Types
-                                          .BLOB);
+            
+            if (IdRequest.getMusica_sample() != null) {
+                String imagen =IdRequest.getMusica_sample();
+                byte[] byteData = Base64.getDecoder().decode(imagen.getBytes());
+                InputStream targetStream = new ByteArrayInputStream(byteData);
 
+                cstmt.setBlob(29, targetStream);
+            } else{
+                cstmt.setObject(29, null);
+            }
+            
+            
+            if (IdRequest.getAudv_story_board() != null) {
+                String imagen =IdRequest.getAudv_story_board();
+                byte[] byteData = Base64.getDecoder().decode(imagen.getBytes());
+                InputStream targetStream = new ByteArrayInputStream(byteData);
+
+                cstmt.setBlob(30, targetStream);
+            } else{
+                cstmt.setObject(30, null);
+            }
+            
 
             cstmt.setObject(31, IdRequest.getArray_lifts());
             cstmt.setObject(32, IdRequest.getArray_medios());
@@ -402,5 +425,150 @@ public class SacmCarrito {
         _logger.info("Finish Activacion Cuenta");
         // 9. Return the result
         return registroResponse;
+    }
+
+    public static ValidaObraResultDto getValidaObras(CarritoDto carritoRequest) {
+        List<ValidaObraDto> obraList = new ArrayList<ValidaObraDto>();
+        CallableStatement cstmt = null;
+        Connection conn = null;
+        ResultSet rs = null;
+
+        try {
+            conn = AppModule.getDbConexionJDBC();
+            // 2. Define the PL/SQL block for the statement to invoke
+            cstmt = conn.prepareCall("{call SACM_PKG_COMPRAS.PRC_VALIDA_OBRAS(?,?,?,?)}");
+
+            // 3. Set the bind values of the IN parameters
+            cstmt.setObject(1, carritoRequest.getArray_id_carrito_detalle());
+            // 4. Register the positions and types of the OUT parameters
+            cstmt.registerOutParameter(2, Types.INTEGER);
+            cstmt.registerOutParameter(3, Types.VARCHAR);
+            cstmt.registerOutParameter(4, -10);
+            // 5. Execute the statement
+            cstmt.executeUpdate();
+
+            if (cstmt.getInt(2) == 0) {
+                // read the results
+                rs = (ResultSet) cstmt.getObject(4);
+                while (rs.next()) {
+                    ValidaObraDto obra = new ValidaObraDto();
+                    obra.setId_obra(rs.getInt(1));
+                    obra.setNumero_obra(rs.getInt(2));
+                    obra.setTitulo_obra(rs.getString(3)+ "");
+                    
+                    obra.setConsagrada_obra(rs.getString(4)+ "");
+                    obra.setControl_obra(rs.getInt(5));
+                    obra.setControl_val_obra(rs.getString(6)+ "");
+                    obra.setAutorizada_obra(rs.getString(7)+ "");
+
+                    obra.setId_participante(rs.getInt(8));
+                    obra.setParticipante(rs.getString(9)+ "");
+                    obra.setConsagrado_participante(rs.getString(10)+ "");
+                    
+                    obraList.add(obra);
+                }
+                rs.close();
+            }
+
+
+            // 6. Set value of dateValue property using first OUT param
+            obraResponse = new ValidaObraResultDto();
+            obraResponse.setResponseBD(new HeaderDto());
+            obraResponse.getResponseBD().setCodErr(cstmt.getInt(2));
+            obraResponse.getResponseBD().setCodMsg(cstmt.getString(3));
+
+            obraResponse.setResponseService(new HeaderDto());
+            obraResponse.getResponseService().setCodErr(cstmt.getInt(2));
+            obraResponse.getResponseService().setCodMsg(cstmt.getString(3));
+            if(obraList.size()>0)
+            obraResponse.setObras(obraList);
+            // 9. Close the JDBC CallableStatement
+            cstmt.close();
+            conn.close();
+            conn = null;
+
+        } catch (Exception e) {
+            // a failure occurred log message;
+            _logger.severe(e.getMessage());
+            obraResponse = new ValidaObraResultDto();
+            obraResponse.setResponseService(new HeaderDto());
+            obraResponse.getResponseService().setCodErr(1);
+            obraResponse.getResponseService().setCodMsg(e.getMessage());
+            return obraResponse;
+        }
+
+        _logger.info("Finish Activacion Cuenta");
+        // 9. Return the result
+        return obraResponse;
+    }
+
+    public static ValidaObraResultDto getPropiedadesObras(ValidaObraDto obraRequest) {
+        List<ValidaObraDto> obraList = new ArrayList<ValidaObraDto>();
+        CallableStatement cstmt = null;
+        Connection conn = null;
+        ResultSet rs = null;
+
+        try {
+            conn = AppModule.getDbConexionJDBC();
+            // 2. Define the PL/SQL block for the statement to invoke
+            cstmt = conn.prepareCall("{call SACM_PKG_COMPRAS.PRC_PROPIEDADES_OBRA(?,?,?,?)}");
+
+            // 3. Set the bind values of the IN parameters
+            cstmt.setObject(1, obraRequest.getArray_id_obras());
+            // 4. Register the positions and types of the OUT parameters
+            cstmt.registerOutParameter(2, Types.INTEGER);
+            cstmt.registerOutParameter(3, Types.VARCHAR);
+            cstmt.registerOutParameter(4, -10);
+            // 5. Execute the statement
+            cstmt.executeUpdate();
+
+            if (cstmt.getInt(2) == 0) {
+                // read the results
+                rs = (ResultSet) cstmt.getObject(4);
+                while (rs.next()) {
+                    ValidaObraDto obra = new ValidaObraDto();
+                    obra.setId_obra(rs.getInt(1));
+                    obra.setNumero_obra(rs.getInt(2));
+                    obra.setTitulo_obra(rs.getString(3)+ "");
+                    obra.setActiva(rs.getString(4)+"");                    
+                    obra.setConsagrada_obra(rs.getString(5)+ "");
+                    obra.setAutorizada_obra(rs.getString(6)+ "");   
+                    obra.setControl_obra(rs.getInt(7));
+                    
+                    obraList.add(obra);
+                }
+                rs.close();
+            }
+
+
+            // 6. Set value of dateValue property using first OUT param
+            obraResponse = new ValidaObraResultDto();
+            obraResponse.setResponseBD(new HeaderDto());
+            obraResponse.getResponseBD().setCodErr(cstmt.getInt(2));
+            obraResponse.getResponseBD().setCodMsg(cstmt.getString(3));
+
+            obraResponse.setResponseService(new HeaderDto());
+            obraResponse.getResponseService().setCodErr(cstmt.getInt(2));
+            obraResponse.getResponseService().setCodMsg(cstmt.getString(3));
+            if(obraList.size()>0)
+            obraResponse.setObras(obraList);
+            // 9. Close the JDBC CallableStatement
+            cstmt.close();
+            conn.close();
+            conn = null;
+
+        } catch (Exception e) {
+            // a failure occurred log message;
+            _logger.severe(e.getMessage());
+            obraResponse = new ValidaObraResultDto();
+            obraResponse.setResponseService(new HeaderDto());
+            obraResponse.getResponseService().setCodErr(1);
+            obraResponse.getResponseService().setCodMsg(e.getMessage());
+            return obraResponse;
+        }
+
+        _logger.info("Finish Activacion Cuenta");
+        // 9. Return the result
+        return obraResponse;
     }
 }

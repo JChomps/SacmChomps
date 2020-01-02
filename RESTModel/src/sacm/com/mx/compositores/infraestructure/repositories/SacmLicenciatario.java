@@ -57,24 +57,28 @@ public class SacmLicenciatario {
                 // read the results
                 rs = (ResultSet) cstmt.getObject(4);
                 while (rs.next()) {
-                    MarcasDto marca = new MarcasDto();                    
+                    MarcasDto marca = new MarcasDto();
+                    
                     marca.setNombre(rs.getString(3));
                     marca.setDescripcion(rs.getString(4));
-                    marca.setTipo_produccion(rs.getString(5));
-                    marca.setPuesto(rs.getString(6)); 
-                    marca.setRfc(rs.getString(7));
-                    marca.setRazon(rs.getString(8));
-                    marca.setDomicilio(rs.getString(9));
+                    
+                    marca.setRfc(rs.getString(5));
+                    marca.setId_estado(rs.getInt(6));
+                    marca.setEstado(rs.getString(7));
+                    marca.setMunicipio(rs.getString(8));
+                    marca.setDireccion(rs.getString(9));
                     marca.setCodigo_postal(rs.getString(10));
-                    marca.setPersona(rs.getString(11));
+                    marca.setPuesto(rs.getString(11)); 
                     marca.setId_categoria(rs.getInt(12));
-                    marca.setValor(rs.getInt(13));
+                    marca.setValor(rs.getDouble(13));
+                   
+                    marca.setPersona(rs.getString(11));
                     if(rs.getInt(1)>0){
                             marca.setId_licenciatario(rs.getInt(1));
                             licList.add(marca);
                         }
                     if(rs.getInt(2)>0){
-                        marca.setId_marca(rs.getInt(12));
+                        marca.setId_marca(rs.getInt(2));
                         marcaList.add(marca);}
                     
                    

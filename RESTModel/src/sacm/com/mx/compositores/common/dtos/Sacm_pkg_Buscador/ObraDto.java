@@ -20,6 +20,7 @@ public class ObraDto implements Serializable {
     private String obra_titulo;
     private String obra_descripcion;
     private String imagen;
+    private String Imag;
     private Integer version_id;
     private String version_titulo;
     private String version_descripcion;
@@ -43,6 +44,12 @@ public class ObraDto implements Serializable {
     private Integer activo;
     private String obra_activo;
     private Integer duracion;
+    private String picture;
+    private String control_str;
+    private String autorizado;
+    private Integer id_participante;
+    private String participante;
+    private String consagrado;
     private List<VersionDto> versiones = null;// new ArrayList<VersionDto>();
    
 
@@ -302,5 +309,61 @@ public class ObraDto implements Serializable {
 
     public void setIdTagItem(Integer idTagItem) {
         this.idTagItem = idTagItem;
+    }
+
+    public String getImag() {
+        return Imag;
+    }
+
+    public void setImag(String Imag) {
+        this.Imag = Imag;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    public String getControl_str() {
+        return control_str;
+    }
+
+    public void setControl_str(String control_str) {
+        this.control_str = control_str;
+    }
+
+    public String getAutorizado() {
+        return autorizado;
+    }
+
+    public void setAutorizado(String autorizado) {
+        this.autorizado = autorizado;
+    }
+
+    public Integer getId_participante() {
+        return id_participante;
+    }
+
+    public void setId_participante(Integer id_participante) {
+        this.id_participante = id_participante;
+    }
+
+    public String getParticipante() {
+        return participante;
+    }
+
+    public void setParticipante(String participante) {
+        this.participante = participante;
+    }
+
+    public String getConsagrado() {
+        return consagrado;
+    }
+
+    public void setConsagrado(String consagrado) {
+        this.consagrado = consagrado;
     }
 }

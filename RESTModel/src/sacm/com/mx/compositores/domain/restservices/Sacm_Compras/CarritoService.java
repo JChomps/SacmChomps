@@ -4,12 +4,18 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
+import oracle.mds.internal.core.IdRequest;
+
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.ObraDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.ObraResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.PalabraDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.PalabraIdObra;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Compras.CarritoDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Compras.CarritoResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Compras.RegistroDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Compras.RegistroResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Compras.ValidaObraDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Compras.ValidaObraResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Inicio_Sesion.UsuarioDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Registro_Usuario.ActivacionResultDto;
 import sacm.com.mx.compositores.infraestructure.repositories.SacmActivacion;
@@ -53,12 +59,28 @@ public class CarritoService {
         return SacmCarrito.registraSolicitud2(IdRequest);
     }
     
-    /*-----------------------------------------------------sacm_registra_solicitud Service-------------------------------------------------------------------*/
+    /*-----------------------------------------------------sacm_vacia_carrito Service-------------------------------------------------------------------*/
     @POST
     @Produces("application/json")
     @Path("sacm_vacia_carrito")
     public RegistroResultDto VaciaCarrito(UsuarioDto IdRequest) {
         return SacmCarrito.VaciaCarrito(IdRequest);
+    }
+    
+    /*-----------------------------------------------------sacm_valida_obras Service-------------------------------------------------------------------*/
+    @POST
+    @Produces("application/json")
+    @Path("sacm_valida_obras")
+    public ValidaObraResultDto getValidaObras(CarritoDto CarritoRequest) {
+        return SacmCarrito.getValidaObras(CarritoRequest);
+    }
+    
+    /*-----------------------------------------------------sacm_propiedades_obras Service-------------------------------------------------------------------*/
+    @POST
+    @Produces("application/json")
+    @Path("sacm_propiedades_obras")
+    public ValidaObraResultDto getPropiedadesObras(ValidaObraDto obraRequest) {
+        return SacmCarrito.getPropiedadesObras(obraRequest);
     }
     
 }

@@ -8,8 +8,8 @@ import sacm.com.mx.compositores.common.dtos.HeaderDto;
 public class LicenciatarioResultDto {
     private HeaderDto ResponseBD;
     private HeaderDto ResponseService;
-    private List<MarcasDto> Licenciatarios = new ArrayList<MarcasDto>();
-    private List<MarcasDto> Marcas = new ArrayList<MarcasDto>();
+    private List<MarcasDto> Licenciatarios =null;
+    private List<MarcasDto> Marcas =null;
     public LicenciatarioResultDto() {
         super();
     }

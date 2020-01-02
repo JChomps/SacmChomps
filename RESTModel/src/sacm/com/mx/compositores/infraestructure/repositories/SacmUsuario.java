@@ -260,7 +260,7 @@ public class SacmUsuario {
             conn = AppModule.getDbConexionJDBC();
 
             // 2. Define the PL/SQL block for the statement to invoke
-            cstmt = conn.prepareCall("{call SACM_PKG_REGISTRO_USUARIO.PRC_USUARIO_REGISTRO(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+            cstmt = conn.prepareCall("{call SACM_PKG_REGISTRO_USUARIO.PRC_USUARIO_REGISTRO(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
 
             // 3. Set the bind values of the IN parameters
 
@@ -268,23 +268,29 @@ public class SacmUsuario {
             cstmt.setObject(1, LoginUser.getNombre());
             cstmt.setObject(2, LoginUser.getApellido_paterno());
             cstmt.setObject(3, LoginUser.getApellido_materno());
-            cstmt.setObject(4, LoginUser.getPassword());
-            cstmt.setObject(5, LoginUser.getEmail());
-            cstmt.setObject(6, LoginUser.getCompania());
-            cstmt.setObject(7, LoginUser.getPuesto());
-            cstmt.setObject(8, LoginUser.getId_sexo());
-            cstmt.setObject(9, LoginUser.getId_pais());
-            cstmt.setObject(10, LoginUser.getId_estado());
-            cstmt.setObject(11, LoginUser.getMunicipio());
-            cstmt.setObject(12, LoginUser.getCodigo_postal());
-            cstmt.setObject(13, LoginUser.getDireccion());
-            cstmt.setObject(14, LoginUser.getTelefono());
-            cstmt.setObject(15, LoginUser.getExtension());
-            cstmt.setObject(16, LoginUser.getEstatus());
+            
+            cstmt.setObject(4, LoginUser.getRfc());
+            cstmt.setObject(5, LoginUser.getId_giro());
+            cstmt.setObject(6, LoginUser.getOtro_giro());
+            
+            cstmt.setObject(7, LoginUser.getPassword());
+            cstmt.setObject(8, LoginUser.getEmail());
+            cstmt.setObject(9, LoginUser.getCompania());
+            cstmt.setObject(10, LoginUser.getPuesto());
+            cstmt.setObject(11, LoginUser.getId_sexo());
+            cstmt.setObject(12, LoginUser.getId_pais());
+            cstmt.setObject(13, LoginUser.getId_estado());
+            cstmt.setObject(14, LoginUser.getMunicipio());
+            cstmt.setObject(15, LoginUser.getCodigo_postal());
+            cstmt.setObject(16, LoginUser.getDireccion());
+            cstmt.setObject(17, LoginUser.getTelefono());
+            cstmt.setObject(18, LoginUser.getExtension());
+            cstmt.setObject(19, LoginUser.getEstatus());
 
             // 4. Register the positions and types of the OUT parameters
-            cstmt.registerOutParameter(17, Types.INTEGER);
-            cstmt.registerOutParameter(18, Types.VARCHAR);
+            cstmt.registerOutParameter(20, Types.INTEGER);
+            cstmt.registerOutParameter(21, Types.VARCHAR);
+            cstmt.registerOutParameter(22, Types.INTEGER);
 
             // 5. Execute the statement
             cstmt.executeUpdate();
@@ -292,13 +298,13 @@ public class SacmUsuario {
             // 6. Set value of dateValue property using first OUT param
             usuarioResponse = new UsuarioResultDto();
             usuarioResponse.setResponseBD(new HeaderDto());
-            usuarioResponse.getResponseBD().setCodErr(cstmt.getInt(17));
-            usuarioResponse.getResponseBD().setCodMsg(cstmt.getString(18));
+            usuarioResponse.getResponseBD().setCodErr(cstmt.getInt(20));
+            usuarioResponse.getResponseBD().setCodMsg(cstmt.getString(21));
 
             usuarioResponse.setResponseService(new HeaderDto());
-            usuarioResponse.getResponseService().setCodErr(cstmt.getInt(17));
-            usuarioResponse.getResponseService().setCodMsg(cstmt.getString(18));
-
+            usuarioResponse.getResponseService().setCodErr(cstmt.getInt(20));
+            usuarioResponse.getResponseService().setCodMsg(cstmt.getString(21));
+            usuarioResponse.setId_usuario(cstmt.getInt(22));
             cstmt.close();
             conn.close();
             conn = null;

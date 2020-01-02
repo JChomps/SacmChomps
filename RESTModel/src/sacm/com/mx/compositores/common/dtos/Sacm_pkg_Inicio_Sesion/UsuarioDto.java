@@ -33,6 +33,10 @@ public class UsuarioDto implements Serializable {
     private String extension;
     private String estatus;
     private String passwordNuevo;
+    private String rfc;
+    private Integer id_giro;
+    private String otro_giro;
+    
 
     public void setEmail(String email) {
         this.email = email;
@@ -208,5 +212,29 @@ public class UsuarioDto implements Serializable {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public String getRfc() {
+        return rfc;
+    }
+
+    public void setRfc(String rfc) {
+        this.rfc = rfc;
+    }
+
+    public Integer getId_giro() {
+        return id_giro;
+    }
+
+    public void setId_giro(Integer id_giro) {
+        this.id_giro = id_giro;
+    }
+
+    public String getOtro_giro() {
+        return otro_giro;
+    }
+
+    public void setOtro_giro(String otro_giro) {
+        this.otro_giro = otro_giro;
     }
 }

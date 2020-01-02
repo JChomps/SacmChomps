@@ -1,16 +1,12 @@
 package sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.TagN2;
-
-public class TagConsolaDto {
+public class TagN1ConsolaDto {
     private Integer idTag;
     private String tagName;
-    private Integer tagItem;
-    private List<TagN1ConsolaDto> tagsList =null;// new ArrayList<TagN1>();
-    public TagConsolaDto() {
+    private List<TagN2ConsolaDto> tagsList =null;
+    public TagN1ConsolaDto() {
         super();
     }
 
@@ -30,21 +26,11 @@ public class TagConsolaDto {
         this.tagName = tagName;
     }
 
-    public List<TagN1ConsolaDto> getTagsList() {
+    public List<TagN2ConsolaDto> getTagsList() {
         return tagsList;
     }
 
-    public void setTagsList(List<TagN1ConsolaDto> tagsList) {
+    public void setTagsList(List<TagN2ConsolaDto> tagsList) {
         this.tagsList = tagsList;
     }
-
-    public Integer getTagItem() {
-        return tagItem;
-    }
-
-    public void setTagItem(Integer tagItem) {
-        this.tagItem = tagItem;
-    }
-
-   
 }

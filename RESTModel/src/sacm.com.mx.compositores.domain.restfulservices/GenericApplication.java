@@ -21,6 +21,7 @@ import sacm.com.mx.compositores.domain.restservices.Sacm_Compras.CarritoService;
 import sacm.com.mx.compositores.domain.restservices.Sacm_Compras.CategoriaService;
 import sacm.com.mx.compositores.domain.restservices.Sacm_Compras.LicenciatarioService;
 import sacm.com.mx.compositores.domain.restservices.Sacm_Consola.ConsolaService;
+import sacm.com.mx.compositores.domain.restservices.Sacm_Perfil.PerfilService;
 import sacm.com.mx.compositores.domain.restservices.Sacm_Proyectos.ProyectoService;
 import sacm.com.mx.compositores.domain.restservices.Sacm_Registro_Usuario.GiroService;
 import sacm.com.mx.compositores.domain.restservices.Sacm_Registro_Usuario.SexoService;
@@ -49,6 +50,7 @@ public class GenericApplication extends Application {
         classes.add(MetadaService.class);
         classes.add(ObraService.class);
         classes.add(PaisService.class);
+        classes.add(PerfilService.class);
         classes.add(ProyectoService.class);
         classes.add(QuickService.class);
         classes.add(SexoService.class);
