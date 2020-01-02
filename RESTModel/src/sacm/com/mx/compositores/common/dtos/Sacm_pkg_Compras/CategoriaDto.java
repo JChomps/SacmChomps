@@ -9,7 +9,7 @@ public class CategoriaDto {
     }
     private Integer id_categoria;
     private String descripcion;
-    private List<CategoriaItemDto> items = new ArrayList<CategoriaItemDto>();
+    private List<CategoriaItemDto> items = null;
 
     public Integer getId_categoria() {
         return id_categoria;
@@ -27,11 +27,11 @@ public class CategoriaDto {
         this.descripcion = descripcion;
     }
 
-    public List<CategoriaItemDto> getItems() {
+       public List<CategoriaItemDto> getItems() {
         return items;
     }
 
     public void setItems(List<CategoriaItemDto> items) {
         this.items = items;
     }
-}
+} 

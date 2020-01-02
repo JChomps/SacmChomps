@@ -38,7 +38,7 @@ public class SacmCategoria {
         super();
     }
 
-    /*-------------------------------------------------------------- sacm_cat_tags --------------------------------------------------------------------------*/
+    /*-------------------------------------------------------------- sacm_consulta_categorias service --------------------------------------------------------------------------*/
     public static CategoriaResultDto getConsultaCat(CategoriaDto CategoriaRequest) {
         List<CategoriaDto> categoriaListResult = new ArrayList<CategoriaDto>();
         CallableStatement cstmt = null;
@@ -59,8 +59,10 @@ public class SacmCategoria {
             if (cstmt.getInt(2) == 0) {
                 rs = (ResultSet) cstmt.getObject(4);
                 List<CategoriaDto> categoriaList = new ArrayList<CategoriaDto>();
+                List<CategoriaItemDto> categoriaItemList = new ArrayList<CategoriaItemDto>();
                 while (rs.next()) {
                     CategoriaDto categoria = new CategoriaDto();
+                    categoria.setItems (new ArrayList<CategoriaItemDto>());
                     CategoriaItemDto categoriaItem = new CategoriaItemDto();
                     //Asignamiento de valores al objeto Categoría
                     categoria.setId_categoria(rs.getInt(1));
@@ -70,7 +72,8 @@ public class SacmCategoria {
                     categoriaItem.setEtiqueta(rs.getString(4));
                     categoriaItem.setValor(rs.getDouble(5));
                     categoriaItem.setValor_acumualdo(rs.getDouble(6));
-                    categoria.getItems().add(categoriaItem);
+                    categoriaItemList.add(categoriaItem);
+                    categoria.setItems(categoriaItemList);
                     categoriaList.add(categoria);
                 }
                 organizaList(categoriaListResult, categoriaList);

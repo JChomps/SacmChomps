@@ -163,7 +163,7 @@ public class ConsolaService {
     @POST
     @Consumes("application/json")
     @Produces("application/json")
-    @Path("sacm_lov_inserta_participantes_consola")
+    @Path("sacm_inserta_participantes_consola")
     public ParticipanteResultDto lovInsertaParticipantes(NombreParticipanteDto participanteRequest) {
         return SacmConsola.LovInsertaParticipantes (participanteRequest);
     }
@@ -177,5 +177,7 @@ public class ConsolaService {
     public ObraResultDto LovObras() {
         return SacmConsola.LovObras();
     }
+    
+   
   
 }

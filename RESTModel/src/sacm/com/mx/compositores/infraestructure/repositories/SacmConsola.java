@@ -803,6 +803,7 @@ public class SacmConsola {
     /*-------------------------------------------------------------- sacm_lov_tag_consola --------------------------------------------------------------------------*/
     public static TagConsolaResultDto ConsultaLovTag(TagConsolaDto tagsRequest) {
         List<TagConsolaDto> tagListResult = new ArrayList<TagConsolaDto>();
+        List<TagConsolaDto> tagList = new ArrayList<TagConsolaDto>();
         CallableStatement cstmt = null;
         ResultSet rs = null;
         Connection conn = null;
@@ -812,7 +813,7 @@ public class SacmConsola {
             cstmt = conn.prepareCall("{call SACM_PKG_CONSOLA_ADMIN.LOV_TAGS(?,?,?,?,?)}");
             // 3. Set the bind values of the IN parameters
             cstmt.setObject(1, tagsRequest.getIdTag());
-            cstmt.setObject(2, tagsRequest.getTagItem());
+            cstmt.setObject(2, tagsRequest.getIdTagItem());
 
             // 4. Register the positions and types of the OUT parameters
             cstmt.registerOutParameter(3, -10);
@@ -823,46 +824,43 @@ public class SacmConsola {
             cstmt.executeUpdate();
             if (cstmt.getInt(4) == 0) {
                 rs = (ResultSet) cstmt.getObject(3);
-                List<TagConsolaDto> tagList = new ArrayList<TagConsolaDto>();
+
                 List<TagN1ConsolaDto> tagN1List = new ArrayList<TagN1ConsolaDto>();
                 List<TagN2ConsolaDto> tagN2List = new ArrayList<TagN2ConsolaDto>();
-                TagConsolaDto tag = new TagConsolaDto();  
+                TagConsolaDto tag = new TagConsolaDto();
                 TagN1ConsolaDto tagN1 = new TagN1ConsolaDto();
                 tag.setTagsList(tagN1List);
                 tagN1.setTagsList(tagN2List);
                 while (rs.next()) {
-                   
-                    //Leer el nombre del tag padre
-                   
-                    //comprobar si el tag entrante es de nivel 1 o 2
+
 
                     if (rs.getInt(4) == 1) {
-                        tagN1 = new TagN1ConsolaDto();
-                        
-                        tag.setTagName(rs.getString(2));
-                       
-                       
-                        tagN1.setIdTag(rs.getInt(1));
-                        tagN1.setTagName(rs.getString(3)); 
-                        
-                        
-                        tag.getTagsList().add(tagN1);
-                        tag.setTagsList(tagN1List);
-                        tagList.add(tag);
 
-                    } /* else if (rs.getInt(4) == 2) {
+                        if (tagN2List.size() > 0) {
+                            tagN1.setTagsList(tagN2List);
+                            tagN2List = new ArrayList<TagN2ConsolaDto>();
+                        }
+
+                        tagN1 = new TagN1ConsolaDto();
+                        tag.setTagName(rs.getString(2));
+                        tagN1.setIdTag(rs.getInt(1));
+                        tagN1.setTagName(rs.getString(3));
+                        tag.getTagsList().add(tagN1);
+
+                    }
+                    if (rs.getInt(4) == 2) {
                         TagN2ConsolaDto tagN2 = new TagN2ConsolaDto();
                         tagN2.setIdTag(rs.getInt(1));
                         tagN2.setTagName(rs.getString(3));
-                        tagN1.getTagsList().add(tagN2);
-                    } */
-
-
-                   
-                   
-                   
+                        tagN2List.add(tagN2);
+                    }
                 }
-                organizaListPorNombre(tagListResult, tagList);
+
+                if (tagN2List.size() > 0) {
+                    tagN1.setTagsList(tagN2List);
+                }
+               
+                tagList.add(tag);
                 rs.close();
             }
             // 6. Set value of dateValue property using first OUT param
@@ -873,8 +871,8 @@ public class SacmConsola {
             tagsResponse.setResponseService(new HeaderDto());
             tagsResponse.getResponseService().setCodErr(cstmt.getInt(4));
             tagsResponse.getResponseService().setCodMsg(cstmt.getString(5));
-            if (tagListResult.size() > 0)
-                tagsResponse.setTagsList(tagListResult);
+            // if (tagListResult.size() > 0)
+            tagsResponse.setTagsList(tagList);
             // 9. Close the JDBC CallableStatement
             cstmt.close();
             conn.close();
@@ -1065,46 +1063,6 @@ public class SacmConsola {
         return obraResponse;
     }
 
-
-    private static void organizaListPorNombre(List<TagConsolaDto> tagListResult, List<TagConsolaDto> tagList) {
-        Map<Integer, TagN1ConsolaDto> mapN1 = new HashMap<Integer, TagN1ConsolaDto>();
-        Map<String, TagConsolaDto> map = new HashMap<String, TagConsolaDto>();
-        List<TagN1ConsolaDto> tagsListN1 = new ArrayList<TagN1ConsolaDto>();
-
-        // Creación de MAp para eliminar elementos Tag repetidos
-        for (TagConsolaDto str : tagList) {
-            map.put(str.getTagName(), str);
-        }
-        for (TagConsolaDto value : map.values()) {
-            tagListResult.add(value);
-        }
-
-        //Organización y eliminación de elementos Tag nivel 1 repetidos
-        for (TagConsolaDto strTLR : tagListResult) {
-            mapN1 = new TreeMap<Integer, TagN1ConsolaDto>();
-            tagsListN1 = new ArrayList<TagN1ConsolaDto>();
-            for (TagConsolaDto strTL : tagList) {
-                if (strTL.getTagName().equals(strTLR.getTagName())) {
-                    TagN1ConsolaDto partN1 = new TagN1ConsolaDto();
-                    partN1.setIdTag(strTL.getTagsList()
-                                         .get(0)
-                                         .getIdTag());
-                    partN1.setTagName(strTL.getTagsList()
-                                           .get(0)
-                                           .getTagName());
-                    mapN1.put(partN1.getIdTag(), partN1);
-                }
-            }
-            for (TagN1ConsolaDto value : mapN1.values()) {
-                tagsListN1.add(value);
-            }
-            //Organización y eliminación de elementos Tag nivel 2 repetidos
-
-            strTLR.setTagsList(tagsListN1);
-
-        }
-
-    }
 
     private static void organizaList(List<TagConsolaDto> tagListResult, List<TagConsolaDto> tagList) {
         Map<Integer, TagN1ConsolaDto> mapN1 = new TreeMap<Integer, TagN1ConsolaDto>();

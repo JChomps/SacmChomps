@@ -20,6 +20,7 @@ import sacm.com.mx.compositores.domain.restservices.QuickService;
 import sacm.com.mx.compositores.domain.restservices.Sacm_Compras.CarritoService;
 import sacm.com.mx.compositores.domain.restservices.Sacm_Compras.CategoriaService;
 import sacm.com.mx.compositores.domain.restservices.Sacm_Compras.LicenciatarioService;
+import sacm.com.mx.compositores.domain.restservices.Sacm_Consola.CategoriaConsolaService;
 import sacm.com.mx.compositores.domain.restservices.Sacm_Consola.ConsolaService;
 import sacm.com.mx.compositores.domain.restservices.Sacm_Perfil.PerfilService;
 import sacm.com.mx.compositores.domain.restservices.Sacm_Proyectos.ProyectoService;
@@ -41,7 +42,8 @@ public class GenericApplication extends Application {
         classes.add(ActivacionService.class);
         classes.add(BeneficioService.class);
         classes.add(CarritoService.class);
-        classes.add(CategoriaService.class); 
+        classes.add(CategoriaService.class);
+        classes.add(CategoriaConsolaService.class); 
         classes.add(ConsolaService.class); 
         classes.add(EstadoService.class);
         classes.add(GiroService.class);

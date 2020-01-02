@@ -12,7 +12,9 @@ public class CategoriaResultDto {
     }
     private HeaderDto ResponseBD;
     private HeaderDto ResponseService;
-    private List<CategoriaDto> Categorias = new ArrayList<CategoriaDto>();
+    private List<CategoriaDto> Categorias =null;// new ArrayList<CategoriaDto>();
+    private List<CategoriaItemDto> items = null;
+
 
     public HeaderDto getResponseBD() {
         return ResponseBD;
@@ -36,5 +38,13 @@ public class CategoriaResultDto {
 
     public void setCategorias(List<CategoriaDto> Categorias) {
         this.Categorias = Categorias;
+    }
+
+    public List<CategoriaItemDto> getItems() {
+        return items;
+    }
+
+    public void setItems(List<CategoriaItemDto> items) {
+        this.items = items;
     }
 }

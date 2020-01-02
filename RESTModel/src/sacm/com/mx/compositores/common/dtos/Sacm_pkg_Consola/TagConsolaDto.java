@@ -9,6 +9,7 @@ public class TagConsolaDto {
     private Integer idTag;
     private String tagName;
     private Integer tagItem;
+    private String idTagItem;
     private List<TagN1ConsolaDto> tagsList =null;// new ArrayList<TagN1>();
     public TagConsolaDto() {
         super();
@@ -46,5 +47,12 @@ public class TagConsolaDto {
         this.tagItem = tagItem;
     }
 
-   
+
+    public String getIdTagItem() {
+        return idTagItem;
+    }
+
+    public void setIdTagItem(String idTagItem) {
+        this.idTagItem = idTagItem;
+    }
 }
