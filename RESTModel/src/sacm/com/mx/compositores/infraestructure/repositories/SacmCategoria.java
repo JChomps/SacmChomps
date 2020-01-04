@@ -64,6 +64,7 @@ public class SacmCategoria {
                     CategoriaDto categoria = new CategoriaDto();
                     categoria.setItems (new ArrayList<CategoriaItemDto>());
                     CategoriaItemDto categoriaItem = new CategoriaItemDto();
+                    categoriaItemList = new ArrayList<CategoriaItemDto>();
                     //Asignamiento de valores al objeto Categoría
                     categoria.setId_categoria(rs.getInt(1));
                     categoria.setDescripcion(rs.getString(2));

@@ -27,6 +27,10 @@ import oracle.adf.share.logging.ADFLogger;
 
 
 import sacm.com.mx.compositores.common.dtos.CotizacionDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.CalificacionDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.CalificacionResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.LogueoDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.LogueoResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.ParticipanteResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.TagConsolaDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.TagConsolaResultDto;
@@ -62,6 +66,8 @@ public class SacmConsola {
     private static TagConsolaResultDto tagsResponse;
     private static UsuarioResultDto usuarioResponse;
     private static AlbumResultDto albumResponse;
+    private static LogueoResultDto logResponse;
+    private static CalificacionResultDto calificacionResponse;
 
 
     public SacmConsola() {
@@ -326,8 +332,11 @@ public class SacmConsola {
                 InputStream targetStream = new ByteArrayInputStream(byteData);
 
                 cstmt.setBlob(3, targetStream);
-            } else
-                cstmt.setObject(3, null);
+            } else {
+                cstmt.setObject(3, null, java.sql
+                                             .Types
+                                             .BLOB);
+            }
 
 
             //cstmt.setObject(2, obraRequest.get_Imagen());
@@ -437,8 +446,11 @@ public class SacmConsola {
                 InputStream targetStream = new ByteArrayInputStream(byteData);
 
                 cstmt.setBlob(2, targetStream);
-            } else
-                cstmt.setObject(2, null);
+            } else {
+                cstmt.setObject(2, null, java.sql
+                                             .Types
+                                             .BLOB);
+            }
 
 
             //cstmt.setObject(2, obraRequest.get_Imagen());
@@ -859,7 +871,7 @@ public class SacmConsola {
                 if (tagN2List.size() > 0) {
                     tagN1.setTagsList(tagN2List);
                 }
-               
+
                 tagList.add(tag);
                 rs.close();
             }
@@ -1108,7 +1120,7 @@ public class SacmConsola {
     /*---------------------------------------------------------sacm_lov_inserta_participantes_consola Service----------------------------------------------------------------------*/
 
     public static ParticipanteResultDto LovInsertaParticipantes(NombreParticipanteDto participanteRequest) {
-        List<TagConsolaDto> tagListResult = new ArrayList<TagConsolaDto>();
+
         CallableStatement cstmt = null;
         Connection conn = null;
         try {
@@ -1152,5 +1164,241 @@ public class SacmConsola {
         _logger.info("Finish getEstados");
         // 9. Return the result
         return participanteResult;
+    }
+
+    /*-----------------------------------------------------sacm_consulta_logueos_mes Service-------------------------------------------------------------------*/
+    public static LogueoResultDto ConsultaLogueo(LogueoDto LogRequest) {
+        List<LogueoDto> logListResult = new ArrayList<LogueoDto>();
+        CallableStatement cstmt = null;
+        Connection conn = null;
+        ResultSet rs = null;
+        try {
+            conn = AppModule.getDbConexionJDBC();
+
+            // 2. Define the PL/SQL block for the statement to invoke
+            cstmt = conn.prepareCall("{call SACM_PKG_CONSOLA_ADMIN.CONSULTA_LOGUEOS_MES(?,?,?,?)}");
+
+
+            // 3. Set the bind values of the IN parameters
+            cstmt.setObject(1, LogRequest.getOpcion());
+
+            // 4. Register the positions and types of the OUT parameters
+            cstmt.registerOutParameter(2, -10);
+            cstmt.registerOutParameter(3, Types.INTEGER);
+            cstmt.registerOutParameter(4, Types.VARCHAR);
+
+            // 5. Execute the statement
+            cstmt.executeUpdate();
+            logResponse = new LogueoResultDto();
+            if (cstmt.getInt(3) == 0) {
+                rs = (ResultSet) cstmt.getObject(2);
+                while (rs.next()) {
+                    LogueoDto usuario = new LogueoDto();
+                    switch (LogRequest.getOpcion()) {
+                    case 1:
+                        logResponse.setTotal(rs.getInt(1));
+                        break;
+                    case 2:
+                        usuario.setId_usuario(rs.getInt(1));
+                        usuario.setNombre(rs.getString(2));
+                        usuario.setEmail(rs.getString(3));
+                        usuario.setId_pais(rs.getInt(4));                        
+                        usuario.setPais(rs.getString(5));
+                        usuario.setFecha(rs.getString(6));
+                        logListResult.add(usuario);
+                        break;
+                        
+                    case 3:
+                        usuario.setId_pais(rs.getInt(1));                        
+                        usuario.setPais(rs.getString(2));
+                        usuario.setConteo(rs.getInt(3));
+                        logListResult.add(usuario);
+                        break;
+                    default:
+                        break;
+                    }
+                }
+                rs.close();
+            }
+
+
+            
+            // 6. Set value of dateValue property using first OUT param
+            logResponse.setResponseBD(new HeaderDto());
+            logResponse.getResponseBD().setCodErr(cstmt.getInt(3));
+            logResponse.getResponseBD().setCodMsg(cstmt.getString(4));
+
+            logResponse.setResponseService(new HeaderDto());
+            logResponse.getResponseService().setCodErr(cstmt.getInt(3));
+            logResponse.getResponseService().setCodMsg(cstmt.getString(4));
+            if(logListResult.size()>0)
+                logResponse.setAccesos(logListResult);
+            cstmt.close();
+            conn.close();
+            conn = null;
+
+        } catch (Exception e) {
+            // a failure occurred log message;
+            _logger.severe(e.getMessage());
+            logResponse = new LogueoResultDto();
+            logResponse.setResponseService(new HeaderDto());
+            logResponse.getResponseService().setCodErr(1);
+            logResponse.getResponseService().setCodMsg(e.getMessage());
+            return logResponse;
+        }
+        _logger.info("Finish Login");
+        // 9. Return the result
+        return logResponse;
+    }
+
+    /*-----------------------------------------------------sacm_califica_obra Service-------------------------------------------------------------------*/
+     public static CalificacionResultDto CalificaObra(CalificacionDto calRequest) {
+        CallableStatement cstmt = null;
+        Connection conn = null;
+        try {
+            conn = AppModule.getDbConexionJDBC();
+            // 2. Define the PL/SQL block for the statement to invoke
+            cstmt = conn.prepareCall("{call SACM_PKG_CONSOLA_ADMIN.CALIFICA_OBRA(?,?,?,?,?)}");
+            // 3. Set the bind values of the IN parameters
+            cstmt.setObject(1, calRequest.getId_usuario());
+            cstmt.setObject(2, calRequest.getId_obra());
+            cstmt.setObject(3, calRequest.getCalificacion());
+           
+
+            // 4. Register the positions and types of the OUT parameters
+            cstmt.registerOutParameter(4, Types.INTEGER);
+            cstmt.registerOutParameter(5, Types.VARCHAR);
+
+            // 5. Execute the statement
+            cstmt.executeUpdate();
+
+            // 6. Set value of dateValue property using first OUT param
+            calificacionResponse = new CalificacionResultDto();
+            calificacionResponse.setResponseBD(new HeaderDto());
+            calificacionResponse.getResponseBD().setCodErr(cstmt.getInt(4));
+            calificacionResponse.getResponseBD().setCodMsg(cstmt.getString(5));
+            calificacionResponse.setResponseService(new HeaderDto());
+            calificacionResponse.getResponseService().setCodErr(cstmt.getInt(4));
+            calificacionResponse.getResponseService().setCodMsg(cstmt.getString(5));
+
+            cstmt.close();
+            conn.close();
+            conn = null;
+
+        } catch (Exception e) {
+            // a failure occurred log message;
+            _logger.severe(e.getMessage());
+            calificacionResponse = new CalificacionResultDto();
+            calificacionResponse.setResponseService(new HeaderDto());
+            calificacionResponse.getResponseService().setCodErr(1);
+            calificacionResponse.getResponseService().setCodMsg(e.getMessage());
+            return calificacionResponse;
+        }
+        _logger.info("Finish getEstados");
+        // 9. Return the result
+        return calificacionResponse;
+    }
+     
+    /*-----------------------------------------------------sacm_verifica_calificacion Service-------------------------------------------------------------------*/
+    
+    public static CalificacionResultDto VerificaCalificacion(CalificacionDto calRequest) {
+
+        CallableStatement cstmt = null;
+        Connection conn = null;
+        try {
+            conn = AppModule.getDbConexionJDBC();
+            // 2. Define the PL/SQL block for the statement to invoke
+            cstmt = conn.prepareCall("{call SACM_PKG_CONSOLA_ADMIN.VERIFICA_CALIFICACION(?,?,?,?,?,?)}");
+            // 3. Set the bind values of the IN parameters
+            cstmt.setObject(1, calRequest.getId_usuario());
+            cstmt.setObject(2, calRequest.getId_obra());
+
+            // 4. Register the positions and types of the OUT parameters
+            cstmt.registerOutParameter(3, Types.VARCHAR);
+            cstmt.registerOutParameter(4, Types.INTEGER);
+            cstmt.registerOutParameter(5, Types.INTEGER);
+            cstmt.registerOutParameter(6, Types.VARCHAR);
+
+            // 5. Execute the statement
+            cstmt.executeUpdate();
+
+            // 6. Set value of dateValue property using first OUT param
+            calificacionResponse = new CalificacionResultDto();
+            calificacionResponse.setCalificado(cstmt.getString(3));
+            calificacionResponse.setCalificacion(cstmt.getInt(4));
+            calificacionResponse.setResponseBD(new HeaderDto());
+            calificacionResponse.getResponseBD().setCodErr(cstmt.getInt(5));
+            calificacionResponse.getResponseBD().setCodMsg(cstmt.getString(6));
+            calificacionResponse.setResponseService(new HeaderDto());
+            calificacionResponse.getResponseService().setCodErr(cstmt.getInt(5));
+            calificacionResponse.getResponseService().setCodMsg(cstmt.getString(6));
+
+            cstmt.close();
+            conn.close();
+            conn = null;
+
+        } catch (Exception e) {
+            // a failure occurred log message;
+            _logger.severe(e.getMessage());
+            calificacionResponse = new CalificacionResultDto();
+            calificacionResponse.setResponseService(new HeaderDto());
+            calificacionResponse.getResponseService().setCodErr(1);
+            calificacionResponse.getResponseService().setCodMsg(e.getMessage());
+            return calificacionResponse;
+        }
+        _logger.info("Finish getEstados");
+        // 9. Return the result
+        return calificacionResponse;
+    }
+
+    /*-----------------------------------------------------sacm_consulta_calificacion Service-------------------------------------------------------------------*/
+    
+    public static CalificacionResultDto ConsultaCalificacion(CalificacionDto calRequest) {
+        CallableStatement cstmt = null;
+        Connection conn = null;
+        try {
+            conn = AppModule.getDbConexionJDBC();
+            // 2. Define the PL/SQL block for the statement to invoke
+            cstmt = conn.prepareCall("{call SACM_PKG_CONSOLA_ADMIN.CONSULTA_CALIFICACION(?,?,?,?,?)}");
+            // 3. Set the bind values of the IN parameters
+            
+            cstmt.setObject(1, calRequest.getId_obra());
+
+            // 4. Register the positions and types of the OUT parameters
+            cstmt.registerOutParameter(2, Types.VARCHAR);
+            cstmt.registerOutParameter(3, Types.INTEGER);
+            cstmt.registerOutParameter(4, Types.INTEGER);
+            cstmt.registerOutParameter(5, Types.VARCHAR);
+
+            // 5. Execute the statement
+            cstmt.executeUpdate();
+
+            // 6. Set value of dateValue property using first OUT param
+            calificacionResponse = new CalificacionResultDto();
+            calificacionResponse.setCalificado(cstmt.getString(2));
+            calificacionResponse.setPromedio(cstmt.getInt(3));
+            calificacionResponse.setResponseBD(new HeaderDto());
+            calificacionResponse.getResponseBD().setCodErr(cstmt.getInt(4));
+            calificacionResponse.getResponseBD().setCodMsg(cstmt.getString(5));
+            calificacionResponse.setResponseService(new HeaderDto());
+            calificacionResponse.getResponseService().setCodErr(cstmt.getInt(4));
+            calificacionResponse.getResponseService().setCodMsg(cstmt.getString(5));
+
+            cstmt.close();
+            conn.close();
+            conn = null;
+
+        } catch (Exception e) {
+            // a failure occurred log message;
+            _logger.severe(e.getMessage());
+            calificacionResponse = new CalificacionResultDto();
+            calificacionResponse.setResponseService(new HeaderDto());
+            calificacionResponse.getResponseService().setCodErr(1);
+            calificacionResponse.getResponseService().setCodMsg(e.getMessage());
+            return calificacionResponse;
+        }
+        _logger.info("Finish getEstados");
+        // 9. Return the result
+        return calificacionResponse;
     }
 }

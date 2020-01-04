@@ -84,7 +84,7 @@ public class SacmUsuario {
             conn = AppModule.getDbConexionJDBC();
 
             // 2. Define the PL/SQL block for the statement to invoke
-            cstmt = conn.prepareCall("{call PRC_USUARIO_REGISTRO.PRC_CAMBIA_PWD_USUARIO(?,?,?,?,?,?)}");
+            cstmt = conn.prepareCall("{call SACM_PKG_PERFIL_CLIENTE.PRC_CAMBIA_PWD_USUARIO(?,?,?,?,?,?)}");
             // 3. Set the bind values of the IN parameters
             cstmt.setObject(1, usuarioRequest.getEmail());
             cstmt.setObject(2, usuarioRequest.getPassword());
@@ -98,7 +98,9 @@ public class SacmUsuario {
 
             // 6. Set value of dateValue property using OUT param
             usuarioResponse = new UsuarioResultDto();
-            usuarioResponse.getLoginUser().setEmail(cstmt.getString(4));
+            UsuarioDto usuario= new UsuarioDto();
+            usuario.setEmail(cstmt.getString(4));
+            usuarioResponse.setLoginUser(usuario);
             usuarioResponse.setResponseBD(new HeaderDto());
             usuarioResponse.getResponseBD().setCodErr(cstmt.getInt(5));
             usuarioResponse.getResponseBD().setCodMsg(cstmt.getString(6));

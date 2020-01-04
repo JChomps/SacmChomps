@@ -13,6 +13,10 @@ import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.ObraDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.ObraResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.TagsResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.VersionResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.CalificacionDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.CalificacionResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.LogueoDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.LogueoResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.TagConsolaDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Inicio_Sesion.UsuarioDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Inicio_Sesion.UsuarioResultDto;
@@ -176,6 +180,46 @@ public class ConsolaService {
     @Path("sacm_lov_obras_consola")
     public ObraResultDto LovObras() {
         return SacmConsola.LovObras();
+    }
+    
+    /*-----------------------------------------------------sacm_consulta_logueos_mes Service-------------------------------------------------------------------*/
+    
+    @POST
+    @Consumes("application/json")
+    @Produces("application/json")
+    @Path("sacm_consulta_logueos_mes")
+    public LogueoResultDto ConsultaLogueo(LogueoDto LogRequest) {
+        return SacmConsola.ConsultaLogueo(LogRequest);
+    }
+    
+    /*-----------------------------------------------------sacm_califica_obra Service-------------------------------------------------------------------*/
+    
+    @POST
+    @Consumes("application/json")
+    @Produces("application/json")
+    @Path("sacm_califica_obra")
+    public CalificacionResultDto CalificaObra(CalificacionDto calRequest) {
+        return SacmConsola.CalificaObra(calRequest);
+    }
+    
+    /*-----------------------------------------------------sacm_verifica_calificacion Service-------------------------------------------------------------------*/
+    
+    @POST
+    @Consumes("application/json")
+    @Produces("application/json")
+    @Path("sacm_verifica_calificacion")
+    public CalificacionResultDto VerificaCalificacion(CalificacionDto calRequest) {
+        return SacmConsola.VerificaCalificacion(calRequest);
+    }
+    
+    /*-----------------------------------------------------sacm_consulta_calificacion Service-------------------------------------------------------------------*/
+    
+    @POST
+    @Consumes("application/json")
+    @Produces("application/json")
+    @Path("sacm_consulta_calificacion")
+    public CalificacionResultDto ConsultaCalificacion(CalificacionDto calRequest) {
+        return SacmConsola.ConsultaCalificacion(calRequest);
     }
     
    
