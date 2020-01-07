@@ -9,9 +9,9 @@ public class PalabraDto {
     }
     
     private String palabra;
-    private int id_usuario;
-    private int id_album;
-    private int id_obra;
+    private Integer id_usuario;
+    private Integer id_album;
+    private Integer id_obra;
     private List<Integer> array_options = new ArrayList<Integer>();
     private List<Integer> Search = new ArrayList<Integer>();
    // private String search;
@@ -24,13 +24,7 @@ public class PalabraDto {
         this.palabra = palabra;
     }
 
-    public int getId_album() {
-        return id_album;
-    }
-
-    public void setId_album(int id_album) {
-        this.id_album = id_album;
-    }
+   
 
     public List<Integer> getArray_options() {
         return array_options;
@@ -41,21 +35,9 @@ public class PalabraDto {
     }
 
     
-    public int getId_usuario() {
-        return id_usuario;
-    }
+   
 
-    public void setId_usuario(int id_usuario) {
-        this.id_usuario = id_usuario;
-    }
-
-    public int getId_obra() {
-        return id_obra;
-    }
-
-    public void setId_obra(int id_obra) {
-        this.id_obra = id_obra;
-    }
+   
 
     public List<Integer> getSearch() {
         return Search;
@@ -63,5 +45,29 @@ public class PalabraDto {
 
     public void setSearch(List<Integer> Search) {
         this.Search = Search;
+    }
+
+    public Integer getId_usuario() {
+        return id_usuario;
+    }
+
+    public void setId_usuario(Integer id_usuario) {
+        this.id_usuario = id_usuario;
+    }
+
+    public Integer getId_album() {
+        return id_album;
+    }
+
+    public void setId_album(Integer id_album) {
+        this.id_album = id_album;
+    }
+
+    public Integer getId_obra() {
+        return id_obra;
+    }
+
+    public void setId_obra(Integer id_obra) {
+        this.id_obra = id_obra;
     }
 }

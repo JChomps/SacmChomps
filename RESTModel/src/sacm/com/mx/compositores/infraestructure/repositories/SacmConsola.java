@@ -27,6 +27,7 @@ import oracle.adf.share.logging.ADFLogger;
 
 
 import sacm.com.mx.compositores.common.dtos.CotizacionDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Compras.ValidaObraResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.CalificacionDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.CalificacionResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.LogueoDto;
@@ -845,7 +846,6 @@ public class SacmConsola {
                 tagN1.setTagsList(tagN2List);
                 while (rs.next()) {
 
-
                     if (rs.getInt(4) == 1) {
 
                         if (tagN2List.size() > 0) {
@@ -1383,6 +1383,94 @@ public class SacmConsola {
             calificacionResponse.setResponseService(new HeaderDto());
             calificacionResponse.getResponseService().setCodErr(cstmt.getInt(4));
             calificacionResponse.getResponseService().setCodMsg(cstmt.getString(5));
+
+            cstmt.close();
+            conn.close();
+            conn = null;
+
+        } catch (Exception e) {
+            // a failure occurred log message;
+            _logger.severe(e.getMessage());
+            calificacionResponse = new CalificacionResultDto();
+            calificacionResponse.setResponseService(new HeaderDto());
+            calificacionResponse.getResponseService().setCodErr(1);
+            calificacionResponse.getResponseService().setCodMsg(e.getMessage());
+            return calificacionResponse;
+        }
+        _logger.info("Finish getEstados");
+        // 9. Return the result
+        return calificacionResponse;
+    }
+
+    public static CalificacionResultDto InsertaVersiones(VersionDto versionRequest) {
+        CallableStatement cstmt = null;
+        Connection conn = null;
+        try {
+            conn = AppModule.getDbConexionJDBC();
+            // 2. Define the PL/SQL block for the statement to invoke
+            cstmt = conn.prepareCall("{call SACM_PKG_CONSOLA_ADMIN.INSERTA_VERSION(?,?,?,?,?,?,?,?,?,?)}");
+            // 3. Set the bind values of the IN parameters
+            
+            cstmt.setObject(1, versionRequest.getId_obra());
+            cstmt.setObject(2, versionRequest.getVersion());
+            cstmt.setObject(3, versionRequest.getVersion_descripcion());
+            cstmt.setObject(4, versionRequest.getActivo());
+            cstmt.setObject(5, versionRequest.getVersion_duracion());
+            
+            if( versionRequest.getVersion_wav() != null) {
+                String imagen = versionRequest.getVersion_wav();
+                byte[] byteData = Base64.getDecoder().decode(imagen.getBytes());
+                InputStream targetStream = new ByteArrayInputStream(byteData);
+
+                cstmt.setBlob(6, targetStream);
+            } else {
+                cstmt.setObject(6, null, java.sql
+                                             .Types
+                                             .BLOB);
+            }
+           // cstmt.setObject(6, versionRequest.getVersion_wav());
+            
+            if (versionRequest.getVersion_mp3()!= null) {
+                String imagen = versionRequest.getVersion_mp3();
+                byte[] byteData = Base64.getDecoder().decode(imagen.getBytes());
+                InputStream targetStream = new ByteArrayInputStream(byteData);
+
+                cstmt.setBlob(7, targetStream);
+            } else {
+                cstmt.setObject(7, null, java.sql
+                                             .Types
+                                             .BLOB);
+            }
+           // cstmt.setObject(7, versionRequest.getVersion_mp3());
+            
+            if (versionRequest.getVersion_aiff() != null) {
+                String imagen = versionRequest.getVersion_aiff();
+                byte[] byteData = Base64.getDecoder().decode(imagen.getBytes());
+                InputStream targetStream = new ByteArrayInputStream(byteData);
+
+                cstmt.setBlob(8, targetStream);
+            } else {
+                cstmt.setObject(8, null, java.sql
+                                             .Types
+                                             .BLOB);
+            }
+            //cstmt.setObject(8, versionRequest.getVersion_aiff());
+
+            // 4. Register the positions and types of the OUT parameters
+            cstmt.registerOutParameter(9, Types.INTEGER);
+            cstmt.registerOutParameter(10, Types.VARCHAR);
+
+            // 5. Execute the statement
+            cstmt.executeUpdate();
+
+            // 6. Set value of dateValue property using first OUT param
+            calificacionResponse = new CalificacionResultDto();
+            calificacionResponse.setResponseBD(new HeaderDto());
+            calificacionResponse.getResponseBD().setCodErr(cstmt.getInt(9));
+            calificacionResponse.getResponseBD().setCodMsg(cstmt.getString(10));
+            calificacionResponse.setResponseService(new HeaderDto());
+            calificacionResponse.getResponseService().setCodErr(cstmt.getInt(9));
+            calificacionResponse.getResponseService().setCodMsg(cstmt.getString(10));
 
             cstmt.close();
             conn.close();

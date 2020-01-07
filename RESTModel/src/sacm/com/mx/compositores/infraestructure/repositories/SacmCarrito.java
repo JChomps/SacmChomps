@@ -216,7 +216,7 @@ public class SacmCarrito {
 
 
    
-    /*---------------------------------------------------------sacm_consulta_carrito Service----------------------------------------------------------------------*/
+    /*---------------------------------------------------------sacm_registra_solicitud Service----------------------------------------------------------------------*/
 
     public static RegistroResultDto registraSolicitud2(RegistroDto IdRequest) {
         List<RegistroDto> Respuesta = new ArrayList<RegistroDto>();
@@ -255,7 +255,9 @@ public class SacmCarrito {
 
                 cstmt.setBlob(10, targetStream);
             } else{
-                cstmt.setObject(10, null);
+                cstmt.setObject(10, null, java.sql
+                                             .Types
+                                             .BLOB);
             }
             
            
@@ -280,6 +282,18 @@ public class SacmCarrito {
             cstmt.setObject(26, IdRequest.getId_categ_master());
             cstmt.setObject(27, IdRequest.getId_categ_vigencia());
             cstmt.setObject(28, IdRequest.getId_categ_mnf());
+            
+            if (IdRequest.getLetra_sample() != null) {
+                String imagen =IdRequest.getLetra_sample();
+                byte[] byteData = Base64.getDecoder().decode(imagen.getBytes());
+                InputStream targetStream = new ByteArrayInputStream(byteData);
+
+                cstmt.setBlob(29, targetStream);
+            } else{
+                cstmt.setObject(29, null, java.sql
+                                             .Types
+                                             .BLOB);
+            }
 
             
             if (IdRequest.getMusica_sample() != null) {
@@ -287,21 +301,15 @@ public class SacmCarrito {
                 byte[] byteData = Base64.getDecoder().decode(imagen.getBytes());
                 InputStream targetStream = new ByteArrayInputStream(byteData);
 
-                cstmt.setBlob(29, targetStream);
-            } else{
-                cstmt.setObject(29, null);
-            }
-            
-            
-            if (IdRequest.getAudv_story_board() != null) {
-                String imagen =IdRequest.getAudv_story_board();
-                byte[] byteData = Base64.getDecoder().decode(imagen.getBytes());
-                InputStream targetStream = new ByteArrayInputStream(byteData);
-
                 cstmt.setBlob(30, targetStream);
             } else{
-                cstmt.setObject(30, null);
+                cstmt.setObject(30, null, java.sql
+                                             .Types
+                                             .BLOB);
             }
+            
+            
+           
             
 
             cstmt.setObject(31, IdRequest.getArray_lifts());

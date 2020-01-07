@@ -11,6 +11,7 @@ public class CarritoDto {
     private Integer numero_obra;
     private String titulo_obra;
     private String array_id_carrito_detalle;
+    private String array_id_obra;
 
     public Integer getId_usuario() {
         return id_usuario;
@@ -66,5 +67,13 @@ public class CarritoDto {
 
     public void setArray_id_carrito_detalle(String array_id_carrito_detalle) {
         this.array_id_carrito_detalle = array_id_carrito_detalle;
+    }
+
+    public String getArray_id_obra() {
+        return array_id_obra;
+    }
+
+    public void setArray_id_obra(String array_id_obra) {
+        this.array_id_obra = array_id_obra;
     }
 }

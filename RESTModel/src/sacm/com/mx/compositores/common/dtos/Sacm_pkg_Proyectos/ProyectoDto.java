@@ -2,6 +2,8 @@ package sacm.com.mx.compositores.common.dtos.Sacm_pkg_Proyectos;
 
 import java.util.List;
 
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.ObraDto;
+
 public class ProyectoDto {
     public ProyectoDto() {
         super();
@@ -27,6 +29,7 @@ public class ProyectoDto {
     private String atributo_09;
     private String atributo_10;
     private List<ProyectoDto> SubProjectList =null;
+    private List<ObraDto> ObrasList =null;
     
     //Variables utilizadas solo para entrada
     private String tipo;
@@ -198,5 +201,13 @@ public class ProyectoDto {
 
     public void setId_subproyecto(Integer id_subproyecto) {
         this.id_subproyecto = id_subproyecto;
+    }
+
+    public List<ObraDto> getObrasList() {
+        return ObrasList;
+    }
+
+    public void setObrasList(List<ObraDto> ObrasList) {
+        this.ObrasList = ObrasList;
     }
 }

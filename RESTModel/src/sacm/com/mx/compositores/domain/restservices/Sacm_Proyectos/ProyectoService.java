@@ -108,4 +108,13 @@ public class ProyectoService {
     public ProyectoResultDto ConsultaProyecto(ProyectoDto projectRequest) {
         return SacmProyecto.ConsultaProyecto(projectRequest);
     }
+    
+    /*-----------------------------------------------------sacm_consulta_proyecto_todo Service-------------------------------------------------------------------*/
+    @POST
+    @Consumes("application/json")
+    @Produces("application/json")
+    @Path("sacm_consulta_proyecto_todo")
+    public ProyectoResultDto ConsultaProyectoTodo(ProyectoDto projectRequest) {
+        return SacmProyecto.ConsultaProyectoTodo(projectRequest);
+    }
 }

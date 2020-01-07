@@ -5,14 +5,14 @@ public class ParticipanteDto {
         super();
     }
     
-    private int id_participante;
+    private Integer id_participante;
     private String participante;
 
-    public int getId_participante() {
+    public Integer getId_participante() {
         return id_participante;
     }
 
-    public void setId_participante(int id_participante) {
+    public void setId_participante(Integer id_participante) {
         this.id_participante = id_participante;
     }
 

@@ -5,6 +5,7 @@ public class VersionDto {
         super();
     }
     private Integer version_id;
+    private Integer id_obra;
     private String version_titulo;
     private String version_descripcion;
     private String version_duracion;
@@ -14,6 +15,7 @@ public class VersionDto {
     private String version_lyric;
     private String version_type;
     private String version;
+    private Integer activo;
 
     public Integer getVersion_id() {
         return version_id;
@@ -93,5 +95,21 @@ public class VersionDto {
 
     public void setVersion(String version) {
         this.version = version;
+    }
+
+    public Integer getId_obra() {
+        return id_obra;
+    }
+
+    public void setId_obra(Integer id_obra) {
+        this.id_obra = id_obra;
+    }
+
+    public Integer getActivo() {
+        return activo;
+    }
+
+    public void setActivo(Integer activo) {
+        this.activo = activo;
     }
 }

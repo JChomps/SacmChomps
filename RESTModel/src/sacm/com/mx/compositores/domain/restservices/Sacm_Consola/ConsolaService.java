@@ -12,7 +12,10 @@ import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.TagConsolaResultDto
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.ObraDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.ObraResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.TagsResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.VersionDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.VersionResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Compras.ValidaObraDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Compras.ValidaObraResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.CalificacionDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.CalificacionResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.LogueoDto;
@@ -21,6 +24,7 @@ import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.TagConsolaDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Inicio_Sesion.UsuarioDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Inicio_Sesion.UsuarioResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Perfil.SolicitudResultDto;
+import sacm.com.mx.compositores.infraestructure.repositories.SacmCarrito;
 import sacm.com.mx.compositores.infraestructure.repositories.SacmConsola;
 import sacm.com.mx.compositores.infraestructure.repositories.SacmSolicitudes;
 
@@ -220,6 +224,14 @@ public class ConsolaService {
     @Path("sacm_consulta_calificacion")
     public CalificacionResultDto ConsultaCalificacion(CalificacionDto calRequest) {
         return SacmConsola.ConsultaCalificacion(calRequest);
+    }
+    
+    /*-----------------------------------------------------sacm_inserta_version_consola Service-------------------------------------------------------------------*/
+    @POST
+    @Produces("application/json")
+    @Path("sacm_inserta_version_consola")
+    public CalificacionResultDto InsertaVersiones(VersionDto versionRequest) {
+        return SacmConsola.InsertaVersiones(versionRequest);
     }
     
    
