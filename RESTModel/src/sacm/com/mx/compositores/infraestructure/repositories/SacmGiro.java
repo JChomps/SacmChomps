@@ -46,7 +46,7 @@ public class SacmGiro {
                cstmt.registerOutParameter(3, -10);
                // 5. Execute the statement
                cstmt.executeUpdate();
-               if(cstmt.getInt(1)==0)
+               if(cstmt.getInt(1)==0){
                rs = (ResultSet) cstmt.getObject(3);
                // read the results
                while (rs.next()) {
@@ -56,6 +56,8 @@ public class SacmGiro {
                                
                    giroList.add(giro);
                }
+               
+               rs.close();}
 
                giroResponse = new GiroResultDto();
                // 6. Set value of dateValue property using OUT params
@@ -68,7 +70,7 @@ public class SacmGiro {
                giroResponse.setGiros(giroList);
                // 9. Close the JDBC CallableStatement
                cstmt.close();
-               rs.close();
+              
                conn.close();
                conn = null;
 

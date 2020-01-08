@@ -8,6 +8,8 @@ import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Compras.LicenciatarioResult
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Compras.MarcasDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Perfil.CorreoDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Perfil.CorreoResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Proyectos.ProyectoDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Proyectos.ProyectoResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Registro_Usuario.ActivacionDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Registro_Usuario.ActivacionResultDto;
 import sacm.com.mx.compositores.infraestructure.repositories.SacmActivacion;
@@ -33,5 +35,13 @@ public class PerfilService {
     @Path("sacm_registro_licenciatario")
     public LicenciatarioResultDto  RegistroLicenciatario(MarcasDto marcasRequest) {
         return SacmPerfil.RegistroLicenciatario(marcasRequest);
+    }
+    
+    /*-----------------------------------------------------sacm_valida_compra_obra Service-------------------------------------------------------------------*/
+    @POST
+    @Produces("application/json")
+    @Path("sacm_valida_compra_obra")
+    public ProyectoResultDto  ValidaObraCompra(ProyectoDto datoRequest) {
+        return SacmPerfil.ValidaObraCompra(datoRequest);
     }
 }

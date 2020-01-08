@@ -13,6 +13,13 @@ public class ProyectoResultDto {
     private HeaderDto ResponseBD;
     private HeaderDto ResponseService;
     private Integer id_proyecto;
+    private Integer id_usuario;
+    private Integer id_obra;
+    private String titulo_obra;
+    private Integer id_estatus;
+    private String estatus;
+    
+    
     private List<ProyectoDto> ProjectList =null;// new ArrayList<ProyectoDto>();
 
     public HeaderDto getResponseBD() {
@@ -45,5 +52,45 @@ public class ProyectoResultDto {
 
     public void setId_proyecto(Integer id_proyecto) {
         this.id_proyecto = id_proyecto;
+    }
+
+    public Integer getId_usuario() {
+        return id_usuario;
+    }
+
+    public void setId_usuario(Integer id_usuario) {
+        this.id_usuario = id_usuario;
+    }
+
+    public Integer getId_obra() {
+        return id_obra;
+    }
+
+    public void setId_obra(Integer id_obra) {
+        this.id_obra = id_obra;
+    }
+
+    public String getTitulo_obra() {
+        return titulo_obra;
+    }
+
+    public void setTitulo_obra(String titulo_obra) {
+        this.titulo_obra = titulo_obra;
+    }
+
+    public Integer getId_estatus() {
+        return id_estatus;
+    }
+
+    public void setId_estatus(Integer id_estatus) {
+        this.id_estatus = id_estatus;
+    }
+
+    public String getEstatus() {
+        return estatus;
+    }
+
+    public void setEstatus(String estatus) {
+        this.estatus = estatus;
     }
 }

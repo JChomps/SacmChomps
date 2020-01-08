@@ -381,8 +381,8 @@ public class SacmObra implements Serializable {
             // 2. Define the PL/SQL block for the statement to invoke
             cstmt = conn.prepareCall("{call SACM_PKG_BUSCADOR.PRC_COMPARTIR_OBRA(?,?,?,?,?,?,?)}");
             // 3. Set the bind values of the IN parameters
-            cstmt.setObject(1, obraRequest.getIdUserOrigen());
-            cstmt.setObject(2, obraRequest.getIdUserDestino());
+            cstmt.setObject(1, obraRequest.getEmail_origen());
+            cstmt.setObject(2, obraRequest.getEmail_destino());
             cstmt.setObject(3, obraRequest.getIdObra());
             // 4. Register the positions and types of the OUT parameters
             cstmt.registerOutParameter(4, Types.INTEGER);
