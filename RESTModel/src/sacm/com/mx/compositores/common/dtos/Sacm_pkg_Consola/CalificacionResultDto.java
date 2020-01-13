@@ -9,6 +9,7 @@ public class CalificacionResultDto {
     private Integer calificacion;
     private String calificado;   
     private Integer promedio;
+    private List<CalificacionDto> obras= null;
     private HeaderDto ResponseBD;
     private HeaderDto ResponseService;
    
@@ -55,5 +56,13 @@ public class CalificacionResultDto {
 
     public void setPromedio(Integer promedio) {
         this.promedio = promedio;
+    }
+
+    public List<CalificacionDto> getObras() {
+        return obras;
+    }
+
+    public void setObras(List<CalificacionDto> obras) {
+        this.obras = obras;
     }
 }

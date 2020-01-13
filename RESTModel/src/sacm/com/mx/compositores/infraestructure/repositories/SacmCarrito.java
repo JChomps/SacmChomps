@@ -579,4 +579,58 @@ public class SacmCarrito {
         // 9. Return the result
         return obraResponse;
     }
+
+    /*-----------------------------------------------------sacm_autoriza_solicitud Service-------------------------------------------------------------------*/
+     public static ValidaObraResultDto AutorizaRequest(CarritoDto carritoRequest) {
+       
+        CallableStatement cstmt = null;
+        Connection conn = null;
+       // ResultSet rs = null;
+
+        try {
+            conn = AppModule.getDbConexionJDBC();
+            // 2. Define the PL/SQL block for the statement to invoke
+            cstmt = conn.prepareCall("{call SACM_PKG_COMPRAS.PRC_AUTORIZA_REQUEST(?,?,?,?)}");
+
+            // 3. Set the bind values of the IN parameters
+            cstmt.setObject(1, carritoRequest.getId_carrito_detalle());
+            cstmt.setObject(2, carritoRequest.getId_carrito_pqt());
+            // 4. Register the positions and types of the OUT parameters
+            cstmt.registerOutParameter(3, Types.INTEGER);
+            cstmt.registerOutParameter(4, Types.VARCHAR);
+           
+            // 5. Execute the statement
+            cstmt.executeUpdate();
+
+         
+
+            // 6. Set value of dateValue property using first OUT param
+            obraResponse = new ValidaObraResultDto();
+            obraResponse.setResponseBD(new HeaderDto());
+            obraResponse.getResponseBD().setCodErr(cstmt.getInt(3));
+            obraResponse.getResponseBD().setCodMsg(cstmt.getString(4));
+
+            obraResponse.setResponseService(new HeaderDto());
+            obraResponse.getResponseService().setCodErr(cstmt.getInt(3));
+            obraResponse.getResponseService().setCodMsg(cstmt.getString(4));
+            
+            // 9. Close the JDBC CallableStatement
+            cstmt.close();
+            conn.close();
+            conn = null;
+
+        } catch (Exception e) {
+            // a failure occurred log message;
+            _logger.severe(e.getMessage());
+            obraResponse = new ValidaObraResultDto();
+            obraResponse.setResponseService(new HeaderDto());
+            obraResponse.getResponseService().setCodErr(1);
+            obraResponse.getResponseService().setCodMsg(e.getMessage());
+            return obraResponse;
+        }
+
+        _logger.info("Finish Activacion Cuenta");
+        // 9. Return the result
+        return obraResponse;
+    }
 }

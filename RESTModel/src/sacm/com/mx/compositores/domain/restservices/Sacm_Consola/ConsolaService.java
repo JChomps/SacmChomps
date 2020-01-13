@@ -234,6 +234,30 @@ public class ConsolaService {
         return SacmConsola.InsertaVersiones(versionRequest);
     }
     
+    /*-----------------------------------------------------sacm_reporte_calificacion Service-------------------------------------------------------------------*/
+    @POST
+    @Produces("application/json")
+    @Path("sacm_reporte_calificacion")
+    public CalificacionResultDto ReporteCalificacion() {
+        return SacmConsola.ReporteCalificacion();
+    }
+    
+    /*-----------------------------------------------------sacm_consulta_items_usuario Service-------------------------------------------------------------------*/
+    @POST
+    @Produces("application/json")
+    @Path("sacm_consulta_items_usuario")
+    public UsuarioResultDto getItemsUsuarios() {
+        return SacmConsola.getItemsUsuarios();
+    }
+    
+    /*-----------------------------------------------------sacm_reporte_solicitudes Service-------------------------------------------------------------------*/
+    @POST
+    @Produces("application/json")
+    @Path("sacm_reporte_solicitudes")
+    public SolicitudResultDto ReporteSolicitudes(UsuarioDto userRequest) {
+        return SacmConsola.ReporteSolicitudes(userRequest);
+    }
+    
    
   
 }

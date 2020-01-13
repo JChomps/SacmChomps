@@ -176,11 +176,13 @@ public class SacmSolicitudes {
                     cotizacion.setId_marca(rs.getInt(12));
                     cotizacion.setMarca(rs.getString(13));
                     cotizacion.setId_carrito(rs.getInt(14));
-                    cotizacion.setId_carrito_pqt(rs.getInt(15));
-                    obra.setId_obra(rs.getInt(16));
-                    obra.setObra_numero(rs.getInt(17));
-                    obra.setObra_titulo(rs.getString(18));
-                    obra.setObra_descripcion(rs.getString(19));
+                    cotizacion.setId_carrito_ind(rs.getInt(15));
+                    cotizacion.setId_carrito_pqt(rs.getInt(16) );
+                    
+                    obra.setId_obra(rs.getInt(17));
+                    obra.setObra_numero(rs.getInt(18));
+                    obra.setObra_titulo(rs.getString(19));
+                    obra.setObra_descripcion(rs.getString(20));
 
                     cotizacion.getObras().add(obra);
                     solicitud.getItems().add(cotizacion);
