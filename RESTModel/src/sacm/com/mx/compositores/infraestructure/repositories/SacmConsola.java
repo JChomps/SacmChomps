@@ -27,6 +27,7 @@ import oracle.adf.share.logging.ADFLogger;
 
 
 import sacm.com.mx.compositores.common.dtos.CotizacionDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.TagsDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Compras.ValidaObraResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.CalificacionDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.CalificacionResultDto;
@@ -71,6 +72,7 @@ public class SacmConsola {
     private static UsuarioResultDto UsuarioResponse;
     private static CalificacionResultDto calificacionResponse;
      private static SolicitudResultDto SolicitudResponse;
+    private static TagsResultDto TagsResponse;
 
 
     public SacmConsola() {
@@ -1832,4 +1834,70 @@ public class SacmConsola {
 
     }
 
+    /*-----------------------------------------------------sacm_consulta_tag Service-------------------------------------------------------------------*/
+     public static TagsResultDto getTags(TagsDto tagRequest) {
+        List<TagsDto> TagsList = new ArrayList<TagsDto>();
+        CallableStatement cstmt = null;
+        Connection conn = null;
+        ResultSet rs = null;
+
+        try {
+            conn = AppModule.getDbConexionJDBC();
+            // 2. Define the PL/SQL block for the statement to invoke
+            cstmt = conn.prepareCall("{call SACM_PKG_CONSOLA_RUG.CONSULTA_TAG(?,?,?,?)}");
+            // 3. Set the bind values of the IN parameters
+            cstmt.setObject(1, tagRequest.getIdTag());
+            // 4. Register the positions and types of the OUT parameters
+            cstmt.registerOutParameter(2, -10);
+            cstmt.registerOutParameter(3, Types.INTEGER);
+            cstmt.registerOutParameter(4, Types.VARCHAR);
+           
+
+            // 5. Execute the statement
+            cstmt.executeUpdate();
+            if (cstmt.getInt(3) == 0) {               
+                // print the results
+                rs = (ResultSet) cstmt.getObject(2);
+                while (rs.next()) {
+                    TagsDto tag = new TagsDto();
+                  
+                    tag.setIdTag(rs.getInt(1));
+                    tag.setTagName(rs.getString(2));
+                    tag.setActivo(rs.getString(3));
+            
+                    TagsList.add(tag);
+                }
+
+                rs.close();
+            }
+            // 6. Set value of dateValue property using first OUT param
+            TagsResponse = new TagsResultDto();
+            TagsResponse.setResponseBD(new HeaderDto());
+            TagsResponse.getResponseBD().setCodErr(cstmt.getInt(3));
+            TagsResponse.getResponseBD().setCodMsg(cstmt.getString(4));
+            TagsResponse.setResponseService(new HeaderDto());
+            TagsResponse.getResponseService().setCodErr(cstmt.getInt(3));
+            TagsResponse.getResponseService().setCodMsg(cstmt.getString(4));
+             if(TagsList.size()>0)
+            TagsResponse.setTagList(TagsList); 
+            
+            
+            // 9. Close the JDBC CallableStatement
+            cstmt.close();
+            conn.close();
+            conn = null;
+        } catch (Exception e) {
+            // a failure occurred log message;
+            _logger.severe(e.getMessage());
+            TagsResponse = new TagsResultDto();
+            TagsResponse.setResponseService(new HeaderDto());
+            TagsResponse.getResponseService().setCodErr(1);
+            TagsResponse.getResponseService().setCodMsg(e.getMessage());
+            return TagsResponse;
+        }
+        _logger.info("Finish getConsultaAlbum");
+        // 9. Return the result
+        
+        return TagsResponse;
+    }
 }

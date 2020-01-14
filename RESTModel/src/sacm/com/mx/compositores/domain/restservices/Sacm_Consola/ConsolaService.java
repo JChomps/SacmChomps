@@ -11,6 +11,7 @@ import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.ParticipanteResultD
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.TagConsolaResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.ObraDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.ObraResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.TagsDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.TagsResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.VersionDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.VersionResultDto;
@@ -256,6 +257,14 @@ public class ConsolaService {
     @Path("sacm_reporte_solicitudes")
     public SolicitudResultDto ReporteSolicitudes(UsuarioDto userRequest) {
         return SacmConsola.ReporteSolicitudes(userRequest);
+    }
+    
+    /*-----------------------------------------------------sacm_consulta_tag Service-------------------------------------------------------------------*/
+    @POST
+    @Produces("application/json")
+    @Path("sacm_consulta_tag")
+    public TagsResultDto getTags(TagsDto tagRequest) {
+        return SacmConsola.getTags(tagRequest);
     }
     
    

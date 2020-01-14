@@ -23,6 +23,7 @@ public class TagsDto implements Serializable {
     private String tagNameN1;
     private Integer idTagN2;
     private String tagNameN2;
+    private String activo;
 
   
 
@@ -84,5 +85,13 @@ public class TagsDto implements Serializable {
 
     public void setIdTagHijo(Integer idTagHijo) {
         this.idTagHijo = idTagHijo;
+    }
+
+    public String getActivo() {
+        return activo;
+    }
+
+    public void setActivo(String activo) {
+        this.activo = activo;
     }
 }
