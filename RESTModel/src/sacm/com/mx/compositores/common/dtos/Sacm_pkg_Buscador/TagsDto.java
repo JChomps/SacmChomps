@@ -17,13 +17,21 @@ public class TagsDto implements Serializable {
         super();
     }
     private Integer idTag;
+    private Integer idTagPadre;
     private Integer idTagHijo;
     private String tagName;
+    private String descripcionTag;
+    
     private Integer idTagN1;
     private String tagNameN1;
+    
     private Integer idTagN2;
     private String tagNameN2;
-    private String activo;
+    private String activoTag;
+    
+    
+    private List<TagN2Dto> TagList = null;
+   
 
   
 
@@ -88,10 +96,35 @@ public class TagsDto implements Serializable {
     }
 
     public String getActivo() {
-        return activo;
+        return activoTag;
     }
 
     public void setActivo(String activo) {
-        this.activo = activo;
+        this.activoTag = activo;
+    }
+
+   
+    public String getDescripcionTag() {
+        return descripcionTag;
+    }
+
+    public void setDescripcionTag(String descripcionTag) {
+        this.descripcionTag = descripcionTag;
+    }
+
+    public List<TagN2Dto> getTagList() {
+        return TagList;
+    }
+
+    public void setTagList(List<TagN2Dto> TagList) {
+        this.TagList = TagList;
+    }
+
+    public Integer getIdTagPadre() {
+        return idTagPadre;
+    }
+
+    public void setIdTagPadre(Integer idTagPadre) {
+        this.idTagPadre = idTagPadre;
     }
 }

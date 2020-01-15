@@ -48,6 +48,7 @@ public class RegistroDto {
     private Integer floor_fee;
     private Integer descuento;
     private Double monto_final;
+    private String autoriza;
     private String autorizado_flg;
     private String autorizado_msg;
 
@@ -417,5 +418,13 @@ public class RegistroDto {
 
     public void setAutorizado_msg(String autorizado_msg) {
         this.autorizado_msg = autorizado_msg;
+    }
+
+    public String getAutoriza() {
+        return autoriza;
+    }
+
+    public void setAutoriza(String autoriza) {
+        this.autoriza = autoriza;
     }
 }

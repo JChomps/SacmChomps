@@ -267,6 +267,38 @@ public class ConsolaService {
         return SacmConsola.getTags(tagRequest);
     }
     
+    /*-----------------------------------------------------sacm_consulta_tag_item Service-------------------------------------------------------------------*/
+    @POST
+    @Produces("application/json")
+    @Path("sacm_consulta_tag_item")
+    public TagsResultDto getTagItem(TagsDto tagRequest) {
+        return SacmConsola.getTagItem(tagRequest);
+    }
+    
+    /*-----------------------------------------------------sacm_actualiza_tag Service-------------------------------------------------------------------*/
+    @POST
+    @Produces("application/json")
+    @Path("sacm_actualiza_tag")
+    public ValidaObraResultDto actualizaTag(TagsDto tagRequest) {
+        return SacmConsola.actualizaTag(tagRequest);
+    }
+    
+    /*-----------------------------------------------------sacm_inserta_tag Service-------------------------------------------------------------------*/
+    @POST       
+    @Produces("application/json")
+    @Path("sacm_inserta_tag")
+    public ValidaObraResultDto insertaTag(TagsDto tagRequest) {
+        return SacmConsola.insertaTag(tagRequest);
+    }
+    
+    /*-----------------------------------------------------sacm_inserta_tag_item Service-------------------------------------------------------------------*/
+    @POST
+    @Produces("application/json")
+    @Path("sacm_inserta_tag_item")
+    public ValidaObraResultDto insertaTagItem(TagsDto tagRequest) {
+        return SacmConsola.insertaTagItem(tagRequest);
+    }
+    
    
   
 }

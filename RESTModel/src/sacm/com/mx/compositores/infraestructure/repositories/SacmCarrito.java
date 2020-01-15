@@ -580,8 +580,8 @@ public class SacmCarrito {
         return obraResponse;
     }
 
-    /*-----------------------------------------------------sacm_autoriza_solicitud Service-------------------------------------------------------------------*/
-     public static ValidaObraResultDto AutorizaRequest(CarritoDto carritoRequest) {
+    /*-----------------------------------------------------sacm_cambia_estatus_request Service-------------------------------------------------------------------*/
+      public static ValidaObraResultDto CambiaEstatusRequest(RegistroDto registroRequest) {
        
         CallableStatement cstmt = null;
         Connection conn = null;
@@ -590,11 +590,11 @@ public class SacmCarrito {
         try {
             conn = AppModule.getDbConexionJDBC();
             // 2. Define the PL/SQL block for the statement to invoke
-            cstmt = conn.prepareCall("{call SACM_PKG_COMPRAS.PRC_AUTORIZA_REQUEST(?,?,?,?)}");
+            cstmt = conn.prepareCall("{call SACM_PKG_COMPRAS.PRC_CAMBIA_ESTATUS_REQUEST(?,?,?,?)}");
 
             // 3. Set the bind values of the IN parameters
-            cstmt.setObject(1, carritoRequest.getId_carrito_detalle());
-            cstmt.setObject(2, carritoRequest.getId_carrito_pqt());
+            cstmt.setObject(1, registroRequest.getId_cotizacion());
+            cstmt.setObject(2, registroRequest.getAutoriza());
             // 4. Register the positions and types of the OUT parameters
             cstmt.registerOutParameter(3, Types.INTEGER);
             cstmt.registerOutParameter(4, Types.VARCHAR);

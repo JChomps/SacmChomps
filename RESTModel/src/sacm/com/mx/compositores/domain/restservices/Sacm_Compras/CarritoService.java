@@ -83,12 +83,12 @@ public class CarritoService {
         return SacmCarrito.getPropiedadesObras(obraRequest);
     }
     
-    /*-----------------------------------------------------sacm_autoriza_solicitud Service-------------------------------------------------------------------*/
+    /*-----------------------------------------------------sacm_cambia_estatus_request Service-------------------------------------------------------------------*/
     @POST
     @Produces("application/json")
-    @Path("sacm_autoriza_solicitud")
-    public ValidaObraResultDto AutorizaRequest(CarritoDto carritoRequest) {
-        return SacmCarrito.AutorizaRequest(carritoRequest);
+    @Path("sacm_cambia_estatus_request")
+    public ValidaObraResultDto CambiaEstatusRequest(RegistroDto registroRequest) {
+        return SacmCarrito.CambiaEstatusRequest(registroRequest);
     }
     
 }

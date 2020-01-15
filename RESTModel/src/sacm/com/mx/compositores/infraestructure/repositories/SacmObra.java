@@ -331,8 +331,10 @@ public class SacmObra implements Serializable {
                     obra.setObra_titulo(rs.getString(5));
                     obra.setObra_descripcion(rs.getString(6));
                     obra.setVersion_duracion(rs.getString(7));
+                    
                     bdata = (rs.getObject(8) == null ? null : rs.getBlob(8).getBytes(1, (int) rs.getBlob(8).length()));
                     obra.setVersion_wav(rs.getObject(8) == null ? null : Base64.getEncoder().encodeToString(bdata));
+                        
                     bdata = (rs.getObject(9) == null ? null : rs.getBlob(9).getBytes(1, (int) rs.getBlob(9).length()));
                     obra.setVersion_mp3(rs.getObject(9) == null ? null : Base64.getEncoder().encodeToString(bdata));
                     bdata =

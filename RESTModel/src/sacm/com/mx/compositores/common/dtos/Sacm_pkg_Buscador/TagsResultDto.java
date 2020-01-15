@@ -22,7 +22,7 @@ public class TagsResultDto implements Serializable {
     private HeaderDto ResponseBD;
     private HeaderDto ResponseService;
     
-    private List<Tag> tagsList =null;// new ArrayList<Tag>();
+    private List<Tag> tagsList = null;// new ArrayList<Tag>();
     private List<TagsDto> tagList = null;
   
    
@@ -44,9 +44,9 @@ public class TagsResultDto implements Serializable {
     }
 
 
-   /* public List<Tag> getTagsList() {
+    public List<Tag> getTagsList() {
         return tagsList;
-    }*/
+    }
 
     public void setTagsList(List<Tag> tagsList) {
         this.tagsList = tagsList;
