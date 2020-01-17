@@ -13,8 +13,8 @@ public class TagN1 {
     
   
 
-    private Integer idTag = 2    ;
-    private String tagName= "121";
+    private Integer idTag   ;
+    private String tagName;
     private List<TagN2> tagsList = new ArrayList<TagN2>();
 
    

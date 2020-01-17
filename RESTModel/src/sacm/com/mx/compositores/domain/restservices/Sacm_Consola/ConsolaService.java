@@ -299,6 +299,14 @@ public class ConsolaService {
         return SacmConsola.insertaTagItem(tagRequest);
     }
     
+    /*-----------------------------------------------------sacm_actualiza_tag_item Service-------------------------------------------------------------------*/
+    @POST
+    @Produces("application/json")
+    @Path("sacm_actualiza_tag_item")
+    public ValidaObraResultDto actualizaTagItem(TagsDto tagRequest) {
+        return SacmConsola.actualizaTagItem(tagRequest);
+    }
+    
    
   
 }

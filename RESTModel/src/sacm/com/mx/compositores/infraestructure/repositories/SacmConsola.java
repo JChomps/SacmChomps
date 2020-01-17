@@ -2149,4 +2149,59 @@ public class SacmConsola {
 
         return validaREsponse;
     }
+
+    /*-----------------------------------------------------sacm_actualiza_tag_item Service-------------------------------------------------------------------*/
+    public static ValidaObraResultDto actualizaTagItem(TagsDto tagRequest) {
+        
+        CallableStatement cstmt = null;
+        Connection conn = null;
+        
+
+        try {
+            conn = AppModule.getDbConexionJDBC();
+            // 2. Define the PL/SQL block for the statement to invoke
+            cstmt = conn.prepareCall("{call SACM_PKG_CONSOLA_RUG.ACTUALIZA_TAG_ITEM(?,?,?,?,?,?,?,?)}");
+            // 3. Set the bind values of the IN parameters
+            cstmt.setObject(1, tagRequest.getIdTagItem());
+            cstmt.setObject(2, tagRequest.getTagName());
+            cstmt.setObject(3, tagRequest.getIdTagPadre());
+            cstmt.setObject(4, tagRequest.getIdTag());
+            cstmt.setObject(5, tagRequest.getDescripcionTag());
+            cstmt.setObject(6, tagRequest.getActivo());
+            // 4. Register the positions and types of the OUT parameters
+            cstmt.registerOutParameter(7, Types.INTEGER);
+            cstmt.registerOutParameter(8, Types.VARCHAR);
+
+
+            // 5. Execute the statement
+            cstmt.executeUpdate();
+           
+            // 6. Set value of dateValue property using first OUT param
+            validaREsponse = new ValidaObraResultDto();
+            validaREsponse.setResponseBD(new HeaderDto());
+            validaREsponse.getResponseBD().setCodErr(cstmt.getInt(7));
+            validaREsponse.getResponseBD().setCodMsg(cstmt.getString(8));
+            validaREsponse.setResponseService(new HeaderDto());
+            validaREsponse.getResponseService().setCodErr(cstmt.getInt(7));
+            validaREsponse.getResponseService().setCodMsg(cstmt.getString(8));
+
+
+            // 9. Close the JDBC CallableStatement
+            cstmt.close();
+            conn.close();
+            conn = null;
+        } catch (Exception e) {
+            // a failure occurred log message;
+            _logger.severe(e.getMessage());
+            validaREsponse = new ValidaObraResultDto();
+            validaREsponse.setResponseService(new HeaderDto());
+            validaREsponse.getResponseService().setCodErr(1);
+            validaREsponse.getResponseService().setCodMsg(e.getMessage());
+            return validaREsponse;
+        }
+        _logger.info("Finish getConsultaAlbum");
+        // 9. Return the result
+
+        return validaREsponse;
+    }
 }

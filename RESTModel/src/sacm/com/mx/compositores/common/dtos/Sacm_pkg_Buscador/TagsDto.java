@@ -17,6 +17,7 @@ public class TagsDto implements Serializable {
         super();
     }
     private Integer idTag;
+    private Integer idTagItem;
     private Integer idTagPadre;
     private Integer idTagHijo;
     private String tagName;
@@ -126,5 +127,13 @@ public class TagsDto implements Serializable {
 
     public void setIdTagPadre(Integer idTagPadre) {
         this.idTagPadre = idTagPadre;
+    }
+
+    public Integer getIdTagItem() {
+        return idTagItem;
+    }
+
+    public void setIdTagItem(Integer idTagItem) {
+        this.idTagItem = idTagItem;
     }
 }
