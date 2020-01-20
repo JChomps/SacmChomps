@@ -41,15 +41,18 @@ public class ObraDto implements Serializable {
     private Integer control;   
     private Integer preAutorizacion;
     private String obra_preAutorizado;
-    private Integer activo;
+    private Integer activo; //
     private String obra_activo;
     private Integer duracion;
     private String picture;
     private String control_str;
-    private String autorizado;
+    private String autorizado; //
     private Integer id_participante;
     private String participante;
     private String consagrado;
+    private String formato_audio;
+    private String formato;
+    private Integer calificacion;
     private List<VersionDto> versiones = null;// new ArrayList<VersionDto>();
    
 
@@ -365,5 +368,29 @@ public class ObraDto implements Serializable {
 
     public void setConsagrado(String consagrado) {
         this.consagrado = consagrado;
+    }
+
+    public String getFormato_audio() {
+        return formato_audio;
+    }
+
+    public void setFormato_audio(String formato_audio) {
+        this.formato_audio = formato_audio;
+    }
+
+    public String getFormato() {
+        return formato;
+    }
+
+    public void setFormato(String formato) {
+        this.formato = formato;
+    }
+
+    public Integer getCalificacion() {
+        return calificacion;
+    }
+
+    public void setCalificacion(Integer calificacion) {
+        this.calificacion = calificacion;
     }
 }

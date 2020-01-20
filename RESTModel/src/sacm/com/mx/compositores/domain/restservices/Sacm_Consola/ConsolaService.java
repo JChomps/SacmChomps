@@ -307,6 +307,14 @@ public class ConsolaService {
         return SacmConsola.actualizaTagItem(tagRequest);
     }
     
+    /*-----------------------------------------------------sacm_lov_tags Service-------------------------------------------------------------------*/
+    @POST
+    @Produces("application/json")
+    @Path("sacm_lov_tags")
+    public TagsResultDto getTags() {
+        return SacmConsola.getTags();
+    }
+    
    
   
 }

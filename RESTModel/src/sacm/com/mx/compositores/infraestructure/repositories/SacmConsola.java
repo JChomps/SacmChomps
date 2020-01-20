@@ -44,6 +44,8 @@ import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.NombreParticipante
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.ObraDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.ObraResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.ParticipanteDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.Tag;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.TagN1;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.TagN2;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.TagN2Dto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.TagsResultDto;
@@ -76,6 +78,7 @@ public class SacmConsola {
     private static CalificacionResultDto calificacionResponse;
     private static SolicitudResultDto SolicitudResponse;
     private static TagsResultDto TagsResponse;
+    
 
 
     public SacmConsola() {
@@ -2203,5 +2206,66 @@ public class SacmConsola {
         // 9. Return the result
 
         return validaREsponse;
+    }
+
+    /*-----------------------------------------------------sacm_lov_tags Service-------------------------------------------------------------------*/
+    public static TagsResultDto getTags() {
+        List<TagsDto> tagListResult = new ArrayList<TagsDto>();
+        CallableStatement cstmt = null;
+        ResultSet rs = null;
+        Connection conn = null;        
+        try {
+            conn = AppModule.getDbConexionJDBC();
+            // 2. Define the PL/SQL block for the statement to invoke
+            cstmt = conn.prepareCall("{call SACM_PKG_CONSOLA_RUG.LOV_TAGS(?,?,?)}");
+            // 3. Set the bind values of the IN parameters
+            
+            // 4. Register the positions and types of the OUT parameters
+            cstmt.registerOutParameter(1, -10);
+            cstmt.registerOutParameter(2, Types.INTEGER);
+            cstmt.registerOutParameter(3, Types.VARCHAR);
+            // 5. Execute the statement
+            cstmt.executeUpdate();
+            if (cstmt.getInt(2) == 0) {
+                rs = (ResultSet) cstmt.getObject(1);
+               // List<Tag> tagList = new ArrayList<Tag>();               
+                while (rs.next()) {
+                    TagsDto tag = new TagsDto();
+                   
+                    //Asignamiento de valores al objeto Tag
+                    tag.setIdTag(rs.getInt(1));
+                    tag.setTagName(rs.getString(2));
+                   
+                    tagListResult.add(tag);
+                }                
+                
+                rs.close();
+            }
+            // 6. Set value of dateValue property using first OUT param
+            TagsResponse = new TagsResultDto();
+            TagsResponse.setResponseBD(new HeaderDto());
+            TagsResponse.getResponseBD().setCodErr(cstmt.getInt(2));
+            TagsResponse.getResponseBD().setCodMsg(cstmt.getString(3));
+            TagsResponse.setResponseService(new HeaderDto());
+            TagsResponse.getResponseService().setCodErr(cstmt.getInt(2));
+            TagsResponse.getResponseService().setCodMsg(cstmt.getString(3));
+            TagsResponse.setTagList(tagListResult);
+            // 9. Close the JDBC CallableStatement
+            cstmt.close();
+            conn.close();
+            conn = null;
+
+        } catch (Exception e) {
+            // a failure occurred log message;
+            _logger.severe(e.getMessage());
+            TagsResponse = new TagsResultDto();
+            TagsResponse.setResponseService(new HeaderDto());
+            TagsResponse.getResponseService().setCodErr(1);
+            TagsResponse.getResponseService().setCodMsg(e.getMessage());
+            return TagsResponse;
+        }
+        _logger.info("Finish getEstados");
+        // 9. Return the result
+        return TagsResponse;
     }
 }

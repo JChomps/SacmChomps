@@ -184,6 +184,7 @@ public class SacmObra implements Serializable {
                         (rs.getObject(10) == null ? null : rs.getBlob(10).getBytes(1, (int) rs.getBlob(10).length()));
                     obra.setVersion_aiff(rs.getObject(10) == null ? null : Base64.getEncoder().encodeToString(bdata));
                     obra.setVersion_lyric(rs.getObject(11) == null ? null : rs.getString(11));
+                    obra.setCalificacion(rs.getInt(12));
                     obraList.add(obra);
                 }
                 rs.close();
@@ -466,6 +467,8 @@ public class SacmObra implements Serializable {
                         (rs.getObject(10) == null ? null : rs.getBlob(10).getBytes(1, (int) rs.getBlob(10).length()));
                     obra.setVersion_aiff(rs.getObject(10) == null ? null : Base64.getEncoder().encodeToString(bdata));
                     obra.setVersion_lyric(rs.getObject(11) == null ? null : rs.getString(11));
+                    
+                    
 
                     obraList.add(obra);
                 }
@@ -500,7 +503,68 @@ public class SacmObra implements Serializable {
         return obraResponse;
     }
     
+    /*---------------------------------------------------------- sacm_consulta_tipo_audio -------------------------------------------------------------------------*/
+    public static ObraResultDto consultaTipoAudio(ObraDto obraRequest) {
+        List<ObraDto> obraList = new ArrayList<ObraDto>();
+        CallableStatement cstmt = null;
+        ResultSet rs = null;
+        Connection conn = null;       
+        try {
+            conn = AppModule.getDbConexionJDBC();
+            // 2. Define the PL/SQL block for the statement to invoke
+            cstmt = conn.prepareCall("{call SACM_PKG_BUSCADOR.PRC_CONSULTA_TPO_AUDIO(?,?,?,?,?)}");
+            // 3. Set the bind values of the IN parameters
+            cstmt.setObject(1, obraRequest.getId_obra());
+            cstmt.setObject(2, obraRequest.getFormato_audio());
+            // 4. Register the positions and types of the OUT parameters
+            cstmt.registerOutParameter(3, Types.INTEGER);
+            cstmt.registerOutParameter(4, Types.VARCHAR);
+            cstmt.registerOutParameter(5, -10);
+            // 5. Execute the statement
+            cstmt.executeUpdate();
+            cstmt.executeUpdate();
+            if (cstmt.getInt(3) == 0) {
+                // print the results
+                rs = (ResultSet) cstmt.getObject(5);
+                byte[] bdata;
+                while (rs.next()) {
+                    ObraDto obra = new ObraDto();                   
+                    //Conversión de BLOB a Base64
+                    bdata = (rs.getObject(1) == null ? null : rs.getBlob(1).getBytes(1, (int) rs.getBlob(1).length()));
+                    obra.setFormato(rs.getObject(1) == null ? null : Base64.getEncoder().encodeToString(bdata));
+                   
+                    obraList.add(obra);
+                }
+                rs.close();
+            }
 
+            obraResponse = new ObraResultDto();
+            obraResponse.setResponseBD(new HeaderDto());
+            obraResponse.getResponseBD().setCodErr(cstmt.getInt(3));
+            obraResponse.getResponseBD().setCodMsg(cstmt.getString(4));
+            obraResponse.setResponseService(new HeaderDto());
+            obraResponse.getResponseService().setCodErr(cstmt.getInt(3));
+            obraResponse.getResponseService().setCodMsg(cstmt.getString(4));
+            obraResponse.setObras(obraList);
+            // 9. Close the JDBC CallableStatement
+            cstmt.close();
+            conn.close();
+            conn = null;
+
+        } catch (Exception e) {
+            _logger.severe(e.getMessage());
+            obraResponse = new ObraResultDto();
+            obraResponse.setResponseService(new HeaderDto());
+            obraResponse.getResponseService().setCodErr(1);
+            obraResponse.getResponseService().setCodMsg(e.getMessage());
+            return obraResponse;
+        }
+        _logger.info("Finish CompartirObra");
+        // 9. Return the result
+        return obraResponse;
+    }
+    
+    
     private static void OrdenamientoObra(List<ObraDto> obraListResult, List<ObraDto> obraList) {
         Map<Integer, ObraDto> map = new TreeMap<Integer, ObraDto>();
         //Conversión a Map para borrar obras duplicadas

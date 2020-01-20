@@ -72,4 +72,13 @@ public class ObraService {
     public ObraResultDto compartirObra(CompObraDto obraRequest) {
         return SacmObra.compartirObra(obraRequest);
     }
+    
+    /*-----------------------------------------------------sacm_consulta_tipo_audio Service-------------------------------------------------------------------*/
+    @POST
+    @Consumes("application/json")
+    @Produces("application/json")
+    @Path("sacm_consulta_tipo_audio")
+    public ObraResultDto consultaTipoAudio(ObraDto obraRequest) {
+        return SacmObra.consultaTipoAudio(obraRequest);
+    }
 }
