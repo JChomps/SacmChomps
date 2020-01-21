@@ -19,7 +19,7 @@ public class ObraResultDto implements Serializable {
     private List<ObraDto> obras=null;// new ArrayList<ObraDto>();
     private List<ObraDto> inboxList= null;//new ArrayList<ObraDto>();
     private List<ObraDto> sharedList= null;//new ArrayList<ObraDto>();
-     
+  
    // private List<ObraDto> Versiones = new ArrayList<ObraDto>();
 
     public void setResponseBD(HeaderDto ResponseBD) {
@@ -53,7 +53,7 @@ public class ObraResultDto implements Serializable {
 
     public void setInboxList(List<ObraDto> inboxList) {
         this.inboxList = inboxList;
-    }
+}
 
     public List<ObraDto> getSharedList() {
         return sharedList;

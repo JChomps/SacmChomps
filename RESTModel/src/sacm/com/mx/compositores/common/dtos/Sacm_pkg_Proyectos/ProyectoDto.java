@@ -28,6 +28,7 @@ public class ProyectoDto {
     private String atributo_08;
     private String atributo_09;
     private String atributo_10;
+    private String modificacion;
     private List<ProyectoDto> SubProjectList =null;
     private List<ObraDto> ObrasList =null;
     
@@ -209,5 +210,13 @@ public class ProyectoDto {
 
     public void setObrasList(List<ObraDto> ObrasList) {
         this.ObrasList = ObrasList;
+    }
+
+    public String getModificacion() {
+        return modificacion;
+    }
+
+    public void setModificacion(String modificacion) {
+        this.modificacion = modificacion;
     }
 }

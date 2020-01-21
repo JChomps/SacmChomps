@@ -302,7 +302,7 @@ public class SacmProyecto {
             if (cstmt.getInt(3) == 0) {
                 // read the results
                 rs = (ResultSet) cstmt.getObject(2);
-                List<ProyectoDto> obraList = new ArrayList<ProyectoDto>();
+                
                 while (rs.next()) {
                     ProyectoDto proyecto = new ProyectoDto();
                     ProyectoDto subProyecto = new ProyectoDto();
@@ -667,16 +667,17 @@ public class SacmProyecto {
 
     /*---------------------------------------------------------Método de ordenamiento de proyectos y subproyectos ----------------------------------------------------------------------*/
 
-    private static void OrdenaProyectod(List<ProyectoDto> ProjectListResult, List<ProyectoDto> SubProjectListResult) {
+       private static void OrdenaProyectod(List<ProyectoDto> ProjectListResult, List<ProyectoDto> SubProjectListResult) {
         List<ProyectoDto> SubProjectList = new ArrayList<ProyectoDto>();
 
         for (ProyectoDto strProyecto : ProjectListResult) {
             SubProjectList = new ArrayList<ProyectoDto>();
             for (ProyectoDto strSubProyecto : SubProjectListResult) {
-                if (strProyecto.getId_proyecto() == strSubProyecto.getId_subproyecto()) {
+                if (strProyecto.getId_proyecto().equals(strSubProyecto.getId_subproyecto())  ) {
                     ProyectoDto subP = new ProyectoDto();
-                    subP.setId_proyecto(strSubProyecto.getId_proyecto());
+                    subP.setId_proyecto(strProyecto.getId_proyecto());
                     subP.setNombre(strSubProyecto.getNombre());
+                    subP.setId_subproyecto(strSubProyecto.getId_subproyecto());
                     SubProjectList.add(subP);
                 }
             }
@@ -686,7 +687,7 @@ public class SacmProyecto {
         }
 
 
-    }
+    } 
 
 
     /*-----------------------------------------------------sacm_consulta_proyecto_todo Service-------------------------------------------------------------------*/
@@ -729,37 +730,32 @@ public class SacmProyecto {
                         obra.setId_obra(rs.getInt(4));
                         obra.setObra_numero(rs.getInt(5));
                         obra.setObra_titulo(rs.getString(6));
+                        
                     }
-
                     //Se revisa si la entrada es un proyecto o un subproyecto
                     if (rs.getInt(3) == 1) {
-
                         //Se agregan los subproyectos al último proyecto registrado (Siempre se recibe primero un proyecto)
                         if (subproyectos.size() > 0) {
                             proyecto.setSubProjectList(subproyectos);
                         }
-
                         //Se valida que el Array de proyectos no este vacíp
-                        if (proyectoListResult.size() >
-                            0) {
+                        if (proyectoListResult.size() > 0) {
                             //Está validación es porque se puede recibir varias veces el mismo proyecto pero con diferente obra
                             if (proyectoListResult.get(proyectoListResult.size() - 1).getId_proyecto() !=
                                 rs.getInt(1)) {
-
                                 // Se crea un nuevo proyecto y se agrega la obra
                                 proyecto = new ProyectoDto();
                                 obraList = new ArrayList<ObraDto>();
                                 proyecto.setId_proyecto(rs.getInt(1));
                                 proyecto.setNombre(rs.getString(2));
+                                proyecto.setModificacion(rs.getString(7));
                                 //Si el proyecto tiene una obra se agrega a la lista
                                 if (rs.getInt(4) > 0) {
                                     proyecto.setObrasList(obraList);
                                     proyecto.getObrasList().add(obra);
+                                    
                                 }
-
                                 proyectoListResult.add(proyecto);
-
-
                             } else {
                                 //Si el proyecto es el mismo que el recibido anteriormente solo se agrega la obra que contiene
                                 if (rs.getInt(4) > 0)
@@ -772,10 +768,12 @@ public class SacmProyecto {
 
                             proyecto.setId_proyecto(rs.getInt(1));
                             proyecto.setNombre(rs.getString(2));
+                            proyecto.setModificacion(rs.getString(7));
                             //Si el proyecto incluye una obra se agrega a la lista
                             if (rs.getInt(4) > 0) {
                                 proyecto.setObrasList(obraList);
                                 proyecto.getObrasList().add(obra);
+                               
                             }
                             proyectoListResult.add(proyecto);
 
@@ -790,6 +788,7 @@ public class SacmProyecto {
                                 obraList = new ArrayList<ObraDto>();
                                 subproyecto.setId_subproyecto(rs.getInt(1));
                                 subproyecto.setNombre(rs.getString(2));
+                                subproyecto.setModificacion(rs.getString(7));
                                 
                                 if (rs.getInt(4) > 0) {
                                     subproyecto.setObrasList(obraList);
@@ -808,6 +807,7 @@ public class SacmProyecto {
                             obraList = new ArrayList<ObraDto>();
                             subproyecto.setId_subproyecto(rs.getInt(1));
                             subproyecto.setNombre(rs.getString(2));
+                            subproyecto.setModificacion(rs.getString(7));
                             if (rs.getInt(4) > 0) {
                                 subproyecto.setObrasList(obraList);
                                 subproyecto.getObrasList().add(obra);
