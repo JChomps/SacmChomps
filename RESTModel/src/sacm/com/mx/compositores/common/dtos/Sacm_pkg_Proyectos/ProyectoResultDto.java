@@ -18,6 +18,7 @@ public class ProyectoResultDto {
     private String titulo_obra;
     private Integer id_estatus;
     private String estatus;
+    private String nombre;
     
     
     private List<ProyectoDto> ProjectList =null;// new ArrayList<ProyectoDto>();
@@ -92,5 +93,13 @@ public class ProyectoResultDto {
 
     public void setEstatus(String estatus) {
         this.estatus = estatus;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 }

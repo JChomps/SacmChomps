@@ -6,6 +6,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.AlbumResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.CompObraDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.NombreParticipanteDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.ParticipanteResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.TagConsolaResultDto;
@@ -25,6 +26,8 @@ import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.TagConsolaDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Inicio_Sesion.UsuarioDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Inicio_Sesion.UsuarioResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Perfil.SolicitudResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Proyectos.ProyectoDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Proyectos.ProyectoResultDto;
 import sacm.com.mx.compositores.infraestructure.repositories.SacmCarrito;
 import sacm.com.mx.compositores.infraestructure.repositories.SacmConsola;
 import sacm.com.mx.compositores.infraestructure.repositories.SacmSolicitudes;
@@ -313,6 +316,38 @@ public class ConsolaService {
     @Path("sacm_lov_tags")
     public TagsResultDto getTags() {
         return SacmConsola.getTags();
+    }
+    
+    /*-----------------------------------------------------sacm_actualiza_proyecto Service-------------------------------------------------------------------*/
+    @POST
+    @Produces("application/json")
+    @Path("sacm_actualiza_proyecto")
+    public ProyectoResultDto ActualizaProyecto(ProyectoDto proyectoRequest) {
+        return SacmConsola.ActualizaProyecto(proyectoRequest);
+    }
+    
+    /*-----------------------------------------------------sacm_elimina_obra_proyecto Service-------------------------------------------------------------------*/
+    @POST
+    @Produces("application/json")
+    @Path("sacm_elimina_obra_proyecto")
+    public ProyectoResultDto EliminaObraProyecto(ProyectoDto proyectoRequest) {
+        return SacmConsola.EliminaObraProyecto(proyectoRequest);
+    }
+    
+    /*-----------------------------------------------------sacm_duplica_proyecto Service-------------------------------------------------------------------*/
+    @POST
+    @Produces("application/json")
+    @Path("sacm_duplica_proyecto")
+    public ProyectoResultDto DuplicaProyecto(ProyectoDto proyectoRequest) {
+        return SacmConsola.DuplicaProyecto(proyectoRequest);
+    }
+    
+    /*-----------------------------------------------------sacm_compartir_proyecto Service-------------------------------------------------------------------*/
+    @POST
+    @Produces("application/json")
+    @Path("sacm_compartir_proyecto")
+    public ProyectoResultDto CompartorProyecto(CompObraDto proyectoRequest) {
+        return SacmConsola.CompartorProyecto(proyectoRequest);
     }
     
    

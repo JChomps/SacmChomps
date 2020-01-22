@@ -117,4 +117,13 @@ public class ProyectoService {
     public ProyectoResultDto ConsultaProyectoTodo(ProyectoDto projectRequest) {
         return SacmProyecto.ConsultaProyectoTodo(projectRequest);
     }
+    
+    /*-----------------------------------------------------sacm_inbox_copia_myprojects Service-------------------------------------------------------------------*/
+    @POST
+    @Consumes("application/json")
+    @Produces("application/json")
+    @Path("sacm_inbox_copia_myprojects")
+    public ProyectoResultDto inboxMyProjects(ProyectoDto projectRequest) {
+        return SacmProyecto.getInboxProject(projectRequest);
+    }
 }

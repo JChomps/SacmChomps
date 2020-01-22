@@ -14,6 +14,7 @@ public class CompObraDto {
     private String email_origen;
     private String email_destino;
     private Integer idObra;
+    private Integer idProyecto;
 
     public int getIdUserOrigen() {
         return idUserOrigen;
@@ -53,5 +54,13 @@ public class CompObraDto {
 
     public void setEmail_destino(String email_destino) {
         this.email_destino = email_destino;
+    }
+
+    public Integer getIdProyecto() {
+        return idProyecto;
+    }
+
+    public void setIdProyecto(Integer idProyecto) {
+        this.idProyecto = idProyecto;
     }
 }

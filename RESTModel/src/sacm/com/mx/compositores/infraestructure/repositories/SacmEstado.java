@@ -47,7 +47,7 @@ public class SacmEstado implements Serializable {
             // 4. Register the positions and types of the OUT parameters
             cstmt.registerOutParameter(2, Types.INTEGER);
             cstmt.registerOutParameter(3, Types.VARCHAR);
-            cstmt.registerOutParameter(4, -10);
+            cstmt.registerOutParameter(4, -10);     
             // 5. Execute the statement
             cstmt.executeUpdate();
             if (cstmt.getInt(2) == 0) {
