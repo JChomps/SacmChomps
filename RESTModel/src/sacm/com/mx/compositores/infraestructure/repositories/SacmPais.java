@@ -64,7 +64,7 @@ public class SacmPais implements Serializable {
 
             paisResponse = new PaisResultDto();
             // 6. Set value of dateValue property using first OUT param
-            paisResponse.setResponseBD(new HeaderDto());
+            paisResponse.setResponseBD(new HeaderDto());    
             paisResponse.getResponseBD().setCodErr(cstmt.getInt(2));
             paisResponse.getResponseBD().setCodMsg(cstmt.getString(3));
             paisResponse.setPaises(paisList);
