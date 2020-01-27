@@ -345,6 +345,7 @@ public class ConsolaService {
     /*-----------------------------------------------------sacm_compartir_proyecto Service-------------------------------------------------------------------*/
     @POST
     @Produces("application/json")
+    @Consumes("application/json")
     @Path("sacm_compartir_proyecto")
     public ProyectoResultDto CompartorProyecto(CompObraDto proyectoRequest) {
         return SacmConsola.CompartorProyecto(proyectoRequest);

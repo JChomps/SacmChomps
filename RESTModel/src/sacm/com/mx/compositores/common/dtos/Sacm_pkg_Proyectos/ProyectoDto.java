@@ -29,11 +29,15 @@ public class ProyectoDto {
     private String atributo_09;
     private String atributo_10;
     private String modificacion;
+    private String busca;
+    private String tipo;
     private List<ProyectoDto> SubProjectList =null;
     private List<ObraDto> ObrasList =null;
+    private Integer id_usr_origen;
+    private Integer id_usr_destino;
+    private String clase;
     
-    //Variables utilizadas solo para entrada
-    private String tipo;
+    
     
 
     public String getNombre() {
@@ -218,5 +222,37 @@ public class ProyectoDto {
 
     public void setModificacion(String modificacion) {
         this.modificacion = modificacion;
+    }
+
+    public String getBusca() {
+        return busca;
+    }
+
+    public void setBusca(String busca) {
+        this.busca = busca;
+    }
+
+    public Integer getId_usr_origen() {
+        return id_usr_origen;
+    }
+
+    public void setId_usr_origen(Integer id_usr_origen) {
+        this.id_usr_origen = id_usr_origen;
+    }
+
+    public Integer getId_usr_destino() {
+        return id_usr_destino;
+    }
+
+    public void setId_usr_destino(Integer id_usr_destino) {
+        this.id_usr_destino = id_usr_destino;
+    }
+
+    public String getClase() {
+        return clase;
+    }
+
+    public void setClase(String clase) {
+        this.clase = clase;
     }
 }
