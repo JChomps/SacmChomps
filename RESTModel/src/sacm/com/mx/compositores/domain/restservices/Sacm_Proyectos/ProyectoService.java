@@ -126,4 +126,14 @@ public class ProyectoService {
     public ProyectoResultDto inboxMyProjects(ProyectoDto projectRequest) {
         return SacmProyecto.getInboxProject(projectRequest);
     }
+    
+    /*-----------------------------------------------------sacm_eliminar_proyecto_shared Service-------------------------------------------------------------------*/
+    
+    @POST
+    @Consumes("application/json")
+    @Produces("application/json")
+    @Path("sacm_eliminar_proyecto_shared")
+    public ProyectoResultDto getEliminaProyectoShared(ProyectoDto ProyectoRequest) {
+        return SacmProyecto.getEliminaProyectoShared(ProyectoRequest);
+    }
 }
