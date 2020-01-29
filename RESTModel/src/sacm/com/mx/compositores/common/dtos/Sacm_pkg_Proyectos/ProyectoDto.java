@@ -8,14 +8,23 @@ public class ProyectoDto {
     public ProyectoDto() {
         super();
     }
-    //variables de salida  
-    private Integer id_proyecto;
-    private Integer id_subproyecto;
-    private String nombre;
-    private Integer id_usuario;
+    //variables de salida
+     //Proyecto
+     private Integer id_proyecto;
+
+     //Sub-Proyecto
+     private Integer id_subproyecto;
+     private List<ProyectoDto> SubProjectList =null;
+
+    //Obra
     private Integer id_obra;
-    private Integer  obra_numero;
+    private Integer obra_numero;
     private String obra_titulo;
+    private List<ObraDto> ObrasList =null;
+
+    //Multi funcionales
+    private Integer id_usuario;
+    private String nombre;
     private String descripcion;
     private String cliente;
     private String atributo_01;
@@ -31,12 +40,14 @@ public class ProyectoDto {
     private String modificacion;
     private String busca;
     private String tipo;
-    private List<ProyectoDto> SubProjectList =null;
-    private List<ObraDto> ObrasList =null;
     private Integer id_usr_origen;
     private Integer id_usr_destino;
     private String clase;
-    
+    private String creacion;
+    private String nombre_origen;
+    private String email_origen;
+    private String nombre_destino;
+    private String email_destino;
     
     
 
@@ -254,5 +265,45 @@ public class ProyectoDto {
 
     public void setClase(String clase) {
         this.clase = clase;
+    }
+
+    public String getCreacion() {
+        return creacion;
+    }
+
+    public void setCreacion(String creacion) {
+        this.creacion = creacion;
+    }
+
+    public String getNombre_origen() {
+        return nombre_origen;
+    }
+
+    public void setNombre_origen(String nombre_origen) {
+        this.nombre_origen = nombre_origen;
+    }
+
+    public String getEmail_origen() {
+        return email_origen;
+    }
+
+    public void setEmail_origen(String email_origen) {
+        this.email_origen = email_origen;
+    }
+
+    public String getNombre_destino() {
+        return nombre_destino;
+    }
+
+    public void setNombre_destino(String nombre_destino) {
+        this.nombre_destino = nombre_destino;
+    }
+
+    public String getEmail_destino() {
+        return email_destino;
+    }
+
+    public void setEmail_destino(String email_destino) {
+        this.email_destino = email_destino;
     }
 }

@@ -22,6 +22,7 @@ public class ProyectoResultDto {
     
     
     private List<ProyectoDto> ProjectList =null;// new ArrayList<ProyectoDto>();
+    private List<ProyectoDto> ObrasList =null;// new ArrayList<ProyectoDto>();
 
     public HeaderDto getResponseBD() {
         return ResponseBD;
@@ -101,5 +102,13 @@ public class ProyectoResultDto {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public List<ProyectoDto> getObrasList() {
+        return ObrasList;
+    }
+
+    public void setObrasList(List<ProyectoDto> ObrasList) {
+        this.ObrasList = ObrasList;
     }
 }

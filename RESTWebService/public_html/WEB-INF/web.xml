@@ -33,7 +33,7 @@
   </filter-mapping>
    
    
-  
+<!--
    <filter>
     <filter-name>CORS</filter-name>
     <filter-class>com.thetransactioncompany.cors.CORSFilter</filter-class>
@@ -46,8 +46,8 @@
     <filter-name>CORS</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping> 
-  
-  
+-->
+
   <listener>
     <listener-class>oracle.adf.mbean.share.config.ADFConfigLifeCycleCallBack</listener-class>
   </listener>

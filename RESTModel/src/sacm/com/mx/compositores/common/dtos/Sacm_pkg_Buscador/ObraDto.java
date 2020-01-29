@@ -54,6 +54,15 @@ public class ObraDto implements Serializable {
     private String formato;
     private Integer calificacion;
     private List<VersionDto> versiones = null;// new ArrayList<VersionDto>();
+    private String creacion;
+    private String modificacion;
+    private String nombre_origen;
+    private String email_origen;
+    private String nombre_destino;
+    private String email_destino;
+    private Integer id_usr_origen;
+    private Integer id_usr_destino;
+    private List<ObraDto> ObrasList =null;
    
 
     public void setId_obra(Integer id_obra) {
@@ -392,5 +401,77 @@ public class ObraDto implements Serializable {
 
     public void setCalificacion(Integer calificacion) {
         this.calificacion = calificacion;
+    }
+
+    public String getCreacion() {
+        return creacion;
+    }
+
+    public void setCreacion(String creacion) {
+        this.creacion = creacion;
+    }
+
+    public String getModificacion() {
+        return modificacion;
+    }
+
+    public void setModificacion(String modificacion) {
+        this.modificacion = modificacion;
+    }
+
+    public String getNombre_origen() {
+        return nombre_origen;
+    }
+
+    public void setNombre_origen(String nombre_origen) {
+        this.nombre_origen = nombre_origen;
+    }
+
+    public String getEmail_origen() {
+        return email_origen;
+    }
+
+    public void setEmail_origen(String email_origen) {
+        this.email_origen = email_origen;
+    }
+
+    public String getNombre_destino() {
+        return nombre_destino;
+    }
+
+    public void setNombre_destino(String nombre_destino) {
+        this.nombre_destino = nombre_destino;
+    }
+
+    public String getEmail_destino() {
+        return email_destino;
+    }
+
+    public void setEmail_destino(String email_destino) {
+        this.email_destino = email_destino;
+    }
+
+    public Integer getId_usr_origen() {
+        return id_usr_origen;
+    }
+
+    public void setId_usr_origen(Integer id_usr_origen) {
+        this.id_usr_origen = id_usr_origen;
+    }
+
+    public Integer getId_usr_destino() {
+        return id_usr_destino;
+    }
+
+    public void setId_usr_destino(Integer id_usr_destino) {
+        this.id_usr_destino = id_usr_destino;
+    }
+
+    public List<ObraDto> getObrasList() {
+        return ObrasList;
+    }
+
+    public void setObrasList(List<ObraDto> ObrasList) {
+        this.ObrasList = ObrasList;
     }
 }

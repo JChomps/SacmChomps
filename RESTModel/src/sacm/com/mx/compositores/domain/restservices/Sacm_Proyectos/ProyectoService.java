@@ -87,7 +87,7 @@ public class ProyectoService {
     @Consumes("application/json")
     @Produces("application/json")
     @Path("sacm_consulta_inbox")
-    public ObraResultDto ConsultaInbox(ProyectoDto projectRequest) {
+    public ProyectoResultDto ConsultaInbox(ProyectoDto projectRequest) {
         return SacmProyecto.ConsultaInbox(projectRequest);
     }
     
@@ -96,7 +96,7 @@ public class ProyectoService {
     @Consumes("application/json")
     @Produces("application/json")
     @Path("sacm_consulta_shared")
-    public ObraResultDto ConsultaShared(ProyectoDto projectRequest) {
+    public ProyectoResultDto ConsultaShared(ProyectoDto projectRequest) {
         return SacmProyecto.ConsultaShared(projectRequest);
     }
     
