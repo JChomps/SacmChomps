@@ -701,7 +701,7 @@ public class SacmProyecto {
     /*---------------------------------------------------------sacm_consulta_shared Service----------------------------------------------------------------------*/
     public static ProyectoResultDto ConsultaShared(ProyectoDto projectRequest) {
         List<ProyectoDto> proyectoListResult = new ArrayList<ProyectoDto>();
-		List<ProyectoDto> obrasListResult = new ArrayList<ProyectoDto>();
+        List<ProyectoDto> obrasListResult = new ArrayList<ProyectoDto>();
         ResultSet rs = null;
         CallableStatement cstmt = null;
         Connection conn = null;
@@ -735,7 +735,7 @@ public class SacmProyecto {
                 //proyecto.setSubProjectList(subproyectos);
                 while (rs.next()) {
                     //Se valida que los parametros de obra no vengan con valores nulos
-                    if (rs.getInt(2) > 0 && rs.getInt(14) != 3 ) {
+                    if (rs.getInt(2) > 0) {
                         obra = new ObraDto();
                         obra.setId_obra(rs.getInt(14));
                         obra.setObra_numero(rs.getInt(15));
@@ -876,23 +876,23 @@ public class SacmProyecto {
                     }
                     //AQUI VA LO DEL NIVEL 3
                     else if (rs.getInt(2) == 3) {
-                        proyecto = new ProyectoDto();
+                        obra_N3 = new ProyectoDto();
                         //obraList = new ArrayList<ObraDto>();
-                        proyecto.setId_obra(rs.getInt(14));
-                        proyecto.setObra_numero(rs.getInt(15));
-                        proyecto.setObra_titulo(rs.getString(16));
+                        obra_N3.setId_obra(rs.getInt(14));
+                        obra_N3.setObra_numero(rs.getInt(15));
+                        obra_N3.setObra_titulo(rs.getString(16));
                         //INGRESADOR POR MI
-                        proyecto.setDescripcion(rs.getString(17));
-                        proyecto.setCreacion(rs.getString(18));
-                        proyecto.setModificacion(rs.getString(19));
-                        proyecto.setId_usr_origen(rs.getInt(8));
-                        proyecto.setNombre_origen(rs.getString(9));
-                        proyecto.setEmail_origen(rs.getString(10));
-                        proyecto.setId_usr_destino(rs.getInt(11));
-                        proyecto.setNombre_destino(rs.getString(12));
-                        proyecto.setEmail_destino(rs.getString(13));
+                        obra_N3.setDescripcion(rs.getString(17));
+                        obra_N3.setCreacion(rs.getString(18));
+                        obra_N3.setModificacion(rs.getString(19));
+                        obra_N3.setId_usr_origen(rs.getInt(8));
+                        obra_N3.setNombre_origen(rs.getString(9));
+                        obra_N3.setEmail_origen(rs.getString(10));
+                        obra_N3.setId_usr_destino(rs.getInt(11));
+                        obra_N3.setNombre_destino(rs.getString(12));
+                        obra_N3.setEmail_destino(rs.getString(13));
 
-                        obrasListResult.add(proyecto);
+                        obrasListResult.add(obra_N3);
                     }
                 }
                 if (subproyectos.size() > 0)
@@ -1038,181 +1038,198 @@ public class SacmProyecto {
 
 
     /*-----------------------------------------------------sacm_consulta_proyecto_todo Service-------------------------------------------------------------------*/
-            public static ProyectoResultDto ConsultaProyectoTodo(ProyectoDto projectRequest) {
-                List<ProyectoDto> proyectoListResult = new ArrayList<ProyectoDto>();
-                ResultSet rs = null;
-                CallableStatement cstmt = null;
-                Connection conn = null;
+ public static ProyectoResultDto ConsultaProyectoTodo(ProyectoDto projectRequest) 
+ {
+        List<ProyectoDto> proyectoListResult = new ArrayList<ProyectoDto>();
+        ResultSet rs = null;
+        CallableStatement cstmt = null;
+        Connection conn = null;
 
-                try {
-                    conn = AppModule.getDbConexionJDBC();
-                    // 2. Define the PL/SQL block for the statement to invoke
-                    cstmt = conn.prepareCall("{call SACM_PKG_PROYECTOS.PRC_CONSULTA_PROYECTO_TODO(?,?,?,?,?,?)}");
-                    // 3. Set the bind values of the IN parameters
-                    cstmt.setObject(1, projectRequest.getId_usuario());                                                                                  
-                    cstmt.setObject(2, projectRequest.getTipo());
-                    cstmt.setObject(3, projectRequest.getBusca());
-                    // 4. Register the positions and types of the OUT parameters
-                    cstmt.registerOutParameter(4, -10);
-                    cstmt.registerOutParameter(5, Types.INTEGER);
-                    cstmt.registerOutParameter(6, Types.VARCHAR);
-                    // 5. Execute the statement
-                    cstmt.executeUpdate();
+        try {
+            conn = AppModule.getDbConexionJDBC();
+            // 2. Define the PL/SQL block for the statement to invoke
+            cstmt = conn.prepareCall("{call SACM_PKG_PROYECTOS.PRC_CONSULTA_PROYECTO_TODO(?,?,?,?,?,?)}");
+            // 3. Set the bind values of the IN parameters
+            cstmt.setObject(1, projectRequest.getId_usuario());
+            cstmt.setObject(2, projectRequest.getTipo());
+            cstmt.setObject(3, projectRequest.getBusca());
+            // 4. Register the positions and types of the OUT parameters
+            cstmt.registerOutParameter(4, -10);
+            cstmt.registerOutParameter(5, Types.INTEGER);
+            cstmt.registerOutParameter(6, Types.VARCHAR);
+            // 5. Execute the statement
+            cstmt.executeUpdate();
 
-                    if (cstmt.getInt(5) == 0) {
-                        // read the results
-                        rs = (ResultSet) cstmt.getObject(4);
-
-
-                        List<ProyectoDto> subproyectos = new ArrayList<ProyectoDto>();
-                        List<ObraDto> obraList = new ArrayList<ObraDto>();
-                        ProyectoDto proyecto = new ProyectoDto();
-                        ObraDto obra = new ObraDto();
-                        ProyectoDto subproyecto = new ProyectoDto();
-                        //proyecto.setSubProjectList(subproyectos);
-
-                        while (rs.next()) {
-                            //Se valida que los parametros de obra no vengan con valores nulos
-                            if (rs.getInt(4) > 0) {
-                                obra = new ObraDto();
-                                obra.setId_obra(rs.getInt(4));
-                                obra.setObra_numero(rs.getInt(5));
-                                obra.setObra_titulo(rs.getString(6));
-                                
-                            }
-                            //Se revisa si la entrada es un proyecto o un subproyecto
-                            if (rs.getInt(3) == 1) {
-                                //Se agregan los subproyectos al último proyecto registrado (Siempre se recibe primero un proyecto)
-                                if (subproyectos.size() > 0) {
-                                    proyecto.setSubProjectList(subproyectos);
-                                }
-                                //Se valida que el Array de proyectos no este vacíp
-                                if (proyectoListResult.size() > 0) {
-                                    //Está validación es porque se puede recibir varias veces el mismo proyecto pero con diferente obra
-                                    if (proyectoListResult.get(proyectoListResult.size() - 1).getId_proyecto() !=
-                                        rs.getInt(1)) {
-                                        // Se crea un nuevo proyecto y se agrega la obra
-                                        proyecto = new ProyectoDto();
-                                        obraList = new ArrayList<ObraDto>();
-                                        proyecto.setId_proyecto(rs.getInt(1));
-                                        proyecto.setNombre(rs.getString(2));
-                                        proyecto.setModificacion(rs.getString(7));
-                                        //Si el proyecto tiene una obra se agrega a la lista
-                                        if (rs.getInt(4) > 0) {
-                                            proyecto.setObrasList(obraList);
-                                            proyecto.getObrasList().add(obra);
-                                            
-                                        }
-                                        proyectoListResult.add(proyecto);
-                                    } else {
-                                        //Si el proyecto es el mismo que el recibido anteriormente solo se agrega la obra que contiene
-                                        if (rs.getInt(4) > 0)
-                                            proyecto.getObrasList().add(obra);
-                                    }
-                                } else {
-                                    //Si es el priemr proyecto que se recibe se crea un proyecto nuevo
-                                    proyecto = new ProyectoDto();
-                                    obraList = new ArrayList<ObraDto>();
-
-                                    proyecto.setId_proyecto(rs.getInt(1));
-                                    proyecto.setNombre(rs.getString(2));
-                                    proyecto.setModificacion(rs.getString(7));
-                                    //Si el proyecto incluye una obra se agrega a la lista
-                                    if (rs.getInt(4) > 0) {
-                                        proyecto.setObrasList(obraList);
-                                        proyecto.getObrasList().add(obra);
-                                       
-                                    }
-                                    proyectoListResult.add(proyecto);
-
-                                }
-                                subproyectos = new ArrayList<ProyectoDto>();
-
-                         //Se revisa si la entrada es un subproyecto
-                            } else if (rs.getInt(3) == 2) {
-                                if (subproyectos.size() > 0) {
-                                    if (subproyectos.get(subproyectos.size() - 1).getId_subproyecto() != rs.getInt(1)) {
-                                        subproyecto = new ProyectoDto();
-                                        obraList = new ArrayList<ObraDto>();
-                                        subproyecto.setId_subproyecto(rs.getInt(1));
-                                        subproyecto.setNombre(rs.getString(2));
-                                        subproyecto.setModificacion(rs.getString(7));
-                                        
-                                        if (rs.getInt(4) > 0) {
-                                            subproyecto.setObrasList(obraList);
-                                            subproyecto.getObrasList().add(obra);
-                                        }
-                                        subproyectos.add(subproyecto);
-
-                                    } else {
-                                        if (rs.getInt(4) > 0) 
-                                            subproyecto.getObrasList().add(obra);
-
-                                    }
-
-                                } else {
-                                    subproyecto = new ProyectoDto();
-                                    obraList = new ArrayList<ObraDto>();
-                                    subproyecto.setId_subproyecto(rs.getInt(1));
-                                    subproyecto.setNombre(rs.getString(2));
-                                    subproyecto.setModificacion(rs.getString(7));
-                                    if (rs.getInt(4) > 0) {
-                                        subproyecto.setObrasList(obraList);
-                                        subproyecto.getObrasList().add(obra);
-                                    }
-                                    subproyectos.add(subproyecto);
-                                }
+            if (cstmt.getInt(5) == 0) {
+                // read the results
+                rs = (ResultSet) cstmt.getObject(4);
 
 
-                            }
-                        }
-                        
-                        
-                        if (subproyectos.size() > 0)
+                List<ProyectoDto> subproyectos = new ArrayList<ProyectoDto>();
+                List<ObraDto> obraList = new ArrayList<ObraDto>();
+                ProyectoDto proyecto = new ProyectoDto();
+                ObraDto obra = new ObraDto();
+                ProyectoDto subproyecto = new ProyectoDto();
+                //proyecto.setSubProjectList(subproyectos);
+
+                while (rs.next()) {
+                    //Se valida que los parametros de obra no vengan con valores nulos
+                    if (rs.getInt(8) > 0) {
+                        obra = new ObraDto();
+                        obra.setId_obra(rs.getInt(8));
+                        obra.setObra_numero(rs.getInt(9));
+                        obra.setObra_titulo(rs.getString(10));
+                        obra.setObra_descripcion(rs.getString(11));
+                        obra.setCreacion(rs.getString(12));
+                        obra.setModificacion(rs.getString(13));
+
+                    }
+                    //Se revisa si la entrada es un proyecto o un subproyecto
+                    if (rs.getInt(2) == 1) {
+                        //Se agregan los subproyectos al último proyecto registrado (Siempre se recibe primero un proyecto)
+                        if (subproyectos.size() > 0) {
                             proyecto.setSubProjectList(subproyectos);
+                        }
+                        //Se valida que el Array de proyectos no este vacíp
+                        if (proyectoListResult.size() >
+                            0) {
+                            //Está validación es porque se puede recibir varias veces el mismo proyecto pero con diferente obra
+                            if (proyectoListResult.get(proyectoListResult.size() - 1).getId_proyecto() !=
+                                rs.getInt(1)) {
+    // Se crea un nuevo proyecto y se agrega la obra
+    proyecto = new ProyectoDto();
+                                obraList = new ArrayList<ObraDto>();
+                                proyecto.setId_proyecto(rs.getInt(1));
+                                proyecto.setNombre(rs.getString(3));
+                                proyecto.setDescripcion(rs.getString(4));
+                                proyecto.setCliente(rs.getString(5));
+                                proyecto.setCreacion(rs.getString(6));
+                                proyecto.setModificacion(rs.getString(7));
+                                //Si el proyecto tiene una obra se agrega a la lista
+                                if (rs.getInt(8) > 0) {
+                                    proyecto.setObrasList(obraList);
+                                    proyecto.getObrasList().add(obra);
 
-                      //  proyectoListResult.add(proyecto);
+                                }
+                                proyectoListResult.add(proyecto);
+                            } else {
+                                //Si el proyecto es el mismo que el recibido anteriormente solo se agrega la obra que contiene
+                                if (rs.getInt(8) > 0)
+                                    proyecto.getObrasList().add(obra);
+                            }
+                        } else {
+                            //Si es el priemr proyecto que se recibe se crea un proyecto nuevo
+                            proyecto = new ProyectoDto();
+                            obraList = new ArrayList<ObraDto>();
 
-                        rs.close();
+                            proyecto.setId_proyecto(rs.getInt(1));
+                            proyecto.setNombre(rs.getString(3));
+                            proyecto.setDescripcion(rs.getString(4));
+                            proyecto.setCliente(rs.getString(5));
+                            proyecto.setCreacion(rs.getString(6));
+                            proyecto.setModificacion(rs.getString(7));
+                            //Si el proyecto incluye una obra se agrega a la lista
+                            if (rs.getInt(8) > 0) {
+                                proyecto.setObrasList(obraList);
+                                proyecto.getObrasList().add(obra);
+
+                            }
+                            proyectoListResult.add(proyecto);
+
+                        }
+                        subproyectos = new ArrayList<ProyectoDto>();
+
+                        //Se revisa si la entrada es un subproyecto
+                    } else if (rs.getInt(2) == 2) {
+                        if (subproyectos.size() > 0) {
+                            if (subproyectos.get(subproyectos.size() - 1).getId_subproyecto() != rs.getInt(1)) {
+                                subproyecto = new ProyectoDto();
+                                obraList = new ArrayList<ObraDto>();
+                                subproyecto.setId_subproyecto(rs.getInt(1));
+                                subproyecto.setNombre(rs.getString(3));
+                                subproyecto.setModificacion(rs.getString(7));
+                                subproyecto.setDescripcion(rs.getString(4));
+                                subproyecto.setCliente(rs.getString(5));
+                                subproyecto.setCreacion(rs.getString(6));
+                                
+
+                                if (rs.getInt(8) > 0) {
+                                    subproyecto.setObrasList(obraList);
+                                    subproyecto.getObrasList().add(obra);
+                                }
+                                subproyectos.add(subproyecto);
+
+                            } else {
+                                if (rs.getInt(8) > 0)
+                                    subproyecto.getObrasList().add(obra);
+
+                            }
+
+                        } else {
+                            subproyecto = new ProyectoDto();
+                            obraList = new ArrayList<ObraDto>();
+                            subproyecto.setId_subproyecto(rs.getInt(1));
+                            subproyecto.setNombre(rs.getString(3));
+                            subproyecto.setModificacion(rs.getString(7));
+                            subproyecto.setDescripcion(rs.getString(4));
+                            subproyecto.setCliente(rs.getString(5));
+                            subproyecto.setCreacion(rs.getString(6));
+                            if (rs.getInt(8) > 0) {
+                                subproyecto.setObrasList(obraList);
+                                subproyecto.getObrasList().add(obra);
+                            }
+                            subproyectos.add(subproyecto);
+                        }
+
+
                     }
-
-
-                    // 6. Set value of dateValue property using first OUT param
-                    proyectoResponse = new ProyectoResultDto();
-                    proyectoResponse.setResponseBD(new HeaderDto());
-                    proyectoResponse.getResponseBD().setCodErr(cstmt.getInt(5));
-                    proyectoResponse.getResponseBD().setCodMsg(cstmt.getString(6));
-
-                    proyectoResponse.setResponseService(new HeaderDto());
-                    proyectoResponse.getResponseService().setCodErr(cstmt.getInt(5));
-                    proyectoResponse.getResponseService().setCodMsg(cstmt.getString(6));
-                    if (proyectoListResult.size() > 0) {
-                        proyectoResponse.setProjectList(proyectoListResult);
-                    }
-
-                    // 9. Close the JDBC CallableStatement
-                    cstmt.close();
-                    conn.close();
-                    conn = null;
-
-                } catch (Exception e) {
-                    // a failure occurred log message;
-                    _logger.severe(e.getMessage());
-                    proyectoResponse = new ProyectoResultDto();
-                    proyectoResponse.setResponseService(new HeaderDto());
-                    proyectoResponse.getResponseService().setCodErr(1);
-                    proyectoResponse.getResponseService().setCodMsg(e.getMessage());
-                    return proyectoResponse;
                 }
 
-                _logger.info("Finish Consulta Proyecto");
-                // 9. Return the result
-                return proyectoResponse;
+
+                if (subproyectos.size() > 0)
+                    proyecto.setSubProjectList(subproyectos);
+
+                //  proyectoListResult.add(proyecto);
+
+                rs.close();
             }
 
-    /*-----------------------------------------------------sacm_inbox_copia_myprojects Service-------------------------------------------------------------------*/
-    public static ProyectoResultDto getInboxProject(ProyectoDto projectRequest) {
 
+            // 6. Set value of dateValue property using first OUT param
+            proyectoResponse = new ProyectoResultDto();
+            proyectoResponse.setResponseBD(new HeaderDto());
+            proyectoResponse.getResponseBD().setCodErr(cstmt.getInt(5));
+            proyectoResponse.getResponseBD().setCodMsg(cstmt.getString(6));
+
+            proyectoResponse.setResponseService(new HeaderDto());
+            proyectoResponse.getResponseService().setCodErr(cstmt.getInt(5));
+            proyectoResponse.getResponseService().setCodMsg(cstmt.getString(6));
+            if (proyectoListResult.size() > 0) {
+                proyectoResponse.setProjectList(proyectoListResult);
+            }
+
+            // 9. Close the JDBC CallableStatement
+            cstmt.close();
+            conn.close();
+            conn = null;
+
+        } catch (Exception e) {
+            // a failure occurred log message;
+            _logger.severe(e.getMessage());
+            proyectoResponse = new ProyectoResultDto();
+            proyectoResponse.setResponseService(new HeaderDto());
+            proyectoResponse.getResponseService().setCodErr(1);
+            proyectoResponse.getResponseService().setCodMsg(e.getMessage());
+            return proyectoResponse;
+        }
+
+        _logger.info("Finish Consulta Proyecto");
+        // 9. Return the result
+        return proyectoResponse;
+    }
+    /*-----------------------------------------------------sacm_inbox_copia_myprojects Service-------------------------------------------------------------------*/
+     public static ProyectoResultDto getInboxProject(ProyectoDto projectRequest) {
+       
         CallableStatement cstmt = null;
         Connection conn = null;
 
@@ -1234,6 +1251,7 @@ public class SacmProyecto {
             // 5. Execute the statement
             cstmt.executeUpdate();
 
+           
 
             // 6. Set value of dateValue property using first OUT param
             proyectoResponse = new ProyectoResultDto();
@@ -1245,7 +1263,7 @@ public class SacmProyecto {
             proyectoResponse.setResponseService(new HeaderDto());
             proyectoResponse.getResponseService().setCodErr(cstmt.getInt(7));
             proyectoResponse.getResponseService().setCodMsg(cstmt.getString(8));
-
+           
 
             // 9. Close the JDBC CallableStatement
             cstmt.close();
@@ -1266,7 +1284,6 @@ public class SacmProyecto {
         // 9. Return the result
         return proyectoResponse;
     }
-
     /*-----------------------------------------------------sacm_eliminar_proyecto_shared Service-------------------------------------------------------------------*/
     public static ProyectoResultDto getEliminaProyectoShared(ProyectoDto ProyectoRequest) {
         CallableStatement cstmt = null;
@@ -1276,10 +1293,10 @@ public class SacmProyecto {
             // 2. Define the PL/SQL block for the statement to invoke
             cstmt = conn.prepareCall("{call SACM_PKG_CONSOLA_RUG.INACTIVA_PROYECTO_COMPARTIDO(?,?,?,?,?,?)}");
             // 3. Set the bind values of the IN parameters
-            cstmt.setObject(1, ProyectoRequest.getId_proyecto());
-            cstmt.setObject(2, ProyectoRequest.getId_usr_origen());
-            cstmt.setObject(3, ProyectoRequest.getId_usr_destino());
-            cstmt.setObject(4, ProyectoRequest.getClase());
+            cstmt.setObject(1,ProyectoRequest.getId_proyecto());
+            cstmt.setObject(2,ProyectoRequest.getId_usr_origen());
+            cstmt.setObject(3,ProyectoRequest.getId_usr_destino());
+            cstmt.setObject(4,ProyectoRequest.getClase());
             // 4. Register the positions and types of the OUT parameters
             cstmt.registerOutParameter(5, Types.INTEGER);
             cstmt.registerOutParameter(6, Types.VARCHAR);
