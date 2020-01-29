@@ -17,6 +17,7 @@ import java.util.TreeMap;
 import oracle.adf.share.logging.ADFLogger;
 
 import sacm.com.mx.compositores.common.dtos.HeaderDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.CompObraDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.ObraDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.ObraResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.Tag;
@@ -1291,7 +1292,7 @@ public class SacmProyecto {
         try {
             conn = AppModule.getDbConexionJDBC();
             // 2. Define the PL/SQL block for the statement to invoke
-            cstmt = conn.prepareCall("{call SACM_PKG_CONSOLA_RUG.INACTIVA_PROYECTO_COMPARTIDO(?,?,?,?,?,?)}");
+            cstmt = conn.prepareCall("{call SACM_PKG_PROYECTOS.INACTIVA_PROYECTO_COMPARTIDO(?,?,?,?,?,?)}");
             // 3. Set the bind values of the IN parameters
             cstmt.setObject(1,ProyectoRequest.getId_proyecto());
             cstmt.setObject(2,ProyectoRequest.getId_usr_origen());
@@ -1333,5 +1334,200 @@ public class SacmProyecto {
         // 9. Return the result
         return proyectoResponse;
 
+    }
+
+    /*-----------------------------------------------------sacm_duplica_proyecto Service-------------------------------------------------------------------*/
+    public static ProyectoResultDto DuplicaProyecto(ProyectoDto proyectoRequest) {
+        CallableStatement cstmt = null;       
+        Connection conn = null;        
+        try {
+            conn = AppModule.getDbConexionJDBC();
+            // 2. Define the PL/SQL block for the statement to invoke
+            cstmt = conn.prepareCall("{call SACM_PKG_PROYECTOS.DUPLICA_PROYECTO(?,?,?,?,?)}");
+            // 3. Set the bind values of the IN parameters
+            cstmt.setObject(1, proyectoRequest.getId_proyecto());
+            cstmt.setObject(2, proyectoRequest.getId_usuario());
+            cstmt.setObject(3, proyectoRequest.getNombre());
+            // 4. Register the positions and types of the OUT parameters            
+            cstmt.registerOutParameter(4, Types.INTEGER);
+            cstmt.registerOutParameter(5, Types.VARCHAR);
+            // 5. Execute the statement
+            cstmt.executeUpdate();
+            
+            
+            // 6. Set value of dateValue property using first OUT param
+            proyectoResponse = new ProyectoResultDto();
+            
+            proyectoResponse.setResponseBD(new HeaderDto());
+            proyectoResponse.getResponseBD().setCodErr(cstmt.getInt(4));
+            proyectoResponse.getResponseBD().setCodMsg(cstmt.getString(5));
+            
+            proyectoResponse.setResponseService(new HeaderDto());
+            proyectoResponse.getResponseService().setCodErr(cstmt.getInt(4));
+            proyectoResponse.getResponseService().setCodMsg(cstmt.getString(5));
+           
+            // 9. Close the JDBC CallableStatement
+            cstmt.close();
+            conn.close();
+            conn = null;
+
+        } catch (Exception e) {
+            // a failure occurred log message;
+            _logger.severe(e.getMessage());
+            proyectoResponse = new ProyectoResultDto();
+            proyectoResponse.setResponseService(new HeaderDto());
+            proyectoResponse.getResponseService().setCodErr(1);
+            proyectoResponse.getResponseService().setCodMsg(e.getMessage());
+            return proyectoResponse;
+        }
+        _logger.info("Finish getEstados");
+        // 9. Return the result
+        return proyectoResponse;
+    }
+    /*-----------------------------------------------------sacm_elimina_obra_proyecto Service-------------------------------------------------------------------*/
+    public static ProyectoResultDto EliminaObraProyecto(ProyectoDto proyectoRequest) {
+        CallableStatement cstmt = null;       
+        Connection conn = null;        
+        try {
+            conn = AppModule.getDbConexionJDBC();
+            // 2. Define the PL/SQL block for the statement to invoke
+            cstmt = conn.prepareCall("{call SACM_PKG_PROYECTOS.ELIMINA_PROYECTO_OBRA(?,?,?,?,?)}");
+            // 3. Set the bind values of the IN parameters
+            cstmt.setObject(1, proyectoRequest.getId_usuario());
+            cstmt.setObject(2, proyectoRequest.getId_proyecto());
+            cstmt.setObject(3, proyectoRequest.getId_obra());
+            // 4. Register the positions and types of the OUT parameters            
+            cstmt.registerOutParameter(4, Types.INTEGER);
+            cstmt.registerOutParameter(5, Types.VARCHAR);
+            // 5. Execute the statement
+            cstmt.executeUpdate();
+            
+            
+            // 6. Set value of dateValue property using first OUT param
+            proyectoResponse = new ProyectoResultDto();
+            
+            proyectoResponse.setResponseBD(new HeaderDto());
+            proyectoResponse.getResponseBD().setCodErr(cstmt.getInt(4));
+            proyectoResponse.getResponseBD().setCodMsg(cstmt.getString(5));
+            
+            proyectoResponse.setResponseService(new HeaderDto());
+            proyectoResponse.getResponseService().setCodErr(cstmt.getInt(4));
+            proyectoResponse.getResponseService().setCodMsg(cstmt.getString(5));
+           
+            // 9. Close the JDBC CallableStatement
+            cstmt.close();
+            conn.close();
+            conn = null;
+
+        } catch (Exception e) {
+            // a failure occurred log message;
+            _logger.severe(e.getMessage());
+            proyectoResponse = new ProyectoResultDto();
+            proyectoResponse.setResponseService(new HeaderDto());
+            proyectoResponse.getResponseService().setCodErr(1);
+            proyectoResponse.getResponseService().setCodMsg(e.getMessage());
+            return proyectoResponse;
+        }
+        _logger.info("Finish getEstados");
+        // 9. Return the result
+        return proyectoResponse;
+    }
+    /*-----------------------------------------------------sacm_compartir_proyecto Service-------------------------------------------------------------------*/
+    public static ProyectoResultDto CompartorProyecto(CompObraDto proyectoRequest) {
+            CallableStatement cstmt = null;       
+            Connection conn = null;        
+            try {
+                conn = AppModule.getDbConexionJDBC();
+                // 2. Define the PL/SQL block for the statement to invoke
+                cstmt = conn.prepareCall("{call SACM_PKG_PROYECTOS.PRC_COMPARTIR_PROYECTO(?,?,?,?,?,?,?)}");
+                // 3. Set the bind values of the IN parameters
+                cstmt.setObject(1, proyectoRequest.getEmail_origen());
+                cstmt.setObject(2, proyectoRequest.getEmail_destino());
+                cstmt.setObject(3, proyectoRequest.getIdProyecto());
+                // 4. Register the positions and types of the OUT parameters            
+                cstmt.registerOutParameter(4, Types.INTEGER);
+                cstmt.registerOutParameter(5, Types.VARCHAR);
+                cstmt.registerOutParameter(6, Types.INTEGER);
+                cstmt.registerOutParameter(7, Types.VARCHAR);
+                // 5. Execute the statement
+                cstmt.executeUpdate();
+                
+                
+                // 6. Set value of dateValue property using first OUT param
+                proyectoResponse = new ProyectoResultDto();
+                proyectoResponse.setId_proyecto(cstmt.getInt(4));
+                proyectoResponse.setNombre(cstmt.getString(5));
+                proyectoResponse.setResponseBD(new HeaderDto());
+                proyectoResponse.getResponseBD().setCodErr(cstmt.getInt(6));
+                proyectoResponse.getResponseBD().setCodMsg(cstmt.getString(7));
+                
+                proyectoResponse.setResponseService(new HeaderDto());
+                proyectoResponse.getResponseService().setCodErr(cstmt.getInt(6));
+                proyectoResponse.getResponseService().setCodMsg(cstmt.getString(7));
+               
+                // 9. Close the JDBC CallableStatement
+                cstmt.close();
+                conn.close();
+                conn = null;
+
+            } catch (Exception e) {
+                // a failure occurred log message;
+                _logger.severe(e.getMessage());
+                proyectoResponse = new ProyectoResultDto();
+                proyectoResponse.setResponseService(new HeaderDto());
+                proyectoResponse.getResponseService().setCodErr(1);
+                proyectoResponse.getResponseService().setCodMsg(e.getMessage());
+                return proyectoResponse;
+            }
+            _logger.info("Finish getEstados");
+            // 9. Return the result
+            return proyectoResponse;
+        }
+    /*-----------------------------------------------------sacm_actualiza_proyecto Service-------------------------------------------------------------------*/
+    public static ProyectoResultDto ActualizaProyecto(ProyectoDto proyectoRequest) {
+       CallableStatement cstmt = null;       
+       Connection conn = null;        
+       try {
+           conn = AppModule.getDbConexionJDBC();
+           // 2. Define the PL/SQL block for the statement to invoke
+           cstmt = conn.prepareCall("{call SACM_PKG_PROYECTOS.ACTUALIZA_PROYECTO(?,?,?,?)}");
+           // 3. Set the bind values of the IN parameters
+           cstmt.setObject(1, proyectoRequest.getId_proyecto());
+           cstmt.setObject(2, proyectoRequest.getNombre());
+           // 4. Register the positions and types of the OUT parameters            
+           cstmt.registerOutParameter(3, Types.INTEGER);
+           cstmt.registerOutParameter(4, Types.VARCHAR);
+           // 5. Execute the statement
+           cstmt.executeUpdate();
+           
+           
+           // 6. Set value of dateValue property using first OUT param
+           proyectoResponse = new ProyectoResultDto();
+           
+           proyectoResponse.setResponseBD(new HeaderDto());
+           proyectoResponse.getResponseBD().setCodErr(cstmt.getInt(3));
+           proyectoResponse.getResponseBD().setCodMsg(cstmt.getString(4));
+           
+           proyectoResponse.setResponseService(new HeaderDto());
+           proyectoResponse.getResponseService().setCodErr(cstmt.getInt(3));
+           proyectoResponse.getResponseService().setCodMsg(cstmt.getString(4));
+          
+           // 9. Close the JDBC CallableStatement
+           cstmt.close();
+           conn.close();
+           conn = null;
+
+       } catch (Exception e) {
+           // a failure occurred log message;
+           _logger.severe(e.getMessage());
+           proyectoResponse = new ProyectoResultDto();
+           proyectoResponse.setResponseService(new HeaderDto());
+           proyectoResponse.getResponseService().setCodErr(1);
+           proyectoResponse.getResponseService().setCodMsg(e.getMessage());
+           return proyectoResponse;
+       }
+       _logger.info("Finish getEstados");
+       // 9. Return the result
+       return proyectoResponse;
     }
 }

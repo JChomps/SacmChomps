@@ -317,40 +317,4 @@ public class ConsolaService {
     public TagsResultDto getTags() {
         return SacmConsola.getTags();
     }
-    
-    /*-----------------------------------------------------sacm_actualiza_proyecto Service-------------------------------------------------------------------*/
-    @POST
-    @Produces("application/json")
-    @Path("sacm_actualiza_proyecto")
-    public ProyectoResultDto ActualizaProyecto(ProyectoDto proyectoRequest) {
-        return SacmConsola.ActualizaProyecto(proyectoRequest);
-    }
-    
-    /*-----------------------------------------------------sacm_elimina_obra_proyecto Service-------------------------------------------------------------------*/
-    @POST
-    @Produces("application/json")
-    @Path("sacm_elimina_obra_proyecto")
-    public ProyectoResultDto EliminaObraProyecto(ProyectoDto proyectoRequest) {
-        return SacmConsola.EliminaObraProyecto(proyectoRequest);
-    }
-    
-    /*-----------------------------------------------------sacm_duplica_proyecto Service-------------------------------------------------------------------*/
-    @POST
-    @Produces("application/json")
-    @Path("sacm_duplica_proyecto")
-    public ProyectoResultDto DuplicaProyecto(ProyectoDto proyectoRequest) {
-        return SacmConsola.DuplicaProyecto(proyectoRequest);
-    }
-    
-    /*-----------------------------------------------------sacm_compartir_proyecto Service-------------------------------------------------------------------*/
-    @POST
-    @Produces("application/json")
-    @Consumes("application/json")
-    @Path("sacm_compartir_proyecto")
-    public ProyectoResultDto CompartorProyecto(CompObraDto proyectoRequest) {
-        return SacmConsola.CompartorProyecto(proyectoRequest);
-    }
-    
-   
-  
 }

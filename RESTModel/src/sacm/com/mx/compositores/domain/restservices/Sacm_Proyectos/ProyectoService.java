@@ -5,12 +5,14 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.CompObraDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.ObraDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.ObraResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Proyectos.ProyectoDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Proyectos.ProyectoResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Proyectos.SubProyectoDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Proyectos.SubProyectoResultDto;
+import sacm.com.mx.compositores.infraestructure.repositories.SacmConsola;
 import sacm.com.mx.compositores.infraestructure.repositories.SacmProyecto;
 
 @Path("/Proyecto")
@@ -135,5 +137,34 @@ public class ProyectoService {
     @Path("sacm_eliminar_proyecto_shared")
     public ProyectoResultDto getEliminaProyectoShared(ProyectoDto ProyectoRequest) {
         return SacmProyecto.getEliminaProyectoShared(ProyectoRequest);
+    }
+    /*-----------------------------------------------------sacm_duplica_proyecto Service-------------------------------------------------------------------*/
+    @POST
+    @Produces("application/json")
+    @Path("sacm_duplica_proyecto")
+    public ProyectoResultDto DuplicaProyecto(ProyectoDto proyectoRequest) {
+        return SacmProyecto.DuplicaProyecto(proyectoRequest);
+}
+    /*-----------------------------------------------------sacm_elimina_obra_proyecto Service-------------------------------------------------------------------*/
+    @POST
+    @Produces("application/json")
+    @Path("sacm_elimina_obra_proyecto")
+    public ProyectoResultDto EliminaObraProyecto(ProyectoDto proyectoRequest) {
+        return SacmProyecto.EliminaObraProyecto(proyectoRequest);
+    }
+    /*-----------------------------------------------------sacm_compartir_proyecto Service-------------------------------------------------------------------*/
+    @POST
+    @Produces("application/json")
+    @Consumes("application/json")
+    @Path("sacm_compartir_proyecto")
+    public ProyectoResultDto CompartorProyecto(CompObraDto proyectoRequest) {
+        return SacmProyecto.CompartorProyecto(proyectoRequest);
+    }
+    /*-----------------------------------------------------sacm_actualiza_proyecto Service-------------------------------------------------------------------*/
+    @POST
+    @Produces("application/json")
+    @Path("sacm_actualiza_proyecto")
+    public ProyectoResultDto ActualizaProyecto(ProyectoDto proyectoRequest) {
+        return SacmProyecto.ActualizaProyecto(proyectoRequest);
     }
 }
