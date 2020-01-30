@@ -51,6 +51,7 @@ public class RegistroDto {
     private String autoriza;
     private String autorizado_flg;
     private String autorizado_msg;
+    private String id_usuario;
 
     public Integer getId_licenciatario() {
         return id_licenciatario;
@@ -426,5 +427,13 @@ public class RegistroDto {
 
     public void setAutoriza(String autoriza) {
         this.autoriza = autoriza;
+    }
+
+    public String getId_usuario() {
+        return id_usuario;
+    }
+
+    public void setId_usuario(String id_usuario) {
+        this.id_usuario = id_usuario;
     }
 }

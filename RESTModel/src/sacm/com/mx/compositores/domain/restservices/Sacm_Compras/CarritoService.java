@@ -90,5 +90,12 @@ public class CarritoService {
     public ValidaObraResultDto CambiaEstatusRequest(RegistroDto registroRequest) {
         return SacmCarrito.CambiaEstatusRequest(registroRequest);
     }
+    /*-----------------------------------------------------sacm_cambia_estatus_request Service-------------------------------------------------------------------*/
+    @POST
+    @Produces("application/json")
+    @Path("sacm_cancela_solicitud")
+    public ValidaObraResultDto Cancela_Solicitud(RegistroDto registroRequest) {
+        return SacmCarrito.Cancela_Solicitud(registroRequest);
+    }
     
 }
