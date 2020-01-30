@@ -30,6 +30,7 @@ import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Proyectos.ProyectoDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Proyectos.ProyectoResultDto;
 import sacm.com.mx.compositores.infraestructure.repositories.SacmCarrito;
 import sacm.com.mx.compositores.infraestructure.repositories.SacmConsola;
+import sacm.com.mx.compositores.infraestructure.repositories.SacmProyecto;
 import sacm.com.mx.compositores.infraestructure.repositories.SacmSolicitudes;
 
 
@@ -316,5 +317,14 @@ public class ConsolaService {
     @Path("sacm_lov_tags")
     public TagsResultDto getTags() {
         return SacmConsola.getTags();
+    }
+    /*-----------------------------------------------------sacm_elimina_obra_shared Service-------------------------------------------------------------------*/
+
+    @POST
+    @Consumes("application/json")
+    @Produces("application/json")
+    @Path("sacm_eliminar_obra_shared")
+    public ProyectoResultDto getEliminaObraShared(ProyectoDto ProyectoRequest) {
+        return SacmConsola.getEliminaObraShared(ProyectoRequest);
     }
 }
