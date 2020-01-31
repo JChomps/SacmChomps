@@ -318,13 +318,5 @@ public class ConsolaService {
     public TagsResultDto getTags() {
         return SacmConsola.getTags();
     }
-    /*-----------------------------------------------------sacm_elimina_obra_shared Service-------------------------------------------------------------------*/
 
-    @POST
-    @Consumes("application/json")
-    @Produces("application/json")
-    @Path("sacm_eliminar_obra_shared")
-    public ProyectoResultDto getEliminaObraShared(ProyectoDto ProyectoRequest) {
-        return SacmConsola.getEliminaObraShared(ProyectoRequest);
-    }
 }

@@ -457,7 +457,6 @@ public class SacmProyecto {
         return proyectoResponse;
     }
 
-    /*---------------------------------------------------------sacm_consulta_inbox Service----------------------------------------------------------------------*/
     public static ProyectoResultDto ConsultaInbox(ProyectoDto projectRequest) {
         List<ProyectoDto> proyectoListResult = new ArrayList<ProyectoDto>();
         List<ProyectoDto> inboxListResult = new ArrayList<ProyectoDto>();
@@ -510,7 +509,7 @@ public class SacmProyecto {
                     }
                     //Se revisa si la entrada es un proyecto o un subproyecto
                  
-                                            //proyectoListResult.getObrasList().add(obra);
+                    //proyectoListResult.getObrasList().add(obra);
                                         
                     if (rs.getInt(2) == 1) {
                         //Se agregan los subproyectos al último proyecto registrado (Siempre se recibe primero un proyecto)
@@ -629,6 +628,7 @@ public class SacmProyecto {
                             }
                             subproyectos.add(subproyecto);
                         }
+                                                
 
                                                     
                     }else if (rs.getInt(2) == 3){
@@ -1530,4 +1530,56 @@ public class SacmProyecto {
        // 9. Return the result
        return proyectoResponse;
     }
+    /*-----------------------------------------------------sacm_eliminar_obra_shared Service-------------------------------------------------------------------*/
+    public static ProyectoResultDto getEliminaObraShared(ProyectoDto ProyectoRequest) {
+        CallableStatement cstmt = null;
+        Connection conn = null;
+        try {
+            conn = AppModule.getDbConexionJDBC();
+            // 2. Define the PL/SQL block for the statement to invoke
+            cstmt = conn.prepareCall("{call SACM_PKG_PROYECTOS.INACTIVA_OBRA_COMPARTIDA(?,?,?,?,?,?)}");
+            // 3. Set the bind values of the IN parameters
+            cstmt.setObject(1,ProyectoRequest.getId_obra());
+            cstmt.setObject(2,ProyectoRequest.getId_usr_origen());
+            cstmt.setObject(3,ProyectoRequest.getId_usr_destino());
+            cstmt.setObject(4,ProyectoRequest.getClase());
+            // 4. Register the positions and types of the OUT parameters
+            cstmt.registerOutParameter(5, Types.INTEGER);
+            cstmt.registerOutParameter(6, Types.VARCHAR);
+            // 5. Execute the statement
+            cstmt.executeUpdate();
+
+
+            // 6. Set value of dateValue property using first OUT param
+            proyectoResponse = new ProyectoResultDto();
+
+            proyectoResponse.setResponseBD(new HeaderDto());
+            proyectoResponse.getResponseBD().setCodErr(cstmt.getInt(5));
+            proyectoResponse.getResponseBD().setCodMsg(cstmt.getString(6));
+
+            proyectoResponse.setResponseService(new HeaderDto());
+            proyectoResponse.getResponseService().setCodErr(cstmt.getInt(5));
+            proyectoResponse.getResponseService().setCodMsg(cstmt.getString(6));
+
+            // 9. Close the JDBC CallableStatement
+            cstmt.close();
+            conn.close();
+            conn = null;
+
+        } catch (Exception e) {
+            // a failure occurred log message;
+            _logger.severe(e.getMessage());
+            proyectoResponse = new ProyectoResultDto();
+            proyectoResponse.setResponseService(new HeaderDto());
+            proyectoResponse.getResponseService().setCodErr(1);
+            proyectoResponse.getResponseService().setCodMsg(e.getMessage());
+            return proyectoResponse;
+        }
+        _logger.info("Finish Elimina Obra Padre");
+        // 9. Return the result
+        return proyectoResponse;
+
+    }
+
+    
 }
