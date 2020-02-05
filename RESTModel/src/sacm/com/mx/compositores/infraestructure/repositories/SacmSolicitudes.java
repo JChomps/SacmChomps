@@ -158,7 +158,7 @@ public class SacmSolicitudes {
                 while (rs.next()) {
                     SolicitudDto solicitud = new SolicitudDto();
                     CotizacionDto cotizacion = new CotizacionDto();
-                    ObraDto obra = new ObraDto();
+                    
                     solicitud.setTipo(rs.getString(1));
                     solicitud.setTitle(rs.getString(2));
 
@@ -169,28 +169,21 @@ public class SacmSolicitudes {
                     cotizacion.setFecha_cotizacion(rs.getString(7));
                     
                     cotizacion.setId_usuario(rs.getInt(8));
-                    cotizacion.setTipo_produccion(rs.getString(9));
-                    cotizacion.setId_licenciatario(rs.getInt(10));
-                    cotizacion.setLicenciatario(rs.getString(11));
+                    cotizacion.setNombre(rs.getString(9));
+                    cotizacion.setTipo_produccion(rs.getString(10));
+                    cotizacion.setId_licenciatario(rs.getInt(11));
+                    cotizacion.setLicenciatario(rs.getString(12));
                     
-                    cotizacion.setId_marca(rs.getInt(12));
-                    cotizacion.setMarca(rs.getString(13));
-                    cotizacion.setId_carrito(rs.getInt(14));
-                    cotizacion.setId_carrito_ind(rs.getInt(15));
-                    cotizacion.setId_carrito_pqt(rs.getInt(16) );
-                    
-                    obra.setId_obra(rs.getInt(17));
-                    obra.setObra_numero(rs.getInt(18));
-                    obra.setObra_titulo(rs.getString(19));
-                    obra.setObra_descripcion(rs.getString(20));
+                    cotizacion.setId_marca(rs.getInt(13));
+                    cotizacion.setMarca(rs.getString(14));
 
-                    cotizacion.getObras().add(obra);
+               
                     solicitud.getItems().add(cotizacion);
 
-                    solicitudList.add(solicitud);
+                    solicitudListResult.add(solicitud);
                 }
 
-                OrganizaSolicitud(solicitudListResult, solicitudList);
+                //OrganizaSolicitud(solicitudListResult, solicitudList);
 
 
                 rs.close();

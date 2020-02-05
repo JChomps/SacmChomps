@@ -752,6 +752,7 @@ public class SacmConsola {
 
     /*-------------------------------------------------------------- sacm_consulta_usuario_consola --------------------------------------------------------------------------*/
     public static UsuarioResultDto ConsultaUsuario(UsuarioDto usuarioRequest) {
+        List<UsuarioDto> usuariolist = new ArrayList<UsuarioDto>();
         CallableStatement cstmt = null;
         Connection conn = null;
         ResultSet rs = null;
@@ -793,7 +794,8 @@ public class SacmConsola {
                     usuario.setTelefono(rs.getObject(12) == null ? "" : rs.getString(12));
                     usuario.setExtension(rs.getObject(13) == null ? "" : rs.getString(13));
                     usuario.setEstatus(rs.getObject(14) == null ? "" : rs.getString(14));
-                    usuarioResponse.setLoginUser(usuario);
+                    usuariolist.add(usuario);
+                    //usuarioResponse.setLoginUser(usuario);
                 }
 
                 rs.close();
@@ -809,6 +811,7 @@ public class SacmConsola {
             usuarioResponse.setResponseService(new HeaderDto());
             usuarioResponse.getResponseService().setCodErr(cstmt.getInt(4));
             usuarioResponse.getResponseService().setCodMsg(cstmt.getString(5));
+            usuarioResponse.setUsuarios(usuariolist);
             cstmt.close();
             conn.close();
             conn = null;
@@ -1920,7 +1923,7 @@ public class SacmConsola {
         try {
             conn = AppModule.getDbConexionJDBC();
             // 2. Define the PL/SQL block for the statement to invoke
-            cstmt = conn.prepareCall("{call SACM_PKG_CONSOLA_RUG.CONSULTA_TAG_ITEM(?,?,?,?)}");
+            cstmt = conn.prepareCall("{call SACM_PKG_CONSOLA_ADMIN.CONSULTA_TAG_ITEM(?,?,?,?)}");
             // 3. Set the bind values of the IN parameters
             cstmt.setObject(1, tagRequest.getIdTag());
             // 4. Register the positions and types of the OUT parameters

@@ -24,6 +24,8 @@ public class CotizacionDto {
     private Integer id_carrito_ind;
     private Integer id_carrito_pqt;
     private List<ObraDto> Obras = new ArrayList<ObraDto>();
+    
+    private String nombre;
 
 
     public Integer getId_cotizacion() {
@@ -144,5 +146,13 @@ public class CotizacionDto {
 
     public void setObras(List<ObraDto> Obras) {
         this.Obras = Obras;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 }
