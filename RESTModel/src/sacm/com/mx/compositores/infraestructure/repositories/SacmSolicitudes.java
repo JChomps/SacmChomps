@@ -22,6 +22,8 @@ import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.AlbumDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.AlbumResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Buscador.ObraDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Compras.RegistroResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.SolicitudConsolaDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.SolicitudConsolaResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Inicio_Sesion.UsuarioDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Perfil.SolicitudDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Perfil.SolicitudResultDto;
@@ -33,6 +35,8 @@ public class SacmSolicitudes {
 
     private static ADFLogger _logger = ADFLogger.createADFLogger(SacmActivacion.class);
     private static SolicitudResultDto SolicitudResponse;
+    private static SolicitudConsolaResultDto solicitudConsolaResponse;
+
 
     public SacmSolicitudes() {
         super();
@@ -131,8 +135,8 @@ public class SacmSolicitudes {
     
     /*---------------------------------------------------------sacm_consulta_solicitud_consola Service----------------------------------------------------------------------*/
 
-    public static SolicitudResultDto getSolicitudConsola(UsuarioDto usuarioRequest) {
-        List<SolicitudDto> solicitudListResult = new ArrayList<SolicitudDto>();
+    public static SolicitudConsolaResultDto getSolicitudConsola(UsuarioDto usuarioRequest) {
+        List<SolicitudConsolaDto> solicitudListResult = new ArrayList<SolicitudConsolaDto>();
         CallableStatement cstmt = null;
         Connection conn = null;
         ResultSet rs = null;
@@ -152,34 +156,32 @@ public class SacmSolicitudes {
             // 5. Execute the statement
             cstmt.executeUpdate();
             if (cstmt.getInt(3) == 0) {
-                List<SolicitudDto> solicitudList = new ArrayList<SolicitudDto>();
+               // List<SolicitudDto> solicitudList = new ArrayList<SolicitudDto>();
                 // print the results
                 rs = (ResultSet) cstmt.getObject(2);
                 while (rs.next()) {
-                    SolicitudDto solicitud = new SolicitudDto();
+                    SolicitudConsolaDto solicitud = new SolicitudConsolaDto();
                     CotizacionDto cotizacion = new CotizacionDto();
                     
                     solicitud.setTipo(rs.getString(1));
                     solicitud.setTitle(rs.getString(2));
 
-                    cotizacion.setId_cotizacion(rs.getInt(3));
-                    cotizacion.setTipo_cotizacion(rs.getString(4));                    
-                    cotizacion.setId_estatus(rs.getInt(5));
-                    cotizacion.setEstatus(rs.getString(6));                    
-                    cotizacion.setFecha_cotizacion(rs.getString(7));
+                    solicitud.setId_cotizacion(rs.getInt(3));
+                    solicitud.setTipo_cotizacion(rs.getString(4));                    
+                    solicitud.setId_estatus(rs.getInt(5));
+                    solicitud.setEstatus(rs.getString(6));                    
+                    solicitud.setFecha_cotizacion(rs.getString(7));
                     
-                    cotizacion.setId_usuario(rs.getInt(8));
-                    cotizacion.setNombre(rs.getString(9));
-                    cotizacion.setTipo_produccion(rs.getString(10));
-                    cotizacion.setId_licenciatario(rs.getInt(11));
-                    cotizacion.setLicenciatario(rs.getString(12));
+                    solicitud.setId_usuario(rs.getInt(8));
+                    solicitud.setNombre(rs.getString(9));
+                    solicitud.setTipo_produccion(rs.getString(10));
+                    solicitud.setId_licenciatario(rs.getInt(11));
+                    solicitud.setLicenciatario(rs.getString(12));
                     
-                    cotizacion.setId_marca(rs.getInt(13));
-                    cotizacion.setMarca(rs.getString(14));
+                    solicitud.setId_marca(rs.getInt(13));
+                    solicitud.setMarca(rs.getString(14));
 
                
-                    solicitud.getItems().add(cotizacion);
-
                     solicitudListResult.add(solicitud);
                 }
 
@@ -189,15 +191,15 @@ public class SacmSolicitudes {
                 rs.close();
             }
             // 6. Set value of dateValue property using first OUT param
-            SolicitudResponse = new SolicitudResultDto();
-            SolicitudResponse.setResponseBD(new HeaderDto());
-            SolicitudResponse.getResponseBD().setCodErr(cstmt.getInt(3));
-            SolicitudResponse.getResponseBD().setCodMsg(cstmt.getString(4));
-            SolicitudResponse.setResponseService(new HeaderDto());
-            SolicitudResponse.getResponseService().setCodErr(cstmt.getInt(3));
-            SolicitudResponse.getResponseService().setCodMsg(cstmt.getString(4));
+            solicitudConsolaResponse = new SolicitudConsolaResultDto();
+            solicitudConsolaResponse.setResponseBD(new HeaderDto());
+            solicitudConsolaResponse.getResponseBD().setCodErr(cstmt.getInt(3));
+            solicitudConsolaResponse.getResponseBD().setCodMsg(cstmt.getString(4));
+            solicitudConsolaResponse.setResponseService(new HeaderDto());
+            solicitudConsolaResponse.getResponseService().setCodErr(cstmt.getInt(3));
+            solicitudConsolaResponse.getResponseService().setCodMsg(cstmt.getString(4));
             if(solicitudListResult.size()>0)
-            SolicitudResponse.setSolicitudes(solicitudListResult);
+            solicitudConsolaResponse.setSolicitudes(solicitudListResult);
             // 9. Close the JDBC CallableStatement
             cstmt.close();
             conn.close();
@@ -205,16 +207,16 @@ public class SacmSolicitudes {
         } catch (Exception e) {
             // a failure occurred log message;
             _logger.severe(e.getMessage());
-            SolicitudResponse = new SolicitudResultDto();
-            SolicitudResponse.setResponseService(new HeaderDto());
-            SolicitudResponse.getResponseService().setCodErr(1);
-            SolicitudResponse.getResponseService().setCodMsg(e.getMessage());
-            return SolicitudResponse;
+            solicitudConsolaResponse = new SolicitudConsolaResultDto();
+            solicitudConsolaResponse.setResponseService(new HeaderDto());
+            solicitudConsolaResponse.getResponseService().setCodErr(1);
+            solicitudConsolaResponse.getResponseService().setCodMsg(e.getMessage());
+            return solicitudConsolaResponse;
         }
         _logger.info("Finish getConsultaAlbum");
         // 9. Return the result
         
-        return SolicitudResponse;
+        return solicitudConsolaResponse;
     }
 
 

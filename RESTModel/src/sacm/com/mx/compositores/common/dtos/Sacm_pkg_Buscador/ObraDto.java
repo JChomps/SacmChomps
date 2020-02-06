@@ -63,7 +63,7 @@ public class ObraDto implements Serializable {
     private Integer id_usr_origen;
     private Integer id_usr_destino;
     private List<ObraDto> ObrasList =null;
-   
+    
 
     public void setId_obra(Integer id_obra) {
         this.id_obra = id_obra;

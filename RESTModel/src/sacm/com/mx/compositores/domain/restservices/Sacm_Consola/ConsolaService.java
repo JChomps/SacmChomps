@@ -22,6 +22,7 @@ import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.CalificacionDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.CalificacionResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.LogueoDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.LogueoResultDto;
+import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.SolicitudConsolaResultDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Consola.TagConsolaDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Inicio_Sesion.UsuarioDto;
 import sacm.com.mx.compositores.common.dtos.Sacm_pkg_Inicio_Sesion.UsuarioResultDto;
@@ -127,7 +128,7 @@ public class ConsolaService {
     @Consumes("application/json")
     @Produces("application/json")
     @Path("sacm_consulta_solicitud_consola")
-    public SolicitudResultDto sacm_consulta_solicitud_consola(UsuarioDto usuarioRequest) {
+    public SolicitudConsolaResultDto sacm_consulta_solicitud_consola(UsuarioDto usuarioRequest) {
         return SacmSolicitudes.getSolicitudConsola (usuarioRequest);
     }
     
